@@ -15,7 +15,8 @@ namespace Libra.Dal.Entities
 		public string Password { get; set; }
 		public string Telephone { get; set; }
 		public int UserTypeId { get; set; }
-        public UserType UserType { get; set; }
+		public bool IsDeleted { get; set; }
+		public UserType UserType { get; set; }
         public ICollection<Log> Logs { get; set; }
 		public ICollection<Issue> Issues { get; set; }
 	}

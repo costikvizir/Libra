@@ -1,4 +1,5 @@
 ﻿using Libra.Dal.Entities;
+using LibraBll.Abstractions;
 using LibraBll.Common;
 using LibraBll.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LibraBll.Repositories
 {
-	public class UserRepository : BaseRepository
-	{ 
-		public async Task<UserDTO> GetUserByIdAsync(int id)
+	public class UserRepository : BaseRepository, IRepository<UserDTO>
+	{
+		public async Task<UserDTO> GetEntityByIdAsync(int id)
 		{
 			var entity = await Context.Users.FindAsync(id);
 
@@ -27,45 +29,41 @@ namespace LibraBll.Repositories
 			return user;
 		}
 
-		public async Task<UserDTO> GetUserByNameAsync(string name)
+		public async Task<UserDTO> GetEntityByNameAsync(string name)
 		{
 			var entity = await Context.Users.FindAsync(name);
-
-			var user = new UserDTO()
+			if (entity != null)
 			{
-				Name = entity.Name,
-				Email = entity.Email,
-				Password = entity.Password,
-				Telephone = entity.Telephone,
-				UserTypeId = entity.UserTypeId
-			};
-
-			return user;
-		}
-
-		public async Task<List<UserDTO>> GetAllUsersAsync()
-		{
-			var users = await Context.Users.ToListAsync();
-
-			List<UserDTO> result = new List<UserDTO>();	
-
-			foreach (var user in users)
-			{
-				UserDTO model = new UserDTO()
+				var user = new UserDTO()
 				{
-					Name = user.Name,
-					Email = user.Email,
-					Telephone = user.Telephone,
-					UserTypeId = user.UserTypeId
+					Name = entity.Name,
+					Email = entity.Email,
+					Password = entity.Password,
+					Telephone = entity.Telephone,
+					UserTypeId = entity.UserTypeId
 				};
-
-				result.Add(model);
+				return user;
 			}
 
-			return result;
+			return null;
 		}
 
-		public async Task<User> CreateUserAsync(UserDTO userPost)
+		public async Task<List<UserDTO>> GetAllEntitiesAsync()
+		{
+			List<UserDTO> userList = await Context.Users
+				.Select(x => new UserDTO
+				{
+					Name = x.Name,
+					Email = x.Email,
+					Telephone = x.Telephone,
+					UserTypeId = x.UserTypeId
+				})
+				.ToListAsync();
+
+			return userList;
+		}
+
+		public async Task<UserDTO> CreateEntity(UserDTO userPost)
 		{
 			User user = new User()
 			{
@@ -77,13 +75,13 @@ namespace LibraBll.Repositories
 				Password = userPost.Password
 			};
 
-		    Context.Users.Add(user);	
-			await Context.SaveChangesAsync();
+			Context.Users.Add(user);
+		    await Context.SaveChangesAsync();
 
-			return user;
+			return userPost;
 		}
 
-		public async Task<User> UpdateUserAsync(UserDTO userPost)
+		public void UpdateEntity(UserDTO userPost)
 		{
 			User user = new User()
 			{
@@ -96,22 +94,19 @@ namespace LibraBll.Repositories
 			};
 
 			Context.Users.Update(user);
-			await Context.SaveChangesAsync();
-
-			return user;
+			Context.SaveChanges();
 		}
 
-		public async Task<User> RemoveUserByIdAsync(int id)
+		public void DeleteEntity(string name)
 		{
-			var userToDelete = await Context.Users.FindAsync(id);
+			User user = Context.Users.FirstOrDefault(x => x.Name == name);
 
-			if (userToDelete != null)
-				return null;
+			if (user != null) 
+				user.IsDeleted = true;
 
-			Context.Remove(userToDelete);
-			await Context.SaveChangesAsync();	
-
-			return userToDelete;
+			Context.Users.Update(user);
+			Context.SaveChanges();
 		}
 	}
 }
+
