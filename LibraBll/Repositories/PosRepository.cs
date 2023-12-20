@@ -11,32 +11,32 @@ namespace LibraBll.Repositories
 {
 	public class PosRepository : IRepository<PosDTO>
 	{
-		void IRepository.CreateEntity(UserDTO userPost)
+		public Task<PosDTO> CreateEntity(PosDTO userPost)
 		{
 			throw new NotImplementedException();
 		}
 
-		void IRepository.DeleteEntity(string name)
+		public void DeleteEntity(string name)
 		{
 			throw new NotImplementedException();
 		}
 
-		Task<List<UserDTO>> IRepository.GetAllEntitiesAsync()
+		public Task<List<PosDTO>> GetAllEntitiesAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		Task<UserDTO> IRepository.GetEntityByIdAsync(int id)
+		public Task<PosDTO> GetEntityByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		Task<UserDTO> IRepository.GetEntityByNameAsync(string name)
+		public Task<PosDTO> GetEntityByNameAsync(string name)
 		{
 			throw new NotImplementedException();
 		}
 
-		void IRepository.UpdateEntity(UserDTO userPost)
+		public void UpdateEntity(PosDTO userPost)
 		{
 			throw new NotImplementedException();
 		}
