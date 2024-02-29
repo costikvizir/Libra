@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +11,8 @@ namespace Libra.Dal.Context
 {
 	public class LibraContext : DbContext
 	{
-		//Data Source=CEDINT833;Initial Catalog=LibraDb;Integrated Security=True;
-
-		string connectionString = "Data Source=CEDINT833;Initial Catalog=LibraDb;Integrated Security=True;";
+		string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;";
+		//<add name="DefaultConnection" connectionString="Data Source=CEDINTL925\MSSQLSERVERSC;Initial Catalog=Student;Integrated Security=True" providerName="System.Data.SqlClient" />
 
 		public DbSet<City> Cities { get; set; }
 		public DbSet<ConnectionType> ConnectionType { get; set; }
@@ -65,19 +65,6 @@ namespace Libra.Dal.Context
 			   .HasForeignKey(e => e.StatusId)
 			   .IsRequired();
 
-			modelBuilder.Entity<User>()
-				.HasMany(e => e.Logs)
-				.WithOne(e => e.User)
-				.HasForeignKey(e => e.UserId)
-				.OnDelete(DeleteBehavior.Restrict)
-				.IsRequired();
-
-			modelBuilder.Entity<User>()
-				.HasMany(e => e.Issues)
-				.WithOne(e => e.User)
-				.HasForeignKey(e => e.UserCreatedId)
-				.OnDelete(DeleteBehavior.Restrict)
-				.IsRequired();
 
 			modelBuilder.Entity<IssueType>()
 				.HasMany(e => e	.IssueTypes)
@@ -106,6 +93,8 @@ namespace Libra.Dal.Context
 				.HasForeignKey(e => e.AssignedId)
 				.OnDelete(DeleteBehavior.Restrict)
 				.IsRequired();
+
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
 }

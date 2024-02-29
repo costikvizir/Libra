@@ -189,6 +189,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WelcomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,8 +204,51 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="layout-routing.js" />
+    <Content Include="Lib\datatables\css\dataTables.bootstrap.css" />
+    <Content Include="Lib\datatables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Lib\datatables\css\dataTables.bootstrap4.css" />
+    <Content Include="Lib\datatables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Lib\datatables\css\dataTables.foundation.css" />
+    <Content Include="Lib\datatables\css\dataTables.foundation.min.css" />
+    <Content Include="Lib\datatables\css\dataTables.jqueryui.css" />
+    <Content Include="Lib\datatables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Lib\datatables\css\dataTables.material.css" />
+    <Content Include="Lib\datatables\css\dataTables.material.min.css" />
+    <Content Include="Lib\datatables\css\dataTables.semanticui.css" />
+    <Content Include="Lib\datatables\css\dataTables.semanticui.min.css" />
+    <Content Include="Lib\datatables\css\dataTables.uikit.css" />
+    <Content Include="Lib\datatables\css\dataTables.uikit.min.css" />
+    <Content Include="Lib\datatables\css\jquery.dataTables.css" />
+    <Content Include="Lib\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="Lib\datatables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Lib\datatables\css\jquery.dataTables_themeroller.min.css" />
+    <Content Include="Lib\datatables\images\sort_asc.png" />
+    <Content Include="Lib\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Lib\datatables\images\sort_both.png" />
+    <Content Include="Lib\datatables\images\sort_desc.png" />
+    <Content Include="Lib\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Lib\datatables\js\dataTables.bootstrap.js" />
+    <Content Include="Lib\datatables\js\dataTables.bootstrap.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.bootstrap4.js" />
+    <Content Include="Lib\datatables\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.dataTables.js" />
+    <Content Include="Lib\datatables\js\dataTables.dataTables.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.foundation.js" />
+    <Content Include="Lib\datatables\js\dataTables.foundation.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.jqueryui.js" />
+    <Content Include="Lib\datatables\js\dataTables.jqueryui.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.material.js" />
+    <Content Include="Lib\datatables\js\dataTables.material.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.semanticui.js" />
+    <Content Include="Lib\datatables\js\dataTables.semanticui.min.js" />
+    <Content Include="Lib\datatables\js\dataTables.uikit.js" />
+    <Content Include="Lib\datatables\js\dataTables.uikit.min.js" />
+    <Content Include="Lib\datatables\js\jquery.dataTables.js" />
+    <Content Include="Lib\datatables\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -216,6 +260,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\sammy.js" />
+    <Content Include="Scripts\sammy.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -231,10 +277,12 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Welcome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\sammyfile.js\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

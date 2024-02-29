@@ -17,7 +17,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            return PartialView();
         }
 
 		[HttpPost]
