@@ -282,7 +282,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\sammyfile.js\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

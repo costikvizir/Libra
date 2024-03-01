@@ -7,8 +7,15 @@ $(function () {
 });
 
 var routingApp = $.sammy("#MainContent", function () {
+    //this.get("#/Home/Index", function (context) {
+    //    titleContent.html("Student Page");
+    //    $.get("/Home/Index", function (data) {
+    //        context.$element().html(data);
+    //    });
+    //});
+
     this.get("#/Home/Index", function (context) {
-        titleContent.html("Student Page");
+        titleContent.html("Home");
         $.get("/Home/Index", function (data) {
             context.$element().html(data);
         });
@@ -30,7 +37,7 @@ var routingApp = $.sammy("#MainContent", function () {
     });
 
     this.get("#/Account/Login", function (context) {
-        titleContent.html("Contact");
+        titleContent.html("Login");
         $.get("/Account/Login", function (data) {
             context.$element().html(data);
         });
@@ -67,18 +74,22 @@ function IfLinkNotExist(type, path) {
     }
     return isExist;
 }
-//var app = $.sammy('#main', function () {
-//    this.get('#/Home', function (context) {
-//        context.$element().load('/Home/Index');
-//    });
-
-//    this.get('#/About', function (context) {
-//        context.$element().load('/Home/About');
-//    });
-
-//    // Add more routes as needed
-//});
-
 //$(function () {
-//    app.run('#/Home');
+//    var app = $.sammy('#MainContent', function () {
+//        this.get('#/Home/Index', function (context) {
+//            context.$element().load('/Home/Index');
+//        });
+
+//        this.get('#/Home/About', function (context) {
+//            context.$element().load('/Home/About');
+//        });
+
+//        this.get('#/Home/Contact', function (context) {
+//            context.$element().load('/Home/Contact');
+//        });
+
+//        // Add more routes as needed...
+//    });
+
+//    app.run('#/Home/Index');
 //});

@@ -10,21 +10,21 @@ namespace LibraWebApp.Controllers
 	{
 		public ActionResult Index()
 		{
-			return View();
+			return PartialView("Index");
 		}
 
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your application description page.";
 
-			return PartialView();
+			return PartialView("About");
 		}
 
 		public ActionResult Contact()
 		{
 			ViewBag.Message = "Your contact page.";
 
-			return PartialView();
+			return PartialView("Contact");
 		}
 	}
 }
