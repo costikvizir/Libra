@@ -1,4 +1,5 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +26,8 @@ namespace Libra.Dal.Configurations
 				.HasForeignKey(e => e.UserId)
 				.OnDelete(DeleteBehavior.Restrict)
 				.IsRequired();
+
+			builder.HasData(SeedData.UsersSeed);
 		}
 	}
 }

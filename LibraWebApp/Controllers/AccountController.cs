@@ -13,39 +13,52 @@ namespace LibraWebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IRepository<UserDTO> _userRepository;
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return PartialView();
-        }
+		private readonly IRepository<UserDTO> _userRepository;
+		[HttpGet]
+		public ActionResult Login()
+		{
+			return PartialView();
+		}
 
 		[HttpPost]
-		public  async Task<ActionResult> Login(LoginUserDTO user)
+		public ActionResult Login(LoginUserDTO model)
 		{
-            UserDTO userFromDb = await _userRepository.GetEntityByNameAsync(user.UserName);
-
-			try
+			if (!ModelState.IsValid)
 			{
-				if (!ModelState.IsValid)
-				{
-					return View(user);
-				}
-			}
-			catch (Exception)
-			{
+				// Perform the login operation...
 
-				throw;
+				return RedirectToAction("Index", "Home");
 			}
 
-			return RedirectToAction("");
+			// If we got this far, something failed, redisplay form
+			return View(model);
 		}
 
-		[Authorize]
-		public ActionResult LogOut()
-		{
-			FormsAuthentication.SignOut();
-			return RedirectToAction("Login", "Account");
-		}
+		//[HttpPost]
+		//public async Task<ActionResult> Login(LoginUserDTO user)
+		//{
+		//	UserDTO userFromDb = await _userRepository.GetEntityByNameAsync(user.UserName);
+		//	try
+		//	{
+		//		if (!ModelState.IsValid)
+		//		{
+		//			return View(user);
+		//		}
+		//	}
+		//	catch (Exception)
+		//	{
+
+		//		throw;
+		//	}
+
+		//	return RedirectToAction("Index", "Home");
+		//}
+
+		//[Authorize]
+		//public ActionResult LogOut()
+		//{
+		//	FormsAuthentication.SignOut();
+		//	return RedirectToAction("Login", "Account");
+		//}
 	}
 }

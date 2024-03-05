@@ -20,7 +20,11 @@
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
 			<label class="form-check-label" for="exampleCheck1">Check me out</label>
 		</div>
-		<button type="submit" class="btn btn-primary">Sign In</button>
+		@*<button type="submit" class="btn btn-primary">Sign In</button>*@
+		@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+		{
+			<button type="submit" class="btn btn-primary">Sign In</button>
+		}
 	</form>
 </div>
 
