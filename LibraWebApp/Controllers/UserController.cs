@@ -14,13 +14,19 @@ namespace LibraWebApp.Controllers
     {
         private readonly IRepository<UserDTO> _userRepository;
 
+        public UserController(IRepository<UserDTO> userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
+		//http://localhost:55374/#/Users/GetAllUsers
+		[HttpGet]
         public async Task<ActionResult> GetUserByName(string name)
         {
             var userFromDb = await _userRepository.GetEntityByNameAsync(name);
@@ -33,10 +39,10 @@ namespace LibraWebApp.Controllers
 		{
 			var allUsers = await _userRepository.GetAllEntitiesAsync();
 
-            if(!allUsers.Any())
+            if (!allUsers.Any())
                 return null;
 
-			return View(allUsers);
+            return PartialView("AllUsers", allUsers);
 		}
 
         [HttpPost]

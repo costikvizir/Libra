@@ -29,25 +29,6 @@ namespace Libra.Dal.Context
 					CityName = city
 				});
 			}
-			//if (!Debugger.IsAttached)
-			//{
-			//	Debugger.Launch();
-			//}
-
-			//var cities = new List<City>
-			//{
-			//	new City { Id = 1, CityName = "Chișinău"},
-			//	new City { Id = 2, CityName = "Bălți"},
-			//	new City { Id = 3, CityName = "Tiraspol"},
-			//	new City { Id = 4, CityName = "Bender"},
-			//	new City { Id = 5, CityName = "Cahul"},
-			//	new City { Id = 6, CityName = "Comrat"},
-			//	new City { Id = 7, CityName = "Orhei"},
-			//	new City { Id = 8, CityName = "Ungheni"},
-			//	new City { Id = 9, CityName = "Soroca"},
-			//	new City { Id = 10, CityName = "Călărași"}
-
-			//};
 
 			return citiesList;
 		}

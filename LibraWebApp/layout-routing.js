@@ -43,6 +43,13 @@ var routingApp = $.sammy("#MainContent", function () {
         });
     });
 
+    this.get("#/User/GetAllUsers", function (context) {
+        titleContent.html("Login");
+        $.get("/User/GetAllUsers", function (data) {
+            context.$element().html(data);
+        });
+    });
+
 });
 
 $(function () {

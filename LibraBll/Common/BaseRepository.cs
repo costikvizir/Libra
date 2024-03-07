@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace LibraBll.Common
 {
-	public class BaseRepository : IDisposable
+	public class BaseRepository : IDisposable 
 	{
 		private readonly LibraContext _context;
 
-        public BaseRepository()
+        public BaseRepository(LibraContext context)
         {
-			_context = new LibraContext();
-        }
+			_context = context ?? throw new ArgumentNullException(nameof(context));
+			Console.WriteLine("Context Created");
+		}
         public void Dispose()
 		{
-			this._context?.Dispose();
+			_context?.Dispose();
 		}
 
 		protected LibraContext Context => this._context;

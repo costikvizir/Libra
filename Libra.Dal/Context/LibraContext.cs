@@ -13,7 +13,7 @@ namespace Libra.Dal.Context
 	public class LibraContext : DbContext
 	{
 		string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;TrustServerCertificate=true;";
-		//<add name="DefaultConnection" connectionString="Data Source=CEDINTL925\MSSQLSERVERSC;Initial Catalog=Student;Integrated Security=True" providerName="System.Data.SqlClient" />
+		//<add name="DefaultConnection" connectionString="Data Source=CEDINTL925\MSSQLSERVERSC;Initial Catalog=MVC_DB;Integrated Security=True" providerName="System.Data.SqlClient" />
 
 		public DbSet<City> Cities { get; set; }
 		public DbSet<ConnectionType> ConnectionType { get; set; }

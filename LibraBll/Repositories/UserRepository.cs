@@ -1,4 +1,5 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using LibraBll.Abstractions;
 using LibraBll.Common;
 using LibraBll.DTOs;
@@ -14,6 +15,10 @@ namespace LibraBll.Repositories
 {
 	public class UserRepository : BaseRepository, IRepository<UserDTO>
 	{
+		public UserRepository(LibraContext context) : base(context)
+		{
+		}
+
 		public async Task<UserDTO> GetEntityByIdAsync(int id)
 		{
 			var entity = await Context.Users.FindAsync(id);
@@ -50,6 +55,7 @@ namespace LibraBll.Repositories
 
 		public async Task<List<UserDTO>> GetAllEntitiesAsync()
 		{
+
 			List<UserDTO> userList = await Context.Users
 				.Select(x => new UserDTO
 				{
@@ -59,6 +65,8 @@ namespace LibraBll.Repositories
 					UserTypeId = x.UserTypeId
 				})
 				.ToListAsync();
+
+			var userTest = userList;
 
 			return userList;
 		}

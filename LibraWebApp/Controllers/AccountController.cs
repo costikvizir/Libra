@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace LibraWebApp.Controllers
 {
@@ -15,50 +16,52 @@ namespace LibraWebApp.Controllers
     {
 		private readonly IRepository<UserDTO> _userRepository;
 		[HttpGet]
+		[AllowAnonymous]
 		public ActionResult Login()
 		{
 			return PartialView();
 		}
 
-		[HttpPost]
-		public ActionResult Login(LoginUserDTO model)
-		{
-			if (!ModelState.IsValid)
-			{
-				// Perform the login operation...
+		//[HttpPost]
+		//public ActionResult Login(LoginUserDTO model)
+		//{
+		//	if (!ModelState.IsValid)
+		//	{
+		//		// Perform the login operation...
 
-				return RedirectToAction("Index", "Home");
+		//		return RedirectToAction("Index", "Home");
+		//	}
+
+		//	// If we got this far, something failed, redisplay form
+		//	return View(model);
+		//}
+
+		[HttpPost]
+		[AllowAnonymous]
+		public async Task<ActionResult> Login(LoginUserDTO user)
+		{
+			UserDTO userFromDb = await _userRepository.GetEntityByNameAsync(user.UserName);
+			try
+			{
+				if (ModelState.IsValid)
+				{
+					return View(user);
+				}
+			}
+			catch (Exception)
+			{
+
+				throw;
 			}
 
-			// If we got this far, something failed, redisplay form
-			return View(model);
+			return RedirectToAction("Index", "Home");
 		}
 
-		//[HttpPost]
-		//public async Task<ActionResult> Login(LoginUserDTO user)
-		//{
-		//	UserDTO userFromDb = await _userRepository.GetEntityByNameAsync(user.UserName);
-		//	try
-		//	{
-		//		if (!ModelState.IsValid)
-		//		{
-		//			return View(user);
-		//		}
-		//	}
-		//	catch (Exception)
-		//	{
-
-		//		throw;
-		//	}
-
-		//	return RedirectToAction("Index", "Home");
-		//}
-
-		//[Authorize]
-		//public ActionResult LogOut()
-		//{
-		//	FormsAuthentication.SignOut();
-		//	return RedirectToAction("Login", "Account");
-		//}
+		[Authorize]
+		public ActionResult LogOut()
+		{
+			FormsAuthentication.SignOut();
+			return RedirectToAction("Login", "Account");
+		}
 	}
 }
