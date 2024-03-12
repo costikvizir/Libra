@@ -1,11 +1,12 @@
-﻿
-@{
+﻿@model IEnumerable<LibraBll.DTOs.UserDTO>
+
+@*@{
 	Layout = null;
-}
+}*@
 
 <h3>Get All Users</h3>
 
-<div>
+<!--<div>
 	<form>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Username</label>
@@ -19,11 +20,39 @@
 		<div class="form-group form-check">
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
 			<label class="form-check-label" for="exampleCheck1">Check me out</label>
-		</div>
+		</div>-->
 		@*<button type="submit" class="btn btn-primary">Sign In</button>*@
-		@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+		<!--@using (Html.BeginForm("Login", "Account", FormMethod.Post))
 		{
 			<button type="submit" class="btn btn-primary">Sign In</button>
 		}
 	</form>
-</div>
+</div>-->
+
+
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Username</th>
+				<th scope="col">Email</th>
+				<th scope="col">Role</th>
+				<th scope="col">Telephone</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in Model)
+			{
+				<tr>
+					<td>@user.Name</td>
+					<td>@user.Email</td>
+					<td>@user.Role</td>
+					<td>@user.Telephone</td>
+					<td>
+						<a href="@Url.Action("EditUser", "User", new { id = user.UserTypeId })" class="btn btn-primary">Edit</a>
+						<a href="@Url.Action("DeleteUser", "User", new { id = user.UserTypeId })" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>

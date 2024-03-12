@@ -12,7 +12,7 @@ namespace LibraBll.Common
 		public string Telephone { get; set; }
 		public string Cellphone { get; set; }
 		public string Address { get; set; }
-		public int CityId { get; set; }
+		public string City { get; set; }
 		public string Model { get; set; }
 		public string Brand { get; set; }
 		public int ConnectionTypeId { get; set; }

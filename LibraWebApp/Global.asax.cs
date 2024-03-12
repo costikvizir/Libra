@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Services.Description;
+using Libra.Dal.Context;
 
 namespace LibraWebApp
 {
@@ -24,6 +26,9 @@ namespace LibraWebApp
 			NinjectModule registrations = new NinjectRegistrations();
 			var kernel = new StandardKernel(registrations);
 			DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+
+
+
 		}
 	}
 }

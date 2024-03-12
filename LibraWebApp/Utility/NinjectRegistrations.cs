@@ -1,4 +1,5 @@
-﻿using LibraBll.Abstractions;
+﻿using Libra.Dal.Context;
+using LibraBll.Abstractions;
 using LibraBll.Common;
 using LibraBll.DTOs;
 using LibraBll.Repositories;
@@ -12,6 +13,10 @@ namespace LibraWebApp.Utility
 		{
 			Bind<IRepository<UserDTO>>().To<UserRepository>();
 			Bind<IRepository<PosDTO>>().To<PosRepository>();
+			
+			// bind DbContext
+			Bind<LibraContext>().ToSelf().InSingletonScope();
+
 		}
 	}
 }

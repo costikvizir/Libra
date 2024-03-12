@@ -9,11 +9,8 @@ namespace LibraBll.DTOs
 {
 	public class LoginUserDTO
 	{
-		[Required(ErrorMessage = "Missing User Name")]
 		public string UserName { get; set;}
 
-		[Required(ErrorMessage = "Missing Password")]
-		[DataType(DataType.Password)]
 		public string Password { get; set;}
 	}
 }

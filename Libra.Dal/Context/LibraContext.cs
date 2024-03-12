@@ -1,6 +1,7 @@
 ﻿using Libra.Dal.Configurations;
 using Libra.Dal.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,20 @@ namespace Libra.Dal.Context
 {
 	public class LibraContext : DbContext
 	{
-		string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;TrustServerCertificate=true;";
+        //string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;TrustServerCertificate=true;";
 		//<add name="DefaultConnection" connectionString="Data Source=CEDINTL925\MSSQLSERVERSC;Initial Catalog=MVC_DB;Integrated Security=True" providerName="System.Data.SqlClient" />
+		string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+		//string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;TrustServerCertificate=true;";
+		//string mystring = "123";
+
+		//public LibraContext(DbContextOptions<LibraContext> options) : base(options)
+		//{
+		//}
+
+		//public LibraContext() : base("DefaultConnection")
+		//{
+
+		//}
 
 		public DbSet<City> Cities { get; set; }
 		public DbSet<ConnectionType> ConnectionType { get; set; }
@@ -30,6 +43,7 @@ namespace Libra.Dal.Context
 			base.OnConfiguring(optionsBuilder);
 
 			optionsBuilder.UseSqlServer(connectionString);
+			//optionsBuilder.UseSqlServer("DefaultConnection");
 			optionsBuilder.EnableSensitiveDataLogging();
 
 		}

@@ -8,48 +8,20 @@
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/modernizr")
 	<script src="~/Scripts/jquery-3.3.1.js"></script>
-	<script src="~/Scripts/sammy.js"></script>
 </head>
-<body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				@*@Html.ActionLink("Libra", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="#/Home/Index">Home</a></li>
-					<li><a href="#/Home/About">About</a></li>
-					<li><a href="#/Home/Contact">Contact</a></li>
-					@*<li>@Html.ActionLink("Home", "/Index", "Home")</li>
-					<li>@Html.ActionLink("About", "/About", "Home")</li>*@
-					@*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-		<li>@Html.ActionLink("About", "About", "Home")</li>*@
-					@*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					@*<li>@Html.ActionLink("Sign In", "Login", "Account")</li>*@
-					<li><a href="#/Account/Login">Login</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+<body>	
 	<div class="container body-content">
-		<div id="MainContent">
-			@RenderBody()
+		<div id="MainContent" class="d-flex align-items-center justify-content-center" style="height: 80vh;">
+			<div>
+				@RenderBody()
+			</div>
 		</div>
 		<hr />
-		<footer>
+		<footer class="navbar-fixed-bottom text-center">
 			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
 		</footer>
 	</div>
-	<script src="~/layout-routing.js"></script>
-	@*@Scripts.Render("~/bundles/jquery")*@
+	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
 	@RenderSection("scripts", required: false)
 </body>

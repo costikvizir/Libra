@@ -25,7 +25,7 @@ namespace LibraWebApp.Controllers
             return View();
         }
 
-		//http://localhost:55374/#/Users/GetAllUsers
+		//http://localhost:55374/#/User/GetAllUsers
 		[HttpGet]
         public async Task<ActionResult> GetUserByName(string name)
         {
@@ -37,12 +37,13 @@ namespace LibraWebApp.Controllers
 		[HttpGet]
 		public async Task<ActionResult> GetAllUsers()
 		{
-			var allUsers = await _userRepository.GetAllEntitiesAsync();
+			List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
 
             if (!allUsers.Any())
                 return null;
 
-            return PartialView("AllUsers", allUsers);
+            //return PartialView("GetAllUsers", allUsers);
+            return PartialView(allUsers);
 		}
 
         [HttpPost]

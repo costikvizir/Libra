@@ -14,7 +14,7 @@ namespace LibraBll.Common
         public BaseRepository(LibraContext context)
         {
 			_context = context ?? throw new ArgumentNullException(nameof(context));
-			Console.WriteLine("Context Created");
+
 		}
         public void Dispose()
 		{
