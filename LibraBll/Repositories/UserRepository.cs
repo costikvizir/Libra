@@ -59,6 +59,7 @@ namespace LibraBll.Repositories
 			try
 			{
 				userList = await Context.Users
+			    .Where(x => x.IsDeleted == false)
 				.Include(x => x.UserType)
 				.Select(x => new UserDTO
 				{
@@ -68,6 +69,7 @@ namespace LibraBll.Repositories
 					UserTypeId = x.UserTypeId,
 					Role = x.UserType.Role,
 				})
+				
 				.ToListAsync();
 			}
 			catch (Exception e)
@@ -125,18 +127,26 @@ namespace LibraBll.Repositories
 			Context.SaveChanges();
 		}
 
-		public async Task<UserDTO> GetUser(string name, string password)
+		public async Task<UserDTO> GetEntityAuth(string name, string password)
 		{
-			var entity = await Context.Users.FindAsync(name);
+			var entity = await Context.Users
+				.Where(x => x.IsDeleted == false)
+				.Include(x => x.UserType)
+				.FirstOrDefaultAsync(e => e.Name.ToUpper() == name.ToUpper() && e.Password == password);
+
+			var user1 = entity != null ? entity : null;
+
 			if (entity != null)
 			{
 				var user = new UserDTO()
 				{
 					Name = entity.Name,
-					Email = entity.Email,
+					//Email = entity.Email,
 					Password = entity.Password,
-					Telephone = entity.Telephone,
-					UserTypeId = entity.UserTypeId
+					//Telephone = entity.Telephone,
+					UserTypeId = entity.UserTypeId,
+					Login = entity.Login,
+					Role = entity.UserType.Role
 				};
 				return user;
 			}

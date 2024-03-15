@@ -10,7 +10,7 @@ namespace LibraWebApp.Controllers
 	{
 		public ActionResult Index()
 		{
-			return PartialView("Index");
+			return View("Index");
 		}
 
 		public ActionResult About()

@@ -13,7 +13,8 @@ namespace LibraBll.DTOs
 		public string Email { get; set; }
 		public string Login { get; set; }
 		public string Role { get; set; }
-		[JsonIgnore]
+        public bool IsDeleted { get; set; }
+        [JsonIgnore]
 		public string Password { get; set; }
 		public string Telephone { get; set; }
 		public int UserTypeId { get; set; }

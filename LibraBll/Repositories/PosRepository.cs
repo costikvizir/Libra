@@ -26,6 +26,11 @@ namespace LibraBll.Repositories
 			throw new NotImplementedException();
 		}
 
+		public Task<PosDTO> GetEntityAuth(string name, string password)
+		{
+			throw new NotImplementedException();
+		}
+
 		public Task<PosDTO> GetEntityByIdAsync(int id)
 		{
 			throw new NotImplementedException();

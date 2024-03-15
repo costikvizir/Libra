@@ -14,6 +14,7 @@ namespace LibraBll.Abstractions
 		Task<T> GetEntityByNameAsync(string name);
 		Task<List<T>> GetAllEntitiesAsync();
 		Task<T> CreateEntity(T userPost);
+		Task<T> GetEntityAuth(string name, string password);
 		void UpdateEntity(T userPost);
 		void DeleteEntity(string name);
 	}

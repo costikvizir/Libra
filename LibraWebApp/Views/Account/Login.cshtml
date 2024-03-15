@@ -1,31 +1,74 @@
-﻿
+﻿@using LibraBll.DTOs
+@model LibraBll.DTOs.UserDTO
+@*@Model?.LibraBll.DTOs.UserDTO*@
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
-<h3>Welcome to Libra</h3>
+<!--<h2>Welcome to Libra</h2>
 
 <div>
-	<form>
+	@*@using (Html.BeginForm("Login", "Account", FormMethod.Post))*@
+	//{
 		<div class="form-group">
 			<label for="exampleInputEmail1" class="h4">Username</label>
-			<input type="text" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
+			<input type="text" class="form-control input-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
 			<i class="fas fa-user ms-3"></i>
 		</div>
 		<div class="form-group">
 			<label for="exampleInputPassword1" class="h4">Password</label>
-			<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			<input type="password" class="form-control input-lg" id="exampleInputPassword1" placeholder="Password">
 		</div>
 		<div class="form-group form-check">
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
 			<label class="form-check-label" for="exampleCheck1">Check me out</label>
+		</div>-->
+@*<button type="submit" class="btn btn-primary">Sign In</button>*@
+
+@*<button type="submit" class="btn btn-primary">Sign In</button>*@
+
+
+<!--<button type="submit" class="btn btn-primary">
+			Sign In
+		</button>
+	//}
+</div>-->
+
+<div class="text-center container-sm mt-4 pt-5" style="max-width:700px">
+	@Html.BeginForm()
+	<form class="login-form bg-white" asp-controller="Account" asp-action="Login" asp-antiforgery="true" method="post">
+		<h1 class="mb-4">Libra</h1>
+		<br>
+		<div class="row">
+			<div class="col-3">
+				@Html.LabelFor(model => model.Name, "User Name")
+				@Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Login", style = "font-size: 0.875rem" })
+				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", style = "font-size: 0.7rem" })
+			</div>
+			<div class="col-8">
+				@*<input asp-for="Name" class="form-control" placeholder="Login" required autofocus />*@
+				<span asp-validation-for="Name" class="text-danger"></span>
+				@*@Html.LabelFor(model => model. .Name, "User Name")
+				@Html.TextBoxFor(model =>  Model, new { @class = "form-control", placeholder = "Login", style = "font-size: 0.875rem" })
+				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", style = "font-size: 0.7rem" })*@
+			</div>
 		</div>
-		@*<button type="submit" class="btn btn-primary">Sign In</button>*@
-		@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-		{
-			<button type="submit" class="btn btn-primary">Sign In</button>
-		}
-	</form>
+</div>
+<br>
+<div class="row">
+	<div class="col-3">
+		<label asp-for="Password" class="col-form-label text-right"></label>
+	</div>
+	<div class="col-8">
+		@Html.LabelFor(model => model.Password, "Password")
+		@Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", style = "font-size: 0.875rem" })
+		@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", style = "font-size: 0.7rem" })
+		@*<input asp-for="Password" type="password" class="form-control" placeholder="Password" required />
+		<span asp-validation-for="Password" class="text-danger"></span>*@
+	</div>
+</div>
+
+<button type="submit" class="btn  btn-success pt-4">Login <i class="fas fa-sign-in-alt"></i></button>
+	
 </div>
 

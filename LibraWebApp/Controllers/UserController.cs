@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LibraWebApp.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         private readonly IRepository<UserDTO> _userRepository;
@@ -20,12 +21,12 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(UserDTO model)
         {
-            return View();
+            var user = User.Identity.Name;
+            return View(model.Name);
         }
 
-		//http://localhost:55374/#/User/GetAllUsers
 		[HttpGet]
         public async Task<ActionResult> GetUserByName(string name)
         {
@@ -34,15 +35,18 @@ namespace LibraWebApp.Controllers
             return View(userFromDb);    
         }
 
+       // [Authorize]
 		[HttpGet]
 		public async Task<ActionResult> GetAllUsers()
 		{
 			List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
 
+            
+            
+            
             if (!allUsers.Any())
                 return null;
 
-            //return PartialView("GetAllUsers", allUsers);
             return PartialView(allUsers);
 		}
 
