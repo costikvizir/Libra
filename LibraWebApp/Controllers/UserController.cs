@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace LibraWebApp.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
         private readonly IRepository<UserDTO> _userRepository;
@@ -41,6 +41,7 @@ namespace LibraWebApp.Controllers
 		{
 			List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
 
+            
             
             
             

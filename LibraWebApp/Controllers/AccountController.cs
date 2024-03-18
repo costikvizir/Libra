@@ -26,7 +26,7 @@ namespace LibraWebApp.Controllers
     public class AccountController : Controller
     {
 		private readonly IRepository<UserDTO> _userRepository;
-		LibraContext context = new LibraContext();
+		//private LibraContext context = new LibraContext();
 
 		private IAuthenticationManager AuthenticationManager
 		{
@@ -48,122 +48,56 @@ namespace LibraWebApp.Controllers
 			return PartialView();
 		}
 
-
-
 		[HttpPost]
 		[AllowAnonymous]
-		public ActionResult Login(UserDTO model)
+		public async Task<ActionResult> Login(UserDTO model)
 		{
 			try
 			{
 				if (!ModelState.IsValid)
 				{
 					return View(model);
-				}
+				}				
 
-
-				using (var userRepository = new UserRepository(context))
+				using ((System.IDisposable) _userRepository)
 				{
-					if (userRepository.GetEntityAuth(model.Name, model.Password) is null)
+					var user = await _userRepository.GetEntityAuth(model.Name, model.Password);
+					if (user is null)
 					{
 						ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
 						return View(model);
 					}
 					else
 					{
-						//var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-						var identity = new ClaimsIdentity(new[]
+
+						ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+						claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Role.ToString(), ClaimValueTypes.String));
+						claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+						claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+							"OWIN Provider", ClaimValueTypes.String));
+
+						if (user.Role != null)
+							claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role, ClaimValueTypes.String));
+
+						AuthenticationManager.SignOut();
+
+						AuthenticationManager.SignIn(new AuthenticationProperties
 						{
-							new Claim(ClaimTypes.Name, model.Name),
-							new Claim(ClaimTypes.Email, model.Email),
-							new Claim(ClaimTypes.Role, model.Role)
-						}, FormsAuthentication.FormsCookieName);
+							IsPersistent = true
+						}, claim);
 
-						AuthenticationManager.SignIn(identity);
-						//var identity = (ClaimsIdentity)User.Identity;
-						//var claim = identity.FindFirst(ClaimTypes.Name);
-						//var principal = new ClaimsPrincipal(identity);
-
-						FormsAuthentication.SetAuthCookie(model.Name, false);
 						return RedirectToAction("Index", "User");
 					}
 				}
-
-				//[HttpPost]
-				//[AllowAnonymous]
-				//[ValidateAntiForgeryToken]
-				//public async Task<IActionResult> Login(string userName, string password)
-				//{
-				//	try
-				//	{
-				//		var userVm = await Mediator.Send(new GetUserByUserNameQuery
-				//		{
-				//			UserName = userName,
-				//			Password = password
-				//		});
-
-				//		if (userVm == null || !userVm.IsEnabled)
-				//		{
-				//			ModelState.TryAddModelError("IncorrectLogin", "Non existen or delited user");
-				//			return View("Login");
-				//		}
-				//		else
-				//		{
-				//			var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-
-				//			identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userVm.Id.ToString()));
-				//			identity.AddClaim(new Claim(ClaimTypes.Name, userVm.UserName));
-				//			identity.AddClaim(new Claim("FullName", userVm.FullName));
-				//			identity.AddClaim(new Claim(ClaimTypes.Email, userVm.Email));
-
-				//			foreach (var role in userVm.UserRoles)
-				//			{
-				//				identity.AddClaim(new Claim(ClaimTypes.Role, role));
-				//			}
-
-				//			var principal = new ClaimsPrincipal(identity);
-
-				//			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-				//			return LocalRedirect("/Home");
-				//		}
-				//	}
-				//	catch (Exception ex)
-				//	{
-				//		return View("Login");
-				//	}
-				//}
-
-				//var user = _userRepository.GetEntityAuth(model.Name, model.Password);
-				//var user = _userRepository.GetEntityAuth(model.Name, model.Password);
-
-				//if (user is null)
-				//{
-				//	ModelState.AddModelError("Incorrect Login", "Wrong login or password");
-				//	return View(model);
-				//}
-				//else
-				//{
-				//	FormsAuthentication.SetAuthCookie(model.Name, false);
-				//	return RedirectToAction("Index", "User");
-				//}
 			}
 			catch (Exception ex)
 			{
 				//logger.Error(ex, "Account/Lgoin");
 				//return CreateJsonError();
-				var errorData = new { Success = false, Message = "An error occurred while processing your request." };
+				//var errorData = new { Success = false, Message = "An error occurred while processing your request." };
+				var errorData = new { Success = false, Message = ex.Message };	
 				return Json(errorData, JsonRequestBehavior.AllowGet);
 			}
-			//if (!ModelState.IsValid)
-			//{
-			//	// Perform the login operation...
-
-			//	return RedirectToAction("Index", "Home");
-			//}
-
-			// If we got this far, something failed, redisplay form
-			//return View(model);
 		}
 
 

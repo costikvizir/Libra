@@ -15,7 +15,7 @@ namespace LibraBll.Repositories
 {
 	public class UserRepository : BaseRepository, IRepository<UserDTO>
 	{
-		public UserRepository(LibraContext context) : base(context)
+		public UserRepository() : base()
 		{
 		}
 
@@ -59,7 +59,7 @@ namespace LibraBll.Repositories
 			try
 			{
 				userList = await Context.Users
-			    .Where(x => x.IsDeleted == false)
+				.Where(x => x.IsDeleted == false)
 				.Include(x => x.UserType)
 				.Select(x => new UserDTO
 				{
@@ -69,7 +69,7 @@ namespace LibraBll.Repositories
 					UserTypeId = x.UserTypeId,
 					Role = x.UserType.Role,
 				})
-				
+
 				.ToListAsync();
 			}
 			catch (Exception e)
@@ -129,21 +129,32 @@ namespace LibraBll.Repositories
 
 		public async Task<UserDTO> GetEntityAuth(string name, string password)
 		{
-			var entity = await Context.Users
-				.Where(x => x.IsDeleted == false)
-				.Include(x => x.UserType)
-				.FirstOrDefaultAsync(e => e.Name.ToUpper() == name.ToUpper() && e.Password == password);
+			User entity = null;
+			try
+			{
 
-			var user1 = entity != null ? entity : null;
+				//entity = await Context.Users
+				//			.FirstOrDefaultAsync();
+
+				 entity = await Context.Users
+							.Include(x => x.UserType)
+							.FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
+						//.FirstOrDefaultAsync(e => e.Name.ToUpper() == name.ToUpper() && e.Password == password);
+
+			}
+			catch (Exception ex)
+			{
+
+			}
 
 			if (entity != null)
 			{
 				var user = new UserDTO()
 				{
 					Name = entity.Name,
-					//Email = entity.Email,
+					Email = entity.Email,
 					Password = entity.Password,
-					//Telephone = entity.Telephone,
+					Telephone = entity.Telephone,
 					UserTypeId = entity.UserTypeId,
 					Login = entity.Login,
 					Role = entity.UserType.Role

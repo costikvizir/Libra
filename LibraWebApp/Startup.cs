@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Host.SystemWeb;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 

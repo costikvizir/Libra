@@ -11,9 +11,10 @@ namespace LibraBll.Common
 	{
 		private readonly LibraContext _context;
 
-        public BaseRepository(LibraContext context)
+        public BaseRepository()
         {
-			_context = context ?? throw new ArgumentNullException(nameof(context));
+			//_context = context ?? throw new ArgumentNullException(nameof(context));
+			_context = new LibraContext();
 
 		}
         public void Dispose()
