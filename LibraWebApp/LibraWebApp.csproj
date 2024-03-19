@@ -401,6 +401,9 @@
     <Content Include="Views\User\GetAllUsers.cshtml" />
     <Content Include="Views\User\GetUserByName.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\_Dashboard.cshtml" />
+    <Content Include="Views\User\AddUser.cshtml" />
+    <Content Include="Views\User\ModifyUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

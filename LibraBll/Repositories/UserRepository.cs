@@ -69,29 +69,30 @@ namespace LibraBll.Repositories
 					UserTypeId = x.UserTypeId,
 					Role = x.UserType.Role,
 				})
-
 				.ToListAsync();
 			}
 			catch (Exception e)
 			{
-
 				throw;
 			}
 
 			return userList;
-
 		}
 
 		public async Task<UserDTO> CreateEntity(UserDTO userPost)
 		{
+			//map role to userTypeId and set default user to "User"
+			var userTypeID = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
+
 			User user = new User()
 			{
 				Name = userPost.Name,
 				Email = userPost.Email,
 				Telephone = userPost.Telephone,
-				UserTypeId = userPost.UserTypeId,
+				UserTypeId = userTypeID,
 				Login = userPost.Login,
-				Password = userPost.Password
+				Password = userPost.Password,
+				//IsDeleted = userPost.IsActive
 			};
 
 			Context.Users.Add(user);
@@ -132,15 +133,9 @@ namespace LibraBll.Repositories
 			User entity = null;
 			try
 			{
-
-				//entity = await Context.Users
-				//			.FirstOrDefaultAsync();
-
 				 entity = await Context.Users
 							.Include(x => x.UserType)
 							.FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
-						//.FirstOrDefaultAsync(e => e.Name.ToUpper() == name.ToUpper() && e.Password == password);
-
 			}
 			catch (Exception ex)
 			{

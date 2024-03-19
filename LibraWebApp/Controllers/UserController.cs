@@ -31,32 +31,44 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> GetUserByName(string name)
         {
             var userFromDb = await _userRepository.GetEntityByNameAsync(name);
-
             return View(userFromDb);    
         }
 
-       // [Authorize]
-		[HttpGet]
-		public async Task<ActionResult> GetAllUsers()
-		{
-			List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
 
-            
-            
-            
-            
             if (!allUsers.Any())
                 return null;
 
             return PartialView(allUsers);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<JsonResult> GetAllUsersJson()
+        {
+            List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
+
+			if (!allUsers.Any())
+				return Json(new { }, JsonRequestBehavior.AllowGet);
+
+			return Json(allUsers, JsonRequestBehavior.AllowGet);
+        }
+
+		[HttpGet]
+		public ActionResult AddUser()
+		{
+			return View();
 		}
 
-        [HttpPost]
-        public async Task<ActionResult> CreateUser(UserDTO user)
+		[HttpPost]
+        public async Task<ActionResult> AddUser(UserDTO user)
         {
             await _userRepository.CreateEntity(user);
-
-            return null;
+            return PartialView();
         }
 
         [HttpPost]

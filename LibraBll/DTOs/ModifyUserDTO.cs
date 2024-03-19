@@ -14,5 +14,6 @@ namespace LibraBll.DTOs
 		public string Password { get; set; }
 		public string Telephone { get; set; }
 		public string Role { get; set; }
+		public bool IsActive { get; set; }
 	}
 }
