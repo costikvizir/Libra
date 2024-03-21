@@ -5,24 +5,51 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewBag.Title - Libra</title>
 
-	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/modernizr")
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/dataTables.dataTables.css")
+	
 	<script src="~/Scripts/jquery-3.3.1.js"></script>
 </head>
-<body>	
-	<div class="container body-content">
-		<div id="MainContent" class="d-flex align-items-center justify-content-center" style="height: 80vh;">
-			<div>
-				@RenderBody()
+<body>
+	@*<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+				</button>
+				<span>Libra Web App</span>
+			</div>
+			<div class="navbar-collapse collapse">
+
 			</div>
 		</div>
+	</div>*@
+	<div>
+		<nav class="navbar navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand">Libra</a>
+				<form class="d-flex">
+					@*<input class="form-control me-2" type="search" placeholder="Logout" aria-label="Search">*@
+					<button class="btn btn-outline-danger" type="submit">Logout</button>
+				</form>
+			</div>
+		</nav>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
 		<hr />
-		<footer class="navbar-fixed-bottom text-center">
-			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+		<footer>
+			<p>&copy; @DateTime.Now.Year - Libra</p>
 		</footer>
 	</div>
 	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
+	@*@Scripts.Render("~/bundles/bootstrap")*@
+	@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)
+	{
+		@Scripts.Render("~/bundles/bootstrap")
+	}
+	@Scripts.Render("~/bundles/dataTables.dataTables.js")
 	@RenderSection("scripts", required: false)
 </body>
 </html>

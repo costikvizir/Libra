@@ -1,5 +1,7 @@
 ﻿@{
-	Layout = "~/Views/Shared/_Dashboard.cshtml";
+	//Layout = "~/Views/Shared/_Dashboard.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	//Layout = null;
 }
 
 <h3>Add User</h3>
@@ -8,30 +10,61 @@
 
 @using (Html.BeginForm("AddUser", "User", FormMethod.Post))
 {
-	<div>
-		@Html.LabelFor(model => model.Name)
-		@Html.EditorFor(model => model.Name)
-	</div>
-	<div>
-		@Html.LabelFor(model => model.Email)
-		@Html.EditorFor(model => model.Email)
-	</div>
-	<div>
-		@Html.LabelFor(model => model.Login)
-		@Html.EditorFor(model => model.Login)
-	</div>
-	<div>
-		@Html.LabelFor(model => model.Password)
-		@Html.EditorFor(model => model.Password)
-	</div>
-	<div>
-		@Html.LabelFor(model => model.Telephone)
-		@Html.EditorFor(model => model.Telephone)
-	</div>
-	<div>
-		@Html.LabelFor(model => model.Role)
-		@Html.DropDownListFor(model => model.Role, new SelectList(new List<string> { "Administrator", "Technical User", "User" }), "Select a role")
-	</div>
 
-	<input type="submit" value="Add User" />
+	<form class="row g-3">
+		<div class="col-md-6">
+			<label for="inputUserName" class="form-label">User Name</label>
+			@*<input type="text" class="form-control" id="inputUserName">*@
+			@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
+
+		</div>
+		<div class="col-md-6">
+			<label for="inputPassword" class="form-label">Password</label>
+			@*<input type="password" class="form-control" id="inputPassword">*@
+			@Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
+		</div>
+		<div class="col-md-6">
+			<label for="inputLogin" class="form-label">Login</label>
+			@*<input type="text" class="form-control" id="inputLogin">*@
+			@Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputLogin" })
+		</div>
+		<div class="col-12">
+			<label for="inputEmail" class="form-label">Email</label>
+			@*<input type="email" class="form-control" id="inputEmail" placeholder="user@example.com">*@
+			@Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail" })
+		</div>
+		<div class="col-md-6">
+			<label for="inputTelephone" class="form-label">Telephone</label>
+			@*<input type="text" class="form-control" id="inputTelephone">*@
+			@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone" })
+		</div>
+		<div class="col-md-4">
+			<label for="inputState" class="form-label">Role</label>
+			@Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputState" })
+		</div>
+		@*<div class="col-auto">
+			<label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+			<div class="input-group">
+				<div class="input-group-text">@@</div>
+				<input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Username">
+			</div>
+		</div>*@
+
+		<div class="col-12">
+			@*<button type="submit" class="btn btn-primary">Add User</button>*@
+			<button type="submit" class="btn btn-primary" onclick="hideFormElements()">Add User</button>
+
+		</div>
+		<script>
+			function hideFormElements() {
+				var form = document.getElementById("addUserForm");
+				var elements = form.elements;
+
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].style.display = "none";
+				}
+			}
+		</script>
+	</form>
 }
+

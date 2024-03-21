@@ -19,13 +19,14 @@ using System.Security.Policy;
 using System.Web.UI.WebControls;
 using System.Net;
 using Microsoft.Owin.Security;
+using LibraBll.Abstractions.Repositories;
 
 namespace LibraWebApp.Controllers
 {
 	[Authorize]
     public class AccountController : Controller
     {
-		private readonly IRepository<UserDTO> _userRepository;
+		private readonly IUserRepository _userRepository;
 		//private LibraContext context = new LibraContext();
 
 		private IAuthenticationManager AuthenticationManager
@@ -36,7 +37,7 @@ namespace LibraWebApp.Controllers
 			}
 		}
 
-		public AccountController(IRepository<UserDTO> userRepository)
+		public AccountController(IUserRepository userRepository)
         {
 			_userRepository = userRepository;	
         }
@@ -61,7 +62,7 @@ namespace LibraWebApp.Controllers
 
 				using ((System.IDisposable) _userRepository)
 				{
-					var user = await _userRepository.GetEntityAuth(model.Name, model.Password);
+					var user = await _userRepository.GetUserAuth(model.Name, model.Password);
 					if (user is null)
 					{
 						ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");

@@ -1,4 +1,5 @@
 ﻿using LibraBll.Abstractions;
+using LibraBll.Abstractions.Repositories;
 using LibraBll.DTOs;
 using LibraBll.Repositories;
 using System;
@@ -13,9 +14,9 @@ namespace LibraWebApp.Controllers
     [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
-        private readonly IRepository<UserDTO> _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserController(IRepository<UserDTO> userRepository)
+        public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -30,7 +31,7 @@ namespace LibraWebApp.Controllers
 		[HttpGet]
         public async Task<ActionResult> GetUserByName(string name)
         {
-            var userFromDb = await _userRepository.GetEntityByNameAsync(name);
+            var userFromDb = await _userRepository.GetUserByNameAsync(name);
             return View(userFromDb);    
         }
 
@@ -38,7 +39,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
-            List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
+            List<UserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
             if (!allUsers.Any())
                 return null;
@@ -50,7 +51,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<JsonResult> GetAllUsersJson()
         {
-            List<UserDTO> allUsers = await _userRepository.GetAllEntitiesAsync();
+            List<UserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
 			if (!allUsers.Any())
 				return Json(new { }, JsonRequestBehavior.AllowGet);
@@ -67,14 +68,14 @@ namespace LibraWebApp.Controllers
 		[HttpPost]
         public async Task<ActionResult> AddUser(UserDTO user)
         {
-            await _userRepository.CreateEntity(user);
+            await _userRepository.CreateUser(user);
             return PartialView();
         }
 
         [HttpPost]
         public Task<ActionResult> DeleteUser(string userName)
         {
-            _userRepository.DeleteEntity(userName);
+            _userRepository.DeleteUser(userName);
 			return null;
 		}
     }

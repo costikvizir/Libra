@@ -1,6 +1,7 @@
 ﻿using Libra.Dal.Context;
 using Libra.Dal.Entities;
 using LibraBll.Abstractions;
+using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +14,13 @@ using System.Xml.Linq;
 
 namespace LibraBll.Repositories
 {
-	public class UserRepository : BaseRepository, IRepository<UserDTO>
+	public class UserRepository : BaseRepository, IUserRepository
 	{
 		public UserRepository() : base()
 		{
 		}
 
-		public async Task<UserDTO> GetEntityByIdAsync(int id)
+		public async Task<UserDTO> GetUserByIdAsync(int id)
 		{
 			var entity = await Context.Users.FindAsync(id);
 
@@ -34,7 +35,7 @@ namespace LibraBll.Repositories
 			return user;
 		}
 
-		public async Task<UserDTO> GetEntityByNameAsync(string name)
+		public async Task<UserDTO> GetUserByNameAsync(string name)
 		{
 			var entity = await Context.Users.FindAsync(name);
 			if (entity != null)
@@ -53,7 +54,7 @@ namespace LibraBll.Repositories
 			return null;
 		}
 
-		public async Task<List<UserDTO>> GetAllEntitiesAsync()
+		public async Task<List<UserDTO>> GetAllUsersAsync()
 		{
 			List<UserDTO> userList = null;
 			try
@@ -79,7 +80,7 @@ namespace LibraBll.Repositories
 			return userList;
 		}
 
-		public async Task<UserDTO> CreateEntity(UserDTO userPost)
+		public async Task<UserDTO> CreateUser(UserDTO userPost)
 		{
 			//map role to userTypeId and set default user to "User"
 			var userTypeID = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
@@ -101,7 +102,7 @@ namespace LibraBll.Repositories
 			return userPost;
 		}
 
-		public void UpdateEntity(UserDTO userPost)
+		public void UpdateUser(UserDTO userPost)
 		{
 			User user = new User()
 			{
@@ -117,7 +118,7 @@ namespace LibraBll.Repositories
 			Context.SaveChanges();
 		}
 
-		public void DeleteEntity(string name)
+		public void DeleteUser(string name)
 		{
 			User user = Context.Users.FirstOrDefault(x => x.Name == name);
 
@@ -128,7 +129,7 @@ namespace LibraBll.Repositories
 			Context.SaveChanges();
 		}
 
-		public async Task<UserDTO> GetEntityAuth(string name, string password)
+		public async Task<UserDTO> GetUserAuth(string name, string password)
 		{
 			User entity = null;
 			try

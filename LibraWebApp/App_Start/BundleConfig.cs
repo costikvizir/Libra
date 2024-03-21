@@ -19,17 +19,21 @@ namespace LibraWebApp
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
 
-			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.js"));
+			//bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+			//		  "~/Scripts/bootstrap.js"));
+			//bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+			//			"~/Scripts/bootstrap.js",
+			//			"~/Scripts/bootstrap.min.js"
+			//			));
 
-			bundles.Add(new ScriptBundle("~/bundles/dataTables.bootstrap.js").Include(
-				"~/Lib/datatables/js/dataTables.bootstrap.js"));
+			//bundles.Add(new ScriptBundle("~/bundles/dataTables.bootstrap.js").Include(
+			//	"~/Lib/datatables/js/dataTables.bootstrap.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/dataTables.dataTables.js").Include(
 				"~/Lib/datatables/js/dataTables.dataTables.js"));
 
-			bundles.Add(new StyleBundle("~/bundles/dataTables.bootstrap.css").Include(
-				"~/Lib/datatables/css/dataTables.bootstrap.css"));
+			//bundles.Add(new StyleBundle("~/bundles/dataTables.bootstrap.css").Include(
+			//	"~/Lib/datatables/css/dataTables.bootstrap.css"));
 
 			bundles.Add(new StyleBundle("~/bundles/dataTables.dataTables.css").Include(
 				"~/Lib/datatables/css/dataTables.dataTables.css"));
@@ -37,7 +41,7 @@ namespace LibraWebApp
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
-			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
 					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/respond.js"));
 		}

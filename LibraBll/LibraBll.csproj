@@ -118,7 +118,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstractions\Repositories\IRepository.cs" />
+    <Compile Include="Abstractions\Repositories\IPosRepository.cs" />
+    <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
     <Compile Include="Common\BaseRepository.cs" />
     <Compile Include="DTOs\AddUserDTO.cs" />
     <Compile Include="DTOs\LoginUserDTO.cs" />

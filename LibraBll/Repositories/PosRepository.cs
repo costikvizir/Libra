@@ -1,4 +1,5 @@
 ﻿using LibraBll.Abstractions;
+using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.DTOs;
 using System;
@@ -9,39 +10,29 @@ using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
 {
-	public class PosRepository : IRepository<PosDTO>
+	public class PosRepository : IPosRepository
 	{
-		public Task<PosDTO> CreateEntity(PosDTO userPost)
+		public Task<PosDTO> CreatePos(PosDTO pos)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void DeleteEntity(string name)
+		public void DeletePos(string name)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<List<PosDTO>> GetAllEntitiesAsync()
+		public Task<List<PosDTO>> GetAllPosAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<PosDTO> GetEntityAuth(string name, string password)
+		public Task<PosDTO> GetPosByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<PosDTO> GetEntityByIdAsync(int id)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<PosDTO> GetEntityByNameAsync(string name)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void UpdateEntity(PosDTO userPost)
+		public void UpdatePos(PosDTO pos)
 		{
 			throw new NotImplementedException();
 		}
