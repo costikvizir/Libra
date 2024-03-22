@@ -18,7 +18,6 @@ namespace LibraWebApp.Utility
 			
 			// bind DbContext
 			Bind<LibraContext>().ToSelf().InSingletonScope();
-
 		}
 	}
 }
