@@ -1,5 +1,157 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
-<h3>Add New Pos</h3>
+<h3>New POS</h3>
+
+@model LibraBll.DTOs.UserDTO
+
+@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))
+{
+	<div class="card mb-0">
+		<div class="card-header" style="background-color: lightgray">
+			POS basic data
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-5">
+					<label for="inputPosName" class="form-label">Name</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-credit-card"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name"})
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label for="inputTelephone" class="form-label">Telephone</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-phone"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label for="inputCellphone" class="form-label">Cellphone</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<label for="inputAddress" class="form-label">Full Address</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-map"></i></div>
+						@Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
+					</div>
+				</div>
+				<div class="col-md-3 mt-3">
+					<label for="inputState" class="form-label">City</label>
+					@Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Chisinau", "Technical User", "User" }), new { @class = "form-select", id = "inputState" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<label for="inputBrand" class="form-label">Brand</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="inputModel" class="form-label">Model</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+					</div>
+				</div>
+				<div class="col-md-3 mt-3">
+					<label for="inputState" class="form-label">Connection Type</label>
+					@Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Remote", "Technical User", "User" }), new { @class = "form-select", id = "inputState" })
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card mt-0">
+		<div class="card-header" style="background-color: lightgray">
+			Oppening hours and holidays
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-3">
+					<label for="inputOpenMorning" class="form-label">Open Morning</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-clock"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputOpenMorning", placeholder = "Opening" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label for="inputClosedMorning" class="form-label">Closed Morning</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-clock"></i></div>
+						@Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputClosedMorning", placeholder = "Closing" })
+					</div>
+				</div>
+				<div class="col-md-5">
+					<label for="dayOfWeek" class="form-label">Closing Days</label>
+					<div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="monday" value="Mon">
+							<label class="form-check-label" for="monday">Mon</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="tuesday" value="Tue">
+							<label class="form-check-label" for="tuesday">Tue</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="wednesday" value="Wed">
+							<label class="form-check-label" for="wednesday">wed</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="thursday" value="Thu">
+							<label class="form-check-label" for="thursday">Thu</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="friday" value="Fri">
+							<label class="form-check-label" for="friday">Fri</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="saturday" value="Sat">
+							<label class="form-check-label" for="saturday">Sat</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox" name="dayOfWeek" id="sunday" value="Sun">
+							<label class="form-check-label" for="sunday">Sun</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-clock"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-clock"></i></div>
+						@Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-flex justify-content-start">
+		<button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Save POS</button>
+	</div>
+}
+
+<script>
+	function resetForm() {
+		var form = document.getElementById("AddPosForm");
+		form.reset();
+	}
+</script>

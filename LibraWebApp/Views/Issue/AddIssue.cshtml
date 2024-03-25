@@ -1,5 +1,84 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
-<h3>Add New Issue</h3>
+<h3>New Issue</h3>
+
+@model LibraBll.DTOs.UserDTO
+
+@using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "AddIssueForm" }))
+{
+	<div class="card mb-0">
+		<div class="card-header" style="background-color: lightgray">
+			Add Issue for POS
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-2">
+					<label for="inputPosName" class="form-label">Name</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-info"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Id" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label for="inputTelephone" class="form-label">Telephone</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-phone"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<label for="inputCellphone" class="form-label">Cellphone</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="inputModel" class="form-label">Brand</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<label for="inputAddress" class="form-label">Full Address</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-map"></i></div>
+						@Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="inputModel" class="form-label">Model</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card mt-0">
+		<div class="card-header" style="background-color: lightgray">
+			Search Results
+		</div>
+		<div class="card-body">
+
+		</div>
+	</div>
+
+	<div class="d-flex justify-content-start">
+		<button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Open Issue</button>
+	</div>
+}
+
+<script>
+	function resetForm() {
+		var form = document.getElementById("AddPosForm");
+		form.reset();
+	}
+</script>

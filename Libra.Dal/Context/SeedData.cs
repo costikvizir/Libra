@@ -11,9 +11,6 @@ namespace Libra.Dal.Context
 {
 	public static class SeedData
 	{
-
-
-
 		public static List<City> GetCities()
 		{
 			int id = 1;
@@ -76,9 +73,22 @@ namespace Libra.Dal.Context
 			}
 		};
 
+		public static List<ConnectionType> ConnectionTypesSeed = new List<ConnectionType>
+		{
+			new ConnectionType
+			{
+				Id = 1,
+				ConnectType = "Remote"
+			},
+			new ConnectionType
+			{
+				Id = 2,
+				ConnectType = "Physical"
+			},
+		};
+
 		public static List<User> UsersSeed = new List<User>
 		{
-
 			new User
 			{
 				Id = 1,

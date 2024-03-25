@@ -1,8 +1,5 @@
 ﻿@{
-    //Layout = "~/Views/Shared/_Dashboard.cshtml";
     Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    //Layout = null;
 }
 
 <h3>Add User</h3>
@@ -37,7 +34,7 @@
                 <div class="col-md-4">
                     <label for="inputLogin" class="form-label">Login</label>
                     <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-arrow-right"></i></div>
+                        <div class="input-group-text"><i class="fas fa-sign-in-alt"></i></div>
                         @Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputLogin" })
                     </div>
                 </div>
@@ -70,17 +67,6 @@
         @*<button type="reset" class="btn btn-dark" onclick="hideFormElements()">Reset</button>*@
         <button type="reset" class="btn btn-dark" onclick="resetForm()">Reset</button>
     </div>
-
-    @*<script>
-            function hideFormElements() {
-                var form = document.getElementById("AddUserForm");
-                var elements = form.elements;
-
-                for (var i = 0; i < elements.length; i++) {
-                    elements[i].style.display = "none";
-                }
-            }
-        </script>*@
 
 }
 
