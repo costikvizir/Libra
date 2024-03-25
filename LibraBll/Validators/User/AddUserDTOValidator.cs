@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace LibraBll.Validators.User
 {
-	public class AddUserDTOValidator : AbstractValidator<AddUserDTO>
-	{
+    public class AddUserDTOValidator : AbstractValidator<AddUserDTO>
+    {
         private static string[] roles = { "admin", "user", "technical group" };
+
         public AddUserDTOValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty")
@@ -23,8 +24,16 @@ namespace LibraBll.Validators.User
 
             RuleFor(x => x.Telephone).NotEmpty().WithMessage("Missing Telephone");
 
-			RuleFor(x => x.Role).NotEmpty().WithMessage("Missing Role")
-				.Must(role => roles.Contains(role.Trim().ToLower())).WithMessage("Invalid Role. Role must be either 'admin', 'user', or 'technical group'");
-		}
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage("Missing Password")
+                .MinimumLength(8).WithMessage("Password should contain at least 8 characters")
+                .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
+                .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
+                .Matches("[0-9]").WithMessage("Password must contain at least one number")
+                .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character");
+
+            RuleFor(x => x.Role).NotEmpty().WithMessage("Missing Role")
+                .Must(role => roles.Contains(role.Trim().ToLower())).WithMessage("Invalid Role. Role must be either 'admin', 'user', or 'technical group'");
+        }
     }
 }
