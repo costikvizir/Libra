@@ -1,40 +1,133 @@
-﻿using LibraBll.Abstractions;
+﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
-using LibraBll.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
 {
-	public class PosRepository : BaseRepository, IPosRepository
-	{
-		public Task<PosDTO> CreatePos(PosDTO pos)
-		{
-			throw new NotImplementedException();
-		}
+    public class PosRepository : BaseRepository, IPosRepository
+    {
+        public async Task<List<PosDTO>> GetAllPosAsync()
+        {
+            List<PosDTO> PosList = null;
+            try
+            {
+                PosList = await Context.Pos
+                    .Include(p => p.City)
+                    .Include(p => p.ConnectionType)
+                    .Select(p => new PosDTO
+                    {
+                        Name = p.Name,
+                        Telephone = p.Telephone,
+                        Cellphone = p.Cellphone,
+                        Address = p.Address,
+                        City = p.City.CityName,
+                        Model = p.Model,
+                        Brand = p.Brand,
+                        ConnectionType = p.ConnectionType.ConnectType,
+                        MorningOpening = p.MorningOpening,
+                        MorningClosing = p.MorningClosing,
+                        AfternoonOpening = p.AfternoonOpening,
+                        AfternoonClosing = p.AfternoonClosing,
+                        DaysClosed = p.DaysClosed,
+                        InsertDate = p.InsertDate
+                    }).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return PosList;
+        }
 
-		public void DeletePos(string name)
-		{
-			throw new NotImplementedException();
-		}
+        public async Task<PosDTO> GetPosByIdAsync(int id)
+        {
+            Pos entity = await Context.Pos.FindAsync(id);
+            string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
 
-		public Task<List<PosDTO>> GetAllPosAsync()
-		{
-			throw new NotImplementedException();
-		}
+            return new PosDTO()
+            {
+                Name = entity.Name,
+                Telephone = entity.Telephone,
+                Cellphone = entity.Cellphone,
+                Address = entity.Address,
+                City = city,
+                Model = entity.Model,
+                Brand = entity.Brand,
+                ConnectionType = entity.ConnectionType.ConnectType,
+                MorningOpening = entity.MorningOpening,
+                MorningClosing = entity.MorningClosing,
+                AfternoonOpening = entity.AfternoonOpening,
+                AfternoonClosing = entity.AfternoonClosing,
+                DaysClosed = entity.DaysClosed,
+                InsertDate = entity.InsertDate
+            };
+        }
 
-		public Task<PosDTO> GetPosByIdAsync(int id)
-		{
-			throw new NotImplementedException();
-		}
+        public async Task<PosDTO> AddPosAsync(PosDTO pos)
+        {
+            int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
+            int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
+            Pos entity = new Pos
+            {
+                Name = pos.Name,
+                Telephone = pos.Telephone,
+                Cellphone = pos.Cellphone,
+                Address = pos.Address,
+                CityId = cityId,
+                Model = pos.Model,
+                Brand = pos.Brand,
+                ConnectionTypeId = connectionTypeId,
+                MorningOpening = pos.MorningOpening,
+                MorningClosing = pos.MorningClosing,
+                AfternoonOpening = pos.AfternoonOpening,
+                AfternoonClosing = pos.AfternoonClosing,
+                DaysClosed = pos.DaysClosed,
+                InsertDate = pos.InsertDate
+            };
 
-		public void UpdatePos(PosDTO pos)
-		{
-			throw new NotImplementedException();
-		}
-	}
+            await Context.Pos.AddAsync(entity);
+            await Context.SaveChangesAsync();
+
+            return pos;
+        }
+
+        public async void UpdatePos(PosDTO pos)
+        {
+            int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
+            int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
+            Pos entity = new Pos
+            {
+                Name = pos.Name,
+                Telephone = pos.Telephone,
+                Cellphone = pos.Cellphone,
+                Address = pos.Address,
+                CityId = cityId,
+                Model = pos.Model,
+                Brand = pos.Brand,
+                ConnectionTypeId = connectionTypeId,
+                MorningOpening = pos.MorningOpening,
+                MorningClosing = pos.MorningClosing,
+                AfternoonOpening = pos.AfternoonOpening,
+                AfternoonClosing = pos.AfternoonClosing,
+                DaysClosed = pos.DaysClosed,
+                InsertDate = pos.InsertDate
+            };
+
+            await Context.Pos.AddAsync(entity);
+            await Context.SaveChangesAsync();
+        }
+
+        public async void DeletePos(string name)
+        {
+            Pos entity = await Context.Pos.Where(p => p.Name == name).FirstOrDefaultAsync();
+
+            Context.Pos.Remove(entity);
+            await Context.SaveChangesAsync();
+        }
+    }
 }

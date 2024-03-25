@@ -1,32 +1,75 @@
-﻿using System;
+﻿using LibraBll.Abstractions.Repositories;
+using LibraBll.Common;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace LibraWebApp.Controllers
 {
     public class PosController : Controller
     {
+        private readonly IPosRepository _posRepository;
+
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetPosById(int id)
+        {
+            var pos = await _posRepository.GetPosByIdAsync(id);
+            return View(pos);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AllPos()
+        {
+            List<PosDTO> allPos = await _posRepository.GetAllPosAsync();
+
+            if (!allPos.Any())
+                return null;
+
+            return View(allPos);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> AllPosJson()
+        {
+            List<PosDTO> allPos = await _posRepository.GetAllPosAsync();
+
+            if (!allPos.Any())
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+
+            return Json(allPos, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult AddPos()
         {
             return View();
         }
 
-        public ActionResult GetPosById()
+        [HttpPost]
+        public async Task<ActionResult> AddPos(PosDTO pos)
         {
-            return View();
+            await _posRepository.AddPosAsync(pos);
+            return PartialView();
         }
 
-        public ActionResult AllPos()
+        [HttpPost]
+        public async Task<ActionResult> UpdatePos(PosDTO pos)
         {
-            return View();
+            _posRepository.UpdatePos(pos);
+            return PartialView();
+        }
+
+        [HttpPost]
+        public Task<ActionResult> DeletePos(string name)
+        {
+            _posRepository.DeletePos(name);
+            return null;
         }
 
         public ActionResult GetPosByLocation()
@@ -40,11 +83,6 @@ namespace LibraWebApp.Controllers
         }
 
         public ActionResult GetPosByType()
-        {
-            return View();
-        }
-
-        public ActionResult AddPoss()
         {
             return View();
         }
