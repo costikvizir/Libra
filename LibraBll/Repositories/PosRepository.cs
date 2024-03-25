@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
 {
-	public class PosRepository : IPosRepository
+	public class PosRepository : BaseRepository, IPosRepository
 	{
 		public Task<PosDTO> CreatePos(PosDTO pos)
 		{
