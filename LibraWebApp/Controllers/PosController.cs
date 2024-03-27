@@ -11,6 +11,10 @@ namespace LibraWebApp.Controllers
     {
         private readonly IPosRepository _posRepository;
 
+        public PosController(IPosRepository posRepository)
+        {
+            _posRepository = posRepository;    
+        }
         public ActionResult Index()
         {
             return View();
@@ -54,6 +58,7 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPos(PosDTO pos)
         {
+           // var holidayDays = pos.DaysClosed.Split(',').ToList();
             await _posRepository.AddPosAsync(pos);
             return PartialView();
         }

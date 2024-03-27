@@ -1,4 +1,5 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,6 +21,8 @@ namespace Libra.Dal.Configurations
 			   .WithOne(e => e.ConnectionType)
 			   .HasForeignKey(e => e.ConnectionTypeId)
 			   .IsRequired();
+
+			builder.HasData(SeedData.ConnectionTypesSeed);
 		}
 	}
 }

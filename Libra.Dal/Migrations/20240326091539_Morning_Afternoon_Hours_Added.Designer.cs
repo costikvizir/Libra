@@ -4,14 +4,16 @@ using Libra.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Libra.Dal.Migrations
 {
     [DbContext(typeof(LibraContext))]
-    partial class LibraContextModelSnapshot : ModelSnapshot
+    [Migration("20240326091539_Morning_Afternoon_Hours_Added")]
+    partial class Morning_Afternoon_Hours_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

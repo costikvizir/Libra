@@ -1,4 +1,5 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -33,6 +34,7 @@ namespace Libra.Dal.Configurations
 				.HasForeignKey(e => e.ProblemId)
 				.OnDelete(DeleteBehavior.Restrict)
 				.IsRequired();
+
 		}
 	}
 }

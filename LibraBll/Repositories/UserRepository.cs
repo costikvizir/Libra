@@ -80,7 +80,7 @@ namespace LibraBll.Repositories
             return userList;
         }
 
-        public async Task<UserDTO> CreateUser(UserDTO userPost)
+        public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
         {
             //map role to userTypeId and set default user to "User"
             var userTypeID = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;

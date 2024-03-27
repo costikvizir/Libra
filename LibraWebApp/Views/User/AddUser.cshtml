@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
-<h3>Add User</h3>
+<h3 class="accent-gray-dark mt-5">Add User</h3>
 
 @model LibraBll.DTOs.UserDTO
 
@@ -20,14 +20,21 @@
                      <div class="input-group">
                          <div class="input-group-text"><i class="fas fa-user"></i></div>
                          @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
+					  <div class="invalid-tooltip">
+						 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+					 </div>
                      </div>
                  </div>
                  <div class="col-md-4">
                      <label for="inputPassword" class="form-label">Password</label>
-                     <div class="input-group">
-                         <div class="input-group-text"><i class="fas fa-key"></i></div>
-                         @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
-                     </div>
+					 <div class="input-group">
+						 <div class="input-group-text"><i class="fas fa-key"></i></div>
+						 @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
+						 
+					     <div class="invalid-feedback">
+						     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+					     </div>
+					 </div>
                  </div>
              </div>
             <div class="row">
@@ -42,7 +49,8 @@
                     <label for="inputEmail" class="form-label">Email</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-envelope"></i></div>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", type = "email", placeholder="email@example.com" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", placeholder="email@example.com" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -62,8 +70,8 @@
     <div class="d-flex justify-content-start">
 
         @*<button type="submit" class="btn btn-primary">Add User</button>*@
-        <button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Add User</button>
-        @*<button type="submit" class="btn btn-primary">Add User</button>*@
+        @*<button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Add User</button>*@
+        <button type="submit" class="btn btn-primary mr-2">Add User</button>
         @*<button type="reset" class="btn btn-dark" onclick="hideFormElements()">Reset</button>*@
         <button type="reset" class="btn btn-dark" onclick="resetForm()">Reset</button>
     </div>

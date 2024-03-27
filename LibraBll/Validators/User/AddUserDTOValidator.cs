@@ -14,17 +14,24 @@ namespace LibraBll.Validators.User
 
         public AddUserDTOValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty")
-                .MinimumLength(5).WithMessage("Name should contain at least 5 characters");
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage("Name cannot be empty")
+                .MinimumLength(5).WithMessage("Name should contain at least 5 characters")
+                .Matches("^[a-zA-Z]*$").WithMessage("Username shoul contain only letters");
 
-            RuleFor(x => x.Email).NotEmpty().WithMessage("Please provide a valid email")
+			RuleFor(x => x.Email)
+                .NotEmpty().WithMessage("Please provide a valid email")
                 .EmailAddress().WithMessage("Not an email address");
 
-            RuleFor(x => x.Login).NotEmpty().WithMessage("Missing Login");
+            RuleFor(x => x.Login)
+                .NotEmpty().WithMessage("Missing Login");
 
-            RuleFor(x => x.Telephone).NotEmpty().WithMessage("Missing Telephone");
+            RuleFor(x => x.Telephone)
+                .NotEmpty().WithMessage("Missing Telephone")
+				.MinimumLength(9).WithMessage("Not a phone number")
+				.Matches(@"^\+?[0-9]*$").WithMessage("Phone number should contain only numbers");
 
-            RuleFor(x => x.Password)
+			RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Missing Password")
                 .MinimumLength(8).WithMessage("Password should contain at least 8 characters")
                 .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")

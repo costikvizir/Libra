@@ -247,6 +247,14 @@
     <Compile Include="Migrations\20240305111152_AddedSeedAndChangedUserTableFields.designer.cs">
       <DependentUpon>20240305111152_AddedSeedAndChangedUserTableFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20240326091321_removed_fields.cs" />
+    <Compile Include="Migrations\20240326091321_removed_fields.Designer.cs">
+      <DependentUpon>20240326091321_removed_fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20240326091539_Morning_Afternoon_Hours_Added.cs" />
+    <Compile Include="Migrations\20240326091539_Morning_Afternoon_Hours_Added.Designer.cs">
+      <DependentUpon>20240326091539_Morning_Afternoon_Hours_Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\LibraContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

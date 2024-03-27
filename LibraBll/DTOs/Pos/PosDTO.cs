@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LibraBll.Common
 {
@@ -12,11 +13,11 @@ namespace LibraBll.Common
         public string Model { get; set; }
         public string Brand { get; set; }
         public string ConnectionType { get; set; }
-        public TimeSpan? MorningOpening { get; set; }
-        public TimeSpan? MorningClosing { get; set; }
-        public TimeSpan? AfternoonOpening { get; set; }
-        public TimeSpan? AfternoonClosing { get; set; }
-        public string DaysClosed { get; set; }
-        public DateTime InsertDate { get; set; }
+        public string MorningOpening { get; set; }
+        public string MorningClosing { get; set; }
+        public string AfternoonOpening { get; set; }
+        public string AfternoonClosing { get; set; }
+		public List<string> DaysClosed { get; set; }
+		public DateTime InsertDate { get; set; }
     }
 }

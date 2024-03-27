@@ -4,14 +4,16 @@ using Libra.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Libra.Dal.Migrations
 {
     [DbContext(typeof(LibraContext))]
-    partial class LibraContextModelSnapshot : ModelSnapshot
+    [Migration("20240326091321_removed_fields")]
+    partial class removed_fields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,12 +255,6 @@ namespace Libra.Dal.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AfternoonClosing")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AfternoonOpening")
-                        .HasColumnType("int");
-
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
@@ -279,12 +275,6 @@ namespace Libra.Dal.Migrations
 
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MorningClosing")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MorningOpening")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

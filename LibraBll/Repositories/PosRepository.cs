@@ -29,11 +29,11 @@ namespace LibraBll.Repositories
                         Model = p.Model,
                         Brand = p.Brand,
                         ConnectionType = p.ConnectionType.ConnectType,
-                        MorningOpening = p.MorningOpening,
-                        MorningClosing = p.MorningClosing,
-                        AfternoonOpening = p.AfternoonOpening,
-                        AfternoonClosing = p.AfternoonClosing,
-                        DaysClosed = p.DaysClosed,
+                        MorningOpening = p.MorningOpening.ToString(),
+                        MorningClosing = p.MorningClosing.ToString(),
+                        AfternoonOpening = p.AfternoonOpening.ToString(),
+                        AfternoonClosing = p.AfternoonClosing.ToString(),
+                        DaysClosed = p.DaysClosed.Split(',').ToList(),
                         InsertDate = p.InsertDate
                     }).ToListAsync();
             }
@@ -59,17 +59,18 @@ namespace LibraBll.Repositories
                 Model = entity.Model,
                 Brand = entity.Brand,
                 ConnectionType = entity.ConnectionType.ConnectType,
-                MorningOpening = entity.MorningOpening,
-                MorningClosing = entity.MorningClosing,
-                AfternoonOpening = entity.AfternoonOpening,
-                AfternoonClosing = entity.AfternoonClosing,
-                DaysClosed = entity.DaysClosed,
+                MorningOpening = entity.MorningOpening.ToString(),
+                MorningClosing = entity.MorningClosing.ToString(),
+                AfternoonOpening = entity.AfternoonOpening.ToString(),
+                AfternoonClosing = entity.AfternoonClosing.ToString(),
+                DaysClosed = entity.DaysClosed.Split(',').ToList(), 
                 InsertDate = entity.InsertDate
             };
         }
 
         public async Task<PosDTO> AddPosAsync(PosDTO pos)
         {
+            string daysClosed = string.Join(",", pos.DaysClosed);
             int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
             int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
             Pos entity = new Pos
@@ -82,12 +83,12 @@ namespace LibraBll.Repositories
                 Model = pos.Model,
                 Brand = pos.Brand,
                 ConnectionTypeId = connectionTypeId,
-                MorningOpening = pos.MorningOpening,
-                MorningClosing = pos.MorningClosing,
-                AfternoonOpening = pos.AfternoonOpening,
-                AfternoonClosing = pos.AfternoonClosing,
-                DaysClosed = pos.DaysClosed,
-                InsertDate = pos.InsertDate
+                MorningOpening = Convert.ToInt32(pos.MorningOpening),
+                MorningClosing = Convert.ToInt32(pos.MorningClosing),
+                AfternoonOpening = Convert.ToInt32(pos.AfternoonOpening),
+                AfternoonClosing = Convert.ToInt32(pos.AfternoonClosing),
+                DaysClosed = daysClosed,
+                InsertDate = DateTime.Now
             };
 
             await Context.Pos.AddAsync(entity);
@@ -98,6 +99,7 @@ namespace LibraBll.Repositories
 
         public async void UpdatePos(PosDTO pos)
         {
+            string daysClosed = string.Join(",", pos.DaysClosed);
             int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
             int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
             Pos entity = new Pos
@@ -110,11 +112,11 @@ namespace LibraBll.Repositories
                 Model = pos.Model,
                 Brand = pos.Brand,
                 ConnectionTypeId = connectionTypeId,
-                MorningOpening = pos.MorningOpening,
-                MorningClosing = pos.MorningClosing,
-                AfternoonOpening = pos.AfternoonOpening,
-                AfternoonClosing = pos.AfternoonClosing,
-                DaysClosed = pos.DaysClosed,
+                MorningOpening = Convert.ToInt32(pos.MorningOpening),
+                MorningClosing = Convert.ToInt32(pos.MorningClosing),
+                AfternoonOpening = Convert.ToInt32(pos.AfternoonOpening),
+                AfternoonClosing = Convert.ToInt32(pos.AfternoonClosing),
+                DaysClosed = daysClosed,
                 InsertDate = pos.InsertDate
             };
 
