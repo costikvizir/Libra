@@ -10,18 +10,13 @@ using System.Threading.Tasks;
 
 namespace Libra.Dal.Configurations
 {
-	public sealed class StatusConfiguration : IEntityTypeConfiguration<Status>
+	public sealed class WeekDayConfiguration : IEntityTypeConfiguration<WeekDay>
 	{
-		public void Configure(EntityTypeBuilder<Status> builder)
+		public void Configure(EntityTypeBuilder<WeekDay> builder)
 		{
 			builder.HasKey(e => e.Id);
 
-			   builder.HasMany(e => e.Issues)
-			   .WithOne(e => e.Status)
-			   .HasForeignKey(e => e.StatusId)
-			   .IsRequired();
-
-			builder.HasData(SeedData.statusesSeed);
+			builder.HasData(SeedData.GetWeekDays());
 		}
 	}
 }

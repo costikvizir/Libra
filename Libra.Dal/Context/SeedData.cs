@@ -11,6 +11,7 @@ namespace Libra.Dal.Context
 {
 	public static class SeedData
 	{
+		//Method to insert a set of cities into the database
 		public static List<City> GetCities()
 		{
 			int id = 1;
@@ -30,8 +31,28 @@ namespace Libra.Dal.Context
 			return citiesList;
 		}
 
+		//Method to insert weekdays into the database
+		public static List<WeekDay> GetWeekDays()
+		{
+			int id = 1;
+			var days = new List<string> { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", };
 
-	 //public static List<UserType> GetRoles()
+			var dayList = new List<WeekDay>();
+
+			foreach (var city in days)
+			{
+				dayList.Add(new WeekDay
+				{
+					Id = id++,
+					Day = city
+				});
+			}
+
+			return dayList;
+		}
+
+
+		//public static List<UserType> GetRoles()
 		//{
 		//	var id = 1;
 		//	var roles = new List<string> { "Administrator", "Technical Group", "User" };
@@ -98,6 +119,29 @@ namespace Libra.Dal.Context
 				Password = "admin",
 				UserTypeId = 1,
 				IsDeleted = false
+			}
+		};
+		public static List<Status> statusesSeed = new List<Status>
+		{
+			new Status
+			{
+				Id = 1,
+				IssueStatus = "New"
+			},
+			new Status
+			{
+				Id = 2,
+				IssueStatus = "Assigned"
+			},
+			new Status
+			{
+				Id = 3,
+				IssueStatus = "In progress"
+			},
+			new Status
+			{
+				Id = 4,
+				IssueStatus = "Pending"
 			}
 		};
 	}

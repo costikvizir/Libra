@@ -224,6 +224,8 @@
     <Compile Include="Configurations\StatusConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Configurations\UserTypeConfiguration.cs" />
+    <Compile Include="Configurations\PosWeekDayConfiguration.cs" />
+    <Compile Include="Configurations\WeekDayConfiguration.cs" />
     <Compile Include="Context\LibraContext.cs" />
     <Compile Include="Context\SeedData.cs" />
     <Compile Include="Entities\City.cs" />
@@ -232,9 +234,11 @@
     <Compile Include="Entities\IssueType.cs" />
     <Compile Include="Entities\Log.cs" />
     <Compile Include="Entities\Pos.cs" />
+    <Compile Include="Entities\PosWeekDay.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
+    <Compile Include="Entities\WeekDay.cs" />
     <Compile Include="Migrations\20231212083434_First_Migration.cs" />
     <Compile Include="Migrations\20231212083434_First_Migration.designer.cs">
       <DependentUpon>20231212083434_First_Migration.cs</DependentUpon>
@@ -254,6 +258,10 @@
     <Compile Include="Migrations\20240326091539_Morning_Afternoon_Hours_Added.cs" />
     <Compile Include="Migrations\20240326091539_Morning_Afternoon_Hours_Added.Designer.cs">
       <DependentUpon>20240326091539_Morning_Afternoon_Hours_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20240327134355_WeekDays_Table_Added_Statuses_DataSeed.cs" />
+    <Compile Include="Migrations\20240327134355_WeekDays_Table_Added_Statuses_DataSeed.Designer.cs">
+      <DependentUpon>20240327134355_WeekDays_Table_Added_Statuses_DataSeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\LibraContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

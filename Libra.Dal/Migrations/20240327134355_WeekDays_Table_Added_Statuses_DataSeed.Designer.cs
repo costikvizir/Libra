@@ -4,14 +4,16 @@ using Libra.Dal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Libra.Dal.Migrations
 {
     [DbContext(typeof(LibraContext))]
-    partial class LibraContextModelSnapshot : ModelSnapshot
+    [Migration("20240327134355_WeekDays_Table_Added_Statuses_DataSeed")]
+    partial class WeekDays_Table_Added_Statuses_DataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

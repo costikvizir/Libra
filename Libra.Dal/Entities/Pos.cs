@@ -26,5 +26,6 @@ namespace Libra.Dal.Entities
         public City City { get; set; }
         public ConnectionType ConnectionType { get; set; }
         public ICollection<Issue> Issues { get; set; }
+        public ICollection<PosWeekDay> PosWeekDays { get; set; }
     }
 }

@@ -37,6 +37,8 @@ namespace Libra.Dal.Context
 		public DbSet<Status> Statuses { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<UserType> UserTypes { get; set; }
+		public DbSet<PosWeekDay> PosWeekDays { get; set; }
+		public DbSet<WeekDay> WeekDays { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
