@@ -1,5 +1,6 @@
 ﻿using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using Microsoft.SqlServer.Server;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,8 +59,26 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPos(PosDTO pos)
         {
-           // var holidayDays = pos.DaysClosed.Split(',').ToList();
-            await _posRepository.AddPosAsync(pos);
+			// var holidayDays = pos.DaysClosed.Split(',').ToList();
+			pos.DaysClosed = new List<string>();
+
+            List<string> allDays = Request.Form["dayOfWeek"].ToString().Split(',').ToList();
+
+			pos.DaysClosed = allDays.Where(d => d != "false").ToList();
+
+			//if (Request.Form["dayOfWeek"].Count() > 0)
+			//{
+			//	foreach (var day in Request.Form["dayOfWeek"])
+			//	{
+			//		pos.DaysClosed.Add(day.ToString());
+			//		//pos.DaysClosed.Add(day.);
+			//	}
+
+			//}
+
+			//pos.DaysClosed = Request.Form["DaysClosed"].ToString().Split(',').ToList();
+
+			await _posRepository.AddPosAsync(pos);
             return PartialView();
         }
 

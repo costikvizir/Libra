@@ -33,7 +33,6 @@ namespace LibraBll.Repositories
                         MorningClosing = p.MorningClosing.ToString(),
                         AfternoonOpening = p.AfternoonOpening.ToString(),
                         AfternoonClosing = p.AfternoonClosing.ToString(),
-                        DaysClosed = p.DaysClosed.Split(',').ToList(),
                         InsertDate = p.InsertDate
                     }).ToListAsync();
             }
@@ -62,8 +61,7 @@ namespace LibraBll.Repositories
                 MorningOpening = entity.MorningOpening.ToString(),
                 MorningClosing = entity.MorningClosing.ToString(),
                 AfternoonOpening = entity.AfternoonOpening.ToString(),
-                AfternoonClosing = entity.AfternoonClosing.ToString(),
-                DaysClosed = entity.DaysClosed.Split(',').ToList(), 
+                AfternoonClosing = entity.AfternoonClosing.ToString(), 
                 InsertDate = entity.InsertDate
             };
         }
@@ -87,11 +85,18 @@ namespace LibraBll.Repositories
                 MorningClosing = Convert.ToInt32(pos.MorningClosing),
                 AfternoonOpening = Convert.ToInt32(pos.AfternoonOpening),
                 AfternoonClosing = Convert.ToInt32(pos.AfternoonClosing),
-                DaysClosed = daysClosed,
                 InsertDate = DateTime.Now
             };
 
-            await Context.Pos.AddAsync(entity);
+            List<PosWeekDay> posWeekDays = pos.DaysClosed
+                .Select(d => new PosWeekDay
+                {
+		           	PosId = entity.Id,
+		           	WeekDayId = Context.WeekDays.Where(w => w.Day == d).Select(w => w.Id).FirstOrDefault()			
+		        }).ToList();
+			await Context.Pos.AddAsync(entity);
+			await Context.PosWeekDay.AddRangeAsync(posWeekDays);
+
             await Context.SaveChangesAsync();
 
             return pos;
@@ -116,7 +121,6 @@ namespace LibraBll.Repositories
                 MorningClosing = Convert.ToInt32(pos.MorningClosing),
                 AfternoonOpening = Convert.ToInt32(pos.AfternoonOpening),
                 AfternoonClosing = Convert.ToInt32(pos.AfternoonClosing),
-                DaysClosed = daysClosed,
                 InsertDate = pos.InsertDate
             };
 
