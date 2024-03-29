@@ -88,15 +88,20 @@ namespace LibraBll.Repositories
                 InsertDate = DateTime.Now
             };
 
-            List<PosWeekDay> posWeekDays = pos.DaysClosed
+			await Context.Pos.AddAsync(entity);
+			await Context.SaveChangesAsync();
+
+			List<PosWeekDay> posWeekDays = pos.DaysClosed
                 .Select(d => new PosWeekDay
                 {
 		           	PosId = entity.Id,
-		           	WeekDayId = Context.WeekDays.Where(w => w.Day == d).Select(w => w.Id).FirstOrDefault()			
+		           	WeekDayId = Context.WeekDays
+                        .Where(w => w.Day == d)
+                        .Select(w => w.Id)
+                        .FirstOrDefault()			
 		        }).ToList();
-			await Context.Pos.AddAsync(entity);
-			await Context.PosWeekDay.AddRangeAsync(posWeekDays);
 
+			await Context.PosWeekDay.AddRangeAsync(posWeekDays);
             await Context.SaveChangesAsync();
 
             return pos;
@@ -105,8 +110,14 @@ namespace LibraBll.Repositories
         public async void UpdatePos(PosDTO pos)
         {
             string daysClosed = string.Join(",", pos.DaysClosed);
-            int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
-            int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
+            int cityId = Context.Cities
+                .Where(c => c.CityName == pos.City)
+                .Select(c => c.Id)
+                .FirstOrDefault();
+            int connectionTypeId = Context.ConnectionType
+                .Where(c => c.ConnectType == pos.ConnectionType)
+                .Select(c => c.Id)
+                .FirstOrDefault();
             Pos entity = new Pos
             {
                 Name = pos.Name,

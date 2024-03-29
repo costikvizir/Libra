@@ -263,6 +263,10 @@
     <Compile Include="Migrations\20240327134355_WeekDays_Table_Added_Statuses_DataSeed.Designer.cs">
       <DependentUpon>20240327134355_WeekDays_Table_Added_Statuses_DataSeed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20240329072745_WeekDays_data_seed.cs" />
+    <Compile Include="Migrations\20240329072745_WeekDays_data_seed.Designer.cs">
+      <DependentUpon>20240329072745_WeekDays_data_seed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\LibraContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

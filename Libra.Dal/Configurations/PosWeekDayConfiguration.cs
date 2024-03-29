@@ -13,7 +13,7 @@ namespace Libra.Dal.Configurations
 	{
 		public void Configure(EntityTypeBuilder<PosWeekDay> builder)
 		{
-			builder.HasKey(e => e.Id);
+			//builder.HasKey(e => e.Id);
 
 			builder.HasOne(e => e.Pos)
 				.WithMany(e => e.PosWeekDays)
@@ -24,6 +24,9 @@ namespace Libra.Dal.Configurations
 				.WithMany(e => e.PosWeekDays)
 				.HasForeignKey(e => e.WeekDayId)
 				.IsRequired();
+
+			builder.Property(p => p.PosId).ValueGeneratedNever();
+			builder.Property(p => p.WeekDayId).ValueGeneratedNever();
 
 			builder.HasKey(e => new { e.PosId, e.WeekDayId });
 		}

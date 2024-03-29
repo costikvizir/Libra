@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Libra.Dal.Entities
 {
-	public class PosWeekDay : BaseEntity
+	public class PosWeekDay //: BaseEntity
 	{
 		public int PosId { get; set; }
 		public int WeekDayId { get; set; }
