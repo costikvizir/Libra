@@ -57,7 +57,8 @@ namespace LibraWebApp.Controllers
 			{
 				if (!ModelState.IsValid)
 				{
-					return View(model);
+                   // ViewBag.ShowErrorMessage = true;
+                    return View(model);
 				}				
 
 				using ((System.IDisposable) _userRepository)
@@ -65,8 +66,9 @@ namespace LibraWebApp.Controllers
 					var user = await _userRepository.GetUserAuth(model.Name, model.Password);
 					if (user is null)
 					{
-						ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
-						return View(model);
+						//ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
+                        ViewBag.ShowErrorMessage = true;
+                        return View(model);
 					}
 					else
 					{

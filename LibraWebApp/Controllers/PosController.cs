@@ -14,13 +14,14 @@ namespace LibraWebApp.Controllers
     public class PosController : Controller
     {
         private readonly IPosRepository _posRepository;
-		private readonly IValidator<PosDTO> _createPosValidator;
+        private readonly IValidator<PosDTO> _createPosValidator;
 
-		public PosController(IPosRepository posRepository, IValidator<PosDTO> createPosValidator)
+        public PosController(IPosRepository posRepository, IValidator<PosDTO> createPosValidator)
         {
             _posRepository = posRepository;
-			_createPosValidator = createPosValidator;
+            _createPosValidator = createPosValidator;
         }
+
         public ActionResult Index()
         {
             return View();
@@ -79,21 +80,21 @@ namespace LibraWebApp.Controllers
 
             List<string> allDays = Request.Form["dayOfWeek"].ToString().Split(',').ToList();
 
-			pos.DaysClosed = allDays.Where(d => d != "false").ToList();
+            pos.DaysClosed = allDays.Where(d => d != "false").ToList();
 
-			//if (Request.Form["dayOfWeek"].Count() > 0)
-			//{
-			//	foreach (var day in Request.Form["dayOfWeek"])
-			//	{
-			//		pos.DaysClosed.Add(day.ToString());
-			//		//pos.DaysClosed.Add(day.);
-			//	}
+            //if (Request.Form["dayOfWeek"].Count() > 0)
+            //{
+            //	foreach (var day in Request.Form["dayOfWeek"])
+            //	{
+            //		pos.DaysClosed.Add(day.ToString());
+            //		//pos.DaysClosed.Add(day.);
+            //	}
 
-			//}
+            //}
 
-			//pos.DaysClosed = Request.Form["DaysClosed"].ToString().Split(',').ToList();
+            //pos.DaysClosed = Request.Form["DaysClosed"].ToString().Split(',').ToList();
 
-			await _posRepository.AddPosAsync(pos);
+            await _posRepository.AddPosAsync(pos);
             return PartialView();
         }
 
