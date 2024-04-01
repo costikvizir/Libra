@@ -23,9 +23,17 @@
 	<!-- overlayScrollbars -->
 	<link rel="stylesheet" href="~/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 	<!-- Daterange picker -->
-	<link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" href="
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/popper")
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/dataTables")
+	@Scripts.Render("~/bundles/jqueryval")~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
 	<!-- summernote -->
 	<link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -72,8 +80,8 @@
 							<div class="dropdown-divider"></div>
 						</div>
 					</li>*@
-				<li class="align-content-lg-center">	
-					User Name					
+				<li class="align-content-lg-center">
+					User Name
 				</li>
 				<li>
 					<a href="@Url.Action("Logout", "Account")" class="btn btn-transparent">
@@ -192,7 +200,7 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddUser", "User")" class="nav-link">
+									<a href="@Url.Action("GetAddUser", "User")" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add User</p>
 									</a>
@@ -283,6 +291,12 @@
 	<script src="~/AdminLTE/dist/js/demo.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="~/AdminLTE/dist/js/pages/dashboard.js"></script>
+	<!--@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/jquery")-->
+	@*@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)
+		{
+			@Scripts.Render("~/bundles/bootstrap")
+		}*@
 
 	@RenderSection("scripts", required: false)
 </body>

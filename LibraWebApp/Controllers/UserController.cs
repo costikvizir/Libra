@@ -27,10 +27,10 @@ namespace LibraWebApp.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult Index(UserDTO model)
+		public ActionResult Index()
 		{
 			var user = User.Identity.Name;
-			return View(model.Name);
+			return View();
 		}
 
 		[HttpGet]
@@ -65,9 +65,9 @@ namespace LibraWebApp.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult AddUser()
+		public ActionResult GetAddUser()
 		{
-			return View();
+			return View("AddUser");
 		}
 
 		[HttpPost]

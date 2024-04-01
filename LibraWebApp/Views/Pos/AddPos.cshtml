@@ -20,6 +20,7 @@
 						<div class="input-group-text"><i class="fas fa-credit-card"></i></div>
 						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name" })
 					</div>
+					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-3">
 					<label for="inputTelephone" class="form-label">Telephone</label>
@@ -27,6 +28,7 @@
 						<div class="input-group-text"><i class="fas fa-phone"></i></div>
 						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
 					</div>
+					@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-3">
 					<label for="inputCellphone" class="form-label">Cellphone</label>
@@ -34,6 +36,7 @@
 						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
 						@Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
 					</div>
+					@Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
 				</div>
 			</div>
 			<div class="row">
@@ -43,11 +46,13 @@
 						<div class="input-group-text"><i class="fas fa-map"></i></div>
 						@Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
 					</div>
+					@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-3 mt-5">
 					<label for="inputState" class="form-label">City</label>
 					@Html.DropDownListFor(model => model.City, new SelectList(new[] { "Chișinău", "Bălți", "Cahul" }), new { @class = "form-select", id = "inputState" })
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-md-4">
@@ -56,6 +61,7 @@
 						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
 						@Html.TextBoxFor(model => model.Brand, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
 					</div>
+					@Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-4">
 					<label for="inputModel" class="form-label">Model</label>
@@ -63,6 +69,7 @@
 						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
 						@Html.TextBoxFor(model => model.Model, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
 					</div>
+					@Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-3 mt-5">
 					<label for="inputState" class="form-label">Connection Type</label>
@@ -83,6 +90,7 @@
 						<div class="input-group-text"><i class="fas fa-clock"></i></div>
 						@Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control", id = "inputOpenMorning", placeholder = "Opening" })
 					</div>
+					@Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-3">
 					<label for="inputClosedMorning" class="form-label">Closed Morning</label>
@@ -90,6 +98,7 @@
 						<div class="input-group-text"><i class="fas fa-clock"></i></div>
 						@Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control", id = "inputClosedMorning", placeholder = "Closing", data_val = "", data_val_required = "The Morning Opening field is required." })
 					</div>
+					@Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-5">
 					<label for="dayOfWeekLabel" class="form-label">Closing Days</label>
@@ -140,6 +149,7 @@
 						<div class="input-group-text"><i class="fas fa-clock"></i></div>
 						@Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
 					</div>
+					@Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-3">
 					<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
@@ -147,6 +157,7 @@
 						<div class="input-group-text"><i class="fas fa-clock"></i></div>
 						@Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
 					</div>
+					@Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger" })
 				</div>
 			</div>
 		</div>

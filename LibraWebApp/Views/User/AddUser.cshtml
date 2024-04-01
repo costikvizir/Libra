@@ -2,6 +2,10 @@
     Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
+<head>
+	<link rel="stylesheet" type="text/css" href="~/Content/border.css">
+</head>
+
 <h3 class="accent-gray-dark mt-5">Add User</h3>
 
 @model LibraBll.DTOs.UserDTO
@@ -15,27 +19,22 @@
         <div class="card-body">
 
              <div class="row">
-                 <div class="col-md-5">
-                     <label for="inputUserName" class="form-label">User Name</label>
-                     <div class="input-group">
-                         <div class="input-group-text"><i class="fas fa-user"></i></div>
-                         @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
-					  <div class="invalid-tooltip">
-						 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+				 <div class="col-md-5">
+					 <label for="inputUserName" class="form-label">User Name</label>
+					 <div class="input-group">
+						 @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
+						 <div class="input-group-text"><i class="fas fa-user"></i></div>
 					 </div>
-                     </div>
-                 </div>
-                 <div class="col-md-4">
-                     <label for="inputPassword" class="form-label">Password</label>
+					 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger"})
+				 </div>
+				 <div class="col-md-4">
+					 <label for="inputPassword" class="form-label">Password</label>
 					 <div class="input-group">
 						 <div class="input-group-text"><i class="fas fa-key"></i></div>
 						 @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
-						 
-					     <div class="invalid-feedback">
-						     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-					     </div>
 					 </div>
-                 </div>
+					 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+				 </div>
              </div>
             <div class="row">
                 <div class="col-md-4">
@@ -45,14 +44,14 @@
                         @Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputLogin" })
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <label for="inputEmail" class="form-label">Email</label>
-                    <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", placeholder="email@example.com" })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+				<div class="col-md-5">
+					<label for="inputEmail" class="form-label">Email</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-envelope"></i></div>
+						@Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", placeholder = "email@example.com" })
+					</div>
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
             </div>
             <div class="row-cols-md-5">
                 <label for="inputTelephone" class="form-label">Telephone</label>
@@ -60,6 +59,7 @@
                     <div class="input-group-text"><i class="fas fa-phone"></i></div>
                     @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone" })
                 </div>
+                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-6" style="margin-top: 20px;">
                 <label for="inputState" class="form-label">Role</label>
@@ -71,16 +71,20 @@
 
         @*<button type="submit" class="btn btn-primary">Add User</button>*@
         @*<button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Add User</button>*@
-        <button type="submit" class="btn btn-primary mr-2">Add User</button>
+        <button type="submit" class="btn btn-primary mr-2 id="submitButton"">Add User</button>
         @*<button type="reset" class="btn btn-dark" onclick="hideFormElements()">Reset</button>*@
-        <button type="reset" class="btn btn-dark" onclick="resetForm()">Reset</button>
+        <button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
     </div>
 
 }
 
 <script>
-    function resetForm() {
-        var form = document.getElementById("AddUserForm");
-        form.reset();
-    }
+	window.onload = function () {
+		var inputs = document.querySelectorAll('input,select');
+		for (var i = 0; i < inputs.length; i++) {
+			inputs[i].addEventListener('invalid', function () {
+				this.form.classList.add('was-validated');
+			});
+		}
+	}
 </script>

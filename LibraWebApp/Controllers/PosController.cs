@@ -1,5 +1,8 @@
-﻿using LibraBll.Abstractions.Repositories;
+﻿using FluentValidation;
+using Libra.Dal.Entities;
+using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.DTOs;
 using Microsoft.SqlServer.Server;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +14,12 @@ namespace LibraWebApp.Controllers
     public class PosController : Controller
     {
         private readonly IPosRepository _posRepository;
+		private readonly IValidator<PosDTO> _createPosValidator;
 
-        public PosController(IPosRepository posRepository)
+		public PosController(IPosRepository posRepository, IValidator<PosDTO> createPosValidator)
         {
-            _posRepository = posRepository;    
+            _posRepository = posRepository;
+			_createPosValidator = createPosValidator;
         }
         public ActionResult Index()
         {
@@ -59,8 +64,18 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddPos(PosDTO pos)
         {
-			// var holidayDays = pos.DaysClosed.Split(',').ToList();
-			pos.DaysClosed = new List<string>();
+            var results = _createPosValidator.Validate(pos);
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                return PartialView();
+            }
+
+            // var holidayDays = pos.DaysClosed.Split(',').ToList();
+            pos.DaysClosed = new List<string>();
 
             List<string> allDays = Request.Form["dayOfWeek"].ToString().Split(',').ToList();
 

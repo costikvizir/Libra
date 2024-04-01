@@ -1,7 +1,6 @@
-﻿@model LibraBll.DTOs.UserDTO
-@{
+﻿@{
 	ViewBag.Title = "Dashboard";
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 	//Layout = null;
 }
 
@@ -19,7 +18,7 @@
 		</div>
 	</nav>*@
 
-<table id="users" class="display">
+<table id="users" class="display mt-3">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -41,17 +40,17 @@
 	<script>
 			$(document).ready(function () {
 				$('#users').DataTable({
-					"ajax": {
-						"url": "/User/GetAllUsersJson",
-						"type": "GET",
-						"dataType": "json",
-						"dataSrc": ""
+					ajax: {
+						url: "/User/GetAllUsersJson",
+						type: "GET",
+						dataType: "json",
+						dataSrc: ''
 					},
-					"columns": [
-						{ "data": "Name" },
-						{ "data": "Email" },
-						{ "data": "Role" },
-						{ "data": "Telephone" }
+					columns: [
+						{ data: "Name" },
+						{ data: "Email" },
+						{ data: "Role" },
+						{ data: "Telephone" }
 					]
 				});
 			});

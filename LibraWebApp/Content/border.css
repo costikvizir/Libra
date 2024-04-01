@@ -1,0 +1,8 @@
+﻿input:invalid {
+	border-color: red;
+}
+
+.was-validated input:invalid {
+	border: 1px solid red;
+	box-shadow: 0 0 10px red;
+}
