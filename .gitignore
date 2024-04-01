@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 /.vscode
 /Libra.code-workspace
+/LibraWebApp/Web.config
+/LibraWebApp/Web.Debug.config
+/LibraWebApp/Web.Release.config
