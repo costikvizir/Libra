@@ -36,14 +36,14 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> AllPos()
+        public async Task<ActionResult> GetAllPos()
         {
             List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync();
 
             if (!allPos.Any())
                 return null;
 
-            return View(allPos);
+            return PartialView(allPos);
         }
 
         [HttpGet]

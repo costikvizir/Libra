@@ -22,6 +22,6 @@ namespace LibraBll.DTOs.Pos
 		public string MorningProgram { get; set; }
 		public string AfternoonProgram { get; set; }
 		public List<string> DaysClosed { get; set; }
-		public DateTime InsertDate { get; set; }
+		public string InsertDate { get; set; }
 	}
 }

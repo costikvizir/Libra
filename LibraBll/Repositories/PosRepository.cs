@@ -32,7 +32,7 @@ namespace LibraBll.Repositories
                         ConnectionType = p.ConnectionType.ConnectType,
                         MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
                         AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
-                        InsertDate = p.InsertDate
+                        InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
                     }).ToListAsync();
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@ namespace LibraBll.Repositories
                 ConnectionType = entity.ConnectionType.ConnectType,
 				MorningProgram = entity.MorningOpening + " - " + entity.MorningClosing,
                 AfternoonProgram = entity.AfternoonOpening + " - " + entity.AfternoonClosing,
-                InsertDate = entity.InsertDate
+                InsertDate = entity.InsertDate.ToString("dd/MM/yyyy")
             };
         }
 

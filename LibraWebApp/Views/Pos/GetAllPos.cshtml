@@ -1,0 +1,135 @@
+﻿@{
+	ViewBag.Title = "All Pos";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+}
+
+<h3 class="mt-5">All Pos</h3>
+
+@*<table id="pos" class="display mt-3">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Cellphone</th>
+				<th>Brand</th>
+				<th>Morning Program</th>
+				<th>Afternoon Program</th>
+				<th>Added At</th>
+			</tr>
+		</thead>
+	</table>
+
+	@section scripts
+	{
+		<script>
+			$(document).ready(function () {
+				$('#pos').DataTable({
+					//serverSide: true,
+					select: true,
+					//select: {
+					//	style: 'single',
+					//	info: true
+					//},
+					ajax: {
+						url: "/Pos/GetAllPosJson",
+						type: "GET",
+						dataType: "json",
+						dataSrc: ''
+					},
+					columns: [
+						{ data: "Name" },
+						{ data: "FullAddress" },
+						{ data: "Cellphone" },
+						{ data: "Brand" },
+						{ data: "MorningProgram" },
+						{ data: "AfternoonProgram" },
+						{ data: "InsertDate" }
+					]
+				});
+			});
+		</script>
+	}*@
+
+<table id="pos" class="display mt-3">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Cellphone</th>
+			<th>Brand</th>
+			<th>Morning Program</th>
+			<th>Afternoon Program</th>
+
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<th>Telephone</th>
+			<th>Model</th>
+			<th>Connection Type</th>
+			<th>Registering Date</th>
+		</tr>
+	</tfoot>
+</table>
+
+@section scripts
+{
+	<script>
+		function format(d) {
+			return (
+				'Telephone: ' + d.Telephone + '<br>' +
+				'Model: ' + d.Model + '<br>' +
+				'Connection Type: ' + d.ConnectionType + '<br>' +
+				'Registering Date: ' + d.InsertDate
+			);
+		}
+
+		$(document).ready(function () {
+			$('#pos').DataTable({
+				//serverSide: true,
+				select: true,
+				responsive: true,
+				//select: {
+				//	style: 'single',
+				//	info: true
+				//},
+				ajax: {
+					url: "/Pos/GetAllPosJson",
+					type: "GET",
+					dataType: "json",
+					dataSrc: ''
+				},
+				columns: [
+					{ data: "Name" },
+					{ data: "FullAddress" },
+					{ data: "Cellphone" },
+					{ data: "Brand" },
+					{ data: "MorningProgram" },
+					{ data: "AfternoonProgram" }
+					//,
+					//{
+					//	data: null,
+					//	defaultContent: '',
+					//	orderable: false,
+					//	className: 'details-control' // Add a class for styling
+					//}
+				]
+			});
+
+			$('#pos tbody').on('click', 'td.details-control', function () {
+				var tr = $(this).closest('tr');
+				var row = table.row(tr);
+
+				if (row.child.isShown()) {
+					// This row is already open - close it
+					row.child.hide();
+					tr.removeClass('shown');
+				} else {
+					// Open this row
+					row.child(format(row.data())).show();
+					tr.addClass('shown');
+				}
+			});
+		});
+	</script>
+}

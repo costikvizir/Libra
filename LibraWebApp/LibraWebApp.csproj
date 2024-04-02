@@ -2856,7 +2856,7 @@
     <Content Include="Views\User\ModifyUser.cshtml" />
     <Content Include="Views\Shared\_LayoutLTE.cshtml" />
     <Content Include="Views\Pos\AddPos.cshtml" />
-    <Content Include="Views\Pos\AllPos.cshtml" />
+    <Content Include="Views\Pos\GetAllPos.cshtml" />
     <Content Include="Views\Issue\AddIssue.cshtml" />
     <Content Include="Views\Issue\AllIssues.cshtml" />
     <None Include="Web.Debug.config">
