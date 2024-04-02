@@ -13,26 +13,26 @@
 	@Scripts.Render("~/bundles/modernizr")
 	@Scripts.Render("~/bundles/jquery")
 	@*@Scripts.Render("~/bundles/popper")*@
-	@*@Scripts.Render("~/bundles/bootstrap")*@
+	@Scripts.Render("~/bundles/bootstrap")
 	@Scripts.Render("~/bundles/dataTables")
 	@Scripts.Render("~/bundles/jqueryval")
-
-	<script src="~/Scripts/jquery-3.3.1.js"></script>
+	@*@Styles.Render("//cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css");*@
+	@*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
 </head>
 <body>
 	@*<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-				</button>
-				<span>Libra Web App</span>
-			</div>
-			<div class="navbar-collapse collapse">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+					</button>
+					<span>Libra Web App</span>
+				</div>
+				<div class="navbar-collapse collapse">
 
+				</div>
 			</div>
-		</div>
-	</div>*@
+		</div>*@
 	<div>
 		<nav class="navbar navbar-light bg-light">
 			<div class="container-fluid">
@@ -54,10 +54,12 @@
 	@*@Scripts.Render("~/bundles/jquery")*@
 	@*@Scripts.Render("~/bundles/bootstrap")*@
 	@*//@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)*@
-	
-		@*@Scripts.Render("~/bundles/bootstrap")
 
-	@Scripts.Render("~/bundles/dataTables.dataTables.js")*@
+	@*@Scripts.Render("~/bundles/bootstrap")
+
+		@Scripts.Render("~/bundles/dataTables.dataTables.js")*@
 	@RenderSection("scripts", required: false)
+	@*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+	@*<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>*@
 </body>
 </html>

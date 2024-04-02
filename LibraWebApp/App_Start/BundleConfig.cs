@@ -24,9 +24,9 @@ namespace LibraWebApp
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
 
-			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-				"~/Scripts/bootstrap.js",
-				"~/Scripts/bootstrap.bundle.js"
+			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
+				"~/Scripts/bootstrap.bundle.min.js",
+				"~/Scripts/bootstrap.min.js"
 				//"~/Scripts/bootstrap-select.js"
 				));
 
@@ -34,6 +34,7 @@ namespace LibraWebApp
 				"~/Scripts/umd/popper.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
+				//"~/Scripts/dataTables.dataTables.min.js",
 						"~/Scripts/DataTables/jquery.dataTables.js",
 						"~/Scripts/DataTables/dataTables.select.js",
 						"~/Scripts/DataTables/dataTables.bootstrap4.js"
@@ -41,8 +42,10 @@ namespace LibraWebApp
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				"~/Content/bootstrap.css",
-				"~/Content/DataTables/css/dataTables.bootstrap4.css",
-				"~/Content/DataTables/css/select.dataTables.css"
+				"~/Content/DataTables/css/dataTables.bootstrap.min.css",
+				"~/Content/DataTables/css/dataTables.bootstrap4.min.css",
+				"~/Content/DataTables/css/select.dataTables.css",
+				"~/Content/DataTables/css/jquery.dataTables.min.css"
 				//"~/Content/bootstrap-select.css",
 				//"~/Content/bootstrap-toggle.css",
 				//"~/Content/themes/base/*.css"
