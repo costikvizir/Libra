@@ -4,7 +4,7 @@
 
 <h3 class="accent-gray-dark mt-5">New POS</h3>
 
-@model LibraBll.Common.PosDTO
+@model LibraBll.Common.PosPostDTO
 
 @using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))
 {
@@ -138,7 +138,6 @@
 							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sun" })
 							<label class="form-check-label" for="sunday">Sun</label>
 						</div>
-
 					</div>
 				</div>
 			</div>

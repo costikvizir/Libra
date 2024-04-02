@@ -1,6 +1,7 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.DTOs.Pos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,62 +12,58 @@ namespace LibraBll.Repositories
 {
     public class PosRepository : BaseRepository, IPosRepository
     {
-        public async Task<List<PosDTO>> GetAllPosAsync()
+        public async Task<List<PosGetDTO>> GetAllPosAsync()
         {
-            List<PosDTO> PosList = null;
+            List<PosGetDTO> posList = null;
             try
             {
-                PosList = await Context.Pos
+                posList = await Context.Pos
                     .Include(p => p.City)
                     .Include(p => p.ConnectionType)
-                    .Select(p => new PosDTO
+                    .Select(p => new PosGetDTO
                     {
                         Name = p.Name,
                         Telephone = p.Telephone,
-                        Cellphone = p.Cellphone,
-                        Address = p.Address,
-                        City = p.City.CityName,
+                        Cellphone = p.Cellphone, 
+                        FullAddress = string.Join(", ", p.City.CityName, p.Address),
+						City = p.City.CityName,
                         Model = p.Model,
                         Brand = p.Brand,
                         ConnectionType = p.ConnectionType.ConnectType,
-                        MorningOpening = p.MorningOpening.ToString(),
-                        MorningClosing = p.MorningClosing.ToString(),
-                        AfternoonOpening = p.AfternoonOpening.ToString(),
-                        AfternoonClosing = p.AfternoonClosing.ToString(),
+                        MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
+                        AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
                         InsertDate = p.InsertDate
                     }).ToListAsync();
             }
             catch (Exception ex)
             {
-                throw ex;
+                
             }
-            return PosList;
+            return posList;
         }
 
-        public async Task<PosDTO> GetPosByIdAsync(int id)
+        public async Task<PosGetDTO> GetPosByIdAsync(int id)
         {
             Pos entity = await Context.Pos.FindAsync(id);
             string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
 
-            return new PosDTO()
+            return new PosGetDTO()
             {
                 Name = entity.Name,
                 Telephone = entity.Telephone,
                 Cellphone = entity.Cellphone,
-                Address = entity.Address,
-                City = city,
+				FullAddress = entity.City.CityName + ", " + entity.Address,
+				City = city,
                 Model = entity.Model,
                 Brand = entity.Brand,
                 ConnectionType = entity.ConnectionType.ConnectType,
-                MorningOpening = entity.MorningOpening.ToString(),
-                MorningClosing = entity.MorningClosing.ToString(),
-                AfternoonOpening = entity.AfternoonOpening.ToString(),
-                AfternoonClosing = entity.AfternoonClosing.ToString(), 
+				MorningProgram = entity.MorningOpening + " - " + entity.MorningClosing,
+                AfternoonProgram = entity.AfternoonOpening + " - " + entity.AfternoonClosing,
                 InsertDate = entity.InsertDate
             };
         }
 
-        public async Task<PosDTO> AddPosAsync(PosDTO pos)
+        public async Task<PosPostDTO> AddPosAsync(PosPostDTO pos)
         {
             string daysClosed = string.Join(",", pos.DaysClosed);
             int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
@@ -107,7 +104,7 @@ namespace LibraBll.Repositories
             return pos;
         }
 
-        public async void UpdatePos(PosDTO pos)
+        public async void UpdatePos(PosPostDTO pos)
         {
             string daysClosed = string.Join(",", pos.DaysClosed);
             int cityId = Context.Cities

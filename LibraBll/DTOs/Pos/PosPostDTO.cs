@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LibraBll.Common
 {
-    public class PosDTO
+    public class PosPostDTO
     {
         public string Name { get; set; }
         public string Telephone { get; set; }

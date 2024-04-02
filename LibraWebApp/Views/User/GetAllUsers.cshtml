@@ -20,28 +20,28 @@
 @section scripts
 {
 	<script>
-			$(document).ready(function () {
-				$('#users').DataTable({
-					//serverSide: true,
-					select: true,
-					select: {
-						style: 'single',
-						info: true
-					},
-					ajax: {
-						url: "/User/GetAllUsersJson",
-						type: "GET",
-						dataType: "json",
-						dataSrc: ''
-					},
-					columns: [
-						{ data: "Name" },
-						{ data: "Email" },
-						{ data: "Role" },
-						{ data: "Telephone" }
-					]
-				});
+		$(document).ready(function () {
+			$('#users').DataTable({
+				//serverSide: true,
+				select: true,
+				//select: {
+				//	style: 'single',
+				//	info: true
+				//},
+				ajax: {
+					url: "/User/GetAllUsersJson",
+					type: "GET",
+					dataType: "json",
+					dataSrc: ''
+				},
+				columns: [
+					{ data: "Name" },
+					{ data: "Email" },
+					{ data: "Role" },
+					{ data: "Telephone" }
+				]
 			});
+		});
 	</script>
 }
 

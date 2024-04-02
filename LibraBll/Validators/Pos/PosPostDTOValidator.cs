@@ -4,9 +4,9 @@ using System;
 
 namespace LibraBll.Validators.Pos
 {
-    public class PosDTOValidator : AbstractValidator<PosDTO>
+    public class PosPostDTOValidator : AbstractValidator<PosPostDTO>
     {
-		public PosDTOValidator()
+		public PosPostDTOValidator()
 		{
 			RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
 

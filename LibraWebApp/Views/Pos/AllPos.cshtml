@@ -1,5 +1,55 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	ViewBag.Title = "All Pos";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
-<h3>All Pos</h3>
+<h3 class="mt-5">All Pos</h3>
+
+<table id="pos" class="display mt-3">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Cellphone</th>
+			<th>Brand</th>
+			<th>Morning Program</th>
+			<th>Afternoon Program</th>
+			<th>Added At</th>
+		</tr>
+	</thead>
+</table>
+
+@section scripts
+{
+	<script>
+		$(document).ready(function () {
+			$('#pos').DataTable({
+				//serverSide: true,
+				select: true,
+				//select: {
+				//	style: 'single',
+				//	info: true
+				//},
+				ajax: {
+					url: "/Pos/GetAllPosJson",
+					type: "GET",
+					dataType: "json",
+					dataSrc: ''
+				},
+				columns: [
+					{ data: "Name" },
+					{ data: "FullAddress" },
+					{ data: "Cellphone" },
+					{ data: "Brand" }
+					{ data: "MorningProgram" }
+					{ data: "AfternoonProgram" }
+					{ data: "InsertDate" }
+				]
+			});
+		});
+	</script>
+}
+
+
+
+

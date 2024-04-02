@@ -1,4 +1,5 @@
 ﻿using LibraBll.Common;
+using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,13 +7,13 @@ namespace LibraBll.Abstractions.Repositories
 {
     public interface IPosRepository
     {
-        Task<PosDTO> GetPosByIdAsync(int id);
+        Task<PosGetDTO> GetPosByIdAsync(int id);
 
-        Task<List<PosDTO>> GetAllPosAsync();
+        Task<List<PosGetDTO>> GetAllPosAsync();
 
-        Task<PosDTO> AddPosAsync(PosDTO pos);
+        Task<PosPostDTO> AddPosAsync(PosPostDTO pos);
 
-        void UpdatePos(PosDTO pos);
+        void UpdatePos(PosPostDTO pos);
 
         void DeletePos(string name);
     }

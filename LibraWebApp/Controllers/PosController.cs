@@ -3,6 +3,7 @@ using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.DTOs;
+using LibraBll.DTOs.Pos;
 using Microsoft.SqlServer.Server;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace LibraWebApp.Controllers
     public class PosController : Controller
     {
         private readonly IPosRepository _posRepository;
-        private readonly IValidator<PosDTO> _createPosValidator;
+        private readonly IValidator<PosPostDTO> _createPosValidator;
 
-        public PosController(IPosRepository posRepository, IValidator<PosDTO> createPosValidator)
+        public PosController(IPosRepository posRepository, IValidator<PosPostDTO> createPosValidator)
         {
             _posRepository = posRepository;
             _createPosValidator = createPosValidator;
@@ -37,7 +38,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> AllPos()
         {
-            List<PosDTO> allPos = await _posRepository.GetAllPosAsync();
+            List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync();
 
             if (!allPos.Any())
                 return null;
@@ -46,9 +47,9 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> AllPosJson()
+        public async Task<JsonResult> GetAllPosJson()
         {
-            List<PosDTO> allPos = await _posRepository.GetAllPosAsync();
+            List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync();
 
             if (!allPos.Any())
                 return Json(new { }, JsonRequestBehavior.AllowGet);
@@ -63,7 +64,7 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddPos(PosDTO pos)
+        public async Task<ActionResult> AddPos(PosPostDTO pos)
         {
             var results = _createPosValidator.Validate(pos);
             if (!results.IsValid)
@@ -99,7 +100,7 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePos(PosDTO pos)
+        public async Task<ActionResult> UpdatePos(PosPostDTO pos)
         {
             _posRepository.UpdatePos(pos);
             return PartialView();
