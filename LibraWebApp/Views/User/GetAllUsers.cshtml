@@ -1,62 +1,50 @@
-﻿@model IEnumerable<LibraBll.DTOs.UserDTO>
+﻿@{
+	ViewBag.Title = "All Users";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_Layout.cshtml";
+	//Layout = null;
+}
 
-@{
-		//Layout = null;
-		ViewBag.title = "All Users";
-		Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-	}
+<h3 class="mt-5">All Users</h3>
+<table id="users" class="display mt-3">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Telephone</th>
+		</tr>
+	</thead>
+</table>
 
-<h3 class="accent-gray-dark mt-5">Get All Users</h3>
+@section scripts
+{
+	<script>
+			$(document).ready(function () {
+				$('#users').DataTable({
+					//serverSide: true,
+					select: true,
+					select: {
+						style: 'single',
+						info: true
+					},
+					ajax: {
+						url: "/User/GetAllUsersJson",
+						type: "GET",
+						dataType: "json",
+						dataSrc: ''
+					},
+					columns: [
+						{ data: "Name" },
+						{ data: "Email" },
+						{ data: "Role" },
+						{ data: "Telephone" }
+					]
+				});
+			});
+	</script>
+}
 
-<!--<div>
-	<form>
-		<div class="form-group">
-			<label for="exampleInputEmail1">Username</label>
-			<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
-			<i class="fas fa-user ms-3"></i>
-		</div>
-		<div class="form-group">
-			<label for="exampleInputPassword1">Password</label>
-			<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-		</div>
-		<div class="form-group form-check">
-			<input type="checkbox" class="form-check-input" id="exampleCheck1">
-			<label class="form-check-label" for="exampleCheck1">Check me out</label>
-		</div>-->
-@*<button type="submit" class="btn btn-primary">Sign In</button>*@
-<!--@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-		{
-			<button type="submit" class="btn btn-primary">Sign In</button>
-		}
-	</form>
-</div>-->
 
 
-<div>
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Username</th>
-				<th scope="col">Email</th>
-				<th scope="col">Role</th>
-				<th scope="col">Telephone</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var user in Model)
-			{
-				<tr>
-					<td>@user.Name</td>
-					<td>@user.Email</td>
-					<td>@user.Role</td>
-					<td>@user.Telephone</td>
-					<td>
-						<a href="@Url.Action("EditUser", "User", new { id = user.UserTypeId })" class="btn btn-primary">Edit</a>
-						<a href="@Url.Action("DeleteUser", "User", new { id = user.UserTypeId })" class="btn btn-danger">Delete</a>
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
-</div>
 
