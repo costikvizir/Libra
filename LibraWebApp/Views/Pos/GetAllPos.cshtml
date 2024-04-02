@@ -50,6 +50,22 @@
 		</script>
 	}*@
 
+<head>
+    @*<script src="https://code.jquery.com/jquery-3.7.1.js"></script>*@
+    @*<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>*@
+    <link href="https://code.jquery.com/jquery-3.7.1.js" />
+    <link href="https://cdn.datatables.net/2.0.3/js/dataTables.js" />
+
+</head>
+<style>
+    td.details-control {
+        background: #f8f9fa; /* Light gray background */
+        text-align: center; /* Center the text */
+        color: #6c757d; /* Dark gray text */
+        font-weight: bold; /* Make the text bold */
+    }
+</style>
+
 <table id="pos" class="display mt-3">
 	<thead>
 		<tr>
@@ -67,6 +83,7 @@
 			<th>Telephone</th>
 			<th>Model</th>
 			<th>Connection Type</th>
+			<th>Days Closed</th>
 			<th>Registering Date</th>
 		</tr>
 	</tfoot>
@@ -80,13 +97,14 @@
 				'Telephone: ' + d.Telephone + '<br>' +
 				'Model: ' + d.Model + '<br>' +
 				'Connection Type: ' + d.ConnectionType + '<br>' +
-				'Registering Date: ' + d.InsertDate
+				'Registering Date: ' + d.InsertDate + '<br>' +
+                'Days Closed: ' + d.ClosedDays
 			);
 		}
 
 		$(document).ready(function () {
 			$('#pos').DataTable({
-				//serverSide: true,
+				serverSide: true,
 				select: true,
 				responsive: true,
 				//select: {
@@ -100,19 +118,19 @@
 					dataSrc: ''
 				},
 				columns: [
-					{ data: "Name" },
-					{ data: "FullAddress" },
-					{ data: "Cellphone" },
-					{ data: "Brand" },
-					{ data: "MorningProgram" },
-					{ data: "AfternoonProgram" }
-					//,
-					//{
-					//	data: null,
-					//	defaultContent: '',
-					//	orderable: false,
-					//	className: 'details-control' // Add a class for styling
-					//}
+					{
+						data: null,
+						defaultContent: '+',
+						orderable: false,
+						className: 'details-control' // Add a class for styling
+					},
+                    { data: "Name", "autoWidth": true },
+                    { data: "FullAddress", "autoWidth": true },
+                    { data: "Cellphone", "autoWidth": true },
+                    { data: "Brand", "autoWidth": true },
+                    { data: "MorningProgram", "autoWidth": true },
+                    { data: "AfternoonProgram", "autoWidth": true }
+					
 				]
 			});
 
