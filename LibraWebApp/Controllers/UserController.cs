@@ -74,6 +74,7 @@ namespace LibraWebApp.Controllers
 		public async Task<ActionResult> AddUser(AddUserDTO user)
 		{
 			var results = _createUserValidator.Validate(user);
+			
 			if (!results.IsValid)
 			{
 				foreach(var failure in results.Errors)

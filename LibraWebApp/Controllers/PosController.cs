@@ -67,6 +67,7 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> AddPos(PosPostDTO pos)
         {
             var results = _createPosValidator.Validate(pos);
+           
             if (!results.IsValid)
             {
                 foreach (var failure in results.Errors)

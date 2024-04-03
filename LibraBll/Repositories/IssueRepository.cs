@@ -15,21 +15,28 @@ namespace LibraBll.Repositories
     {
         public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
         {
+            int typeId = Context.IssueTypes.Where(t => t.Name == issuePost.Type).Select(t => t.Id).FirstOrDefault();
+            int subTypeId = Context.IssueTypes.Where(t => t.Name == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
+            int problemId = Context.IssueTypes.Where(t => t.Name == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
+            int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
+            int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
+            int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
+            
             Issue issue = new Issue
             {
                 PosId = issuePost.PosId,
-                TypeId = issuePost.TypeId,
-                SubTypeId = issuePost.SubTypeId,
-                ProblemId = issuePost.ProblemId,
+                TypeId = typeId,
+                SubTypeId = subTypeId,
+                ProblemId = problemId,
                 Priority = issuePost.Priority,
-                StatusId = issuePost.StatusId,
+                StatusId = statusId,
                 Memo = issuePost.Memo,
-                UserCreatedId = issuePost.UserCreatedId,
-                AssignedId = issuePost.AssignedId,
+                UserCreatedId = userCreatedId,
+                AssignedId = assignedId,
                 Description = issuePost.Description,
-                AssignedDate = issuePost.AssignedDate,
-                CreationDate = issuePost.CreationDate,
-                ModificationDate = issuePost.ModificationDate,
+                AssignedDate = DateTime.Parse(issuePost.AssignedDate),
+                CreationDate = DateTime.Now,
+                ModificationDate = DateTime.Parse(issuePost.ModificationDate),
                 Solution = issuePost.Solution
             };
 
@@ -62,26 +69,21 @@ namespace LibraBll.Repositories
                     .Select(i => new IssueDTO
                     {
                         PosId = i.PosId,
-                        TypeId = i.TypeId,
-                        SubTypeId = i.SubTypeId,
-                        ProblemId = i.ProblemId,
+                        Type = i.IssueType.Name,
+                        SubType = i.IssueSubType.Name,
+                        Problem = i.IssueProblem.Name,
                         Priority = i.Priority,
-                        StatusId = i.StatusId,
+                        Status = i.Status.IssueStatus,
                         Memo = i.Memo,
-                        UserCreatedId = i.UserCreatedId,
-                        AssignedId = i.AssignedId,
+                        UserCreated = i.User.Name,
+                        AssignedTo = i.UserType.Role,
                         Description = i.Description,
-                        AssignedDate = i.AssignedDate,
-                        CreationDate = i.CreationDate,
-                        ModificationDate = i.ModificationDate,
+                        AssignedDate = i.AssignedDate.ToString(),
+                        CreationDate = i.CreationDate.ToString(),
+                        ModificationDate = i.ModificationDate.ToString(),
                         Solution = i.Solution,
-                        Pos = i.Pos,
-                        Status = i.Status,
-                        User = i.User,
-                        UserType = i.User.UserType,
-                        IssueType = i.IssueType,
-                        IssueSubType = i.IssueSubType,
-                        IssueProblem = i.IssueProblem
+                        PosName = i.Pos.Name,
+                        UserRole = i.UserType.Role
                     })
                     .ToListAsync();
             }
@@ -98,51 +100,53 @@ namespace LibraBll.Repositories
 
             return new IssueDTO
             {
-                PosId = issue.PosId,
-                TypeId = issue.TypeId,
-                SubTypeId = issue.SubTypeId,
-                ProblemId = issue.ProblemId,
-                Priority = issue.Priority,
-                StatusId = issue.StatusId,
-                Memo = issue.Memo,
-                UserCreatedId = issue.UserCreatedId,
-                AssignedId = issue.AssignedId,
-                Description = issue.Description,
-                AssignedDate = issue.AssignedDate,
-                CreationDate = issue.CreationDate,
-                ModificationDate = issue.ModificationDate,
-                Solution = issue.Solution,
-                Pos = issue.Pos,
-                Status = issue.Status,
-                User = issue.User,
-                UserType = issue.UserType,
-                IssueType = issue.IssueType,
-                IssueSubType = issue.IssueSubType,
-                IssueProblem = issue.IssueProblem
-            };
+				PosId = issue.PosId,
+				Type = issue.IssueType.Name,
+				SubType = issue.IssueSubType.Name,
+				Problem = issue.IssueProblem.Name,
+				Priority = issue.Priority,
+				Status = issue.Status.IssueStatus,
+				Memo = issue.Memo,
+				UserCreated = issue.User.Name,
+				AssignedTo = issue.UserType.Role,
+				Description = issue.Description,
+				AssignedDate = issue.AssignedDate.ToString(),
+				CreationDate = issue.CreationDate.ToString(),
+				ModificationDate = issue.ModificationDate.ToString(),
+				Solution = issue.Solution,
+				PosName = issue.Pos.Name,
+				UserRole = issue.UserType.Role
+			};
         }
 
         public async void UpdateIssue(IssueDTO issuePost)
         {
-            Issue issue = new Issue
-            {
-                PosId = issuePost.PosId,
-                TypeId = issuePost.TypeId,
-                SubTypeId = issuePost.SubTypeId,
-                ProblemId = issuePost.ProblemId,
-                Priority = issuePost.Priority,
-                StatusId = issuePost.StatusId,
-                Memo = issuePost.Memo,
-                UserCreatedId = issuePost.UserCreatedId,
-                AssignedId = issuePost.AssignedId,
-                Description = issuePost.Description,
-                AssignedDate = issuePost.AssignedDate,
-                CreationDate = issuePost.CreationDate,
-                ModificationDate = issuePost.ModificationDate,
-                Solution = issuePost.Solution
-            };
+			int typeId = Context.IssueTypes.Where(t => t.Name == issuePost.Type).Select(t => t.Id).FirstOrDefault();
+			int subTypeId = Context.IssueTypes.Where(t => t.Name == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
+			int problemId = Context.IssueTypes.Where(t => t.Name == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
+			int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
+			int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
+			int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
 
-            Context.Issues.Add(issue);
+			Issue issue = new Issue
+			{
+				PosId = issuePost.PosId,
+				TypeId = typeId,
+				SubTypeId = subTypeId,
+				ProblemId = problemId,
+				Priority = issuePost.Priority,
+				StatusId = statusId,
+				Memo = issuePost.Memo,
+				UserCreatedId = userCreatedId,
+				AssignedId = assignedId,
+				Description = issuePost.Description,
+				AssignedDate = DateTime.Parse(issuePost.AssignedDate),
+				CreationDate = DateTime.Now,
+				ModificationDate = DateTime.Parse(issuePost.ModificationDate),
+				Solution = issuePost.Solution
+			};
+
+			Context.Issues.Add(issue);
             await Context.SaveChangesAsync();
         }
     }

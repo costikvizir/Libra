@@ -20,6 +20,7 @@ namespace LibraBll.Repositories
                 posList = await Context.Pos
                     .Include(p => p.City)
                     .Include(p => p.ConnectionType)
+                    .Include(p => p.Issues)
                     .Select(p => new PosGetDTO
                     {
                         Name = p.Name,
@@ -29,6 +30,7 @@ namespace LibraBll.Repositories
 						City = p.City.CityName,
                         Model = p.Model,
                         Brand = p.Brand,
+                        Status = p.Issues.Count() > 0 ? p.Issues.Count().ToString() + " active issues" : "No active issues",
                         ConnectionType = p.ConnectionType.ConnectType,
                         MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
                         AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),

@@ -18,6 +18,7 @@ namespace LibraBll.DTOs.Pos
 		public string FullAddress { get; set; }
 		public string Model { get; set; }
 		public string Brand { get; set; }
+		public string Status { get; set; }
 		public string ConnectionType { get; set; }
 		public string MorningProgram { get; set; }
 		public string AfternoonProgram { get; set; }

@@ -5,22 +5,20 @@
 
 <h3 class="mt-5">All Pos</h3>
 
-@*<table id="pos" class="display mt-3">
+<table id="pos" class="display mt-3">
 		<thead>
 			<tr>
 				<th>Name</th>
 				<th>Address</th>
-				<th>Cellphone</th>
+				<th>Telephone</th>
 				<th>Brand</th>
-				<th>Morning Program</th>
-				<th>Afternoon Program</th>
-				<th>Added At</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 	</table>
 
-	@section scripts
-	{
+	
+	
 		<script>
 			$(document).ready(function () {
 				$('#pos').DataTable({
@@ -39,21 +37,19 @@
 					columns: [
 						{ data: "Name" },
 						{ data: "FullAddress" },
-						{ data: "Cellphone" },
+						{ data: "Telephone" },
 						{ data: "Brand" },
-						{ data: "MorningProgram" },
-						{ data: "AfternoonProgram" },
-						{ data: "InsertDate" }
+						{ data: "Status" }
 					]
 				});
 			});
 		</script>
-	}*@
+	
 
-<head>
+<!--<head>-->
     @*<script src="https://code.jquery.com/jquery-3.7.1.js"></script>*@
     @*<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>*@
-    <link href="https://code.jquery.com/jquery-3.7.1.js" />
+    <!--<link href="https://code.jquery.com/jquery-3.7.1.js" />
     <link href="https://cdn.datatables.net/2.0.3/js/dataTables.js" />
 
 </head>
@@ -118,12 +114,12 @@
 					dataSrc: ''
 				},
 				columns: [
-					{
-						data: null,
-						defaultContent: '+',
-						orderable: false,
-						className: 'details-control' // Add a class for styling
-					},
+					//{
+					//	data: null,
+					//	defaultContent: '+',
+					//	orderable: false,
+					//	className: 'details-control' // Add a class for styling
+					//},
                     { data: "Name", "autoWidth": true },
                     { data: "FullAddress", "autoWidth": true },
                     { data: "Cellphone", "autoWidth": true },
@@ -150,4 +146,4 @@
 			});
 		});
 	</script>
-}
+}-->

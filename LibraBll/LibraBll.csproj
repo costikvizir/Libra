@@ -133,6 +133,7 @@
     <Compile Include="Repositories\IssueRepository.cs" />
     <Compile Include="Repositories\PosRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Validators\Issue\IssueValidator.cs" />
     <Compile Include="Validators\Pos\PosPostDTOValidator.cs" />
     <Compile Include="Validators\User\AddUserDTOValidator.cs" />
     <Compile Include="Validators\User\LoginUserDTOValidator.cs" />

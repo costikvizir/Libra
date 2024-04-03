@@ -1,27 +1,80 @@
-﻿using System.Web.Mvc;
+﻿using FluentValidation;
+using LibraBll.Abstractions.Repositories;
+using LibraBll.DTOs.Issue;
+using System.Web.Mvc;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LibraWebApp.Controllers
 {
-    public class IssueController : Controller
+	[Authorize(Roles = "Administrator")]
+	public class IssueController : Controller
     {
-        public ActionResult Index()
+        private readonly IIssueRepository _issueRepository;
+        private readonly IValidator<IssueDTO> _issueValidator;
+
+        public IssueController(IIssueRepository issueRepository, IValidator<IssueDTO> issueValidator)
+        {
+            _issueRepository = issueRepository;
+			_issueValidator = issueValidator;
+        }
+
+		[HttpGet]
+		public ActionResult Index()
         {
             return View();
         }
+        public async Task<ActionResult> GetIssueById(int id)
+        {
+            var issue =  await _issueRepository.GetIssueByIdAsync(id);
+            return View(issue);
+        }
 
+		[HttpGet]
+		public async Task<ActionResult> GetAllIssues()
+        {
+            List<IssueDTO> allIssues = await _issueRepository.GetAllIssuesAsync();
+            
+            if (!allIssues.Any())
+				return null;
+
+            return PartialView(allIssues);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAllIssuesJson()
+        {
+			List<IssueDTO> allIssues = await _issueRepository.GetAllIssuesAsync();
+
+            if (!allIssues.Any())
+				return Json(new { }, JsonRequestBehavior.AllowGet);
+
+			return Json(allIssues, JsonRequestBehavior.AllowGet);
+		}
+
+        [HttpGet]
         public ActionResult AddIssue()
         {
-            return View();
+            return View("AddIssue");
         }
 
-        public ActionResult GetIssueById()
+        [HttpPost]
+        public async Task<ActionResult> AddIssue(IssueDTO issue)
         {
-            return View();
-        }
+			var validationResult = _issueValidator.Validate(issue);
 
-        public ActionResult AllIssues()
-        {
-            return View();
-        }
+			if (!validationResult.IsValid)
+            {
+				foreach (var error in validationResult.Errors)
+                {
+					ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+				}
+				return View("AddIssue", issue);
+			}
+
+			await _issueRepository.AddIssue(issue);
+			return RedirectToAction("Index");
+		}
     }
 }
