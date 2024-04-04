@@ -70,11 +70,17 @@ namespace LibraWebApp.Controllers
                 {
 					ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
 				}
-				return View("AddIssue", issue);
+				return PartialView();
 			}
 
 			await _issueRepository.AddIssue(issue);
-			return RedirectToAction("Index");
+            return PartialView();
 		}
-    }
+
+		[HttpGet]
+		public ActionResult OpenIssue()
+		{
+			return View("OpenIssue");
+		}
+	}
 }

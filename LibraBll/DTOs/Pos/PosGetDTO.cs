@@ -9,6 +9,7 @@ namespace LibraBll.DTOs.Pos
 {
 	public class PosGetDTO
 	{
+		public int PosId { get; set; }
 		public string Name { get; set; }
 		public string Telephone { get; set; }
 		public string Cellphone { get; set; }

@@ -23,6 +23,7 @@ namespace LibraBll.Repositories
                     .Include(p => p.Issues)
                     .Select(p => new PosGetDTO
                     {
+                        PosId = p.Id,
                         Name = p.Name,
                         Telephone = p.Telephone,
                         Cellphone = p.Cellphone, 

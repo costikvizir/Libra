@@ -21,13 +21,8 @@
 {
 	<script>
 		$(document).ready(function () {
-			$('#users').DataTable({
-				//serverSide: true,
-				select: true,
-				//select: {
-				//	style: 'single',
-				//	info: true
-				//},
+			var table = $('#users').DataTable({
+				select: 'single',
 				ajax: {
 					url: "/User/GetAllUsersJson",
 					type: "GET",
@@ -40,6 +35,20 @@
 					{ data: "Role" },
 					{ data: "Telephone" }
 				]
+			});
+
+			$('#users tbody').on('click', 'tr', function () {
+				if ($(this).hasClass('selected')) {
+					$(this).removeClass('selected');
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+				}
+			});
+
+			$('#button').click(function () {
+				table.row('.selected').remove().draw(false);
 			});
 		});
 	</script>

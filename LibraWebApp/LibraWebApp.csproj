@@ -2859,6 +2859,7 @@
     <Content Include="Views\Pos\GetAllPos.cshtml" />
     <Content Include="Views\Issue\AddIssue.cshtml" />
     <Content Include="Views\Issue\AllIssues.cshtml" />
+    <Content Include="Views\Issue\OpenIssue.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

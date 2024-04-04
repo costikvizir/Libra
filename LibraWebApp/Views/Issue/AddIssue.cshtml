@@ -4,42 +4,43 @@
 
 <h3 class="accent-gray-dark mt-5">New Issue</h3>
 
-@model LibraBll.DTOs.UserDTO
+@model LibraBll.DTOs.Pos.PosGetDTO
+
 
 @using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "AddIssueForm" }))
 {
 	<div class="card mb-0">
 		<div class="card-header" style="background-color: lightgray">
-			Add Issue for POS
+			Search the POS
 		</div>
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-2">
-					<label for="inputPosName" class="form-label">Name</label>
+					<label for="inputPosName" class="form-label">Id</label>
 					<div class="input-group">
 						<div class="input-group-text"><i class="fas fa-info"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Id" })
+						@Html.TextBox("inputPosId", null, new { @class = "form-control", placeholder = "POS Id" })
 					</div>
 				</div>
 				<div class="col-md-3">
-					<label for="inputTelephone" class="form-label">Telephone</label>
+					<label for="inputTelephone" class="form-label">Name</label>
 					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-phone"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
+						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
+						@Html.TextBox("inputPosName", null, new { @class = "form-control", placeholder = "Pos Name" })
 					</div>
 				</div>
 				<div class="col-md-3">
-					<label for="inputCellphone" class="form-label">Cellphone</label>
+					<label for="inputCellphone" class="form-label">Brand</label>
 					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
+						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
+						@Html.TextBox("inputPosBrand", null, new { @class = "form-control", placeholder = "Pos Brand" })
 					</div>
 				</div>
 				<div class="col-md-4">
-					<label for="inputModel" class="form-label">Brand</label>
+					<label for="inputModel" class="form-label">Telephone</label>
 					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+						<div class="input-group-text"><i class="fas fa-phone"></i></div>
+						@Html.TextBox("inputTelephone", null, new { @class = "form-control", placeholder = "Telephone" })
 					</div>
 				</div>
 			</div>
@@ -48,14 +49,14 @@
 					<label for="inputAddress" class="form-label">Full Address</label>
 					<div class="input-group">
 						<div class="input-group-text"><i class="fas fa-map"></i></div>
-						@Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
+						@Html.TextBox("inputFullAddress", null, new { @class = "form-control", placeholder = "POS address" })
 					</div>
 				</div>
 				<div class="col-md-4">
-					<label for="inputModel" class="form-label">Model</label>
+					<label for="inputModel" class="form-label">Cellphone</label>
 					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
+						@Html.TextBox("inputCellphone", null, new { @class = "form-control", placeholder = "Cellphone" })
 					</div>
 				</div>
 			</div>
@@ -67,18 +68,72 @@
 			Search Results
 		</div>
 		<div class="card-body">
-
+			<table id="posList" class="display mt-3">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Telephone</th>
+						<th>Cellphone</th>
+						<th>Brand</th>
+						<th>Address</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 	</div>
 
 	<div class="d-flex justify-content-start">
-		<button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Open Issue</button>
+		<button type="button" id="openIssue" class="btn btn-primary mr-2">Add Issue</button>
 	</div>
 }
 
 <script>
-	function resetForm() {
-		var form = document.getElementById("AddPosForm");
-		form.reset();
-	}
+	$(document).ready(function () {
+		var table = $('#posList').DataTable({
+			select: 'single',
+			ajax: {
+				url: "/Pos/GetAllPosJson",
+				type: "GET",
+				dataType: "json",
+				dataSrc: ''
+			},
+			columns: [
+				{ data: "Name" },
+				{ data: "Telephone" },
+				{ data: "Cellphone" },
+				{ data: "Brand" },
+				{ data: "FullAddress" }
+			]
+		});
+
+		$('#posList tbody').on('click', 'tr', function () {
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+			}
+			else {
+				table.$('tr.selected').removeClass('selected');
+				$(this).addClass('selected');
+			}
+		});
+
+
+		$('#button').click(function () {
+			table.row('.selected').remove().draw(false);
+		});
+
+		$('#openIssue').click(function () {
+			console.log('Button clicked');  // Debugging statement
+			var data = table.row('.selected').data();
+			console.log('Data:', data);  // Debugging statement
+			if (data) {
+				var url = '/Issue/OpenIssue?' + $.param(data);
+				console.log('URL:', url);  // Debugging statement
+				window.location.href = url;
+			} else {
+				alert('Please select a row');
+			}
+		});
+	});
+
 </script>
+
