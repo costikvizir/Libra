@@ -22,8 +22,8 @@
 				<div class="col-md-5">
 					<label for="inputUserName" class="form-label">User Name</label>
 					<div class="input-group">
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
 						<div class="input-group-text"><i class="fas fa-user"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
 					</div>
 					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 				</div>
@@ -61,7 +61,7 @@
 				</div>
 				@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
 			</div>
-			<div class="col-md-6" style="margin-top: 20px;">
+			<div class="col-md-4">
 				<label for="inputState" class="form-label">Role</label>
 				@Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputState" })
 			</div>
