@@ -139,9 +139,9 @@ namespace LibraBll.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async void DeletePos(string name)
+        public async void DeletePos(int id)
         {
-            Pos entity = await Context.Pos.Where(p => p.Name == name).FirstOrDefaultAsync();
+            Pos entity = await Context.Pos.Where(p => p.Id == id).FirstOrDefaultAsync();
 
             Context.Pos.Remove(entity);
             await Context.SaveChangesAsync();

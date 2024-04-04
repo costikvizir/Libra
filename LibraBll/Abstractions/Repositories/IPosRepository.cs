@@ -15,6 +15,6 @@ namespace LibraBll.Abstractions.Repositories
 
         void UpdatePos(PosPostDTO pos);
 
-        void DeletePos(string name);
+        void DeletePos(int id);
     }
 }

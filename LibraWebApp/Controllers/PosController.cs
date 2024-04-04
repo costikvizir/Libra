@@ -1,10 +1,7 @@
 ﻿using FluentValidation;
-using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
-using LibraBll.DTOs;
 using LibraBll.DTOs.Pos;
-using Microsoft.SqlServer.Server;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,7 +64,7 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> AddPos(PosPostDTO pos)
         {
             var results = _createPosValidator.Validate(pos);
-           
+
             if (!results.IsValid)
             {
                 foreach (var failure in results.Errors)
@@ -107,10 +104,10 @@ namespace LibraWebApp.Controllers
             return PartialView();
         }
 
-        [HttpPost]
-        public Task<ActionResult> DeletePos(string name)
+        [HttpDelete]
+        public async Task<ActionResult> DeletePos(int id)
         {
-            _posRepository.DeletePos(name);
+            _posRepository.DeletePos(id);
             return null;
         }
 
