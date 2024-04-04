@@ -19,7 +19,7 @@
 					<label for="inputPosName" class="form-label">Id</label>
 					<div class="input-group">
 						<div class="input-group-text"><i class="fas fa-info"></i></div>
-						@Html.TextBox("inputPosId", null, new { @class = "form-control", placeholder = "POS Id" })
+						@Html.TextBox("inputPosId", null, new { @class = "form-control", placeholder = "POS Id", oninput = "this.value = this.value.replace(/[^0-9]/g, '');" })
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -37,26 +37,10 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<label for="inputModel" class="form-label">Telephone</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-phone"></i></div>
-						@Html.TextBox("inputTelephone", null, new { @class = "form-control", placeholder = "Telephone" })
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
 					<label for="inputAddress" class="form-label">Full Address</label>
 					<div class="input-group">
 						<div class="input-group-text"><i class="fas fa-map"></i></div>
 						@Html.TextBox("inputFullAddress", null, new { @class = "form-control", placeholder = "POS address" })
-					</div>
-				</div>
-				<div class="col-md-4">
-					<label for="inputModel" class="form-label">Cellphone</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
-						@Html.TextBox("inputCellphone", null, new { @class = "form-control", placeholder = "Cellphone" })
 					</div>
 				</div>
 			</div>
@@ -69,7 +53,7 @@
 		</div>
 		<div class="card-body">
 			<table id="posList" class="display mt-3">
-				<thead>
+				@*<thead>
 					<tr>
 						<th>Name</th>
 						<th>Telephone</th>
@@ -77,7 +61,7 @@
 						<th>Brand</th>
 						<th>Address</th>
 					</tr>
-				</thead>
+				</thead>*@
 			</table>
 		</div>
 	</div>
@@ -98,12 +82,23 @@
 				dataSrc: ''
 			},
 			columns: [
-				{ data: "Name" },
-				{ data: "Telephone" },
-				{ data: "Cellphone" },
-				{ data: "Brand" },
-				{ data: "FullAddress" }
+				{ title: "Pos Id", data: "PosId" },
+				{ title: "Name", data: "Name" },
+				{ title: "Telephone", data: "Telephone" },
+				{ title: "Cellphone", data: "Cellphone" },
+				{ title: "Brand", data: "Brand" },
+				{ title: "Full Address", data: "FullAddress" }
 			]
+		});
+
+		$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
+			// Apply the filter and redraw the table
+			table
+				.column(0).search($('#inputPosId').val())
+				.column(1).search($('#inputPosName').val())
+				.column(4).search($('#inputPosBrand').val())
+				.column(5).search($('#inputFullAddress').val())
+				.draw();
 		});
 
 		$('#posList tbody').on('click', 'tr', function () {
@@ -115,7 +110,6 @@
 				$(this).addClass('selected');
 			}
 		});
-
 
 		$('#button').click(function () {
 			table.row('.selected').remove().draw(false);
