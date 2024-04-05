@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraBll.DTOs;
+using LibraBll.DTOs.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

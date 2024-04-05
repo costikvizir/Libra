@@ -29,6 +29,7 @@ namespace LibraBll.Repositories
                         Cellphone = p.Cellphone, 
                         FullAddress = string.Join(", ", p.City.CityName, p.Address),
 						City = p.City.CityName,
+                        Address = p.Address,
                         Model = p.Model,
                         Brand = p.Brand,
                         Status = p.Issues.Count() > 0 ? p.Issues.Count().ToString() + " active issues" : "No active issues",
@@ -47,23 +48,32 @@ namespace LibraBll.Repositories
 
         public async Task<PosGetDTO> GetPosByIdAsync(int id)
         {
-            Pos entity = await Context.Pos.FindAsync(id);
-            string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
+            Pos entity = await Context.Pos.Include(x=>x.City).Include(x=>x.ConnectionType).FirstOrDefaultAsync(x=>x.Id==id);
+            //string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
 
-            return new PosGetDTO()
+            try
             {
-                Name = entity.Name,
-                Telephone = entity.Telephone,
-                Cellphone = entity.Cellphone,
-				FullAddress = entity.City.CityName + ", " + entity.Address,
-				City = city,
-                Model = entity.Model,
-                Brand = entity.Brand,
-                ConnectionType = entity.ConnectionType.ConnectType,
-				MorningProgram = entity.MorningOpening + " - " + entity.MorningClosing,
-                AfternoonProgram = entity.AfternoonOpening + " - " + entity.AfternoonClosing,
-                InsertDate = entity.InsertDate.ToString("dd/MM/yyyy")
-            };
+				return new PosGetDTO()
+				{
+					Name = entity.Name,
+					Telephone = entity.Telephone,
+					Cellphone = entity.Cellphone,
+					FullAddress = entity?.City.CityName + ", " + entity?.Address,
+					Address = entity?.Address,
+					City = entity?.City.CityName,
+					Model = entity?.Model,
+					Brand = entity?.Brand,
+					ConnectionType = entity?.ConnectionType.ConnectType,
+					MorningProgram = entity?.MorningOpening + " - " + entity?.MorningClosing,
+					AfternoonProgram = entity?.AfternoonOpening + " - " + entity?.AfternoonClosing,
+					InsertDate = entity?.InsertDate.ToString("dd/MM/yyyy")
+				};
+			}
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<PosPostDTO> AddPosAsync(PosPostDTO pos)
@@ -135,7 +145,7 @@ namespace LibraBll.Repositories
                 InsertDate = pos.InsertDate
             };
 
-            await Context.Pos.AddAsync(entity);
+            Context.Pos.Update(entity);
             await Context.SaveChangesAsync();
         }
 

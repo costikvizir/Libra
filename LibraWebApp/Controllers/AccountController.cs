@@ -20,6 +20,7 @@ using System.Web.UI.WebControls;
 using System.Net;
 using Microsoft.Owin.Security;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.DTOs.User;
 
 namespace LibraWebApp.Controllers
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraBll.DTOs
+namespace LibraBll.DTOs.User
 {
 	public class AddUserDTO
 	{

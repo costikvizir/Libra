@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LibraBll.Common
+namespace LibraBll.DTOs.Pos
 {
     public class PosPostDTO
     {

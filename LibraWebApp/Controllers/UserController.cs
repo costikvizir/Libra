@@ -2,6 +2,7 @@
 using LibraBll.Abstractions;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.DTOs;
+using LibraBll.DTOs.User;
 using LibraBll.Repositories;
 using LibraBll.Validators.User;
 using System;

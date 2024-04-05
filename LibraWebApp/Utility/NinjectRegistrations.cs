@@ -3,6 +3,7 @@ using Libra.Dal.Context;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.DTOs;
+using LibraBll.DTOs.User;
 using LibraBll.Repositories;
 using Ninject.Modules;
 using Ninject.Web.Common;

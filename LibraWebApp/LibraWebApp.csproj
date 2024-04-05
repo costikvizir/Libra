@@ -2860,6 +2860,7 @@
     <Content Include="Views\Issue\AddIssue.cshtml" />
     <Content Include="Views\Issue\AllIssues.cshtml" />
     <Content Include="Views\Issue\OpenIssue.cshtml" />
+    <Content Include="Views\Pos\EditPos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

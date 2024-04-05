@@ -97,15 +97,22 @@ namespace LibraWebApp.Controllers
             return PartialView();
         }
 
+        [HttpGet]
+        public async Task<ActionResult> UpdatePos(int id)
+        {
+            PosGetDTO pos = await _posRepository.GetPosByIdAsync(id);
+			return PartialView("EditPos", pos);
+		}
+
         [HttpPost]
         public async Task<ActionResult> UpdatePos(PosPostDTO pos)
         {
             _posRepository.UpdatePos(pos);
-            return PartialView();
+            return PartialView("EditPos");
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> DeletePos(int id)
+		[HttpPost]
+        public Task<ActionResult> DeletePos(int id)
         {
             _posRepository.DeletePos(id);
             return null;

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraBll.Common;
+using LibraBll.DTOs.Pos;
 using System;
 
 namespace LibraBll.Validators.Pos

@@ -2,11 +2,11 @@
 	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
-<h3 class="accent-gray-dark mt-5">New POS</h3>
+<h3 class="accent-gray-dark mt-5">Edit POS</h3>
 
-@model LibraBll.DTOs.User.AddUserDTO
+@model LibraBll.DTOs.Pos.PosGetDTO
 
-@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))
+@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "EditPosForm" }))
 {
 	<div class="card mb-0">
 		<div class="card-header" style="background-color: lightgray">
@@ -83,7 +83,7 @@
 			Oppening hours and holidays
 		</div>
 		<div class="card-body">
-			<div class="row">
+			@*<div class="row">
 				<div class="col-md-3">
 					<label for="inputOpenMorning" class="form-label">Open Morning</label>
 					<div class="input-group">
@@ -100,6 +100,24 @@
 					</div>
 					@Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
 				</div>
+				<div class="col-md-3">
+					<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-clock"></i></div>
+						@Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
+					</div>
+					@Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-md-3">
+					<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-clock"></i></div>
+						@Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
+					</div>
+					@Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger" })
+				</div>
+			</div>*@
+			<div class="row">
 				<div class="col-md-5">
 					<label for="dayOfWeekLabel" class="form-label">Closing Days</label>
 					<div>
@@ -141,35 +159,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
-					</div>
-					@Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
-					</div>
-					@Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger" })
-				</div>
-			</div>
 		</div>
 	</div>
 
 	<div class="d-flex justify-content-start">
-		<button type="submit" class="btn btn-primary mr-2">Save POS</button>
+		<button type="submit" class="btn btn-primary mr-2">Update POS</button>
+		<button type="reset" class="btn btn-dark mr-2">Cancel</button>
 	</div>
 }
 
 <script>
 	function resetForm() {
-		var form = document.getElementById("AddPosForm");
+		var form = document.getElementById("EditPosForm");
 		form.reset();
 	}
 </script>
