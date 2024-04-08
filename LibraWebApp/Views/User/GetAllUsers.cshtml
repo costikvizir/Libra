@@ -5,31 +5,16 @@
 	//Layout = null;
 }
 
+@model List<LibraBll.DTOs.User.UserDTO>
+
 <h3 class="mt-5">All Users</h3>
 
 <div class="mb-2">
-	<button type="button" id="editButton" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-	<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-
-	<!-- Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					edit info here
-				</div>
-				<div class="modal-footer">
-					<button type="button" id="cancelButton" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-outline-warning">Modify</button>
-				</div>
-			</div>
-		</div>
+	<div class="mb-2 d-flex justify-content-end">
+		<button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 	</div>
-
+	
 	<!-- Modal -->
 	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -53,7 +38,9 @@
 <table id="usersList" class="display mt-3">
 	<thead>
 		<tr>
+			<th>Id</th>
 			<th>Name</th>
+			<th>Login</th>
 			<th>Email</th>
 			<th>Role</th>
 			<th>Telephone</th>
@@ -61,42 +48,6 @@
 	</thead>
 </table>
 
-@*@section scripts
-{
-	<script>
-		$(document).ready(function () {
-			var table = $('#users').DataTable({
-				select: 'single',
-				ajax: {
-					url: "/User/GetAllUsersJson",
-					type: "GET",
-					dataType: "json",
-					dataSrc: ''
-				},
-				columns: [
-					{ data: "Name" },
-					{ data: "Email" },
-					{ data: "Role" },
-					{ data: "Telephone" }
-				]
-			});
-
-			$('#users tbody').on('click', 'tr', function () {
-				if ($(this).hasClass('selected')) {
-					$(this).removeClass('selected');
-				}
-				else {
-					table.$('tr.selected').removeClass('selected');
-					$(this).addClass('selected');
-				}
-			});
-
-			$('#button').click(function () {
-				table.row('.selected').remove().draw(false);
-			});
-		});
-	</script>
-}*@
 
 <script>
 	$(document).ready(function () {
@@ -109,24 +60,14 @@
 				dataSrc: ''
 			},
 			columns: [
+				{ data: "Id"},
 				{ data: "Name" },
+				{ data: "Login" },
 				{ data: "Email" },
 				{ data: "Role" },
 				{ data: "Telephone" }
 			]
 		});
-
-		//$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
-		//	// Apply the filter and redraw the table
-		//	table
-		//		.column(0).search($('#inputPosId').val())
-		//		.column(1).search($('#inputPosName').val())
-		//		.column(4).search($('#inputPosBrand').val())
-		//		.column(5).search($('#inputFullAddress').val())
-		//		.draw();
-		//});
-
-
 
 		$('#usersList tbody').on('click', 'tr', function () {
 			if ($(this).hasClass('selected')) {
@@ -143,36 +84,60 @@
 		// Initially disable the buttons
 		$('#editButton, #deleteButton').prop('disabled', true);
 
+		// Passs user data to the modal
+		//$('#editButton').on('click', function () {
+		//	var data = table.row('.selected').data();
+		//	if (data) {
+		//		$('#inputUserName').val(data.Name);
+		//		$('#inputLogin').val(data.Login);
+		//		$('#inputEmail').val(data.Email);
+		//		$('#inputTelephone').val(data.Telephone);
+		//		$('#drpdownRole').val(data.Role);
+		//	}
+		//});
+
+		$('#editButton').click(function () {
+			$.ajax({
+				url: "@Url.Action("UpdateUser","User")",
+				data: {
+					Id: data.Id
+				},
+				method: "GET",
+				success: function (response) {
+					$('#main-modal-container').html(response);
+					$('#main-modal').modal('show');
+				}
+			})
+		});
+
 		$('#deleteButton').on('click', function () {
 			var data = table.row('.selected').data();
 			if (data) {
 				$('#deleteItemName').text(data.Name);
-				$('#deleteButton').data('name', data.Name);
+				$('#deleteButton').data('userid', data.Id);
 			}
 		});
 
 
 		$('.btn-outline-danger').on('click', function () {
-			var posId = $('#deleteButton').data('posid');
+			var userId = $('#deleteButton').data('userid');
 			$.ajax({
-				//url: '/Pos/DeletePos/',
-				url: '/User/DeleteUser/' + posId,
+				url: '/User/DeleteUser/' + userId,
 				type: 'POST',
-				data: { id: posId },
+				data: { id: userId },
 				success: function (data) {
 					table.row('.selected').remove().draw(false);
 					$('#deleteModal').modal('hide');
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					alert('Error: ' + errorThrown);
+					$('.modal-backdrop').remove();
+					console.log('User deleted successfully');
+
 				}
+				//error: function (jqXHR, textStatus, errorThrown) {
+				//	alert('Error: ' + errorThrown);
+				//}
 			});
 		});
 
 	});
 
 </script>
-
-
-
-

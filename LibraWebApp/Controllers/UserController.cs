@@ -89,10 +89,19 @@ namespace LibraWebApp.Controllers
 		}
 
 		[HttpPost]
-		public Task<ActionResult> DeleteUser(string userName)
+		//[Route("User/UpdateUser/{id}")]
+		public async Task<ActionResult> UpdateUser(UserDTO user)
 		{
-			_userRepository.DeleteUser(userName);
-			return null;
+			_userRepository.UpdateUser(user);
+			return PartialView();
+		}
+
+		[HttpPost]
+		[Route("User/DeleteUser/{id}")]
+		public void DeleteUser(int id)
+		{
+			_userRepository.DeleteUser(id);
+			
 		}
 	}
 }

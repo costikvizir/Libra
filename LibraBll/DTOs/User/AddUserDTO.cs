@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraBll.DTOs.User
-{
+{ 
 	public class AddUserDTO
 	{
 		public string Name { get; set; }

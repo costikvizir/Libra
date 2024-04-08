@@ -65,7 +65,9 @@ namespace LibraBll.Repositories
                 .Include(x => x.UserType)
                 .Select(x => new UserDTO
                 {
+                    Id = x.Id,
                     Name = x.Name,
+                    Login = x.Login,
                     Email = x.Email,
                     Telephone = x.Telephone,
                     UserTypeId = x.UserTypeId,
@@ -105,12 +107,13 @@ namespace LibraBll.Repositories
 
         public void UpdateUser(UserDTO userPost)
         {
+            var userTypeId = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
             User user = new User()
             {
                 Name = userPost.Name,
                 Email = userPost.Email,
                 Telephone = userPost.Telephone,
-                UserTypeId = userPost.UserTypeId,
+                UserTypeId = userTypeId,
                 Login = userPost.Login,
                 Password = userPost.Password
             };
@@ -119,9 +122,9 @@ namespace LibraBll.Repositories
             Context.SaveChanges();
         }
 
-        public void DeleteUser(string name)
+        public void DeleteUser(int id)
         {
-            User user = Context.Users.FirstOrDefault(x => x.Name == name);
+            User user = Context.Users.FirstOrDefault(x => x.Id == id);
 
             if (user != null)
                 user.IsDeleted = true;
