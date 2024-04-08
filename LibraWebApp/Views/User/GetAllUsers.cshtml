@@ -60,7 +60,7 @@
 				dataSrc: ''
 			},
 			columns: [
-				{ data: "Id"},
+				{ data: "Id", visible : false},
 				{ data: "Name" },
 				{ data: "Login" },
 				{ data: "Email" },
@@ -97,6 +97,11 @@
 		//});
 
 		$('#editButton').click(function () {
+			debugger;
+            console.log('editButton clicked');  // This will print a message when the button is clicked
+
+            var data = table.row('.selected').data();  // Get the data of the selected row
+            console.log('Selected row data:', data);
 			$.ajax({
 				url: "@Url.Action("UpdateUser","User")",
 				data: {
@@ -104,6 +109,7 @@
 				},
 				method: "GET",
 				success: function (response) {
+                    console.log('AJAX request successful, response:', response);  
 					$('#main-modal-container').html(response);
 					$('#main-modal').modal('show');
 				}
