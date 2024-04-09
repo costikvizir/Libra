@@ -32,13 +32,13 @@ namespace LibraBll.Validators.User
                 .MinimumLength(9).WithMessage("Not a phone number")
                 .Matches(@"^\+?[0-9]*$").WithMessage("Phone number should contain only numbers");
 
-            RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Missing Password")
-                .MinimumLength(8).WithMessage("Password should contain at least 8 characters")
-                .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
-                .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
-                .Matches("[0-9]").WithMessage("Password must contain at least one number")
-                .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character");
+            //RuleFor(x => x.Password)
+            //    .NotEmpty().WithMessage("Missing Password")
+            //    .MinimumLength(8).WithMessage("Password should contain at least 8 characters")
+            //    .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
+            //    .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
+            //    .Matches("[0-9]").WithMessage("Password must contain at least one number")
+            //    .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character");
         }
     }
 }

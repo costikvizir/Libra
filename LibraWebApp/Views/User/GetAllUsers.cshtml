@@ -1,53 +1,51 @@
 ﻿@{
-	ViewBag.Title = "All Users";
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-	//Layout = "~/Views/Shared/_Layout.cshtml";
-	//Layout = null;
+    ViewBag.Title = "All Users";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = null;
 }
 
-@model List<LibraBll.DTOs.User.UserDTO>
+@model List<LibraBll.DTOs.User.GetUserDTO>
 
 <h3 class="mt-5">All Users</h3>
 
 <div class="mb-2">
-	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
-		<button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-	</div>
-	
-	<!-- Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Delete <span id="deleteItemName"></span> ?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-outline-danger">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
+        <button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+        <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+    </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Delete <span id="deleteItemName"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <table id="usersList" class="display mt-3">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Name</th>
-			<th>Login</th>
-			<th>Email</th>
-			<th>Role</th>
-			<th>Telephone</th>
-		</tr>
-	</thead>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Login</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Telephone</th>
+        </tr>
+    </thead>
 </table>
-
 
 <script>
 	$(document).ready(function () {
@@ -110,7 +108,7 @@
 				},
 				method: "GET",
 				success: function (response) {
-                    console.log('AJAX request successful, response:', response);  
+                    console.log('AJAX request successful, response:', response);
 					$('#main-modal-container').html(response);
 					$('#main-modal').modal('show');
 				}
@@ -124,7 +122,6 @@
 				$('#deleteButton').data('userid', data.Id);
 			}
 		});
-
 
 		$('.btn-outline-danger').on('click', function () {
 			var userId = $('#deleteButton').data('userid');

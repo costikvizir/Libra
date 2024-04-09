@@ -1,27 +1,14 @@
-﻿using LibraBll.Abstractions;
-using LibraBll.DTOs;
-using LibraBll.Repositories;
+﻿using LibraBll.Abstractions.Repositories;
+using LibraBll.DTOs.User;
+using Microsoft.Owin.Security;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+
+//using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Microsoft.AspNet.Identity;
-using Microsoft.Extensions.Logging;
-using System.Data.Entity.Core.Metadata.Edm;
-using Libra.Dal.Context;
-
-//using Microsoft.AspNetCore.Mvc;
-using Microsoft.Owin.Security.Cookies;
-using System.Security.Claims;
-using System.Security.Policy;
-using System.Web.UI.WebControls;
-using System.Net;
-using Microsoft.Owin.Security;
-using LibraBll.Abstractions.Repositories;
-using LibraBll.DTOs.User;
 
 namespace LibraWebApp.Controllers
 {
@@ -53,7 +40,7 @@ namespace LibraWebApp.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(GetUserDTO model)
+        public async Task<ActionResult> Login(LoginUserDTO model)
         {
             try
             {
@@ -65,7 +52,7 @@ namespace LibraWebApp.Controllers
 
                 using ((System.IDisposable)_userRepository)
                 {
-                    var user = await _userRepository.GetUserAuth(model.Name, model.Password);
+                    var user = await _userRepository.GetUserAuth(model.UserName, model.Password);
                     if (user is null)
                     {
                         //ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");

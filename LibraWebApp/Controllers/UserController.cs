@@ -89,24 +89,20 @@ namespace LibraWebApp.Controllers
         {
             var user = await _userRepository.GetUserByIdAsync(id);
 
-            //         var userDTO = new AddUserDTO
-            //         {
-            //	Id = user.Id,
-            //	Name = user.Name,
-            //	Email = user.Email,
-            //	Login = user.Login,
-            //	Role = user.Role,
-            //	IsActive = user.IsActive,
-            //	Telephone = user.Telephone,
-            //	UserTypeId = user.UserTypeId
-            //};
+            return PartialView("~/Views/User/_Edit.cshtml", user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateUser(ModifyUserDTO user)
+        {
             var modifiedUser = new ModifyUserDTO
             {
-                //Id = user.Id,
+                Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
                 Login = user.Login,
                 Role = user.Role,
+                Password = user.Password,
                 IsActive = user.IsActive,
                 Telephone = user.Telephone,
             };
@@ -119,14 +115,9 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
-                return PartialView();
+                return PartialView("GetAllUsers");
             }
-            return PartialView("~/Views/User/_Edit.cshtml", user);
-        }
 
-        [HttpPost]
-        public async Task<ActionResult> UpdateUser(ModifyUserDTO user)
-        {
             _userRepository.UpdateUser(user);
             return PartialView("GetAllUsers");
         }

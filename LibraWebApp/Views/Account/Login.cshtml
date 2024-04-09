@@ -1,5 +1,5 @@
 ﻿@using LibraBll.DTOs
-@model LibraBll.DTOs.User.UserDTO
+@model LibraBll.DTOs.User.LoginUserDTO
 @*@Model?.LibraBll.DTOs.UserDTO*@
 @*@{
         Layout = "~/Views/Shared/_Layout.cshtml";
@@ -39,9 +39,9 @@
         <br>
         <div class="row">
             <div class="col-3">
-                @Html.LabelFor(model => model.Name, "User Name")
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Login", style = "font-size: 0.875rem" })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", style = "font-size: 0.7rem" })
+                @Html.LabelFor(model => model.UserName, "User Name")
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Login", style = "font-size: 0.875rem" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", style = "font-size: 0.7rem" })
             </div>
             <div class="col-8">-->
 @*<input asp-for="Name" class="form-control" placeholder="Login" required autofocus />*@
@@ -81,7 +81,7 @@
         <h1>Libra</h1>
         <form method="post">
             <div class="txt_field">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", style = "font-size: 0.875rem", required = "required" })
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", style = "font-size: 0.875rem", required = "required" })
 
                 <span></span>
                 <label>Username</label>
