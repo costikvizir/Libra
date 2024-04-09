@@ -85,7 +85,41 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> UpdateUser(int id)
         {
             var user = await _userRepository.GetUserByIdAsync(id);
-            return View("~/Views/User/_Edit.cshtml", user);
+
+   //         var userDTO = new AddUserDTO
+   //         {
+			//	Id = user.Id,
+			//	Name = user.Name,
+			//	Email = user.Email,
+			//	Login = user.Login,
+			//	Role = user.Role,
+			//	IsActive = user.IsActive,
+			//	Telephone = user.Telephone,
+			//	UserTypeId = user.UserTypeId
+			//};
+            var addUserDTO = new AddUserDTO
+            {
+				Id = user.Id,
+				Name = user.Name,
+				Email = user.Email,
+				Login = user.Login,
+				Role = user.Role,
+				IsActive = user.IsActive,
+				Telephone = user.Telephone,
+				UserTypeId = user.UserTypeId
+			};
+
+			var results = _createUserValidator.Validate(userDTO);
+
+			if (!results.IsValid)
+			{
+				foreach (var failure in results.Errors)
+				{
+					ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+				}
+				return PartialView();
+			}
+			return PartialView("~/Views/User/_Edit.cshtml", user);
         }
 
         [HttpPost]

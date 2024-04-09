@@ -27,7 +27,10 @@ namespace LibraBll.Repositories
 
             var user = new UserDTO()
             {
+                Id = entity.Id,
                 Name = entity.Name,
+                Login = entity.Login,
+                Password = entity.Password,
                 Email = entity.Email,
                 Telephone = entity.Telephone,
                 UserTypeId = entity.UserTypeId
@@ -105,7 +108,7 @@ namespace LibraBll.Repositories
             return userPost;
         }
 
-        public void UpdateUser(UserDTO userPost)
+        public void UpdateUser(ModifyUserDTO userPost)
         {
             var userTypeId = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
             var user = Context.Users.FirstOrDefault(x => x.Id == userPost.Id);

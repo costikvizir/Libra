@@ -15,7 +15,7 @@ namespace LibraBll.Abstractions.Repositories
 		Task<List<UserDTO>> GetAllUsersAsync();
 		Task<AddUserDTO> CreateUser(AddUserDTO userPost);
 		Task<UserDTO> GetUserAuth(string name, string password);
-		void UpdateUser(UserDTO userPost);
+		void UpdateUser(ModifyUserDTO userPost);
 		void DeleteUser(int id);
 	}
 }
