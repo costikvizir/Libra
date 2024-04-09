@@ -10,7 +10,7 @@
 <h3 class="mt-5">All Users</h3>
 
 <div class="mb-2">
-	<div class="mb-2 d-flex justify-content-end">
+	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
 		<button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
 		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 	</div>
@@ -102,6 +102,7 @@
 
             var data = table.row('.selected').data();  // Get the data of the selected row
             console.log('Selected row data:', data);
+
 			$.ajax({
 				url: "@Url.Action("UpdateUser","User")",
 				data: {
@@ -146,4 +147,10 @@
 
 	});
 
+	document.getElementById('buttonWrapper').addEventListener('click', function () {
+		var button = document.getElementById('deleteButton');
+		if (button.disabled) {
+			alert('Please select a row');
+		}
+	});
 </script>

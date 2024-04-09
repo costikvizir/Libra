@@ -108,17 +108,19 @@ namespace LibraBll.Repositories
         public void UpdateUser(UserDTO userPost)
         {
             var userTypeId = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
-            User user = new User()
-            {
-                Name = userPost.Name,
-                Email = userPost.Email,
-                Telephone = userPost.Telephone,
-                UserTypeId = userTypeId,
-                Login = userPost.Login,
-                Password = userPost.Password
-            };
+            var user = Context.Users.FirstOrDefault(x => x.Id == userPost.Id);
 
-            Context.Users.Update(user);
+            if(user == null)
+				return;
+            user.Name = userPost.Name;
+            user.Email = userPost.Email;
+            user.Telephone = userPost.Telephone;
+            user.UserTypeId = userTypeId;
+            user.Login = userPost.Login;
+           // user.Password = userPost.Password;
+
+            //Context.Users.Update(user);
+            Context.Entry(user).State = EntityState.Modified;
             Context.SaveChanges();
         }
 

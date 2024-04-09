@@ -92,7 +92,7 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> UpdateUser(UserDTO user)
         {
             _userRepository.UpdateUser(user);
-            return PartialView();
+            return PartialView("GetAllUsers");
         }
 
         [HttpPost]
