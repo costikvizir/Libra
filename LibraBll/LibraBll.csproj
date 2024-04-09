@@ -128,7 +128,7 @@
     <Compile Include="DTOs\User\LoginUserDTO.cs" />
     <Compile Include="DTOs\User\ModifyUserDTO.cs" />
     <Compile Include="DTOs\Pos\PosPostDTO.cs" />
-    <Compile Include="DTOs\User\UserDTO.cs" />
+    <Compile Include="DTOs\User\GetUserDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IssueRepository.cs" />
     <Compile Include="Repositories\PosRepository.cs" />

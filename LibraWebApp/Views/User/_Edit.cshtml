@@ -1,115 +1,112 @@
 ﻿@{
-	Layout = null;
+    Layout = null;
 }
 
-@model LibraBll.DTOs.User.UserDTO
+@model LibraBll.DTOs.User.GetUserDTO
 
 @section scripts{
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 }
 
 @using (Html.BeginForm("UpdateUser", "User", FormMethod.Post, new { id = "UpdateUserForm" }))
 {
-	@*<div class="modal-header row align-items-center">
-			<h4 class="modal-title col-md-7">Modify data for @Model.Name</h4>
-			<button type="button" data-dismiss="modal" class="close" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>*@
+    @*<div class="modal-header row align-items-center">
+            <h4 class="modal-title col-md-7">Modify data for @Model.Name</h4>
+            <button type="button" data-dismiss="modal" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>*@
 
-	@*<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
-	@*<div class="modal-dialog">*@
-	@*<div class="modal-content">*@
+    @*<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
+    @*<div class="modal-dialog">*@
+    @*<div class="modal-content">*@
 
-
-
-
-	<div class="modal-header">
-		<h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	</div>
-	<div class="modal-body">
-		@Html.HiddenFor(model => model.Id)
-		<div class="col-12">
-			<label for="inputUserName" class="form-label">User Name</label>
-			<div class="input-group">
-				<div class="input-group-text"><i class="fas fa-user"></i></div>
-				@Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "User Name" })
-			</div>
-			@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-		</div>
-		<div class="col-12">
-			<label for="inputLogin" class="form-label">Login</label>
-			<div class="input-group">
-				<div class="input-group-text"><i class="fas fa-sign-in-alt"></i></div>
-				@Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Login" })
-			</div>
-		</div>
-		<div class="col-12">
-			<label for="inputEmail" class="form-label">Email</label>
-			<div class="input-group">
-				<div class="input-group-text"><i class="fas fa-envelope"></i></div>
-				@Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "email@example.com" })
-			</div>
-			@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-		</div>
-		<div class="col-12">
-			<label for="inputTelephone" class="form-label">Telephone</label>
-			<div class="input-group">
-				<div class="input-group-text"><i class="fas fa-phone"></i></div>
-				@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", placeholder = "Telephone" })
-			</div>
-			@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
-		</div>
-		<div class="col-6">
-			<label for="inputState" class="form-label">Role</label>
-			@Html.DropDownList("drpdownRole", new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputState" })
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" id="cancelButton" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-		<button type="submit" id="saveChanges" class="btn btn-outline-warning">Modify</button>
-	</div>
-	@*</div>*@
-	@*</div>*@
-	@*</div>*@
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        @Html.HiddenFor(model => model.Id)
+        <div class="col-12">
+            <label for="inputUserName" class="form-label">User Name</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fas fa-user"></i></div>
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "User Name" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12">
+            <label for="inputLogin" class="form-label">Login</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fas fa-sign-in-alt"></i></div>
+                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Login" })
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="inputEmail" class="form-label">Email</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "email@example.com" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-12">
+            <label for="inputTelephone" class="form-label">Telephone</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", placeholder = "Telephone" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-6">
+            <label for="inputState" class="form-label">Role</label>
+            @Html.DropDownList("drpdownRole", new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputState" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="cancelButton" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" id="saveChanges" class="btn btn-outline-warning">Modify</button>
+    </div>
+    @*</div>*@
+    @*</div>*@
+    @*</div>*@
 }
 
 @*///usereditentity to map from userdto*@
 @*<script>
-	var userEditEntity = {
-		Id: @Model.Id,
-		Name: "@Model.Name",
-		Login: "@Model.Login",
-		Email: "@Model.Email",
-		Telephone: "@Model.Telephone",
-		Role: "@Model.Role"
-	}
+    var userEditEntity = {
+        Id: @Model.Id,
+        Name: "@Model.Name",
+        Login: "@Model.Login",
+        Email: "@Model.Email",
+        Telephone: "@Model.Telephone",
+        Role: "@Model.Role"
+    }
 
-	//var userEditEntity = {
-	//    Id: $('#Id').val(),
-	//    Name: $('#Name').val(),
-	//    Login: $('#inputLogin').val(),
-	//    Email: $('#inputEmail').val(),
-	//    Telephone: $('#inputTelephone').val(),
-	//    Role: $('#inputState').val()
-	//}
-	 $.ajax({
-		async: true,
-		type: "POST",
-		dataType: 'json',
-		data: userEditEntity,
-		url: '@Url.Action("UpdateUser", "User", new {httproute="ActionRoute"})',
+    //var userEditEntity = {
+    //    Id: $('#Id').val(),
+    //    Name: $('#Name').val(),
+    //    Login: $('#inputLogin').val(),
+    //    Email: $('#inputEmail').val(),
+    //    Telephone: $('#inputTelephone').val(),
+    //    Role: $('#inputState').val()
+    //}
+     $.ajax({
+        async: true,
+        type: "POST",
+        dataType: 'json',
+        data: userEditEntity,
+        url: '@Url.Action("UpdateUser", "User", new {httproute="ActionRoute"})',
 
-		success: function (data) {
-			if (data.ExecutionStatus == 0) {
-				$("#main-modal").modal("hide");
-			}
-			else {
-				$("#main-modal").modal("show");
-			}
-		}
-	})
-	</script>*@
+        success: function (data) {
+            if (data.ExecutionStatus == 0) {
+                $("#main-modal").modal("hide");
+            }
+            else {
+                $("#main-modal").modal("show");
+            }
+        }
+    })
+    </script>*@

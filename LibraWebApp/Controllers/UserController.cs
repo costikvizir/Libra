@@ -13,11 +13,14 @@ namespace LibraWebApp.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IValidator<AddUserDTO> _createUserValidator;
+        private readonly IValidator<ModifyUserDTO> _modifyUserValidator;
 
-        public UserController(IUserRepository userRepository, IValidator<AddUserDTO> createUserValidator)
+        public UserController(IUserRepository userRepository, IValidator<AddUserDTO>
+            createUserValidator, IValidator<ModifyUserDTO> modifyUserValidator)
         {
             _userRepository = userRepository;
             _createUserValidator = createUserValidator;
+            _modifyUserValidator = modifyUserValidator;
         }
 
         [HttpGet]
@@ -38,7 +41,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
-            List<UserDTO> allUsers = await _userRepository.GetAllUsersAsync();
+            List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
             if (!allUsers.Any())
                 return null;
@@ -50,7 +53,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<JsonResult> GetAllUsersJson()
         {
-            List<UserDTO> allUsers = await _userRepository.GetAllUsersAsync();
+            List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
             if (!allUsers.Any())
                 return Json(new { }, JsonRequestBehavior.AllowGet);
@@ -86,44 +89,43 @@ namespace LibraWebApp.Controllers
         {
             var user = await _userRepository.GetUserByIdAsync(id);
 
-   //         var userDTO = new AddUserDTO
-   //         {
-			//	Id = user.Id,
-			//	Name = user.Name,
-			//	Email = user.Email,
-			//	Login = user.Login,
-			//	Role = user.Role,
-			//	IsActive = user.IsActive,
-			//	Telephone = user.Telephone,
-			//	UserTypeId = user.UserTypeId
-			//};
-            var addUserDTO = new AddUserDTO
+            //         var userDTO = new AddUserDTO
+            //         {
+            //	Id = user.Id,
+            //	Name = user.Name,
+            //	Email = user.Email,
+            //	Login = user.Login,
+            //	Role = user.Role,
+            //	IsActive = user.IsActive,
+            //	Telephone = user.Telephone,
+            //	UserTypeId = user.UserTypeId
+            //};
+            var modifiedUser = new ModifyUserDTO
             {
-				Id = user.Id,
-				Name = user.Name,
-				Email = user.Email,
-				Login = user.Login,
-				Role = user.Role,
-				IsActive = user.IsActive,
-				Telephone = user.Telephone,
-				UserTypeId = user.UserTypeId
-			};
+                //Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Login = user.Login,
+                Role = user.Role,
+                IsActive = user.IsActive,
+                Telephone = user.Telephone,
+            };
 
-			var results = _createUserValidator.Validate(userDTO);
+            var results = _modifyUserValidator.Validate(modifiedUser);
 
-			if (!results.IsValid)
-			{
-				foreach (var failure in results.Errors)
-				{
-					ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
-				}
-				return PartialView();
-			}
-			return PartialView("~/Views/User/_Edit.cshtml", user);
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+                return PartialView();
+            }
+            return PartialView("~/Views/User/_Edit.cshtml", user);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateUser(UserDTO user)
+        public async Task<ActionResult> UpdateUser(ModifyUserDTO user)
         {
             _userRepository.UpdateUser(user);
             return PartialView("GetAllUsers");

@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Logging;
 using System.Data.Entity.Core.Metadata.Edm;
 using Libra.Dal.Context;
+
 //using Microsoft.AspNetCore.Mvc;
 using Microsoft.Owin.Security.Cookies;
 using System.Security.Claims;
@@ -24,92 +25,90 @@ using LibraBll.DTOs.User;
 
 namespace LibraWebApp.Controllers
 {
-	[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
-		private readonly IUserRepository _userRepository;
-		//private LibraContext context = new LibraContext();
+        private readonly IUserRepository _userRepository;
+        //private LibraContext context = new LibraContext();
 
-		private IAuthenticationManager AuthenticationManager
-		{
-			get
-			{
-				return HttpContext.GetOwinContext().Authentication;
-			}
-		}
-
-		public AccountController(IUserRepository userRepository)
+        private IAuthenticationManager AuthenticationManager
         {
-			_userRepository = userRepository;	
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        public AccountController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
         }
 
         [HttpGet]
-		[AllowAnonymous]
-		public ActionResult Login()
-		{
-			return PartialView();
-		}
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            return PartialView();
+        }
 
-		[HttpPost]
-		[AllowAnonymous]
-		public async Task<ActionResult> Login(UserDTO model)
-		{
-			try
-			{
-				if (!ModelState.IsValid)
-				{
-                   // ViewBag.ShowErrorMessage = true;
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Login(GetUserDTO model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    // ViewBag.ShowErrorMessage = true;
                     return View(model);
-				}				
+                }
 
-				using ((System.IDisposable) _userRepository)
-				{
-					var user = await _userRepository.GetUserAuth(model.Name, model.Password);
-					if (user is null)
-					{
-						//ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
+                using ((System.IDisposable)_userRepository)
+                {
+                    var user = await _userRepository.GetUserAuth(model.Name, model.Password);
+                    if (user is null)
+                    {
+                        //ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
                         ViewBag.ShowErrorMessage = true;
                         return View(model);
-					}
-					else
-					{
+                    }
+                    else
+                    {
+                        ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                        claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Role.ToString(), ClaimValueTypes.String));
+                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName, ClaimValueTypes.String));
+                        claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                            "OWIN Provider", ClaimValueTypes.String));
 
-						ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-						claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Role.ToString(), ClaimValueTypes.String));
-						claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name, ClaimValueTypes.String));
-						claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
-							"OWIN Provider", ClaimValueTypes.String));
+                        if (user.Role != null)
+                            claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role, ClaimValueTypes.String));
 
-						if (user.Role != null)
-							claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role, ClaimValueTypes.String));
+                        AuthenticationManager.SignOut();
 
-						AuthenticationManager.SignOut();
+                        AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true
+                        }, claim);
 
-						AuthenticationManager.SignIn(new AuthenticationProperties
-						{
-							IsPersistent = true
-						}, claim);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //logger.Error(ex, "Account/Lgoin");
+                //return CreateJsonError();
+                //var errorData = new { Success = false, Message = "An error occurred while processing your request." };
+                var errorData = new { Success = false, Message = ex.Message };
+                return Json(errorData, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-						return RedirectToAction("Index", "Home");
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				//logger.Error(ex, "Account/Lgoin");
-				//return CreateJsonError();
-				//var errorData = new { Success = false, Message = "An error occurred while processing your request." };
-				var errorData = new { Success = false, Message = ex.Message };	
-				return Json(errorData, JsonRequestBehavior.AllowGet);
-			}
-		}
-
-
-		[Authorize]
-		public ActionResult LogOut()
-		{
-			FormsAuthentication.SignOut();
-			return RedirectToAction("Login", "Account");
-		}
-	}
+        [Authorize]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
+    }
 }

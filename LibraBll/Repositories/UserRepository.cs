@@ -1,17 +1,12 @@
-﻿using Libra.Dal.Context;
-using Libra.Dal.Entities;
-using LibraBll.Abstractions;
+﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
-using LibraBll.DTOs;
 using LibraBll.DTOs.User;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace LibraBll.Repositories
 {
@@ -21,11 +16,11 @@ namespace LibraBll.Repositories
         {
         }
 
-        public async Task<UserDTO> GetUserByIdAsync(int id)
+        public async Task<GetUserDTO> GetUserByIdAsync(int id)
         {
             User entity = await Context.Users.FindAsync(id);
 
-            var user = new UserDTO()
+            var user = new GetUserDTO()
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -39,12 +34,12 @@ namespace LibraBll.Repositories
             return user;
         }
 
-        public async Task<UserDTO> GetUserByNameAsync(string name)
+        public async Task<GetUserDTO> GetUserByNameAsync(string name)
         {
             User entity = await Context.Users.FindAsync(name);
             if (entity != null)
             {
-                var user = new UserDTO()
+                var user = new GetUserDTO()
                 {
                     Name = entity.Name,
                     Email = entity.Email,
@@ -58,15 +53,15 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        public async Task<List<UserDTO>> GetAllUsersAsync()
+        public async Task<List<GetUserDTO>> GetAllUsersAsync()
         {
-            List<UserDTO> userList = null;
+            List<GetUserDTO> userList = null;
             try
             {
                 userList = await Context.Users
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.UserType)
-                .Select(x => new UserDTO
+                .Select(x => new GetUserDTO
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -113,14 +108,14 @@ namespace LibraBll.Repositories
             var userTypeId = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
             var user = Context.Users.FirstOrDefault(x => x.Id == userPost.Id);
 
-            if(user == null)
-				return;
+            if (user == null)
+                return;
             user.Name = userPost.Name;
             user.Email = userPost.Email;
             user.Telephone = userPost.Telephone;
             user.UserTypeId = userTypeId;
             user.Login = userPost.Login;
-           // user.Password = userPost.Password;
+            // user.Password = userPost.Password;
 
             //Context.Users.Update(user);
             Context.Entry(user).State = EntityState.Modified;
@@ -138,7 +133,7 @@ namespace LibraBll.Repositories
             Context.SaveChanges();
         }
 
-        public async Task<UserDTO> GetUserAuth(string name, string password)
+        public async Task<LoginUserDTO> GetUserAuth(string name, string password)
         {
             User entity = null;
             try
@@ -153,13 +148,11 @@ namespace LibraBll.Repositories
 
             if (entity != null)
             {
-                var user = new UserDTO()
+                var user = new LoginUserDTO()
                 {
-                    Name = entity.Name,
+                    UserName = entity.Name,
                     Email = entity.Email,
                     Password = entity.Password,
-                    Telephone = entity.Telephone,
-                    UserTypeId = entity.UserTypeId,
                     Login = entity.Login,
                     Role = entity.UserType.Role
                 };
