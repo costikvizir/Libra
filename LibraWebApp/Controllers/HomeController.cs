@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraBll.Abstractions.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,16 @@ namespace LibraWebApp.Controllers
 {
 	public class HomeController : Controller
 	{
-		public ActionResult Index()
+		private readonly IIssueRepository _issueRepository;
+
+        public HomeController(IIssueRepository issueRepository)
+        {
+			_issueRepository = issueRepository;	
+        }
+        public ActionResult Index()
 		{
+			int issueCount = _issueRepository.GetIssueCount();
+			ViewBag.IssueCount = issueCount;
 			return View("Index");
 		}
 

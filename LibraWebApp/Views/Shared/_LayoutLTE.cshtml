@@ -148,7 +148,7 @@
 								<p>
 									Issues
 									<i class="right fas fa-angle-left"></i>
-									<span class="badge badge-danger right">6</span>
+									<span class="badge badge-danger right">@ViewBag.IssueCount</span>
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
@@ -159,7 +159,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="@Url.Action("AllIssues", "Issue")" class="nav-link">
+									<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Issues</p>
 									</a>

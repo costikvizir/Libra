@@ -15,5 +15,6 @@ namespace LibraBll.Abstractions.Repositories
 		Task<IssueDTO> AddIssue(IssueDTO issue);
 		void UpdateIssue(IssueDTO issue);
 		void DeleteIssue(int id);
+		int GetIssueCount();
 	}
 }

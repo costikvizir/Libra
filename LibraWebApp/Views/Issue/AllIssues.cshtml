@@ -1,5 +1,124 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	ViewBag.Title = "All Issues";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
+@model List<LibraBll.DTOs.Issue.IssueDTO>
+
 <h3 class="accent-gray-dark mt-5">All Issues</h3>
+
+<div class="mb-2">
+	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
+		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Delete <span id="deleteItemName"></span> ?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-outline-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<table id="issueList" class="display mt-3">
+	<!--<thead>
+		<tr>
+			<th>Pos ID</th>
+			<th>Pos Name</th>-->
+	@*<th>Created By</th>
+		<th>Date</th>
+		<th>Issue Type</th>*@
+	<!--<th>Status</th>
+			<th>Assigned To</th>
+			<th>Memo</th>
+		</tr>
+	</thead>-->
+</table>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			var table = $('#issueList').DataTable({
+				select: true,
+				ajax: {
+					url: "/Issue/GetAllIssuesJson",
+					type: "GET",
+					dataType: "json",
+					dataSrc: ''
+				},
+				columns: [
+					{ title: "PosId", data: "PosId" },
+					{ title: "PosName", data: "PosName" },
+					{ title: "CreatedBy", data: "UserCreated" },
+					{ title: "Date", data: "CreationDate" },
+					{ title: "IssueType", data: "Type" },
+					{ title: "Status", data: "Status" },
+					{ title: "AssignedTo", data: "AssignedTo" },
+					{ title: "Memo", data: "Memo" }
+				]
+			});
+
+			$('#issueList tbody').on('click', 'tr', function () {
+				if ($(this).hasClass('selected')) {
+					$(this).removeClass('selected');
+					$('#deleteButton').prop('disabled', true);  // Disable button
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+					$('#deleteButton').prop('disabled', false);  // Enable button
+				}
+			});
+
+
+			// Initially disable the buttons
+			$('#deleteButton').prop('disabled', true);
+
+			$('#deleteButton').on('click', function () {
+				var data = table.row('.selected').data();
+				if (data) {
+					$('#deleteItemName').text(data.Name);
+					$('#deleteButton').data('issueId', data.Id);
+				}
+			});
+
+			$('.btn-outline-danger').on('click', function () {
+				var issueId = $('#deleteButton').data('issueId');
+				$.ajax({
+					url: '/Issue/DeleteIssue/' + issueId,
+					type: 'POST',
+					data: { id: issueId },
+					success: function (data) {
+						table.row('.selected').remove().draw(false);
+						$('#deleteModal').modal('hide');
+						$('.modal-backdrop').remove();
+						console.log('Issue deleted successfully');
+
+					}
+					//error: function (jqXHR, textStatus, errorThrown) {
+					//	alert('Error: ' + errorThrown);
+					//}
+				});
+			});
+
+		});
+
+		document.getElementById('buttonWrapper').addEventListener('click', function () {
+			var button = document.getElementById('deleteButton');
+			if (button.disabled) {
+				alert('Please select a row');
+			}
+		});
+	</script>
+}

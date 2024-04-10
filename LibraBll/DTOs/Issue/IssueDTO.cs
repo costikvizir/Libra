@@ -10,7 +10,7 @@ namespace LibraBll.DTOs.Issue
     public class IssueDTO
     {
         public int? PosId { get; set; }
-        public string Type { get; set; }
+        public string Type { get; set; } 
         public string SubType { get; set; }
         public string Problem { get; set; }
         public string Priority { get; set; }

@@ -1,11 +1,15 @@
-﻿@{
+﻿@model LibraBll.DTOs.Issue.IssueDTO
+@{
     Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    if (Model != null)
+    {
+        Model.UserCreated = User.Identity.Name;
+    }
 }
 
 <h3 class="accent-gray-dark mt-5">New Issue</h3>
 
 @*@model LibraBll.DTOs.Pos.PosGetDTO*@
-@model LibraBll.DTOs.Issue.IssueDTO
 
 <style>
     .table thead th {
@@ -39,6 +43,7 @@
 
 @using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "OpenIssueForm" }))
 {
+   
     <div class="card mb-0">
         <div class="card-header" style="background-color: lightgray">
             Add Issue for POS
@@ -71,70 +76,71 @@
         </div>
     </div>
 
-    <div class="card mt-0">
+	<div class="card mt-0">
 
-        @Html.HiddenFor(model => model.PosId)
-        <div class="card-header" style="background-color: lightgray">
-            Add Issue
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="inputState" class="form-label">Issue Type</label>
-                    @Html.DropDownListFor(model => model.Type, new SelectList(new[] { "Type1", "Type2", "Type3" }), "select", new { @class = "form-select", id = "inputStatus" })
+		@Html.HiddenFor(model => model.PosId)
+		
+		<div class="card-header" style="background-color: lightgray">
+			Add Issue
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-2">
+					<label for="inputState" class="form-label">Issue Type</label>
+					@Html.DropDownListFor(model => model.Type, new SelectList(new[] { "Technical Issue", "Software Issue", "Undefined" }), "select", new { @class = "form-select", id = "inputStatus" })
 
-                </div>
-                <div class="col-md-2">
-                    <label for="inputState" class="form-label">Subclass</label>
-                    @Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "subclass1", "subclass2" }), "select", new { @class = "form-select", id = "inputStatus" })
+				</div>
+				<div class="col-md-2">
+					<label for="inputState" class="form-label">Subclass</label>
+					@Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "subclass1", "subclass2", "Undefined" }), "select", new { @class = "form-select", id = "inputStatus" })
 
-                </div>
+				</div>
 
-                <div class="col-md-2">
-                    <label for="inputState" class="form-label">Problem</label>
-                    @Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "problem1", "problem2s" }), "select", new { @class = "form-select", id = "inputStatus" })
+				<div class="col-md-2">
+					<label for="inputState" class="form-label">Problem</label>
+					@Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "problem1", "problem2s", "Undefined" }), "select", new { @class = "form-select", id = "inputStatus" })
 
-                </div>
-                <div class="col-md-2">
-                    <label for="inputState" class="form-label">Priority</label>
-                    @Html.DropDownListFor(model => model.Priority, new SelectList(new[] { "High", "Medium", "Low" }), "select", new { @class = "form-select", id = "inputStatus" })
+				</div>
+				<div class="col-md-2">
+					<label for="inputState" class="form-label">Priority</label>
+					@Html.DropDownListFor(model => model.Priority, new SelectList(new[] { "High", "Medium", "Low" }), "select", new { @class = "form-select", id = "inputStatus" })
 
-                </div>
-                <div class="col-md-3">
-                    <label for="inputState" class="form-label">Status</label>
-                    @Html.DropDownListFor(model => model.Status, new SelectList(new[] { "Assigned", "In progress", "Pending" }), "New", new { @class = "form-select", id = "inputStatus" })
+				</div>
+				<div class="col-md-3">
+					<label for="inputState" class="form-label">Status</label>
+					@Html.DropDownListFor(model => model.Status, new SelectList(new[] { "Assigned", "In progress", "Pending" }), "New", new { @class = "form-select", id = "inputStatus" })
 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="inputAddress" class="form-label">Problem Description</label>
-                    <div class="input-group">
-                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", style = "height: 110px; resize: none;" })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="inputAddress" class="form-label">Solution</label>
-                    <div class="input-group">
-                        @Html.TextAreaFor(model => model.Solution, new { @class = "form-control", style = "height: 110px; resize: none;" })
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <label for="inputState" class="form-label">Assigned To:</label>
-                        @Html.DropDownListFor(model => model.AssignedTo, new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputassignedTo" })
-                    </div>
-                    <div class="row">
-                        <label for="inputmemo" class="form-label">Memo</label>
-                        <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-info"></i></div>
-                            @Html.TextBoxFor(model => model.Memo, new { @class = "form-control", placeholder = "Memo" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<label for="inputAddress" class="form-label">Problem Description</label>
+					<div class="input-group">
+						@Html.TextAreaFor(model => model.Description, new { @class = "form-control", style = "height: 110px; resize: none;" })
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label for="inputAddress" class="form-label">Solution</label>
+					<div class="input-group">
+						@Html.TextAreaFor(model => model.Solution, new { @class = "form-control", style = "height: 110px; resize: none;" })
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="row">
+						<label for="inputState" class="form-label">Assigned To:</label>
+						@Html.DropDownListFor(model => model.AssignedTo, new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputassignedTo" })
+					</div>
+					<div class="row">
+						<label for="inputmemo" class="form-label">Memo</label>
+						<div class="input-group">
+							<div class="input-group-text"><i class="fas fa-info"></i></div>
+							@Html.TextBoxFor(model => model.Memo, new { @class = "form-control", placeholder = "Memo" })
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
     <div class="d-flex justify-content-start">
         <button type="submit" class="btn btn-primary mr-2">Open Issue</button>

@@ -1,4 +1,5 @@
 ﻿using Libra.Dal.Common;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace Libra.Dal.Entities
 		public string Description { get; set; }
 		public DateTime AssignedDate { get; set; }
 		public DateTime CreationDate { get; set; }
-		public DateTime ModificationDate { get; set; }
-		public string Solution { get; set; }
+		public DateTime? ModificationDate { get; set; }
+        public bool IsDeleted { get; set; }
+        public string Solution { get; set; }
         public Pos Pos { get; set; }
         public Status Status { get; set; }
         public User User { get; set; }

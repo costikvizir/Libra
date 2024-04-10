@@ -21,7 +21,8 @@ namespace Libra.Dal.Entities
         public int? MorningClosing { get; set; }
         public int? AfternoonOpening { get; set; }
         public int? AfternoonClosing { get; set; }
-        public DateTime InsertDate { get; set; }
+		public bool IsDeleted { get; set; }
+		public DateTime InsertDate { get; set; }
         public City City { get; set; }
         public ConnectionType ConnectionType { get; set; }
         public ICollection<Issue> Issues { get; set; }

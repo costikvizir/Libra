@@ -267,6 +267,10 @@
     <Compile Include="Migrations\20240329072745_WeekDays_data_seed.Designer.cs">
       <DependentUpon>20240329072745_WeekDays_data_seed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.cs" />
+    <Compile Include="Migrations\20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.Designer.cs">
+      <DependentUpon>20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\LibraContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
