@@ -83,82 +83,82 @@
 			Oppening hours and holidays
 		</div>
 		<div class="card-body">
-			<div class="row">
-				<div class="col-md-3">
-					<label for="inputOpenMorning" class="form-label">Open Morning</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control", id = "inputOpenMorning", placeholder = "Opening" })
-					</div>
-					@Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputClosedMorning" class="form-label">Closed Morning</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control", id = "inputClosedMorning", placeholder = "Closing", data_val = "", data_val_required = "The Morning Opening field is required." })
-					</div>
-					@Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-5">
-					<label for="dayOfWeekLabel" class="form-label">Closing Days</label>
-					<div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="monday" value="Mon">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Mon" })
-							<label class="form-check-label" for="monday">Mon</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="tuesday" value="Tue">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Tue" })
-							<label class="form-check-label" for="tuesday">Tue</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="wednesday" value="Wed">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Wed" })
-							<label class="form-check-label" for="wednesday">Wed</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="thursday" value="Thu">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Thu" })
-							<label class="form-check-label" for="thursday">Thu</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="friday" value="Fri">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Fri" })
-							<label class="form-check-label" for="friday">Fri</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="saturday" value="Sat">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sat" })
-							<label class="form-check-label" for="saturday">Sat</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="sunday" value="Sun">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sun" })
-							<label class="form-check-label" for="sunday">Sun</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
-					</div>
-					@Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
-					</div>
-					@Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger" })
-				</div>
-			</div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="inputOpenMorning" class="form-label">Open Morning</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control", id = "inputOpenMorning", placeholder = "Opening" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputClosedMorning" class="form-label">Closed Morning</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control", id = "inputClosedMorning", placeholder = "Closing", data_val = "", data_val_required = "The Morning Opening field is required." })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="dayOfWeekLabel" class="form-label">Closing Days</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="monday" value="Mon">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Mon" })
+                            <label class="form-check-label" for="monday">Mon</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="tuesday" value="Tue">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Tue" })
+                            <label class="form-check-label" for="tuesday">Tue</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="wednesday" value="Wed">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Wed" })
+                            <label class="form-check-label" for="wednesday">Wed</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="thursday" value="Thu">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Thu" })
+                            <label class="form-check-label" for="thursday">Thu</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="friday" value="Fri">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Fri" })
+                            <label class="form-check-label" for="friday">Fri</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="saturday" value="Sat">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sat" })
+                            <label class="form-check-label" for="saturday">Sat</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="sunday" value="Sun">*@
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sun" })
+                            <label class="form-check-label" for="sunday">Sun</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
 
