@@ -1,15 +1,13 @@
 ﻿@{
     ViewBag.Title = "All Users";
     Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    //Layout = null;
 }
 
 @model List<LibraBll.DTOs.User.GetUserDTO>
 
 <h3 class="mt-5">All Users</h3>
 
-<div class="mb-2">
+<div id="allUsersForm" class="mb-2">
     <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
         <button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
         <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
@@ -82,24 +80,9 @@
 		// Initially disable the buttons
 		$('#editButton, #deleteButton').prop('disabled', true);
 
-		// Passs user data to the modal
-		//$('#editButton').on('click', function () {
-		//	var data = table.row('.selected').data();
-		//	if (data) {
-		//		$('#inputUserName').val(data.Name);
-		//		$('#inputLogin').val(data.Login);
-		//		$('#inputEmail').val(data.Email);
-		//		$('#inputTelephone').val(data.Telephone);
-		//		$('#drpdownRole').val(data.Role);
-		//	}
-		//});
-
 		$('#editButton').click(function () {
-			debugger;
-            console.log('editButton clicked');  // This will print a message when the button is clicked
 
             var data = table.row('.selected').data();  // Get the data of the selected row
-            console.log('Selected row data:', data);
 
 			$.ajax({
 				url: "@Url.Action("UpdateUser","User")",
@@ -143,6 +126,32 @@
 		});
 
 	});
+
+	function goToALLUsers() {
+		startLoading();
+		$.ajax({
+			url: "@Url.Action("GetAllUsers", "User")",
+			data: {
+			},
+			xhrFields: {
+				withCredentials: true
+			},
+			method: "GET",
+			success: function (response) {
+                $("#allUsersForm").html(null);  //<div id = "AddUserForm"></div>
+                $("#allUsersForm").html(response);
+				stopLoading();
+			},
+		});
+	}
+
+	function startLoading() {
+        $("#allUsersForm").show();
+	}
+
+	function stopLoading() {
+        $("#allUsersForm").hide();
+    }
 
 	document.getElementById('buttonWrapper').addEventListener('click', function () {
 		var button = document.getElementById('deleteButton');

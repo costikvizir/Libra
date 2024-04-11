@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
-using LibraBll.Common;
 using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,8 +100,8 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> UpdatePos(int id)
         {
             PosGetDTO pos = await _posRepository.GetPosByIdAsync(id);
-			return PartialView("EditPos", pos);
-		}
+            return PartialView("EditPos", pos);
+        }
 
         [HttpPost]
         public async Task<ActionResult> UpdatePos(PosPostDTO pos)
@@ -111,26 +110,11 @@ namespace LibraWebApp.Controllers
             return PartialView("EditPos");
         }
 
-		[HttpPost]
+        [HttpPost]
         public Task<ActionResult> DeletePos(int id)
         {
             _posRepository.DeletePos(id);
             return null;
-        }
-
-        public ActionResult GetPosByLocation()
-        {
-            return View();
-        }
-
-        public ActionResult GetPosByStatus()
-        {
-            return View();
-        }
-
-        public ActionResult GetPosByType()
-        {
-            return View();
         }
     }
 }

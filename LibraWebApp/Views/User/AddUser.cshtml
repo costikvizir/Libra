@@ -1,41 +1,39 @@
 ﻿@model LibraBll.DTOs.User.AddUserDTO
 @{
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
 <head>
-	<link rel="stylesheet" type="text/css" href="~/Content/border.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/border.css">
 </head>
-
 <h3 class="accent-gray-dark mt-5">Add User</h3>
-
 
 @using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { id = "AddUserForm" }))
 {
-	<div class="card">
-		<div class="card-header" style="background-color: lightgray">
-			User Information
-		</div>
-		<div class="card-body">
+    <div class="card">
+        <div class="card-header" style="background-color: lightgray">
+            User Information
+        </div>
+        <div class="card-body">
 
-			<div class="row">
-				<div class="col-md-5">
-					<label for="inputUserName" class="form-label">User Name</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-user"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-4">
-					<label for="inputPassword" class="form-label">Password</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-key"></i></div>
-						@Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-				</div>
-			</div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="inputUserName" class="form-label">User Name</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-key"></i></div>
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-5">
                     <label for="inputEmail" class="form-label">Email</label>
@@ -67,30 +65,26 @@
                     @Html.DropDownListFor(model => model.Role, new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputState" })
                 </div>
             </div>
-		</div>
-	</div>
-	<div class="d-flex justify-content-start">
-
-		@*<button type="submit" class="btn btn-primary">Add User</button>*@
-		@*<button type="submit" class="btn btn-primary mr-2" onclick="resetForm()">Add User</button>*@
-		<button type="submit" class="btn btn-primary mr-2 id=" submitButton"">Add User</button>
-		@*<button type="reset" class="btn btn-dark" onclick="hideFormElements()">Reset</button>*@
-		<button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
-	</div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-start">
+        <button type="submit" class="btn btn-primary mr-2" id="submitButton">Add User</button>
+        <button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
+    </div>
 
 }
 
 <script>
-	window.onload = function () {
-		var inputs = document.querySelectorAll('input,select');
-		for (var i = 0; i < inputs.length; i++) {
-			inputs[i].addEventListener('invalid', function () {
-				this.form.classList.add('was-validated');
-			});
-		}
-	}
+    window.onload = function () {
+        var inputs = document.querySelectorAll('input,select');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('invalid', function () {
+                this.form.classList.add('was-validated');
+            });
+        }
+    }
 
-	function goToAddUser() {
+    		function goToAddUser() {
 		startLoading();
 		$.ajax({
 			url: "@Url.Action("AddUser", "User")",
@@ -105,6 +99,16 @@
 				$("#AddUserForm").html(response);
 				stopLoading();
 			},
-		});		
+		});
 	}
+
+	function startLoading() {
+        $("#AddUserForm").show();
+	}
+
+	function stopLoading() {
+        $("#AddUserForm").hide();
+	}
+
+	//goToAddUser();
 </script>

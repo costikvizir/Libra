@@ -1,6 +1,6 @@
 ﻿@{
-	ViewBag.Title = "All Issues";
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    ViewBag.Title = "All Issues";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
 @model List<LibraBll.DTOs.Issue.IssueDTO>
@@ -8,39 +8,36 @@
 <h3 class="accent-gray-dark mt-5">All Issues</h3>
 
 <div class="mb-2">
-	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
-		<button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
-		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-	</div>
+    <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
+        <button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+        <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+    </div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Delete <span id="deleteItemName"></span> ?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-outline-danger">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Delete <span id="deleteItemName"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <table id="issueList" class="display mt-3">
-
 </table>
 
 @section Scripts {
-	<script>
+    <script>
 		$(document).ready(function () {
 			var table = $('#issueList').DataTable({
 				select: true,
@@ -74,7 +71,6 @@
 					$('#detailsButton, #deleteButton').prop('disabled', false);  // Enable button
 				}
 			});
-
 
 			// Initially disable the buttons
 			$('#detailsButton, #deleteButton').prop('disabled', true);
@@ -128,13 +124,11 @@
 			});
 		});
 
-
-
 		document.getElementById('buttonWrapper').addEventListener('click', function () {
 			var button = document.getElementById('deleteButton');
 			if (button.disabled) {
 				alert('Please select a row');
 			}
 		});
-	</script>
+    </script>
 }
