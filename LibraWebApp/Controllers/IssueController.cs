@@ -28,10 +28,11 @@ namespace LibraWebApp.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public async Task<ActionResult> GetIssueById(int id)
 		{
 			var issue = await _issueRepository.GetIssueByIdAsync(id);
-			return View(issue);
+			return PartialView("~/Views/Issue/_IssueDetails.cshtml", issue);
 		}
 
 		[HttpGet]

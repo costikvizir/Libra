@@ -1,0 +1,50 @@
+﻿@{
+	Layout = null;
+}
+
+@model LibraBll.DTOs.Issue.IssueDTO
+
+@section scripts{
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+}
+
+
+@using (Html.BeginForm("GetIssueById", "Issue", FormMethod.Get, new { id = "IssueDetailsForm" }))
+	{
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Issue Details</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<div>
+				<label for="inputParentIssue" class="form-label">Parent Issue</label>
+				@Html.TextBoxFor(model => model.SubType, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+			</div>
+			<div>
+				<label for="inputAssignedDate" class="form-label">Assigned Date</label>
+				@Html.TextBoxFor(model => model.AssignedDate, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+			</div>
+			<div>
+				<label for="inputModificationDate" class="form-label">Modification Date</label>
+				@Html.TextBoxFor(model => model.ModificationDate, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+			</div>
+			<div>
+				<label for="inputMemo" class="form-label">Memo</label>
+				@Html.TextBoxFor(model => model.Memo, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+			</div>
+			<div>
+				<label for="inputDescription" class="form-label">Description</label>
+				@Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3", style = "resize: none;", @readonly = "readonly", @disabled = "disabled" })
+			</div>
+			<div>
+				<label for="inputSolution" class="form-label">Solution</label>
+				@Html.TextAreaFor(model => model.Solution, new { @class = "form-control", rows = "3", style = "resize: none;", @readonly = "readonly", @disabled = "disabled"})
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+		</div>
+	}
+

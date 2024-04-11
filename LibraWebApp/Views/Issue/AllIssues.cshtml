@@ -9,6 +9,7 @@
 
 <div class="mb-2">
 	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
+		<button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
 		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 	</div>
 
@@ -30,20 +31,12 @@
 			</div>
 		</div>
 	</div>
+
+
 </div>
+
 <table id="issueList" class="display mt-3">
-	<!--<thead>
-		<tr>
-			<th>Pos ID</th>
-			<th>Pos Name</th>-->
-	@*<th>Created By</th>
-		<th>Date</th>
-		<th>Issue Type</th>*@
-	<!--<th>Status</th>
-			<th>Assigned To</th>
-			<th>Memo</th>
-		</tr>
-	</thead>-->
+
 </table>
 
 @section Scripts {
@@ -58,6 +51,7 @@
 					dataSrc: ''
 				},
 				columns: [
+					{ title: "Id", data: "Id" ,visible: false },
 					{ title: "PosId", data: "PosId" },
 					{ title: "PosName", data: "PosName" },
 					{ title: "CreatedBy", data: "UserCreated" },
@@ -72,18 +66,18 @@
 			$('#issueList tbody').on('click', 'tr', function () {
 				if ($(this).hasClass('selected')) {
 					$(this).removeClass('selected');
-					$('#deleteButton').prop('disabled', true);  // Disable button
+					$('#detailsButton, #deleteButton').prop('disabled', true);  // Disable button
 				}
 				else {
 					table.$('tr.selected').removeClass('selected');
 					$(this).addClass('selected');
-					$('#deleteButton').prop('disabled', false);  // Enable button
+					$('#detailsButton, #deleteButton').prop('disabled', false);  // Enable button
 				}
 			});
 
 
 			// Initially disable the buttons
-			$('#deleteButton').prop('disabled', true);
+			$('#detailsButton, #deleteButton').prop('disabled', true);
 
 			$('#deleteButton').on('click', function () {
 				var data = table.row('.selected').data();
@@ -112,7 +106,29 @@
 				});
 			});
 
+			$('#detailsButton').click(function () {
+				debugger;
+				console.log('detailsButton clicked');  // This will print a message when the button is clicked
+
+			    var data = table.row('.selected').data();  // Get the data of the selected row
+			    console.log('Selected row data:', data);
+
+				$.ajax({
+					url: "@Url.Action("GetIssueById", "Issue")",
+					data: {
+						Id: data.Id
+					},
+					method: "GET",
+					success: function (response) {
+						console.log('AJAX request successful, response:', response);
+						$('#main-modal-container').html(response);
+						$('#main-modal').modal('show');
+					}
+				})
+			});
 		});
+
+
 
 		document.getElementById('buttonWrapper').addEventListener('click', function () {
 			var button = document.getElementById('deleteButton');
