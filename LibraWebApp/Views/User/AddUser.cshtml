@@ -89,4 +89,22 @@
 			});
 		}
 	}
+
+	function goToAddUser() {
+		startLoading();
+		$.ajax({
+			url: "@Url.Action("AddUser", "User")",
+			data: {
+			},
+			xhrFields: {
+				withCredentials: true
+			},
+			method: "GET",
+			success: function (response) {
+				$("#AddUserForm").html(null);  //<div id = "AddUserForm"></div>
+				$("#AddUserForm").html(response);
+				stopLoading();
+			},
+		});		
+	}
 </script>
