@@ -36,6 +36,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/dataTables")
     @Scripts.Render("~/bundles/jqueryval")
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -186,16 +187,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        @*<li class="nav-item">
-                                <a href="pages/widgets.html" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Widgets
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
-                                </a>
-                            </li>*@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -207,7 +198,7 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container-fluid">
+                <div id="mainContainer" class="container-fluid">
                     @RenderBody()
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -280,7 +271,29 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to load content via AJAX
+            function loadContent(url) {
+                $.get(url, function (data) {
+                    $('#mainContainer').html(data);
+                });
+            }
+
+            // Click handler for navigation links
+            $('.nav-link').click(function (e) {
+                e.preventDefault(); // Prevent default link behavior
+                var url = $(this).attr('href');
+                loadContent(url);
+            });
+
+            // Load initial content
+            var initialUrl = window.location.href;
+            loadContent(initialUrl);
+        });
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
