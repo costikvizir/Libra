@@ -110,7 +110,6 @@
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
-                                    @*<i class="right fas fa-angle-left"></i>*@
                                 </p>
                             </a>
                         </li>
@@ -126,13 +125,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("AddPos", "Pos")" class="nav-link">
+                                    <a href="@Url.Action("AddPos", "Pos")" class="nav-link ajax-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add POS</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="@Url.Action("GetAllPos", "Pos")" class="nav-link">
+                                    <a href="@Url.Action("GetAllPos", "Pos")" class="nav-link ajax-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Browse POS</p>
                                     </a>
@@ -150,7 +149,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("AddIssue", "Issue")" class="nav-link">
+                                    <a href="@Url.Action("AddIssue", "Issue")" class="nav-link ajax-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Issue</p>
                                     </a>
@@ -173,23 +172,18 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="@Url.Action("AddUser", "User")" class="nav-link ajax-link" id="addUsersLink" data-target-container="AddUserForm">Add User</a>
+                                    <a href="@Url.Action("AddUser", "User")" class="nav-link ajax-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add User</p>
+                                    </a>
 
-                                    @*<a href="@Url.Action("AddUser", "User")" class="nav-link ajax-link">*@
-                                    @*<a href="#" id="addUserLink">Add User</a>*@
-
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Add User</p>
                                 </li>
                                 <li class="nav-item">
-                                    @*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
-                                    @*<a href="/User/GetAllUsers" class="nav-link">Get All Users</a>*@
-                                    <a href="@Url.Action("GetAllUsers", "User")" class="nav-link ajax-link" id="getAllUsersLink" data-target-container="allUsersForm">Get All Users</a>
+                                    <a href="@Url.Action("GetAllUsers", "User")" class="nav-link ajax-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Browse Users</p>
+                                    </a>
 
-                                    @*<a href="#" id="getAllUsersLink">Get All Users</a>*@
-
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Browse Users</p>
                                 </li>
                             </ul>
                         </li>
@@ -319,18 +313,18 @@
         </script>*@
 
     @*<script>
-        $(document).ready(function () {
-            debugger;
-            $('.ajax-link').click(function (event) {
-                event.preventDefault(); // Prevent default link behavior
+        //$(document).ready(function () {
+        //    debugger;
+        //    $('.ajax-link').click(function (event) {
+        //        event.preventDefault(); // Prevent default link behavior
 
-                var url = $(this).attr('href'); // Get the URL from the clicked link's href attribute
-                var targetContainerId = $(this).data('target-container'); // Get the ID of the target container from data attribute
+        //        var url = $(this).attr('href'); // Get the URL from the clicked link's href attribute
+        //        var targetContainerId = $(this).data('target-container'); // Get the ID of the target container from data attribute
 
-                // Load the content of the URL into the target container
-                $('#' + targetContainerId).load(url);
-            });
-        });
+        //        // Load the content of the URL into the target container
+        //        $('#' + targetContainerId).load(url);
+        //    });
+        //});
     </script>*@
 
     @RenderSection("scripts", required: false)

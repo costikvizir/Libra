@@ -42,7 +42,7 @@
 
             function LoadAddUserForm() {
                 $.ajax({
-                    url: "@Url.Action("AddUser", "User")",
+                    url: "@Url.Action("AddPos", "Pos")",
                     type: "GET",
                     success: function (response) {
                         $("#mainContainer").html(response);
