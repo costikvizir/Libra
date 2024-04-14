@@ -64,7 +64,7 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public ActionResult AddUser()
         {
-            return View("AddUser");
+            return PartialView("AddUser");
         }
 
         [HttpPost]

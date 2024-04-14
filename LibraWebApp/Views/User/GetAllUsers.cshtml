@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "All Users";
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    // Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @model List<LibraBll.DTOs.User.GetUserDTO>
@@ -127,7 +128,24 @@
 
 	});
 
-	function goToALLUsers() {
+	    @*$(document).ready(function () {
+       LoadAddUserForm();
+    });
+
+    function LoadAddUserForm() {
+        $.ajax({
+            url: "@Url.Action("GetAllUsersJson", "User")",
+            type: "GET",
+            success: function (response) {
+                $("#allUsersForm").html(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }*@
+
+	@*function goToALLUsers() {
 		startLoading();
 		$.ajax({
 			url: "@Url.Action("GetAllUsers", "User")",
@@ -151,7 +169,7 @@
 
 	function stopLoading() {
         $("#allUsersForm").hide();
-    }
+    }*@
 
 	document.getElementById('buttonWrapper').addEventListener('click', function () {
 		var button = document.getElementById('deleteButton');
