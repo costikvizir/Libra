@@ -1,42 +1,42 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AdminLTE 3 | Dashboard</title>
 
-    <!-- Google Font: Source Sans Pro -->
-    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">*@
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/jqvmap/jqvmap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/AdminLTE/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
-    <!-- DataTables -->
-    @*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables/jquery.dataTables.min.css">*@
-    <link rel="stylesheet" href="~/Content/dataTables.dataTables.min.css">
-    @*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">*@
+	<!-- Google Font: Source Sans Pro -->
+	@*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">*@
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Tempusdominus Bootstrap 4 -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<!-- iCheck -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<!-- JQVMap -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/jqvmap/jqvmap.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="~/AdminLTE/dist/css/adminlte.min.css">
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+	<!-- Daterange picker -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+	<!-- DataTables -->
+	@*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables/jquery.dataTables.min.css">*@
+	<link rel="stylesheet" href="~/Content/dataTables.dataTables.min.css">
+	@*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">*@
 
-    <!-- summernote -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/popper")*@
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/dataTables")
-    @Scripts.Render("~/bundles/jqueryval")
+	<!-- summernote -->
+	<link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@*@Scripts.Render("~/bundles/popper")*@
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/dataTables")
+	@Scripts.Render("~/bundles/jqueryval")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -272,37 +272,40 @@
 			</div>
 		</div>
 	</div>
-	<script src="~/Scripts/viewScripts/getAllPos.js"></script>
 
-	<script>
-		$(document).ready(function () {
-			debugger;
-			// Attach a click event handler to <a> tags with the class 'ajax-link'
-			$('a.ajax-link').click(function (event) {
 
-				event.preventDefault();
+	<script type="module">
+	import { initializeDataTables } from '/Scripts/viewScripts/getAllPos.js';
 
-				var url = $(this).attr('href');
+	$(document).ready(function () {
+		debugger;
+		// Attach a click event handler to <a> tags with the class 'ajax-link'
+		$('a.ajax-link').click(function (event) {
 
-				// Send an AJAX request
-				$.ajax({
-					url: url,
-					type: 'GET',
-					success: function (data) {
-						debugger;
-						// Replace the content of the mainContainer div
-						$('#mainContainer').html(data);
-						initializeDataTables();
-						console.log("AdminLTE Layout Success")
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
-						console.log("AdminLTE Layout Error !!!")
-					}
-				});
+			event.preventDefault();
+
+			var url = $(this).attr('href');
+
+			// Send an AJAX request
+			$.ajax({
+				url: url,
+				type: 'GET',
+				success: function (data) {
+					debugger;
+					// Replace the content of the mainContainer div
+					$('#mainContainer').html(data);
+					initializeDataTables();
+					console.log("AdminLTE Layout Success")
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
+					console.log("AdminLTE Layout Error !!!")
+				}
 			});
 		});
+	});
 	</script>
+
 
 	@*<script>
 			$(document).ready(function () {

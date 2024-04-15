@@ -18,7 +18,8 @@
 
 // Filter the table based on the input fields
 
-function initializeDataTables() {
+//function initializeDataTables() {
+export const initializeDataTables = () => {
     var table = $('#posList').DataTable({
         select: true,
         ajax: {
@@ -143,12 +144,13 @@ function initializeDataTables() {
     //	});
     //});
 
-//});
+    //});
 
-// Warning message if no row is selected
-document.getElementById('buttonWrapper').addEventListener('click', function () {
-    var button = document.getElementById('deleteButton');
-    if (button.disabled) {
-        alert('Please select a row');
-    }
-});
+    // Warning message if no row is selected
+    document.getElementById('buttonWrapper').addEventListener('click', function () {
+        var button = document.getElementById('deleteButton');
+        if (button.disabled) {
+            alert('Please select a row');
+        }
+    });
+}
