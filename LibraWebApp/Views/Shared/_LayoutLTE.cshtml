@@ -6,7 +6,7 @@
     <title>AdminLTE 3 | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">*@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/AdminLTE/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -24,7 +24,8 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="~/AdminLTE/plugins/datatables/jquery.dataTables.min.css">
+    @*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables/jquery.dataTables.min.css">*@
+    <link rel="stylesheet" href="~/Content/dataTables.dataTables.min.css">
     @*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">*@
 
     <!-- summernote -->
@@ -261,8 +262,9 @@
             @Scripts.Render("~/bundles/bootstrap")
         }*@
 
-    <script src="~/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.dataTables.min.js"></script>
+    @*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
     <div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
@@ -273,20 +275,20 @@
 
     <script>
         $(document).ready(function () {
-            //debugger;
+            debugger;
             // Attach a click event handler to <a> tags with the class 'ajax-link'
             $('a.ajax-link').click(function (event) {
 
-                event.preventDefault();  // Prevent the default action (navigation)
+                event.preventDefault();  
 
-                var url = $(this).attr('href');  // Get the URL from the href attribute
+                var url = $(this).attr('href');  
 
                 // Send an AJAX request
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function (data) {
-                        // debugger;
+                         debugger;
                         // Replace the content of the mainContainer div
                         $('#mainContainer').html(data);
                         console.log("AdminLTE Layout Success")

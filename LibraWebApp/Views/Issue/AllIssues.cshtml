@@ -1,13 +1,15 @@
 ﻿@{
-    ViewBag.Title = "All Issues";
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	ViewBag.Title = "All Issues";
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = null;
 }
 
 @model List<LibraBll.DTOs.Issue.IssueDTO>
 
 <h3 class="accent-gray-dark mt-5">All Issues</h3>
 
-<div class="mb-2">
+<div id="allIssueForm" class="mb-2">
     <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
         <button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
         <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>

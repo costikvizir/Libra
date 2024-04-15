@@ -1,0 +1,130 @@
+﻿$(document).ready(function () {
+	var table = $('#usersList').DataTable({
+		select: true,
+		ajax: {
+			url: "/User/GetAllUsersJson",
+			type: "GET",
+			dataType: "json",
+			dataSrc: ''
+		},
+		columns: [
+			{ data: "Id", visible: false },
+			{ data: "Name" },
+			{ data: "Login" },
+			{ data: "Email" },
+			{ data: "Role" },
+			{ data: "Telephone" }
+		]
+	});
+
+	$('#usersList tbody').on('click', 'tr', function () {
+		if ($(this).hasClass('selected')) {
+			$(this).removeClass('selected');
+			$('#editButton, #deleteButton').prop('disabled', true);  // Disable buttons
+		}
+		else {
+			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
+			$('#editButton, #deleteButton').prop('disabled', false);  // Enable buttons
+		}
+	});
+
+	// Initially disable the buttons
+	$('#editButton, #deleteButton').prop('disabled', true);
+
+	$('#editButton').click(function () {
+
+		var data = table.row('.selected').data();  // Get the data of the selected row
+
+		$.ajax({
+			url: "@Url.Action("UpdateUser","User")",
+			data: {
+				Id: data.Id
+			},
+			method: "GET",
+			success: function (response) {
+				console.log('AJAX request successful, response:', response);
+				$('#main-modal-container').html(response);
+				$('#main-modal').modal('show');
+			}
+		})
+	});
+
+	$('#deleteButton').on('click', function () {
+		var data = table.row('.selected').data();
+		if (data) {
+			$('#deleteItemName').text(data.Name);
+			$('#deleteButton').data('userid', data.Id);
+		}
+	});
+
+	$('.btn-outline-danger').on('click', function () {
+		var userId = $('#deleteButton').data('userid');
+		$.ajax({
+			url: '/User/DeleteUser/' + userId,
+			type: 'POST',
+			data: { id: userId },
+			success: function (data) {
+				table.row('.selected').remove().draw(false);
+				$('#deleteModal').modal('hide');
+				$('.modal-backdrop').remove();
+				console.log('User deleted successfully');
+
+			}
+			//error: function (jqXHR, textStatus, errorThrown) {
+			//	alert('Error: ' + errorThrown);
+			//}
+		});
+	});
+
+});
+
+//@* $(document).ready(function () {
+//	LoadAddUserForm();
+//});
+
+//function LoadAddUserForm() {
+//	$.ajax({
+//		url: "@Url.Action("GetAllUsersJson", "User")",
+//		type: "GET",
+//		success: function (response) {
+//			$("#allUsersForm").html(response);
+//		},
+//		error: function (response) {
+//			console.log(response);
+//		}
+//	});
+//}* @
+
+//	@* function goToALLUsers() {
+//		startLoading();
+//		$.ajax({
+//			url: "@Url.Action("GetAllUsers", "User")",
+//			data: {
+//			},
+//			xhrFields: {
+//				withCredentials: true
+//			},
+//			method: "GET",
+//			success: function (response) {
+//				$("#allUsersForm").html(null);  //<div id = "AddUserForm"></div>
+//				$("#allUsersForm").html(response);
+//				stopLoading();
+//			},
+//		});
+//	}
+
+//function startLoading() {
+//	$("#allUsersForm").show();
+//}
+
+//function stopLoading() {
+//	$("#allUsersForm").hide();
+//}* @
+
+	document.getElementById('buttonWrapper').addEventListener('click', function () {
+		var button = document.getElementById('deleteButton');
+		if (button.disabled) {
+			alert('Please select a row');
+		}
+	});

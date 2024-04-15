@@ -1,10 +1,13 @@
 ﻿@{
-    ViewBag.Title = "All Pos";
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	ViewBag.Title = "All Pos";
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = null;
 }
 
 <h3 class="mt-5">All Pos</h3>
-<div class="d-flex justify-content-between mb-2">
+
+<div id="addPos" class="d-flex justify-content-between mb-2">
 	<button type="button" id="addButton" class="btn btn-success">New POS</button>
 	<div id="buttonWrapper">
 		<button type="button" id="editButton" class="btn btn-warning">Edit</button>
