@@ -37,6 +37,7 @@
 
 <script>
     $(document).ready(function () {
+        debugger;
         var table = $('#posList').DataTable({
             select: true,
             ajax: {
@@ -46,12 +47,13 @@
                 dataSrc: ''
             },
             columns: [
+                { title: "PosId", data: "PosId", visible : false },
                 { title: "Name", data: "Name" },
                 { title: "Telephone", data: "Telephone" },
                 { title: "Cellphone", data: "Cellphone" },
                 { title: "Brand", data: "Brand" },
                 { title: "Full Address", data: "FullAddress" }
-            ]
+			]
         });
 
         // Filter the table based on the input fields
@@ -92,8 +94,10 @@
 
         // retrieve the PosId from the button data attribute and send it to the server
         // sets the id in the url and sends it to the server
-        $('.btn-outline-danger').on('click', function () {
-            var posId = $('#deleteButton').data('posid');
+		$('.btn-outline-danger').on('click', function () {
+			debugger;
+			var posId = $('#deleteButton').data('posid');
+            console.log('Selected row data:', data);
             $.ajax({
                 url: '/Pos/DeletePos/' + posId,
                 type: 'POST',
@@ -115,9 +119,10 @@
 
         // Edit button click event redirect to UpdatePos page
 		$('#editButton').click(function () {
+			debugger;
 			var data = table.row('.selected').data();
 			if (data) {
-				var url = '/Pos/UpdatePos?' + $.param({ id: data.id });
+				var url = '/Pos/UpdatePos?' + $.param({ id: data.PosId });
 				window.location.href = url;
 			} else {
 				alert('Please select a row');

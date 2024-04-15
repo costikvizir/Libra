@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
-using LibraBll.Common;
 using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,18 +99,37 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> UpdatePos(int id)
         {
-            PosGetDTO pos = await _posRepository.GetPosByIdAsync(id);
-			return PartialView("EditPos", pos);
-		}
+            if (id == 0)
+                return null;
+
+            PosGetDTO posGet = await _posRepository.GetPosByIdAsync(id);
+            PosEditDTO pos = new PosEditDTO
+            {
+                Id = id,
+                Name = posGet.Name,
+                Telephone = posGet.Telephone,
+                Cellphone = posGet.Cellphone,
+                Address = posGet.Address,
+                City = posGet.City,
+                Model = posGet.Model,
+                Brand = posGet.Brand,
+                ConnectionType = posGet.ConnectionType,
+                MorningOpening = posGet.MorningProgram.Split('-')[0].Trim(),
+                MorningClosing = posGet.MorningProgram.Split('-')[1].Trim(),
+                AfternoonOpening = posGet.AfternoonProgram.Split('-')[0].Trim(),
+                AfternoonClosing = posGet.AfternoonProgram.Split('-')[1].Trim()
+            };
+            return PartialView("EditPos", pos);
+        }
 
         [HttpPost]
-        public async Task<ActionResult> UpdatePos(PosPostDTO pos)
+        public async Task<ActionResult> UpdatePos(PosEditDTO pos)
         {
             _posRepository.UpdatePos(pos);
             return PartialView("EditPos");
         }
 
-		[HttpPost]
+        [HttpPost]
         public Task<ActionResult> DeletePos(int id)
         {
             _posRepository.DeletePos(id);

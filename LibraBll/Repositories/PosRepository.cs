@@ -26,52 +26,50 @@ namespace LibraBll.Repositories
                         PosId = p.Id,
                         Name = p.Name,
                         Telephone = p.Telephone,
-                        Cellphone = p.Cellphone, 
+                        Cellphone = p.Cellphone,
                         FullAddress = string.Join(", ", p.City.CityName, p.Address),
-						City = p.City.CityName,
+                        City = p.City.CityName,
                         Address = p.Address,
                         Model = p.Model,
                         Brand = p.Brand,
                         Status = p.Issues.Count() > 0 ? p.Issues.Count().ToString() + " active issues" : "No active issues",
                         ConnectionType = p.ConnectionType.ConnectType,
-                        MorningProgram = p.MorningOpening + " - " + p.MorningClosing,
-                        AfternoonProgram = p.AfternoonOpening + " - " + p.AfternoonClosing,
+                        MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
+                        AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
                         InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
                     }).ToListAsync();
             }
             catch (Exception ex)
             {
-                
             }
             return posList;
         }
 
         public async Task<PosGetDTO> GetPosByIdAsync(int id)
         {
-            Pos entity = await Context.Pos.Include(x=>x.City).Include(x=>x.ConnectionType).FirstOrDefaultAsync(x=>x.Id==id);
+            Pos entity = await Context.Pos.Include(x => x.City).Include(x => x.ConnectionType).FirstOrDefaultAsync(x => x.Id == id);
             //string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
 
             try
             {
-				return new PosGetDTO()
-				{
-					Name = entity.Name,
-					Telephone = entity.Telephone,
-					Cellphone = entity.Cellphone,
-					FullAddress = entity?.City.CityName + ", " + entity?.Address,
-					Address = entity?.Address,
-					City = entity?.City.CityName,
-					Model = entity?.Model,
-					Brand = entity?.Brand,
-					ConnectionType = entity?.ConnectionType.ConnectType,
-					MorningProgram = entity?.MorningOpening + " - " + entity?.MorningClosing,
-					AfternoonProgram = entity?.AfternoonOpening + " - " + entity?.AfternoonClosing,
-					InsertDate = entity?.InsertDate.ToString("dd/MM/yyyy")
-				};
-			}
+                return new PosGetDTO()
+                {
+                    Name = entity.Name,
+                    Telephone = entity.Telephone,
+                    Cellphone = entity.Cellphone,
+                    FullAddress = entity?.City.CityName + ", " + entity?.Address,
+                    Address = entity?.Address,
+                    City = entity?.City.CityName,
+                    Model = entity?.Model,
+                    Brand = entity?.Brand,
+                    ConnectionType = entity?.ConnectionType.ConnectType,
+                    MorningProgram = entity?.MorningOpening + " - " + entity?.MorningClosing,
+                    AfternoonProgram = entity?.AfternoonOpening + " - " + entity?.AfternoonClosing,
+                    InsertDate = entity?.InsertDate.ToString("dd/MM/yyyy")
+                };
+            }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -98,29 +96,36 @@ namespace LibraBll.Repositories
                 InsertDate = DateTime.Now
             };
 
-			await Context.Pos.AddAsync(entity);
-			await Context.SaveChangesAsync();
+            await Context.Pos.AddAsync(entity);
+            await Context.SaveChangesAsync();
 
-			List<PosWeekDay> posWeekDays = pos.DaysClosed
+            List<PosWeekDay> posWeekDays = pos.DaysClosed
                 .Select(d => new PosWeekDay
                 {
-		           	PosId = entity.Id,
-		           	WeekDayId = Context.WeekDays
+                    PosId = entity.Id,
+                    WeekDayId = Context.WeekDays
                         .Where(w => w.Day == d)
                         .Select(w => w.Id)
-                        .FirstOrDefault()			
-		        }).ToList();
+                        .FirstOrDefault()
+                }).ToList();
 
-			await Context.PosWeekDay.AddRangeAsync(posWeekDays);
+            await Context.PosWeekDay.AddRangeAsync(posWeekDays);
             await Context.SaveChangesAsync();
 
             return pos;
         }
 
-        public async void UpdatePos(PosEditDTO pos)
+        public async Task UpdatePos(PosEditDTO pos)
         {
-            var entity = await Context.Pos.Where(p => p.Id == pos.PosId).FirstOrDefaultAsync();
-           
+            var entity = await Context.Pos.Where(p => p.Id == pos.Id).FirstOrDefaultAsync();
+
+            if (entity == null)
+            {
+                // Handle entity not found scenario
+                // For example, throw an exception or return an error response
+                throw new ArgumentException($"POS with ID {pos.Id} not found.");
+            }
+
             string daysClosed = string.Join(",", pos.DaysClosed);
             int cityId = Context.Cities
                 .Where(c => c.CityName == pos.City)
@@ -144,7 +149,6 @@ namespace LibraBll.Repositories
             entity.AfternoonOpening = pos.AfternoonOpening;
             entity.AfternoonClosing = pos.AfternoonClosing;
             entity.InsertDate = DateTime.Now;
-
 
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();

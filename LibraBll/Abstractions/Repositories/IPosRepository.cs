@@ -1,5 +1,4 @@
-﻿using LibraBll.Common;
-using LibraBll.DTOs.Pos;
+﻿using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,7 +12,7 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<PosPostDTO> AddPosAsync(PosPostDTO pos);
 
-        void UpdatePos(PosPostDTO pos);
+        Task UpdatePos(PosEditDTO pos);
 
         void DeletePos(int id);
     }
