@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+	console.log("Get All Users Script");
 	var table = $('#usersList').DataTable({
 		select: true,
 		ajax: {

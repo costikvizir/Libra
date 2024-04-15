@@ -39,296 +39,298 @@
     @Scripts.Render("~/bundles/jqueryval")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+	<div class="wrapper">
 
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-        </div>
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+		</div>
 
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light  fixed-top">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-            </ul>
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-white navbar-light  fixed-top">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+				</li>
+			</ul>
 
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
 
-                <li class="align-content-lg-center">
-                    @User.Identity.Name
-                </li>
-                <li>
-                    <a href="@Url.Action("Logout", "Account")" class="btn btn-transparent">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="~/AdminLTE/dist/img/LibraLogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Libra</span>
-            </a>
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="~/AdminLTE/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Admin User</a>
-                    </div>
-                </div>
+				<li class="align-content-lg-center">
+					@User.Identity.Name
+				</li>
+				<li>
+					<a href="@Url.Action("Logout", "Account")" class="btn btn-transparent">
+						<i class="fas fa-sign-out-alt"></i> Logout
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.navbar -->
+		<!-- Main Sidebar Container -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<!-- Brand Logo -->
+			<a href="index3.html" class="brand-link">
+				<img src="~/AdminLTE/dist/img/LibraLogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-light">Libra</span>
+			</a>
+			<!-- Sidebar -->
+			<div class="sidebar">
+				<!-- Sidebar user panel (optional) -->
+				@*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+						<div class="image">
+							<img src="~/AdminLTE/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+						</div>
+						<div class="info">
+							<a href="#" class="d-block">Admin User</a>
+						</div>
+					</div>*@
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+				<!-- SidebarSearch Form -->
+				<div class="form-inline">
+					<div class="input-group" data-widget="sidebar-search">
+						<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+						<div class="input-group-append">
+							<button class="btn btn-sidebar">
+								<i class="fas fa-search fa-fw"></i>
+							</button>
+						</div>
+					</div>
+				</div>
 
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            @*<a href="#" class="nav-link active">*@
-                            <a href="@Url.Action("Index", "Home")" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                @*<i class="nav-icon fas fa-copy"></i>*@
-                                @*<i class="fa-sharp fa-solid fa-screwdriver-wrench"></i>*@
-                                <i class="fas fa-credit-card"></i>
-                                <p>
-                                    Pos
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("AddPos", "Pos")" class="nav-link ajax-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add POS</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("GetAllPos", "Pos")" class="nav-link ajax-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Browse POS</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-wrench"></i>
-                                <p>
-                                    Issues
-                                    <i class="right fas fa-angle-left"></i>
-                                    <span class="badge badge-danger right">@ViewBag.IssueCount</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("AddIssue", "Issue")" class="nav-link ajax-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Issue</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link ajax-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Browse Issues</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-user"></i>
-                                <p>
-                                    Users
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="@Url.Action("AddUser", "User")" class="nav-link ajax-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add User</p>
-                                    </a>
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+						<!-- Add icons to the links using the .nav-icon class
+						with font-awesome or any other icon font library -->
+						<li class="nav-item">
+							@*<a href="#" class="nav-link active">*@
+							<a href="@Url.Action("Index", "Home")" class="nav-link active">
+								<i class="nav-icon fas fa-tachometer-alt"></i>
+								<p>
+									Dashboard
+								</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								@*<i class="nav-icon fas fa-copy"></i>*@
+								@*<i class="fa-sharp fa-solid fa-screwdriver-wrench"></i>*@
+								<i class="fas fa-credit-card"></i>
+								<p>
+									Pos
+									<i class="fas fa-angle-left right"></i>
+								</p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="@Url.Action("AddPos", "Pos")" class="nav-link ajax-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Add POS</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="@Url.Action("GetAllPos", "Pos")" class="nav-link ajax-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Browse POS</p>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="fas fa-wrench"></i>
+								<p>
+									Issues
+									<i class="right fas fa-angle-left"></i>
+									<span class="badge badge-danger right">@ViewBag.IssueCount</span>
+								</p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="@Url.Action("AddIssue", "Issue")" class="nav-link ajax-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Add Issue</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link ajax-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Browse Issues</p>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="fas fa-user"></i>
+								<p>
+									Users
+									<i class="fas fa-angle-left right"></i>
+								</p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="@Url.Action("AddUser", "User")" class="nav-link ajax-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Add User</p>
+									</a>
 
-                                </li>
-                                <li class="nav-item">
-                                    <a href="@Url.Action("GetAllUsers", "User")" class="nav-link ajax-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Browse Users</p>
-                                    </a>
+								</li>
+								<li class="nav-item">
+									<a href="@Url.Action("GetAllUsers", "User")" class="nav-link ajax-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Browse Users</p>
+									</a>
 
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+				<!-- /.sidebar-menu -->
+			</div>
+			<!-- /.sidebar -->
+		</aside>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div id="mainContainer" class="container-fluid">
-                    @RenderBody()
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            Libra Web App
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.0.0
-            </div>
-        </footer>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="content-header">
+				<div id="mainContainer" class="container-fluid">
+					@RenderBody()
+					<!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer">
+			Libra Web App
+			<div class="float-right d-none d-sm-inline-block">
+				<b>Version</b> 1.0.0
+			</div>
+		</footer>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="~/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="~/AdminLTE/plugins/chart.js/Chart.min.js"></script>
-    <!-- Sparkline -->
-    <script src="~/AdminLTE/plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="~/AdminLTE/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="~/AdminLTE/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="~/AdminLTE/plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-    <script src="~/AdminLTE/plugins/moment/moment.min.js"></script>
-    <script src="~/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="~/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <!-- Summernote -->
-    <script src="~/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="~/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/AdminLTE/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/AdminLTE/dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="~/AdminLTE/dist/js/pages/dashboard.js"></script>
-    @*<!--@Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jquery")-->*@
-    @*@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)
-        {
-            @Scripts.Render("~/bundles/bootstrap")
-        }*@
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+	<!-- jQuery -->
+	<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="~/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button)
+	</script>
+	<!-- Bootstrap 4 -->
+	<script src="~/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- ChartJS -->
+	<script src="~/AdminLTE/plugins/chart.js/Chart.min.js"></script>
+	<!-- Sparkline -->
+	<script src="~/AdminLTE/plugins/sparklines/sparkline.js"></script>
+	<!-- JQVMap -->
+	<script src="~/AdminLTE/plugins/jqvmap/jquery.vmap.min.js"></script>
+	<script src="~/AdminLTE/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+	<!-- jQuery Knob Chart -->
+	<script src="~/AdminLTE/plugins/jquery-knob/jquery.knob.min.js"></script>
+	<!-- daterangepicker -->
+	<script src="~/AdminLTE/plugins/moment/moment.min.js"></script>
+	<script src="~/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="~/AdminLTE/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Summernote -->
+	<script src="~/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
+	<!-- overlayScrollbars -->
+	<script src="~/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="~/AdminLTE/dist/js/adminlte.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="~/AdminLTE/dist/js/demo.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="~/AdminLTE/dist/js/pages/dashboard.js"></script>
+	@*<!--@Scripts.Render("~/bundles/bootstrap")
+		@Scripts.Render("~/bundles/jquery")-->*@
+	@*@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)
+		{
+			@Scripts.Render("~/bundles/bootstrap")
+		}*@
 
-    <script src="~/Scripts/jquery.dataTables.min.js"></script>
-    <script src="~/Scripts/dataTables.dataTables.min.js"></script>
-    @*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
+	<script src="~/Scripts/jquery.dataTables.min.js"></script>
+	<script src="~/Scripts/dataTables.dataTables.min.js"></script>
+	@*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
-    <div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div id="main-modal-container" class="modal-content container">
-            </div>
-        </div>
-    </div>
+	<div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div id="main-modal-container" class="modal-content container">
+			</div>
+		</div>
+	</div>
+	<script src="~/Scripts/viewScripts/getAllPos.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            debugger;
-            // Attach a click event handler to <a> tags with the class 'ajax-link'
-            $('a.ajax-link').click(function (event) {
+	<script>
+		$(document).ready(function () {
+			debugger;
+			// Attach a click event handler to <a> tags with the class 'ajax-link'
+			$('a.ajax-link').click(function (event) {
 
-                event.preventDefault();  
+				event.preventDefault();
 
-                var url = $(this).attr('href');  
+				var url = $(this).attr('href');
 
-                // Send an AJAX request
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function (data) {
-                         debugger;
-                        // Replace the content of the mainContainer div
-                        $('#mainContainer').html(data);
-                        console.log("AdminLTE Layout Success")
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
-                        console.log("AdminLTE Layout Error !!!")
-                    }
-                });
-            });
-        });
-    </script>
+				// Send an AJAX request
+				$.ajax({
+					url: url,
+					type: 'GET',
+					success: function (data) {
+						debugger;
+						// Replace the content of the mainContainer div
+						$('#mainContainer').html(data);
+						initializeDataTables();
+						console.log("AdminLTE Layout Success")
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
+						console.log("AdminLTE Layout Error !!!")
+					}
+				});
+			});
+		});
+	</script>
 
-    @*<script>
-            $(document).ready(function () {
-                $('#addUserLink').click(function () {
-                    $('#AddUserForm').load('/User/AddUser');
-                });
+	@*<script>
+			$(document).ready(function () {
+				$('#addUserLink').click(function () {
+					$('#AddUserForm').load('/User/AddUser');
+				});
 
-                $('#getAllUsersLink').click(function () {
-                    $('#allUsersForm').load('/User/GetAllUsers');
-                });
-            });
-        </script>*@
+				$('#getAllUsersLink').click(function () {
+					$('#allUsersForm').load('/User/GetAllUsers');
+				});
+			});
+		</script>*@
 
-    @*<script>
-        //$(document).ready(function () {
-        //    debugger;
-        //    $('.ajax-link').click(function (event) {
-        //        event.preventDefault(); // Prevent default link behavior
+	@*<script>
+			//$(document).ready(function () {
+			//    debugger;
+			//    $('.ajax-link').click(function (event) {
+			//        event.preventDefault(); // Prevent default link behavior
 
-        //        var url = $(this).attr('href'); // Get the URL from the clicked link's href attribute
-        //        var targetContainerId = $(this).data('target-container'); // Get the ID of the target container from data attribute
+			//        var url = $(this).attr('href'); // Get the URL from the clicked link's href attribute
+			//        var targetContainerId = $(this).data('target-container'); // Get the ID of the target container from data attribute
 
-        //        // Load the content of the URL into the target container
-        //        $('#' + targetContainerId).load(url);
-        //    });
-        //});
-    </script>*@
+			//        // Load the content of the URL into the target container
+			//        $('#' + targetContainerId).load(url);
+			//    });
+			//});
+		</script>*@
 
-    @RenderSection("scripts", required: false)
+	@RenderSection("scripts", required: false)
 </body>
 </html>

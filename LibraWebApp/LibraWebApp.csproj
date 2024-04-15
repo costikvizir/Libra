@@ -2924,8 +2924,11 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Views\Issue\_IssueDetails.cshtml" />
+    <Content Include="Scripts\viewScripts\addIssue.js" />
     <Content Include="Scripts\viewScripts\addPos.js" />
     <Content Include="Scripts\viewScripts\addUser.js" />
+    <Content Include="Scripts\viewScripts\getAllIssues.js" />
+    <Content Include="Scripts\viewScripts\getAllPos.js" />
     <Content Include="Scripts\viewScripts\getAllUsers.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
