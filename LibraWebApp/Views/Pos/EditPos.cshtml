@@ -50,7 +50,9 @@
 				</div>
 				<div class="col-md-3">
 					<label for="inputState" class="form-label">City</label>
-					@Html.DropDownListFor(model => model.City, new SelectList(new[] { "Chișinău", "Bălți", "Cahul" }), new { @class = "form-select", id = "inputState" })
+					@*@Html.DropDownListFor(model => model.City, new SelectList(new[] { "Chișinău", "Bălți", "Cahul" }), new { @class = "form-select", id = "inputState" })*@
+					@Html.DropDownListFor(Model => Model.City, new SelectList(Model..ToList(), "Id", "Name"), "Selezionare", new { @class = "selectpicker form-control", title = "Selezionare", data_style = "border" })
+
 				</div>
 
 			</div>

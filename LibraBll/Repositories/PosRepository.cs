@@ -34,8 +34,8 @@ namespace LibraBll.Repositories
                         Brand = p.Brand,
                         Status = p.Issues.Count() > 0 ? p.Issues.Count().ToString() + " active issues" : "No active issues",
                         ConnectionType = p.ConnectionType.ConnectType,
-                        MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
-                        AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
+                        MorningProgram = p.MorningOpening + " - " + p.MorningClosing,
+                        AfternoonProgram = p.AfternoonOpening + " - " + p.AfternoonClosing,
                         InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
                     }).ToListAsync();
             }
@@ -91,10 +91,10 @@ namespace LibraBll.Repositories
                 Model = pos.Model,
                 Brand = pos.Brand,
                 ConnectionTypeId = connectionTypeId,
-                MorningOpening = Convert.ToInt32(pos.MorningOpening),
-                MorningClosing = Convert.ToInt32(pos.MorningClosing),
-                AfternoonOpening = Convert.ToInt32(pos.AfternoonOpening),
-                AfternoonClosing = Convert.ToInt32(pos.AfternoonClosing),
+                MorningOpening = pos.MorningOpening,
+                MorningClosing = pos.MorningClosing,
+                AfternoonOpening = pos.AfternoonOpening,
+                AfternoonClosing = pos.AfternoonClosing,
                 InsertDate = DateTime.Now
             };
 
@@ -117,8 +117,10 @@ namespace LibraBll.Repositories
             return pos;
         }
 
-        public async void UpdatePos(PosPostDTO pos)
+        public async void UpdatePos(PosEditDTO pos)
         {
+            var entity = await Context.Pos.Where(p => p.Id == pos.PosId).FirstOrDefaultAsync();
+           
             string daysClosed = string.Join(",", pos.DaysClosed);
             int cityId = Context.Cities
                 .Where(c => c.CityName == pos.City)
@@ -128,24 +130,23 @@ namespace LibraBll.Repositories
                 .Where(c => c.ConnectType == pos.ConnectionType)
                 .Select(c => c.Id)
                 .FirstOrDefault();
-            Pos entity = new Pos
-            {
-                Name = pos.Name,
-                Telephone = pos.Telephone,
-                Cellphone = pos.Cellphone,
-                Address = pos.Address,
-                CityId = cityId,
-                Model = pos.Model,
-                Brand = pos.Brand,
-                ConnectionTypeId = connectionTypeId,
-                MorningOpening = Convert.ToInt32(pos.MorningOpening),
-                MorningClosing = Convert.ToInt32(pos.MorningClosing),
-                AfternoonOpening = Convert.ToInt32(pos.AfternoonOpening),
-                AfternoonClosing = Convert.ToInt32(pos.AfternoonClosing),
-                InsertDate = pos.InsertDate
-            };
 
-            Context.Pos.Update(entity);
+            entity.Name = pos.Name;
+            entity.Telephone = pos.Telephone;
+            entity.Cellphone = pos.Cellphone;
+            entity.Address = pos.Address;
+            entity.CityId = cityId;
+            entity.Model = pos.Model;
+            entity.Brand = pos.Brand;
+            entity.ConnectionTypeId = connectionTypeId;
+            entity.MorningOpening = pos.MorningOpening;
+            entity.MorningClosing = pos.MorningClosing;
+            entity.AfternoonOpening = pos.AfternoonOpening;
+            entity.AfternoonClosing = pos.AfternoonClosing;
+            entity.InsertDate = DateTime.Now;
+
+
+            Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 
@@ -153,7 +154,10 @@ namespace LibraBll.Repositories
         {
             Pos entity = await Context.Pos.Where(p => p.Id == id).FirstOrDefaultAsync();
 
-            Context.Pos.Remove(entity);
+            if (entity != null)
+                entity.IsDeleted = true;
+
+            Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
     }

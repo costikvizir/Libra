@@ -129,7 +129,7 @@ namespace LibraBll.Repositories
             if (user != null)
                 user.IsDeleted = true;
 
-            Context.Users.Update(user);
+            Context.Entry(user).State = EntityState.Modified;
             Context.SaveChanges();
         }
 

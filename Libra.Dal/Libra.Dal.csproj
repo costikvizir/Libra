@@ -271,6 +271,10 @@
     <Compile Include="Migrations\20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.Designer.cs">
       <DependentUpon>20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20240415134726_Pos-program-updated-to-string.cs" />
+    <Compile Include="Migrations\20240415134726_Pos-program-updated-to-string.Designer.cs">
+      <DependentUpon>20240415134726_Pos-program-updated-to-string.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\LibraContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -123,6 +123,7 @@
     <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
     <Compile Include="Common\BaseRepository.cs" />
     <Compile Include="DTOs\Issue\IssueDTO.cs" />
+    <Compile Include="DTOs\Pos\PosEditDTO.cs" />
     <Compile Include="DTOs\Pos\PosGetDTO.cs" />
     <Compile Include="DTOs\User\AddUserDTO.cs" />
     <Compile Include="DTOs\User\LoginUserDTO.cs" />
