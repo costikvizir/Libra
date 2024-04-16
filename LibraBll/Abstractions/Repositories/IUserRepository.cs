@@ -1,9 +1,6 @@
-﻿using LibraBll.DTOs;
+﻿using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LibraBll.Abstractions.Repositories
@@ -23,5 +20,7 @@ namespace LibraBll.Abstractions.Repositories
         void UpdateUser(ModifyUserDTO userPost);
 
         void DeleteUser(int id);
+
+        List<RoleDTO> GetRoles();
     }
 }

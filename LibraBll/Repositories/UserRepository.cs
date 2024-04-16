@@ -1,6 +1,7 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -84,14 +85,14 @@ namespace LibraBll.Repositories
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
         {
             //map role to userTypeId and set default user to "User"
-            var userTypeID = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
+            //var userTypeID = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
 
             User user = new User()
             {
                 Name = userPost.Name,
                 Email = userPost.Email,
                 Telephone = userPost.Telephone,
-                UserTypeId = userTypeID,
+                UserTypeId = userPost.Role,
                 Login = userPost.Login,
                 Password = userPost.Password,
                 //IsDeleted = userPost.IsActive
@@ -160,6 +161,19 @@ namespace LibraBll.Repositories
             }
 
             return null;
+        }
+
+        public List<RoleDTO> GetRoles()
+        {
+            List<RoleDTO> roles = Context.UserTypes
+                .Select(x => new RoleDTO
+                {
+                    Id = x.Id,
+                    Role = x.Role
+                })
+                .ToList();
+
+            return roles;
         }
     }
 }

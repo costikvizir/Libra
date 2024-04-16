@@ -64,6 +64,9 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public ActionResult AddUser()
         {
+            var roles = _userRepository.GetRoles();
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+
             return View("AddUser");
         }
 
@@ -81,6 +84,10 @@ namespace LibraWebApp.Controllers
                 return PartialView();
             }
             await _userRepository.CreateUser(user);
+
+            var roles = _userRepository.GetRoles();
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+
             return PartialView();
         }
 
