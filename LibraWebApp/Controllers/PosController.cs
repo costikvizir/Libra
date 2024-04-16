@@ -57,7 +57,9 @@ namespace LibraWebApp.Controllers
         public ActionResult AddPos()
         {
             var cities = _posRepository.GetCityList();
+            var connectionTypes = _posRepository.GetConnectionTypeList();
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
+            ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
             return View();
         }
 
@@ -97,7 +99,9 @@ namespace LibraWebApp.Controllers
             await _posRepository.AddPosAsync(pos);
 
             var cities = _posRepository.GetCityList();
+            var connectionTypes = _posRepository.GetConnectionTypeList();
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
+            ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
             return PartialView();
         }
@@ -131,7 +135,7 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdatePos(PosEditDTO pos)
         {
-            _posRepository.UpdatePos(pos);
+            await _posRepository.UpdatePos(pos);
             return PartialView("EditPos");
         }
 

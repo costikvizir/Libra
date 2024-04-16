@@ -1,9 +1,4 @@
-﻿using Libra.Dal.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LibraBll.DTOs.Pos
 {
@@ -23,8 +18,8 @@ namespace LibraBll.DTOs.Pos
         public string Brand { get; set; }
         public string Status { get; set; }
         public string ConnectionType { get; set; }
-        public string MorningProgram { get; set; }
-        public string AfternoonProgram { get; set; }
+        public string MorningProgram { get; set; } = string.Empty;
+        public string AfternoonProgram { get; set; } = string.Empty;
         public List<string> DaysClosed { get; set; }
         public string InsertDate { get; set; }
     }

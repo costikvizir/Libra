@@ -79,7 +79,7 @@ namespace LibraBll.Repositories
         {
             string daysClosed = string.Join(",", pos.DaysClosed);
             // int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
-            int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
+            //int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
             Pos entity = new Pos
             {
                 Name = pos.Name,
@@ -89,7 +89,7 @@ namespace LibraBll.Repositories
                 CityId = pos.CityId,
                 Model = pos.Model,
                 Brand = pos.Brand,
-                ConnectionTypeId = connectionTypeId,
+                ConnectionTypeId = pos.ConnectionType,
                 MorningOpening = pos.MorningOpening,
                 MorningClosing = pos.MorningClosing,
                 AfternoonOpening = pos.AfternoonOpening,
@@ -176,6 +176,18 @@ namespace LibraBll.Repositories
                 }).ToList();
 
             return cityList;
+        }
+
+        public List<ConnectionTypeDTO> GetConnectionTypeList()
+        {
+            List<ConnectionTypeDTO> connectionTypeList = Context.ConnectionType
+                .Select(c => new ConnectionTypeDTO
+                {
+                    Id = c.Id,
+                    ConnectionType = c.ConnectType
+                }).ToList();
+
+            return connectionTypeList;
         }
     }
 }

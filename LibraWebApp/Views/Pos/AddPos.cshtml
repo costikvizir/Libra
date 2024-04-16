@@ -72,7 +72,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputState" class="form-label">Connection Type</label>
-                    @Html.DropDownListFor(model => model.ConnectionType, new SelectList(new[] { "Remote", "Phisical", }), new { @class = "form-select", id = "inputState" })
+                    @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, new { @class = "form-select", id = "inputState" })
                 </div>
             </div>
         </div>

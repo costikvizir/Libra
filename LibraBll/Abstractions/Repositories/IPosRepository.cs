@@ -18,5 +18,7 @@ namespace LibraBll.Abstractions.Repositories
         void DeletePos(int id);
 
         List<CityDTO> GetCityList();
+
+        List<ConnectionTypeDTO> GetConnectionTypeList();
     }
 }
