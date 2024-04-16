@@ -1,4 +1,5 @@
-﻿using LibraBll.DTOs.Pos;
+﻿using LibraBll.DTOs.Dropdown;
+using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace LibraBll.Abstractions.Repositories
         Task UpdatePos(PosEditDTO pos);
 
         void DeletePos(int id);
+
+        List<CityDTO> GetCityList();
     }
 }

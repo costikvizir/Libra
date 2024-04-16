@@ -122,6 +122,7 @@
     <Compile Include="Abstractions\Repositories\IPosRepository.cs" />
     <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
     <Compile Include="Common\BaseRepository.cs" />
+    <Compile Include="DTOs\Dropdown\CityDTO.cs" />
     <Compile Include="DTOs\Dropdown\RoleDTO.cs" />
     <Compile Include="DTOs\Issue\IssueDTO.cs" />
     <Compile Include="DTOs\Pos\PosEditDTO.cs" />

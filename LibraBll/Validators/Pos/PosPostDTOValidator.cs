@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using LibraBll.DTOs.Pos;
-using System;
 
 namespace LibraBll.Validators.Pos
 {
@@ -22,23 +21,23 @@ namespace LibraBll.Validators.Pos
 
             RuleFor(x => x.Address).NotEmpty().WithMessage("Address is required");
 
-            RuleFor(x => x.City).NotEmpty().WithMessage("City is required");
+            RuleFor(x => x.CityId).NotEmpty().WithMessage("City is required");
 
             RuleFor(x => x.Model).NotEmpty().WithMessage("Model is required");
 
             RuleFor(x => x.Brand).NotEmpty().WithMessage("Brand is required");
 
-            RuleFor(x => x)
-                .Must(x => Convert.ToInt32(x.MorningClosing) > Convert.ToInt32(x.MorningOpening))
-                .WithMessage("Morning closing must be greater than morning opening");
+            //RuleFor(x => x)
+            //    .Must(x => Convert.ToInt32(x.MorningClosing) > Convert.ToInt32(x.MorningOpening))
+            //    .WithMessage("Morning closing must be greater than morning opening");
 
-            RuleFor(x => x)
-                .Must(x => Convert.ToInt32(x.AfternoonOpening) > Convert.ToInt32(x.MorningClosing))
-                .WithMessage("Morning closing must be greater than morning opening");
+            //RuleFor(x => x)
+            //    .Must(x => Convert.ToInt32(x.AfternoonOpening) > Convert.ToInt32(x.MorningClosing))
+            //    .WithMessage("Morning closing must be greater than morning opening");
 
-            RuleFor(x => x)
-                .Must(x => Convert.ToInt32(x.AfternoonOpening) > Convert.ToInt32(x.AfternoonOpening))
-                .WithMessage("Morning closing must be greater than morning opening");
+            //RuleFor(x => x)
+            //    .Must(x => Convert.ToInt32(x.AfternoonOpening) > Convert.ToInt32(x.AfternoonOpening))
+            //    .WithMessage("Morning closing must be greater than morning opening");
 
             // RuleFor(x => x.ConnectionType).NotEmpty().WithMessage("Connection Type is required");
             //RuleFor(x => x.MorningOpening).NotEmpty().WithMessage("Morning Opening is required");

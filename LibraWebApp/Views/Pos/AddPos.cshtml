@@ -1,5 +1,5 @@
 ﻿@{
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
 <h3 class="accent-gray-dark mt-5">New POS</h3>
@@ -8,81 +8,80 @@
 
 @using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))
 {
-	<div class="card mb-0">
-		<div class="card-header" style="background-color: lightgray">
-			POS basic data
-		</div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-5">
-					<label for="inputPosName" class="form-label">Name</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-credit-card"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputTelephone" class="form-label">Telephone</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-phone"></i></div>
-						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputCellphone" class="form-label">Cellphone</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
-						@Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<label for="inputAddress" class="form-label">Full Address</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-map"></i></div>
-						@Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputState" class="form-label">City</label>
-					@Html.DropDownListFor(model => model.City, new SelectList(new[] { "Chișinău", "Bălți", "Cahul" }), new { @class = "form-select", id = "inputState" })
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<label for="inputBrand" class="form-label">Brand</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
-						@Html.TextBoxFor(model => model.Brand, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-4">
-					<label for="inputModel" class="form-label">Model</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
-						@Html.TextBoxFor(model => model.Model, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputState" class="form-label">Connection Type</label>
-					@Html.DropDownListFor(model => model.ConnectionType, new SelectList(new[] { "Remote", "Phisical", }), new { @class = "form-select", id = "inputState" })
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card mt-0">
-		<div class="card-header" style="background-color: lightgray">
-			Oppening hours and holidays
-		</div>
-		<div class="card-body">
+    <div class="card mb-0">
+        <div class="card-header" style="background-color: lightgray">
+            POS basic data
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="inputPosName" class="form-label">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-credit-card"></i></div>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputTelephone" class="form-label">Telephone</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputCellphone" class="form-label">Cellphone</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-mobile"></i></div>
+                        @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="inputAddress" class="form-label">Full Address</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-map"></i></div>
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputState" class="form-label">City</label>
+                    @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "Select City", new { @class = "form-select", id = "inputState" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="inputBrand" class="form-label">Brand</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-copyright"></i></div>
+                        @Html.TextBoxFor(model => model.Brand, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label for="inputModel" class="form-label">Model</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-copyright"></i></div>
+                        @Html.TextBoxFor(model => model.Model, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputState" class="form-label">Connection Type</label>
+                    @Html.DropDownListFor(model => model.ConnectionType, new SelectList(new[] { "Remote", "Phisical", }), new { @class = "form-select", id = "inputState" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-0">
+        <div class="card-header" style="background-color: lightgray">
+            Oppening hours and holidays
+        </div>
+        <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
                     <label for="inputOpenMorning" class="form-label">Open Morning</label>
@@ -159,17 +158,17 @@
                     </div>
                 </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
 
-	<div class="d-flex justify-content-start">
-		<button type="submit" class="btn btn-primary mr-2">Save POS</button>
-	</div>
+    <div class="d-flex justify-content-start">
+        <button type="submit" class="btn btn-primary mr-2">Save POS</button>
+    </div>
 }
 
 <script>
-	function resetForm() {
-		var form = document.getElementById("AddPosForm");
-		form.reset();
-	}
+    function resetForm() {
+        var form = document.getElementById("AddPosForm");
+        form.reset();
+    }
 </script>

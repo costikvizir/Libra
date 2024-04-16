@@ -56,6 +56,8 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public ActionResult AddPos()
         {
+            var cities = _posRepository.GetCityList();
+            ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             return View();
         }
 
@@ -93,6 +95,10 @@ namespace LibraWebApp.Controllers
             //pos.DaysClosed = Request.Form["DaysClosed"].ToString().Split(',').ToList();
 
             await _posRepository.AddPosAsync(pos);
+
+            var cities = _posRepository.GetCityList();
+            ViewBag.Cities = new SelectList(cities, "Id", "CityName");
+
             return PartialView();
         }
 

@@ -9,7 +9,7 @@ namespace LibraBll.DTOs.Pos
         public string Telephone { get; set; }
         public string Cellphone { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }
+        public int CityId { get; set; }
         public string Model { get; set; }
         public string Brand { get; set; }
         public string ConnectionType { get; set; }
@@ -17,7 +17,7 @@ namespace LibraBll.DTOs.Pos
         public string MorningClosing { get; set; }
         public string AfternoonOpening { get; set; }
         public string AfternoonClosing { get; set; }
-		public List<string> DaysClosed { get; set; }
-		public DateTime InsertDate { get; set; }
+        public List<string> DaysClosed { get; set; }
+        public DateTime InsertDate { get; set; }
     }
 }

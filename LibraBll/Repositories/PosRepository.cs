@@ -1,6 +1,7 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Pos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -77,7 +78,7 @@ namespace LibraBll.Repositories
         public async Task<PosPostDTO> AddPosAsync(PosPostDTO pos)
         {
             string daysClosed = string.Join(",", pos.DaysClosed);
-            int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
+            // int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
             int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
             Pos entity = new Pos
             {
@@ -85,7 +86,7 @@ namespace LibraBll.Repositories
                 Telephone = pos.Telephone,
                 Cellphone = pos.Cellphone,
                 Address = pos.Address,
-                CityId = cityId,
+                CityId = pos.CityId,
                 Model = pos.Model,
                 Brand = pos.Brand,
                 ConnectionTypeId = connectionTypeId,
@@ -163,6 +164,18 @@ namespace LibraBll.Repositories
 
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
+        }
+
+        public List<CityDTO> GetCityList()
+        {
+            List<CityDTO> cityList = Context.Cities
+                .Select(c => new CityDTO
+                {
+                    Id = c.Id,
+                    CityName = c.CityName
+                }).ToList();
+
+            return cityList;
         }
     }
 }
