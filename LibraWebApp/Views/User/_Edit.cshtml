@@ -62,7 +62,7 @@
         </div>
         <div class="col-6">
             <label for="inputState" class="form-label">Role</label>
-            @Html.DropDownList("drpdownRole", new SelectList(new[] { "Administrator", "Technical User", "User" }), "Select Role", new { @class = "form-select", id = "inputState" })
+            @Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select", id = "inputState" })
         </div>
     </div>
     <div class="modal-footer">

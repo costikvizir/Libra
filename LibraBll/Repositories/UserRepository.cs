@@ -84,9 +84,6 @@ namespace LibraBll.Repositories
 
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
         {
-            //map role to userTypeId and set default user to "User"
-            //var userTypeID = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
-
             User user = new User()
             {
                 Name = userPost.Name,
@@ -106,7 +103,6 @@ namespace LibraBll.Repositories
 
         public void UpdateUser(ModifyUserDTO userPost)
         {
-            var userTypeId = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role)?.Id ?? 3;
             var user = Context.Users.FirstOrDefault(x => x.Id == userPost.Id);
 
             if (user == null)
@@ -114,7 +110,7 @@ namespace LibraBll.Repositories
             user.Name = userPost.Name;
             user.Email = userPost.Email;
             user.Telephone = userPost.Telephone;
-            user.UserTypeId = userTypeId;
+            user.UserTypeId = userPost.Role;
             user.Login = userPost.Login;
             // user.Password = userPost.Password;
 

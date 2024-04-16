@@ -96,6 +96,9 @@ namespace LibraWebApp.Controllers
         {
             var user = await _userRepository.GetUserByIdAsync(id);
 
+            var roles = _userRepository.GetRoles();
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+
             return PartialView("~/Views/User/_Edit.cshtml", user);
         }
 
@@ -126,6 +129,10 @@ namespace LibraWebApp.Controllers
             }
 
             _userRepository.UpdateUser(user);
+
+            var roles = _userRepository.GetRoles();
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+
             return PartialView("GetAllUsers");
         }
 
