@@ -122,35 +122,38 @@ namespace LibraBll.Repositories
 
             if (entity == null)
             {
-                // Handle entity not found scenario
-                // For example, throw an exception or return an error response
                 throw new ArgumentException($"POS with ID {pos.Id} not found.");
             }
 
-            string daysClosed = string.Join(",", pos.DaysClosed);
-            int cityId = Context.Cities
-                .Where(c => c.CityName == pos.City)
-                .Select(c => c.Id)
-                .FirstOrDefault();
-            int connectionTypeId = Context.ConnectionType
-                .Where(c => c.ConnectType == pos.ConnectionType)
-                .Select(c => c.Id)
-                .FirstOrDefault();
+            //string daysClosed = string.Join(",", pos.DaysClosed);
+
+            List<PosWeekDay> posWeekDays = pos.DaysClosed
+                .Select(d => new PosWeekDay
+                {
+                    PosId = entity.Id,
+                    WeekDayId = Context.WeekDays
+                        .Where(w => w.Day == d)
+                        .Select(w => w.Id)
+                        .FirstOrDefault()
+                }).ToList();
+
+            Context.PosWeekDay.RemoveRange(Context.PosWeekDay.Where(p => p.PosId == entity.Id));
 
             entity.Name = pos.Name;
             entity.Telephone = pos.Telephone;
             entity.Cellphone = pos.Cellphone;
             entity.Address = pos.Address;
-            entity.CityId = cityId;
+            entity.CityId = pos.CityId;
             entity.Model = pos.Model;
             entity.Brand = pos.Brand;
-            entity.ConnectionTypeId = connectionTypeId;
+            entity.ConnectionTypeId = pos.ConnectionType;
             entity.MorningOpening = pos.MorningOpening;
             entity.MorningClosing = pos.MorningClosing;
             entity.AfternoonOpening = pos.AfternoonOpening;
             entity.AfternoonClosing = pos.AfternoonClosing;
-            entity.InsertDate = DateTime.Now;
+            //entity.InsertDate = DateTime.Now;
 
+            Context.PosWeekDay.AddRange(posWeekDays);
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
@@ -188,6 +191,20 @@ namespace LibraBll.Repositories
                 }).ToList();
 
             return connectionTypeList;
+        }
+
+        public List<PosWeekDayDTO> GetPosClosingDays(int posId)
+        {
+            List<PosWeekDayDTO> posWeekDays = Context.PosWeekDay
+                .Include(p => p.DayOfWeek)
+                .Where(p => p.PosId == posId)
+                .Select(p => new PosWeekDayDTO
+                {
+                    PosId = p.PosId,
+                    Day = p.DayOfWeek.Day
+                }).ToList();
+
+            return posWeekDays;
         }
     }
 }

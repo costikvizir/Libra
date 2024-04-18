@@ -8,6 +8,17 @@
 
 @using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))
 {
+
+    List<SelectListItem> timeOptions = new List<SelectListItem>();
+    for (int hour = 7; hour <= 23; hour++)
+    {
+        for (int minute = 0; minute <= 59; minute += 15)
+        {
+            string displayTime = $"{hour:D2}:{minute:D2}";
+            timeOptions.Add(new SelectListItem { Text = displayTime, Value = displayTime });
+        }
+    }
+
     <div class="card mb-0">
         <div class="card-header" style="background-color: lightgray">
             POS basic data
@@ -43,7 +54,11 @@
                 <div class="col-md-8">
                     <label for="inputAddress" class="form-label">Full Address</label>
                     <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-map"></i></div>
+                        <div class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                            </svg>
+                        </div>
                         @Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
                     </div>
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
@@ -87,7 +102,10 @@
                     <label for="inputOpenMorning" class="form-label">Open Morning</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                        @Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control", id = "inputOpenMorning", placeholder = "Opening" })
+                        @Html.DropDownListFor(model => model.MorningOpening,
+                            new SelectList(timeOptions, "Value", "Text"),
+                            "Opening Time",
+                            new { @class = "form-select", id = "inputOpenMorning" })
                     </div>
                     @Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger" })
                 </div>
@@ -95,7 +113,10 @@
                     <label for="inputClosedMorning" class="form-label">Closed Morning</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                        @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control", id = "inputClosedMorning", placeholder = "Closing", data_val = "", data_val_required = "The Morning Opening field is required." })
+                        @Html.DropDownListFor(model => model.MorningClosing,
+                            new SelectList(timeOptions, "Value", "Text"),
+                            "Closing Time",
+                            new { @class = "form-select", id = "inputClosedMorning" })
                     </div>
                     @Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
                 </div>
@@ -103,7 +124,10 @@
                     <label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                        @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control", id = "inputOpenAfternoon", placeholder = "Opening" })
+                        @Html.DropDownListFor(model => model.AfternoonOpening,
+                            new SelectList(timeOptions, "Value", "Text"),
+                            "Opening Time",
+                            new { @class = "form-select", id = "inputOpenAfternoon" })
                     </div>
                     @Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
                 </div>
@@ -111,7 +135,10 @@
                     <label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                        @Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control", id = "inputClosedAfternoon", placeholder = "Closing" })
+                        @Html.DropDownListFor(model => model.AfternoonClosing,
+                            new SelectList(timeOptions, "Value", "Text"),
+                            "Closing Time",
+                            new { @class = "form-select", id = "inputClosedAfternoon" })
                     </div>
                     @Html.ValidationMessageFor(model => model.AfternoonClosing, "", new { @class = "text-danger" })
                 </div>

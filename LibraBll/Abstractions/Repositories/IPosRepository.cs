@@ -20,5 +20,7 @@ namespace LibraBll.Abstractions.Repositories
         List<CityDTO> GetCityList();
 
         List<ConnectionTypeDTO> GetConnectionTypeList();
+
+        List<PosWeekDayDTO> GetPosClosingDays(int posId);
     }
 }

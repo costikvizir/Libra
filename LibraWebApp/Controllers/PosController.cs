@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,11 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> GetPosById(int id)
         {
             var pos = await _posRepository.GetPosByIdAsync(id);
-            return View(pos);
+            var noClosingDays = new List<string> { "No Closing Days" };
+            List<string> posWeekDays = _posRepository.GetPosClosingDays(id).Select(d =>d.Day).ToList();
+            pos.DaysClosed = posWeekDays.Count() > 0 ? posWeekDays : noClosingDays;
+
+            return PartialView("~/Views/Pos/_PosDetails.cshtml", pos);
         }
 
         [HttpGet]
@@ -112,7 +117,17 @@ namespace LibraWebApp.Controllers
             if (id == 0)
                 return null;
 
+            var cities = _posRepository.GetCityList();
+            var connectionTypes = _posRepository.GetConnectionTypeList();
+            var posWeekDays = _posRepository.GetPosClosingDays(id);
+
+            ViewBag.Cities = new SelectList(cities, "Id", "CityName");
+            ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
+
             PosGetDTO posGet = await _posRepository.GetPosByIdAsync(id);
+            int cityId = _posRepository.GetCityList().FirstOrDefault(c => c.CityName == posGet.City).Id;
+            int connectionTypeId = _posRepository.GetConnectionTypeList().FirstOrDefault(c => c.ConnectionType == posGet.ConnectionType).Id;
+
             PosEditDTO pos = new PosEditDTO
             {
                 Id = id,
@@ -120,10 +135,11 @@ namespace LibraWebApp.Controllers
                 Telephone = posGet.Telephone,
                 Cellphone = posGet.Cellphone,
                 Address = posGet.Address,
-                City = posGet.City,
+                CityId = cityId,
                 Model = posGet.Model,
                 Brand = posGet.Brand,
-                ConnectionType = posGet.ConnectionType,
+                DaysClosed = posWeekDays.Select(d => d.Day).ToList(),
+                ConnectionType = connectionTypeId,
                 MorningOpening = posGet.MorningProgram.Split('-')[0].Trim(),
                 MorningClosing = posGet.MorningProgram.Split('-')[1].Trim(),
                 AfternoonOpening = posGet.AfternoonProgram.Split('-')[0].Trim(),
@@ -135,8 +151,20 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdatePos(PosEditDTO pos)
         {
+            //pos.DaysClosed = new List<string>();
+
+            List<string> allDays = Request.Form["dayOfWeek"].ToString().Split(',').ToList();
+            pos.DaysClosed = allDays.Where(d => d != "false").ToList();
+
             await _posRepository.UpdatePos(pos);
-            return PartialView("EditPos");
+
+            var cities = _posRepository.GetCityList();
+            var connectionTypes = _posRepository.GetConnectionTypeList();
+            ViewBag.Cities = new SelectList(cities, "Id", "CityName");
+            ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
+
+            //return PartialView("EditPos");
+            return RedirectToAction("GetAllPos");
         }
 
         [HttpPost]

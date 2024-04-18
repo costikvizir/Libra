@@ -5,31 +5,31 @@
 
 <h3 class="mt-5">All Pos</h3>
 <div class="d-flex justify-content-between mb-2">
-	<button type="button" id="addButton" class="btn btn-success">New POS</button>
-	<div id="buttonWrapper">
-		<button type="button" id="editButton" class="btn btn-warning">Edit</button>
-		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-	</div>
+    <button type="button" id="addButton" class="btn btn-success">New POS</button>
+    <div id="buttonWrapper">
+        <button type="button" id="detailsButton" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+        <button type="button" id="editButton" class="btn btn-warning">Edit</button>
+        <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+    </div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Delete POS</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Delete <span id="deleteItemName"></span> ?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-outline-danger">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete POS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Delete <span id="deleteItemName"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <table id="posList" class="display mt-3">
@@ -67,22 +67,21 @@
                 .draw();
         });
 
-
         // Disable and enable buttons based on row selection
         $('#posList tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
-                $('#editButton, #deleteButton').prop('disabled', true);  // Disable buttons
+                $('#detailsButton, #editButton, #deleteButton').prop('disabled', true);  // Disable buttons
             }
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-                $('#editButton, #deleteButton').prop('disabled', false);  // Enable buttons
+                $('#detailsButton, #editButton, #deleteButton').prop('disabled', false);  // Enable buttons
             }
         });
 
         // Initially disable the buttons
-        $('#editButton, #deleteButton').prop('disabled', true);
+        $('#detailsButton, #editButton, #deleteButton').prop('disabled', true);
 
         $('#deleteButton').on('click', function () {
             var data = table.row('.selected').data();
@@ -129,6 +128,27 @@
 			}
         });
 
+		// Passs user data to the modal
+		$('#detailsButton').click(function () {
+			debugger;
+			console.log('detailsButton clicked');
+
+			var data = table.row('.selected').data();
+			console.log('Selected row data:', data);
+
+			$.ajax({
+				url: "@Url.Action("GetPosById", "Pos")",
+				data: {
+					Id: data.PosId
+				},
+				method: "GET",
+				success: function (response) {
+					console.log('AJAX request successful, response:', response);
+					$('#main-modal-container').html(response);
+					$('#main-modal').modal('show');
+				}
+			})
+		});
 		//$('#editButton').click(function () {
 		//	var data = table.row('.selected').data();
 		//	if (data) {
@@ -178,5 +198,3 @@
 		}
 	});
 </script>
-
-
