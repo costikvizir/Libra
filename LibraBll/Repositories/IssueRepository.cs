@@ -179,7 +179,50 @@ namespace LibraBll.Repositories
 			//};
 		}
 
-		public async void UpdateIssue(IssueDTO issuePost)
+		public async Task<List<IssueDTO>> GetIssuesByPosIdAsync(int posId)
+		{
+            List<IssueDTO> issueList = null;
+            try
+            {
+                issueList = await Context.Issues
+                    .Include(i => i.Pos)
+                    .Include(i => i.Status)
+                    .Include(i => i.User)
+                    .Include(i => i.UserType)
+                    .Include(i => i.IssueType)
+                    .Include(i => i.IssueSubType)
+                    .Include(i => i.IssueProblem)
+					.Where(i => i.PosId == posId)
+                    .Select(i => new IssueDTO
+                    {
+                        Id = i.Id,
+                        PosId = i.PosId,
+                        Type = i.IssueType.Name,
+                        SubType = i.IssueSubType.Name,
+                        Problem = i.IssueProblem.Name,
+                        Priority = i.Priority,
+                        Status = i.Status.IssueStatus,
+                        Memo = i.Memo,
+                        UserCreated = i.User.Name,
+                        AssignedTo = i.UserType.Role,
+                        Description = i.Description,
+                        AssignedDate = i.AssignedDate.ToString("dd/MM/yyyy"),
+                        CreationDate = i.CreationDate.ToString("dd/MM/yyyy"),
+                        ModificationDate = i.ModificationDate.ToString(),
+                        Solution = i.Solution,
+                        PosName = i.Pos.Name,
+                        UserRole = i.UserType.Role
+                    })
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return issueList;
+        }
+
+        public async void UpdateIssue(IssueDTO issuePost)
 		{
 			int typeId = Context.IssueTypes.Where(t => t.Name == issuePost.Type).Select(t => t.Id).FirstOrDefault();
 			int subTypeId = Context.IssueTypes.Where(t => t.Name == issuePost.SubType).Select(t => t.Id).FirstOrDefault();

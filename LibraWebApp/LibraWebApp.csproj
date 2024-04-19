@@ -2866,6 +2866,7 @@
     <Content Include="Views\Pos\EditPos.cshtml" />
     <Content Include="Views\User\_Edit.cshtml" />
     <Content Include="Views\Pos\_PosDetails.cshtml" />
+    <Content Include="Views\Pos\PosDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

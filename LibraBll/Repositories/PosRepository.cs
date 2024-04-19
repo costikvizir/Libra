@@ -22,6 +22,7 @@ namespace LibraBll.Repositories
                     .Include(p => p.City)
                     .Include(p => p.ConnectionType)
                     .Include(p => p.Issues)
+                    .Include(p => p.PosWeekDays)
                     .Select(p => new PosGetDTO
                     {
                         PosId = p.Id,
@@ -33,6 +34,7 @@ namespace LibraBll.Repositories
                         Address = p.Address,
                         Model = p.Model,
                         Brand = p.Brand,
+                        DaysClosed = p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
                         Status = p.Issues.Count() > 0 ? p.Issues.Count().ToString() + " active issues" : "No active issues",
                         ConnectionType = p.ConnectionType.ConnectType,
                         MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
@@ -48,26 +50,42 @@ namespace LibraBll.Repositories
 
         public async Task<PosGetDTO> GetPosByIdAsync(int id)
         {
-            Pos entity = await Context.Pos.Include(x => x.City).Include(x => x.ConnectionType).FirstOrDefaultAsync(x => x.Id == id);
+            Pos entity = await Context.Pos
+                .Include(x => x.City)
+                .Include(x => x.ConnectionType)
+                .Include(x => x.PosWeekDays)
+                .ThenInclude(x => x.DayOfWeek)
+                .Include(x => x.Issues)
+                .FirstOrDefaultAsync(x => x.Id == id);
             //string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
+            var status = entity.Issues.Count() > 0 ? entity.Issues.Count().ToString() + " active issues" : "No active issues";
+            var daysClosed1 = entity.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList();
+            var daysClosed = Context.PosWeekDay
+                .Include(p => p.DayOfWeek)
+                .Where(p => p.PosId == id)
+                .Select(p => p.DayOfWeek.Day)
+                .ToList();
 
             try
             {
-                return new PosGetDTO()
-                {
-                    Name = entity.Name,
-                    Telephone = entity.Telephone,
-                    Cellphone = entity.Cellphone,
-                    FullAddress = entity?.City.CityName + ", " + entity?.Address,
-                    Address = entity?.Address,
-                    City = entity?.City.CityName,
-                    Model = entity?.Model,
-                    Brand = entity?.Brand,
-                    ConnectionType = entity?.ConnectionType.ConnectType,
-                    MorningProgram = entity?.MorningOpening + " - " + entity?.MorningClosing,
-                    AfternoonProgram = entity?.AfternoonOpening + " - " + entity?.AfternoonClosing,
-                    InsertDate = entity?.InsertDate.ToString("dd/MM/yyyy")
-                };
+                PosGetDTO posGet = new PosGetDTO();
+
+                posGet.Name = entity.Name;
+                posGet.Telephone = entity.Telephone;
+                posGet.Cellphone = entity.Cellphone;
+                posGet.FullAddress = entity?.City.CityName + ", " + entity?.Address;
+                posGet.Address = entity?.Address;
+                posGet.City = entity?.City.CityName;
+                posGet.Model = entity?.Model;
+                posGet.Brand = entity?.Brand;
+                posGet.Status = entity?.Issues.Count() > 0 ? entity?.Issues.Count().ToString() + " active issues" : "No active issues";
+                posGet.DaysClosed = entity?.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList();
+                posGet.ConnectionType = entity?.ConnectionType.ConnectType;
+                posGet.MorningProgram = entity?.MorningOpening + " - " + entity?.MorningClosing;
+                posGet.AfternoonProgram = entity?.AfternoonOpening + " - " + entity?.AfternoonClosing;
+                posGet.InsertDate = entity?.InsertDate.ToString("dd/MM/yyyy");
+
+                return posGet;
             }
             catch (Exception)
             {

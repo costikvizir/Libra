@@ -12,7 +12,8 @@ namespace LibraBll.Abstractions.Repositories
 	{
 		Task<IssueDTO> GetIssueByIdAsync(int id);
 		Task<List<IssueDTO>> GetAllIssuesAsync();
-		Task<IssueDTO> AddIssue(IssueDTO issue);
+		Task<List<IssueDTO>> GetIssuesByPosIdAsync(int posId);
+        Task<IssueDTO> AddIssue(IssueDTO issue);
 		void UpdateIssue(IssueDTO issue);
 		void DeleteIssue(int id);
 		int GetIssueCount();

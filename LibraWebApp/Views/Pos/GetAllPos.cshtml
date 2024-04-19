@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-between mb-2">
     <button type="button" id="addButton" class="btn btn-success">New POS</button>
     <div id="buttonWrapper">
-        <button type="button" id="detailsButton" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+        <button type="button" id="detailsButton" class="btn btn-info">Details</button>
         <button type="button" id="editButton" class="btn btn-warning">Edit</button>
         <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
     </div>
@@ -52,6 +52,7 @@
                 { title: "Telephone", data: "Telephone" },
                 { title: "Cellphone", data: "Cellphone" },
                 { title: "Brand", data: "Brand" },
+                { title: "Active Issues", data: "Status"},
                 { title: "Full Address", data: "FullAddress" }
 			]
         });
@@ -128,8 +129,19 @@
 			}
         });
 
-		// Passs user data to the modal
 		$('#detailsButton').click(function () {
+			debugger;
+			var data = table.row('.selected').data();
+			if (data) {
+				var url = '/Pos/GetPosById?' + $.param({ id: data.PosId });
+				window.location.href = url;
+			} else {
+				alert('Please select a row');
+			}
+		});
+
+		// Passs user data to the modal
+		@*$('#detailsButton').click(function () {
 			debugger;
 			console.log('detailsButton clicked');
 
@@ -144,18 +156,24 @@
 				method: "GET",
 				success: function (response) {
 					console.log('AJAX request successful, response:', response);
-					$('#main-modal-container').html(response);
-					$('#main-modal').modal('show');
+					window.location.href = 'url = ' / Pos / PosDetails ?' + $.param({ id: data.PosId }),';
 				}
 			})
-		});
-		//$('#editButton').click(function () {
+        });
+            *@
+
+		//$('#main-modal-container').html(response);
+		//$('#main-modal').modal('show');
+		//$('#PosDetailsForm').html(response);
+        // $('#PosDetailsForm').modal('show');
+
+		//$('#detailsButton').click(function () {
 		//	var data = table.row('.selected').data();
 		//	if (data) {
 		//		$.ajax({
-		//			url: '/Pos/UpdatePos',
-		//			type: 'GET',
-		//			data: { id: data.id },
+		//			url: '/Pos/PosDetails',
+  //                  type: 'GET',
+  //                  data: { id: data.PosId },
 		//			success: function (response) {
 		//				// Handle success
 		//				// If you want to replace the current page content with the response

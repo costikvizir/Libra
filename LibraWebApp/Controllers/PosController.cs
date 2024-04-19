@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.DTOs.ComplexObjects;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace LibraWebApp.Controllers
     public class PosController : Controller
     {
         private readonly IPosRepository _posRepository;
+        private readonly IIssueRepository _issueRepository;
         private readonly IValidator<PosPostDTO> _createPosValidator;
 
         public PosController(IPosRepository posRepository, IValidator<PosPostDTO> createPosValidator)
@@ -19,6 +21,8 @@ namespace LibraWebApp.Controllers
             _posRepository = posRepository;
             _createPosValidator = createPosValidator;
         }
+
+        //TODO addpos visible for admin only, add issue user
 
         public ActionResult Index()
         {
@@ -28,14 +32,25 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetPosById(int id)
         {
-            var pos = await _posRepository.GetPosByIdAsync(id);
-            var noClosingDays = new List<string> { "No Closing Days" };
+            PosGetDTO pos = await _posRepository.GetPosByIdAsync(id);
+            List<string> noClosingDays = new List<string> { "No Closing Days" };
             List<string> posWeekDays = _posRepository.GetPosClosingDays(id).Select(d =>d.Day).ToList();
             pos.DaysClosed = posWeekDays.Count() > 0 ? posWeekDays : noClosingDays;
 
-            return PartialView("~/Views/Pos/_PosDetails.cshtml", pos);
+            PosIssues posIssues = new PosIssues
+            {
+                PosGet = pos,
+                Issues = await _issueRepository.GetIssuesByPosIdAsync(id)
+            };
+
+           // var issues = await _issueRepository.GetIssuesByPosIdAsync(id);
+            //pos.Status = issues.Count() > 0 ? issues.Count().ToString() + " active issues" : "No active issues";
+
+            return PartialView("~/Views/Pos/PosDetails.cshtml", posIssues);
         }
 
+        //TODO set svg images in the view: Pos/_PosDetails.cshtml and Pos/EditPos.cshtml
+        //TODO return PosIssues from repository
         [HttpGet]
         public async Task<ActionResult> GetAllPos()
         {
