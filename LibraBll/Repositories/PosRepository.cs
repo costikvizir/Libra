@@ -35,7 +35,7 @@ namespace LibraBll.Repositories
                         Model = p.Model,
                         Brand = p.Brand,
                         DaysClosed = p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
-                        Status = p.Issues.Count() > 0 ? p.Issues.Count().ToString() + " active issues" : "No active issues",
+                        Status = p.Issues.Count() > 1 ? p.Issues.Count().ToString() + " active issues" : p.Issues.Count() == 1 ? p.Issues.Count().ToString() + " active issue" : "No active issues",
                         ConnectionType = p.ConnectionType.ConnectType,
                         MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
                         AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
@@ -57,19 +57,28 @@ namespace LibraBll.Repositories
                 .ThenInclude(x => x.DayOfWeek)
                 .Include(x => x.Issues)
                 .FirstOrDefaultAsync(x => x.Id == id);
-            //string city = Context.Cities.Where(c => c.Id == entity.CityId).Select(c => c.CityName).FirstOrDefault();
-            var status = entity.Issues.Count() > 0 ? entity.Issues.Count().ToString() + " active issues" : "No active issues";
-            var daysClosed1 = entity.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList();
-            var daysClosed = Context.PosWeekDay
-                .Include(p => p.DayOfWeek)
-                .Where(p => p.PosId == id)
-                .Select(p => p.DayOfWeek.Day)
-                .ToList();
+
+            string status;
+
+            if (entity.Issues.Count() > 1)
+                status = entity.Issues.Count().ToString() + " active issues";
+            else if (entity.Issues.Count() == 1)
+                status = entity.Issues.Count().ToString() + " active issue";
+            else
+                status = "No active issues";
+            // var status = entity.Issues.Count() > 0 ? entity.Issues.Count().ToString() + " active issues" : "No active issues";
+            //var daysClosed1 = entity.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList();
+            //var daysClosed = Context.PosWeekDay
+            //    .Include(p => p.DayOfWeek)
+            //    .Where(p => p.PosId == id)
+            //    .Select(p => p.DayOfWeek.Day)
+            //    .ToList();
 
             try
             {
                 PosGetDTO posGet = new PosGetDTO();
 
+                posGet.PosId = entity.Id;
                 posGet.Name = entity.Name;
                 posGet.Telephone = entity.Telephone;
                 posGet.Cellphone = entity.Cellphone;
@@ -78,7 +87,7 @@ namespace LibraBll.Repositories
                 posGet.City = entity?.City.CityName;
                 posGet.Model = entity?.Model;
                 posGet.Brand = entity?.Brand;
-                posGet.Status = entity?.Issues.Count() > 0 ? entity?.Issues.Count().ToString() + " active issues" : "No active issues";
+                posGet.Status = status;
                 posGet.DaysClosed = entity?.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList();
                 posGet.ConnectionType = entity?.ConnectionType.ConnectType;
                 posGet.MorningProgram = entity?.MorningOpening + " - " + entity?.MorningClosing;

@@ -14,14 +14,14 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-2">
+                @*<div class="col-md-2">
                     <label for="inputPosName" class="form-label">Id</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-info"></i></div>
                         @Html.TextBox("inputPosId", null, new { @class = "form-control", placeholder = "POS Id", oninput = "this.value = this.value.replace(/[^0-9]/g, '');" })
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div>*@
+                <div class="col-md-4">
                     <label for="inputTelephone" class="form-label">Name</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-trademark"></i></div>
@@ -35,7 +35,7 @@
                         @Html.TextBox("inputPosBrand", null, new { @class = "form-control", placeholder = "Pos Brand" })
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <label for="inputAddress" class="form-label">Full Address</label>
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-map"></i></div>
@@ -72,7 +72,7 @@
                 dataSrc: ''
             },
             columns: [
-                { title: "Pos Id", data: "PosId" },
+                { title: "Pos Id", data: "PosId", visible: false },
                 { title: "Name", data: "Name" },
                 { title: "Telephone", data: "Telephone" },
                 { title: "Cellphone", data: "Cellphone" },
