@@ -1,10 +1,13 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.DTOs.User;
+using LibraWebApp.ServerSidePagination;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using LibraWebApp.ServerSidePagination;
+using System;
 
 namespace LibraWebApp.Controllers
 {
@@ -22,6 +25,8 @@ namespace LibraWebApp.Controllers
             _createUserValidator = createUserValidator;
             _modifyUserValidator = modifyUserValidator;
         }
+
+        //TODO: Put all modal windows in separate files
 
         [HttpGet]
         public ActionResult Index()
@@ -51,12 +56,61 @@ namespace LibraWebApp.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<JsonResult> GetAllUsersJson()
+        public async Task<JsonResult> GetAllUsersJson(JQueryDataTableParams param)
         {
             List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
             if (!allUsers.Any())
                 return Json(new { }, JsonRequestBehavior.AllowGet);
+
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                var users = allUsers.Where(x => x.Name.Contains(param.sSearch)
+                                     || x.Email.Contains(param.sSearch) 
+                                     || x.Login.Contains(param.sSearch) 
+                                     || x.Role.Contains(param.sSearch) 
+                                     || x.Telephone.Contains(param.sSearch)).ToList();
+            }
+
+            var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
+            var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
+
+            Func<GetUserDTO, string> orderingFunction = (x => sortColumnIndex == 0 ? x.Name :
+                           sortColumnIndex == 1 ? x.Email :
+                           sortColumnIndex == 2 ? x.Login :
+                           sortColumnIndex == 3 ? x.Role :
+                           sortColumnIndex == 4 ? x.Telephone : x.Name);
+
+            //var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
+            //var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
+            //if (sortColumnIndex == 3)
+            //{
+            //    employees = sortDirection == "asc" ? employees.OrderBy(c => c.Age) : employees.OrderByDescending(c => c.Age);
+            //}
+            //else if (sortColumnIndex == 4)
+            //{
+            //    employees = sortDirection == "asc" ? employees.OrderBy(c => c.StartDate) : employees.OrderByDescending(c => c.StartDate);
+            //}
+            //else if (sortColumnIndex == 5)
+            //{
+            //    employees = sortDirection == "asc" ? employees.OrderBy(c => c.Salary) : employees.OrderByDescending(c => c.Salary);
+            //}
+            //else
+            //{
+            //    Func<Employee, string> orderingFunction = e => sortColumnIndex == 0 ? e.Name : sortColumnIndex == 1 ? e.Position : e.Location;
+            //    employees = sortDirection == "asc" ? employees.OrderBy(orderingFunction) : employees.OrderByDescending(orderingFunction);
+            //}
+
+            //var displayResult = employees.Skip(param.iDisplayStart)
+            //   .Take(param.iDisplayLength).ToList();
+            //var totalRecords = employees.Count();
+            //return Json(new
+            //{
+            //    param.sEcho,
+            //    iTotalRecords = totalRecords,
+            //    iTotalDisplayRecords = totalRecords,
+            //    aaData = displayResult
+            //}, JsonRequestBehavior.AllowGet);
 
             return Json(allUsers, JsonRequestBehavior.AllowGet);
         }
