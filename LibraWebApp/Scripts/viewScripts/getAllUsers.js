@@ -38,7 +38,7 @@
 		var data = table.row('.selected').data();  // Get the data of the selected row
 
 		$.ajax({
-			url: "@Url.Action("UpdateUser","User")",
+			url: "/User/UpdateUser",
 			data: {
 				Id: data.Id
 			},
@@ -96,24 +96,23 @@
 //		}
 //	});
 //}* @
+ function goToALLUsers() {
+		
+		$.ajax({
+			url: "/User/GetAllUsers", 
+			data: {
+			},
+			xhrFields: {
+				withCredentials: true
+			},
+			method: "GET",
+			success: function (response) {
+				$("#mainContainer").html(null);  //<div id = "AddUserForm"></div>
+				$("#mainContainer").html(response);
 
-//	@* function goToALLUsers() {
-//		startLoading();
-//		$.ajax({
-//			url: "@Url.Action("GetAllUsers", "User")",
-//			data: {
-//			},
-//			xhrFields: {
-//				withCredentials: true
-//			},
-//			method: "GET",
-//			success: function (response) {
-//				$("#allUsersForm").html(null);  //<div id = "AddUserForm"></div>
-//				$("#allUsersForm").html(response);
-//				stopLoading();
-//			},
-//		});
-//	}
+			},
+		});
+	}
 
 //function startLoading() {
 //	$("#allUsersForm").show();

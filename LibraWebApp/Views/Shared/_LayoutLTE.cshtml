@@ -173,7 +173,7 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddUser", "User")" class="nav-link ajax-link">
+									<a class="nav-link ajax-link" onclick="goToALLUsers()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add User</p>
 									</a>
@@ -184,6 +184,7 @@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Users</p>
 									</a>
+
 
 								</li>
 							</ul>
@@ -272,9 +273,9 @@
 			</div>
 		</div>
 	</div>
+	<script src="~/Scripts/viewScripts/getAllUsers.js"></script>
 
-
-	<script type="module">
+	@*<script type="module">
 	import { initializeDataTables } from '/Scripts/viewScripts/getAllPos.js';
 
 	$(document).ready(function () {
@@ -304,7 +305,7 @@
 			});
 		});
 	});
-	</script>
+	</script>*@
 
 
 	@*<script>
