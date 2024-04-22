@@ -5,14 +5,12 @@ namespace LibraBll.Validators.User
 {
     public class AddUserDTOValidator : AbstractValidator<AddUserDTO>
     {
-        private static string[] roles = { "Administrator", "User", "Technical Group" };
-
         public AddUserDTOValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name cannot be empty")
                 .MinimumLength(5).WithMessage("Name should contain at least 5 characters")
-                .Matches("^[a-zA-Z]*$").WithMessage("Username shoul contain only letters");
+                .Matches("^[a-zA-Z ]*$").WithMessage("Username should contain only letters");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Please provide a valid email")
@@ -34,8 +32,6 @@ namespace LibraBll.Validators.User
                 .Matches("[0-9]").WithMessage("Password must contain at least one number")
                 .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character");
 
-            //RuleFor(x => x.Role).NotEmpty().WithMessage("Missing Role")
-            //    .Must(role => roles.Contains(role.Trim().ToLower())).WithMessage("Invalid Role. Role must be either 'Administrator', 'User', or 'Technical Group'");
         }
     }
 }
