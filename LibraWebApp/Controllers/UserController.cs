@@ -2,12 +2,11 @@
 using LibraBll.Abstractions.Repositories;
 using LibraBll.DTOs.User;
 using LibraWebApp.ServerSidePagination;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using LibraWebApp.ServerSidePagination;
-using System;
 
 namespace LibraWebApp.Controllers
 {
@@ -65,56 +64,57 @@ namespace LibraWebApp.Controllers
 
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                var users = allUsers.Where(x => x.Name.Contains(param.sSearch)
-                                     || x.Email.Contains(param.sSearch) 
-                                     || x.Login.Contains(param.sSearch) 
-                                     || x.Role.Contains(param.sSearch) 
-                                     || x.Telephone.Contains(param.sSearch)).ToList();
+                allUsers = allUsers.Where(x => x.Name.Contains(param.sSearch)
+                                    || x.Email.Contains(param.sSearch)
+                                    || x.Login.Contains(param.sSearch)
+                                    || x.Role.Contains(param.sSearch)
+                                    || x.Telephone.Contains(param.sSearch)).ToList();
             }
 
             var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
             var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
 
-            Func<GetUserDTO, string> orderingFunction = (x => sortColumnIndex == 0 ? x.Name :
-                           sortColumnIndex == 1 ? x.Email :
-                           sortColumnIndex == 2 ? x.Login :
-                           sortColumnIndex == 3 ? x.Role :
-                           sortColumnIndex == 4 ? x.Telephone : x.Name);
+            if (sortColumnIndex == 0)
+            {
+                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Name).ToList() : allUsers.OrderByDescending(x => x.Name).ToList();
+            }
+            else if (sortColumnIndex == 1)
+            {
+                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Email).ToList() : allUsers.OrderByDescending(x => x.Email).ToList();
+            }
+            else if (sortColumnIndex == 2)
+            {
+                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Login).ToList() : allUsers.OrderByDescending(x => x.Login).ToList();
+            }
+            else if (sortColumnIndex == 3)
+            {
+                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Role).ToList() : allUsers.OrderByDescending(x => x.Role).ToList();
+            }
+            else if (sortColumnIndex == 4)
+            {
+                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Telephone).ToList() : allUsers.OrderByDescending(x => x.Telephone).ToList();
+            }
+            else
+            {
+                Func<GetUserDTO, string> orderingFunction = (x => sortColumnIndex == 0 ? x.Name :
+                                                                  sortColumnIndex == 1 ? x.Email :
+                                                                  sortColumnIndex == 2 ? x.Login :
+                                                                  sortColumnIndex == 3 ? x.Role :
+                                                                  sortColumnIndex == 4 ? x.Telephone : "");
+            }
 
-            //var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
-            //var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
-            //if (sortColumnIndex == 3)
-            //{
-            //    employees = sortDirection == "asc" ? employees.OrderBy(c => c.Age) : employees.OrderByDescending(c => c.Age);
-            //}
-            //else if (sortColumnIndex == 4)
-            //{
-            //    employees = sortDirection == "asc" ? employees.OrderBy(c => c.StartDate) : employees.OrderByDescending(c => c.StartDate);
-            //}
-            //else if (sortColumnIndex == 5)
-            //{
-            //    employees = sortDirection == "asc" ? employees.OrderBy(c => c.Salary) : employees.OrderByDescending(c => c.Salary);
-            //}
-            //else
-            //{
-            //    Func<Employee, string> orderingFunction = e => sortColumnIndex == 0 ? e.Name : sortColumnIndex == 1 ? e.Position : e.Location;
-            //    employees = sortDirection == "asc" ? employees.OrderBy(orderingFunction) : employees.OrderByDescending(orderingFunction);
-            //}
+            var displayResult = allUsers.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
 
-            //var displayResult = employees.Skip(param.iDisplayStart)
-            //   .Take(param.iDisplayLength).ToList();
-            //var totalRecords = employees.Count();
-            //return Json(new
-            //{
-            //    param.sEcho,
-            //    iTotalRecords = totalRecords,
-            //    iTotalDisplayRecords = totalRecords,
-            //    aaData = displayResult
-            //}, JsonRequestBehavior.AllowGet);
-
-            return Json(allUsers, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = allUsers.Count(),
+                iTotalDisplayRecords = allUsers.Count(),
+                aaData = displayResult,
+            }, JsonRequestBehavior.AllowGet);
         }
 
+        //return Json(allUsers, JsonRequestBehavior.AllowGet);
         [HttpGet]
         public ActionResult AddUser()
         {

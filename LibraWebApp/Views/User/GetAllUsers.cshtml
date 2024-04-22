@@ -48,24 +48,29 @@
 </table>
 
 <script>
-	$(document).ready(function () {
-		var table = $('#usersList').DataTable({
-			select: true,
-			ajax: {
-				url: "/User/GetAllUsersJson",
-				type: "GET",
-				dataType: "json",
-				dataSrc: ''
-			},
-			columns: [
-				{ data: "Id", visible : false},
-				{ data: "Name" },
-				{ data: "Login" },
-				{ data: "Email" },
-				{ data: "Role" },
-				{ data: "Telephone" }
-			]
-		});
+$(document).ready(function () {
+	debugger;
+    var table = $('#usersList').DataTable({
+        select: true,
+        serverSide: true,
+        ajax: {
+            url: "/User/GetAllUsersJson",
+            type: "GET",
+            dataType: "json",
+            dataSrc: ''
+        },
+        columns: [
+            { data: "Id", visible: false },
+            { data: "Name", autoWidth: true, searchable: true },
+            { data: "Login", autoWidth: true, searchable: true },
+            { data: "Email", autoWidth: true, searchable: true },
+            { data: "Role", autoWidth: true, searchable: true },
+            { data: "Telephone", autoWidth: true, searchable: true }
+        ]
+    });
+	console.log('table:', table);
+	console.log('table.data():', table.data());
+});
 
 		$('#usersList tbody').on('click', 'tr', function () {
 			if ($(this).hasClass('selected')) {
@@ -141,8 +146,6 @@
 				//}
 			});
 		});
-
-	});
 
 	document.getElementById('buttonWrapper').addEventListener('click', function () {
 		var button = document.getElementById('deleteButton');
