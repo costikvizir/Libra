@@ -156,6 +156,14 @@ function initializeUserList() {
     });
 }
 
+//$(document).ready(function () {
+//    initializeUserList();
+//});
+
+//$(document).ready(function () {
+//    $('#grdPrUpPrj').DataTable()
+//});
+
 $(document).ready(function () {
     initializeUserList();
 });

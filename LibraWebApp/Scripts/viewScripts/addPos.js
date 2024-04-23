@@ -14,9 +14,9 @@
 		},
 	});
 }
-        $('#content').on('click', '#clearFormBtn', function () {
-            $('#AddPosForm')[0].reset(); // Reset form fields
-        });
+$('#content').on('click', '#clearFormBtn', function () {
+    $('#AddPosForm')[0].reset(); // Reset form fields
+});
 
 
 function resetForm() {

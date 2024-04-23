@@ -34,9 +34,9 @@
 	@Scripts.Render("~/bundles/modernizr")
 	@Scripts.Render("~/bundles/jquery")
 	@*@Scripts.Render("~/bundles/popper")*@
+	@Scripts.Render("~/bundles/jqueryval")
 	@Scripts.Render("~/bundles/bootstrap")
 	@Scripts.Render("~/bundles/dataTables")
-	@Scripts.Render("~/bundles/jqueryval")
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -126,11 +126,11 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddPos", "Pos")" class="nav-link ajax-link">
+									<a class="nav-link ajax-link" onclick="goToAddPos()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add POS</p>
 									</a>
-								</li> 
+								</li>
 								<li class="nav-item">
 									<a class="nav-link ajax-link" onclick="goToAllPos()">
 										<i class="far fa-circle nav-icon"></i>
@@ -156,7 +156,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link ajax-link">
+									<a class="nav-link ajax-link" onclick="goToAllIssues()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Issues</p>
 									</a>
@@ -276,7 +276,7 @@
 	<script src="~/Scripts/viewScripts/getAllUsers.js"></script>
 	<script src="~/Scripts/viewScripts/addUser.js"></script>
 	<script src="~/Scripts/viewScripts/getAllPos.js"></script>
-
+	<script src="~/Scripts/viewScripts/addPos.js"></script>
 	@*<script type="module">
 	import { initializeDataTables } from '/Scripts/viewScripts/getAllPos.js';
 

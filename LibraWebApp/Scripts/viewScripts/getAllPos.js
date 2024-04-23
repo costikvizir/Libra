@@ -19,7 +19,7 @@
 // Filter the table based on the input fields
 
 //function initializeDataTables() {
-export const initializeDataTables = () => {
+function initializePosList() {
     var table = $('#posList').DataTable({
         select: true,
         ajax: {
@@ -158,9 +158,14 @@ export const initializeDataTables = () => {
 
 }
 
+
+$(document).ready(function () {
+    //$('#grdPrUpPrj').DataTable()
+    initializePosList();
+});
 function goToAllPos() {
     $.ajax({
-        url: "/Pos/AddPos",
+        url: "/Pos/GetAllPos",
         data: {
         },
         xhrFields: {
@@ -170,6 +175,7 @@ function goToAllPos() {
         success: function (response) {
             $("#mainContainer").html(null);
             $("#mainContainer").html(response);
+            initializePosList();
         },
     });
 }

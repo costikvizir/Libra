@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+function initializeIssuesList() {
 	var table = $('#issueList').DataTable({
 		select: true,
 		ajax: {
@@ -82,7 +83,7 @@
 			}
 		})
 	});
-});
+}
 
 document.getElementById('buttonWrapper').addEventListener('click', function () {
 	var button = document.getElementById('deleteButton');
@@ -90,3 +91,23 @@ document.getElementById('buttonWrapper').addEventListener('click', function () {
 		alert('Please select a row');
 	}
 });
+
+$(document).ready(function () {
+	initializeIssuesList();
+});
+function goToAllIssues() {
+	$.ajax({
+		url: "/Issue/GetAllIssues",
+		data: {
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		method: "GET",
+		success: function (response) {
+			$("#mainContainer").html(null);
+			$("#mainContainer").html(response);
+			initializeIssuesList();
+		},
+	});
+}
