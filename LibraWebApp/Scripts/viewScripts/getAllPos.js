@@ -146,11 +146,30 @@ export const initializeDataTables = () => {
 
     //});
 
+
+
     // Warning message if no row is selected
     document.getElementById('buttonWrapper').addEventListener('click', function () {
         var button = document.getElementById('deleteButton');
         if (button.disabled) {
             alert('Please select a row');
         }
+    });
+
+}
+
+function goToAllPos() {
+    $.ajax({
+        url: "/Pos/AddPos",
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        method: "GET",
+        success: function (response) {
+            $("#mainContainer").html(null);
+            $("#mainContainer").html(response);
+        },
     });
 }
