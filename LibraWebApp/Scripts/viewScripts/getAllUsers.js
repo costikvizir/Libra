@@ -160,13 +160,13 @@ function initializeUserList() {
 //    initializeUserList();
 //});
 
-//$(document).ready(function () {
-//    $('#grdPrUpPrj').DataTable()
-//});
-
 $(document).ready(function () {
-    initializeUserList();
+    $('#usersList').DataTable()
 });
+
+//$(document).ready(function () {
+//    initializeUserList();
+//});
 
 
 //@* $(document).ready(function () {

@@ -160,8 +160,8 @@ function initializePosList() {
 
 
 $(document).ready(function () {
-    //$('#grdPrUpPrj').DataTable()
-    initializePosList();
+    $('#posList').DataTable()
+   // initializePosList();
 });
 function goToAllPos() {
     $.ajax({
