@@ -50,9 +50,11 @@
 <script>
 $(document).ready(function () {
 	debugger;
-    var table = $('#usersList').DataTable({
+	var table = $('#usersList').DataTable({
+		processing: true,
         select: true,
-        serverSide: true,
+		serverSide: true,
+		scrollX: true,
         ajax: {
             url: "/User/GetAllUsersJson",
             type: "GET",
@@ -61,11 +63,11 @@ $(document).ready(function () {
         },
         columns: [
             { data: "Id", visible: false },
-            { data: "Name", autoWidth: true, searchable: true },
-            { data: "Login", autoWidth: true, searchable: true },
-            { data: "Email", autoWidth: true, searchable: true },
-            { data: "Role", autoWidth: true, searchable: true },
-            { data: "Telephone", autoWidth: true, searchable: true }
+            { data: "Name", autoWidth: true },
+            { data: "Login", autoWidth: true },
+            { data: "Email", autoWidth: true },
+            { data: "Role", autoWidth: true },
+            { data: "Telephone", autoWidth: true }
         ]
     });
 	console.log('table:', table);

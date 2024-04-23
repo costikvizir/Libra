@@ -1,6 +1,7 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +73,7 @@ namespace LibraBll.Repositories
                     UserTypeId = x.UserTypeId,
                     Role = x.UserType.Role,
                 })
+                .Search(request.Parameters)
                 .ToListAsync();
             }
             catch (Exception e)
