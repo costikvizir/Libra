@@ -39,6 +39,8 @@
     $(document).ready(function () {
         debugger;
         var table = $('#posList').DataTable({
+            processing: true,
+            serverSide: true,
             select: true,
             ajax: {
                 url: "/Pos/GetAllPosJson",

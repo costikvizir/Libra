@@ -18,7 +18,8 @@ namespace LibraBll.DTOs.User
 
         [JsonIgnore]
         public string Password { get; set; }
-
+        //TODO: Add password hash
+        //TODO: Remove password from DTO
         public string Telephone { get; set; }
         public int UserTypeId { get; set; }
     }

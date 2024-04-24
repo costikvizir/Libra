@@ -1,13 +1,17 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.Common.DataTableModels;
 using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
@@ -55,8 +59,70 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        public async Task<List<GetUserDTO>> GetAllUsersAsync()
+        public async Task<List<GetUserDTO>> GetAllUsersAsync(UserDataTableParameters parameters, CancellationToken cancellationToken)
         {
+            parameters = parameters ?? new UserDataTableParameters();
+            //parameters.TotalCount = await Context.Users.CountAsync(x => x.IsDeleted == false);
+            ////parameters.SetColumnName();
+            //parameters.Draw = 4;
+            ////parameters.Start = parameters.Start < 0 ? 0 : parameters.Start;
+            //// parameters.Length = parameters.Length < 0 ? 0 : parameters.Length;
+            //parameters.Start = 0;
+            //parameters.Length = 7;
+            parameters.Order = new List<DataTablesOrder>
+            {
+                new DataTablesOrder
+                {
+                    Column = 0,
+                    Dir = "asc"
+                }
+            };
+            parameters.Search = new DataTablesSearch
+            {
+                Value = "",
+                Regex = ""
+            };
+            parameters.Columns = new List<DataTablesColumn>
+            {
+                new DataTablesColumn
+                {
+                    Data = "Name",
+                    Name = "Name",
+                    Orderable = true,
+                    Searchable = true
+                },
+                new DataTablesColumn
+                {
+                    Data = "Login",
+                    Name = "Login",
+                    Orderable = true,
+                    Searchable = true
+                },
+                new DataTablesColumn
+                {
+                    Data = "Email",
+                    Name = "Email",
+                    Orderable = true,
+                    Searchable = true
+                },
+                new DataTablesColumn
+                {
+                    Data = "Telephone",
+                    Name = "Telephone",
+                    Orderable = true,
+                    Searchable = true
+                },
+                new DataTablesColumn
+                {
+                    Data = "Role",
+                    Name = "Role",
+                    Orderable = true,
+                    Searchable = true
+                }
+            };  
+           // parameters.Order = 
+           // parameters.Start
+
             List<GetUserDTO> userList = null;
             try
             {
@@ -73,8 +139,10 @@ namespace LibraBll.Repositories
                     UserTypeId = x.UserTypeId,
                     Role = x.UserType.Role,
                 })
-                .Search(request.Parameters)
-                .ToListAsync();
+                .Search(parameters)
+                .OrderBy(parameters)
+                .Page(parameters)
+                .ToListAsync(cancellationToken);
             }
             catch (Exception e)
             {
@@ -82,6 +150,11 @@ namespace LibraBll.Repositories
             }
 
             return userList;
+        }
+
+        public async Task<int> GetUsersCountAsync()
+        {
+            return await Context.Users.CountAsync(x => x.IsDeleted == false);
         }
 
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)

@@ -1,6 +1,8 @@
-﻿using LibraBll.DTOs.Dropdown;
+﻿using LibraBll.Common.DataTableModels;
+using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraBll.Abstractions.Repositories
@@ -11,7 +13,7 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<GetUserDTO> GetUserByNameAsync(string name);
 
-        Task<List<GetUserDTO>> GetAllUsersAsync();
+        Task<List<GetUserDTO>> GetAllUsersAsync(UserDataTableParameters parameters, CancellationToken cancellationToken);
 
         Task<AddUserDTO> CreateUser(AddUserDTO userPost);
 
@@ -20,6 +22,8 @@ namespace LibraBll.Abstractions.Repositories
         void UpdateUser(ModifyUserDTO userPost);
 
         void DeleteUser(int id);
+
+        Task<int> GetUsersCountAsync();
 
         List<RoleDTO> GetRoles();
     }

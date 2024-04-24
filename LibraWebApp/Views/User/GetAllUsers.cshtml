@@ -35,42 +35,44 @@
     </div>
 </div>
 <table id="usersList" class="display mt-3">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Login</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Telephone</th>
-        </tr>
-    </thead>
+
 </table>
 
 <script>
 $(document).ready(function () {
 	debugger;
 	var table = $('#usersList').DataTable({
+		select: 'single',
 		processing: true,
         select: true,
 		serverSide: true,
-		scrollX: true,
+		//scrollX: true,
         ajax: {
             url: "/User/GetAllUsersJson",
             type: "GET",
             dataType: "json",
-            dataSrc: ''
+			dataSrc: 'data'
+			,
+			data: function (params) {
+				params.draw = params.draw || 1;
+				params.start = params.start || 0; 
+				params.length = params.length || 10; 
+				return params;
+			}
         },
         columns: [
-            { data: "Id", visible: false },
-            { data: "Name", autoWidth: true },
-            { data: "Login", autoWidth: true },
-            { data: "Email", autoWidth: true },
-            { data: "Role", autoWidth: true },
-            { data: "Telephone", autoWidth: true }
+			{ title: "Id", data: "Id", visible: false },
+			{ title: "Name", data: "Name", autoWidth: true, searchable: true },
+			{ title: "Login", data: "Login", autoWidth: true, searchable: true },
+			{ title: "Email", data: "Email", autoWidth: true, searchable: true },
+			{ title: "Role", data: "Role", autoWidth: true, searchable: true },
+			{ title: "Telephone", data: "Telephone", autoWidth: true, searchable: true }
         ]
-    });
-	console.log('table:', table);
+	});
+
+	//$('#usersList_filter input').on('keyup', function () {
+	//	table.search(this.value).draw();
+	//});
 	console.log('table.data():', table.data());
 });
 

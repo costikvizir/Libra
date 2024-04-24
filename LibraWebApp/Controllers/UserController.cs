@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
 using LibraWebApp.ServerSidePagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -45,76 +47,49 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
-            List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
+            //List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
-            if (!allUsers.Any())
-                return null;
+            //if (!allUsers.Any())
+            //    return null;
 
-            return PartialView(allUsers);
+           // return PartialView(allUsers);
+           return View();
         }
-
-        [Authorize]
+       // [Authorize]
         [HttpGet]
-        public async Task<JsonResult> GetAllUsersJson(JQueryDataTableParams param)
+        public async Task<JsonResult> GetAllUsersJson( UserDataTableParameters parameters = null )
         {
-            List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
 
-            if (!allUsers.Any())
-                return Json(new { }, JsonRequestBehavior.AllowGet);
+            parameters = parameters ?? new UserDataTableParameters();
 
-            if (!string.IsNullOrEmpty(param.sSearch))
-            {
-                allUsers = allUsers.Where(x => x.Name.Contains(param.sSearch)
-                                    || x.Email.Contains(param.sSearch)
-                                    || x.Login.Contains(param.sSearch)
-                                    || x.Role.Contains(param.sSearch)
-                                    || x.Telephone.Contains(param.sSearch)).ToList();
-            }
+            parameters.TotalCount = await _userRepository.GetUsersCountAsync();
+            parameters.Length = parameters.Length == 0 ? 7 : parameters.Length;
+            parameters.Start = parameters.Start == 0 ? 0 : parameters.Start;
+            parameters.Draw = 0;
+            
 
-            var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
-            var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
-
-            if (sortColumnIndex == 0)
-            {
-                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Name).ToList() : allUsers.OrderByDescending(x => x.Name).ToList();
-            }
-            else if (sortColumnIndex == 1)
-            {
-                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Email).ToList() : allUsers.OrderByDescending(x => x.Email).ToList();
-            }
-            else if (sortColumnIndex == 2)
-            {
-                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Login).ToList() : allUsers.OrderByDescending(x => x.Login).ToList();
-            }
-            else if (sortColumnIndex == 3)
-            {
-                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Role).ToList() : allUsers.OrderByDescending(x => x.Role).ToList();
-            }
-            else if (sortColumnIndex == 4)
-            {
-                allUsers = sortDirection == "asc" ? allUsers.OrderBy(x => x.Telephone).ToList() : allUsers.OrderByDescending(x => x.Telephone).ToList();
-            }
-            else
-            {
-                Func<GetUserDTO, string> orderingFunction = (x => sortColumnIndex == 0 ? x.Name :
-                                                                  sortColumnIndex == 1 ? x.Email :
-                                                                  sortColumnIndex == 2 ? x.Login :
-                                                                  sortColumnIndex == 3 ? x.Role :
-                                                                  sortColumnIndex == 4 ? x.Telephone : "");
-            }
-
-            var displayResult = allUsers.Skip(param.iDisplayStart).Take(param.iDisplayLength).ToList();
-
+            var users = await _userRepository.GetAllUsersAsync(parameters, CancellationToken.None);
             return Json(new
             {
-                param.sEcho,
-                iTotalRecords = allUsers.Count(),
-                iTotalDisplayRecords = allUsers.Count(),
-                aaData = displayResult,
+                draw = parameters.Draw,
+                recordsFiltered = parameters.Length,
+                recordsTotal = parameters.TotalCount,
+                data = users
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //return Json(allUsers, JsonRequestBehavior.AllowGet);
+        //[Authorize]
+        //[HttpGet]
+        //public async Task<JsonResult> GetAllUsersJson(JQueryDataTableParams param)
+        //{
+        //    List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
+
+        //    if (!allUsers.Any())
+        //        return Json(new { }, JsonRequestBehavior.AllowGet);
+
+        //    return Json(allUsers, JsonRequestBehavior.AllowGet);
+        //}
+
         [HttpGet]
         public ActionResult AddUser()
         {
