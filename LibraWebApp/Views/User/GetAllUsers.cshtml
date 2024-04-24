@@ -52,13 +52,13 @@ $(document).ready(function () {
             type: "GET",
             dataType: "json",
 			dataSrc: 'data'
-			,
-			data: function (params) {
-				params.draw = params.draw || 1;
-				params.start = params.start || 0; 
-				params.length = params.length || 10; 
-				return params;
-			}
+			//,
+			//data: function (params) {
+			//	params.draw = params.draw || 1;
+			//	params.start = params.start || 0; 
+			//	params.length = params.length || 10; 
+			//	return params;
+			//}
         },
         columns: [
 			{ title: "Id", data: "Id", visible: false },
