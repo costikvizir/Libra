@@ -1,5 +1,5 @@
 ﻿@{
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
 <h3 class="accent-gray-dark mt-5">New POS</h3>
@@ -8,241 +8,174 @@
 
 @using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))
 {
-	<!-- Include Bootstrap DateTimePicker CDN -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!-- Include Bootstrap DateTimePicker CDN -->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">-->
 
-	@*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
-		</script>*@
-	List<SelectListItem> timeOptions = new List<SelectListItem>();
-	for (int hour = 7; hour <= 22; hour++)
-	{
-		for (int minute = 0; minute <= 59; minute += 15)
-		{
-			string displayTime = $"{hour:D2}:{minute:D2}";
-			timeOptions.Add(new SelectListItem { Text = displayTime, Value = displayTime });
-		}
-	}
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
+        </script>*@
+    <!--List<SelectListItem> timeOptions = new List<SelectListItem>();
+    for (int hour = 7; hour <= 22; hour++)
+    {
+        for (int minute = 0; minute <= 59; minute += 15)
+        {
+            string displayTime = $"{hour:D2}:{minute:D2}";
+            timeOptions.Add(new SelectListItem { Text = displayTime, Value = displayTime });
+        }
+    }-->
 
-	<div class="card mb-0">
-		<div class="card-header" style="background-color: lightgray">
-			POS basic data
-		</div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-5">
-					<label for="inputPosName" class="form-label">Name</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-credit-card"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputTelephone" class="form-label">Telephone</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-phone"></i></div>
-						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputCellphone" class="form-label">Cellphone</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-mobile"></i></div>
-						@Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<label for="inputAddress" class="form-label">Full Address</label>
-					<div class="input-group">
-						<div class="input-group-text">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-								<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-							</svg>
-						</div>
-						@Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputState" class="form-label">City</label>
-					@Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "Select City", new { @class = "form-select", id = "inputState" })
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<label for="inputBrand" class="form-label">Brand</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
-						@Html.TextBoxFor(model => model.Brand, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-4">
-					<label for="inputModel" class="form-label">Model</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-copyright"></i></div>
-						@Html.TextBoxFor(model => model.Model, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputState" class="form-label">Connection Type</label>
-					@Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, new { @class = "form-select", id = "inputState" })
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="card mt-0">
-		<div class="card-header" style="background-color: lightgray">
-			Oppening hours and holidays
-		</div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-3">
-					<label for="inputOpenMorning" class="form-label">Open Morning</label>
-					@*<div class="input-group">
-							<div class="input-group-text"><i class="fas fa-clock"></i></div>
-							@Html.DropDownListFor(model => model.MorningOpening,
-								new SelectList(timeOptions, "Value", "Text"),
-								"Opening Time",
-								new { @class = "form-select", id = "inputOpenMorning" })
-						</div>
-						@Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger" })*@
+    <div class="card mb-0">
+        <div class="card-header" style="background-color: lightgray">
+            POS basic data
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="inputPosName" class="form-label">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-credit-card"></i></div>
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputTelephone" class="form-label">Telephone</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputCellphone" class="form-label">Cellphone</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-mobile"></i></div>
+                        @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="inputAddress" class="form-label">Full Address</label>
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                            </svg>
+                        </div>
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputState" class="form-label">City</label>
+                    @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "Select City", new { @class = "form-select", id = "inputState" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="inputBrand" class="form-label">Brand</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-copyright"></i></div>
+                        @Html.TextBoxFor(model => model.Brand, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    <label for="inputModel" class="form-label">Model</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-copyright"></i></div>
+                        @Html.TextBoxFor(model => model.Model, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <label for="inputState" class="form-label">Connection Type</label>
+                    @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, new { @class = "form-select", id = "inputState" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-0">
+        <div class="card-header" style="background-color: lightgray">
+            Oppening hours and holidays
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="inputOpenMorning" class="form-label">Open Morning</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control timepicker", id = "inputMorningOpening", placeholder = "Opening Time", type = "text" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputClosedMorning" class="form-label">Closed Morning</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control timepicker", id = "inputMorningClosing", placeholder = "Closing Time", type = "text" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control timepicker", id = "inputAfternoonOpening", placeholder = "Opening Time", type = "text" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                        @Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control timepicker", id = "inputAfternoonClosing", placeholder = "Closing Time", type = "text" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <label for="dayOfWeekLabel" class="form-label">Closing Days</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Mon" })
+                            <label class="form-check-label" for="monday">Mon</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Tue" })
+                            <label class="form-check-label" for="tuesday">Tue</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Wed" })
+                            <label class="form-check-label" for="wednesday">Wed</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Thu" })
+                            <label class="form-check-label" for="thursday">Thu</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Fri" })
+                            <label class="form-check-label" for="friday">Fri</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sat" })
+                            <label class="form-check-label" for="saturday">Sat</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            @Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sun" })
+                            <label class="form-check-label" for="sunday">Sun</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						<input class="form-control" type="text" id="datetime" />
-					</div>
-					@Html.ValidationMessageFor(model => model.MorningOpening, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputClosedMorning" class="form-label">Closed Morning</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.DropDownListFor(model => model.MorningClosing,
-							new SelectList(timeOptions, "Value", "Text"),
-							"Closing Time",
-							new { @class = "form-select", id = "inputClosedMorning" })
-					</div>
-					@Html.ValidationMessageFor(model => model.MorningClosing, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.DropDownListFor(model => model.AfternoonOpening,
-							new SelectList(timeOptions, "Value", "Text"),
-							"Opening Time",
-							new { @class = "form-select", id = "inputOpenAfternoon" })
-					</div>
-					@Html.ValidationMessageFor(model => model.AfternoonOpening, "", new { @class = "text-danger" })
-				</div>
-				<div class="col-md-3">
-					<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-clock"></i></div>
-						@Html.DropDownListFor(model => model.AfternoonClosing,
-							new SelectList(timeOptions, "Value", "Text"),
-							"Closing Time",
-							new { @class = "form-select", id = "inputClosedAfternoon" })
-					</div>
-				</div>
-				@*<div class="container">
-					<div class="row">
-						<div class='col-sm-6'>
-							<div class="form-group">
-								<div class='input-group date' id='datetimepicker3'>
-									<input type='text' class="form-control" />
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-time"></span>
-									</span>
-								</div>
-							</div>
-						</div>
-						<script type="text/javascript">
-							$(function () {
-								$('#datetimepicker3').datetimepicker({
-									format: 'LT'
-								});
-							});
-						</script>
-					</div>
-				</div>*@
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label for="dayOfWeekLabel" class="form-label">Closing Days</label>
-					<div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="monday" value="Mon">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Mon" })
-							<label class="form-check-label" for="monday">Mon</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="tuesday" value="Tue">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Tue" })
-							<label class="form-check-label" for="tuesday">Tue</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="wednesday" value="Wed">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Wed" })
-							<label class="form-check-label" for="wednesday">Wed</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="thursday" value="Thu">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Thu" })
-							<label class="form-check-label" for="thursday">Thu</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="friday" value="Fri">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Fri" })
-							<label class="form-check-label" for="friday">Fri</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="saturday" value="Sat">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sat" })
-							<label class="form-check-label" for="saturday">Sat</label>
-						</div>
-						<div class="form-check form-check-inline">
-							@*<input class="form-check-input" type="checkbox" name="dayOfWeek[]" id="sunday" value="Sun">*@
-							@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sun" })
-							<label class="form-check-label" for="sunday">Sun</label>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="d-flex justify-content-start">
-		<button type="submit" class="btn btn-primary mr-2">Save POS</button>
-	</div>
+    <div class="d-flex justify-content-start">
+        <button type="submit" class="btn btn-primary mr-2">Save POS</button>
+    </div>
 }
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js">
-	</script>
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
-<script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
-
-
-<script>
-	$('#datetime').datetimepicker({
-		format: 'HH:mm',
-		icons: {
-			up: 'fa fa-chevron-up',
-			down: 'fa fa-chevron-down'
-		}
-	});
-	function resetForm() {
-		var form = document.getElementById("AddPosForm");
-		form.reset();
-	}
-</script>
+@section Scripts {
+    <script src="~/Scripts/TimePicker/moment.min.js"></script>
+    <script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
+}
