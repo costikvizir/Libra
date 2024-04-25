@@ -2835,6 +2835,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <None Include="Views\Issue\_IssueDetails.cshtml" />
+    <Content Include="Scripts\TimePicker\bootstrap-datetimepicker.min.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
