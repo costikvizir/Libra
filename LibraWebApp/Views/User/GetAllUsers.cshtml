@@ -41,6 +41,15 @@
 <script>
 $(document).ready(function () {
 	debugger;
+	var columns = [
+		{ title: "Id", data: "Id", visible: false },
+		{ title: "Name", data: "name", name: "name", autoWidth: true, searchable: true },
+		{ title: "Login", data: "login", autoWidth: true, searchable: true },
+		{ title: "Email", data: "email", autoWidth: true, searchable: true },
+		{ title: "Role", data: "role", autoWidth: true, searchable: true },
+		{ title: "Telephone", data: "telephone", autoWidth: true, searchable: true }
+	];
+
 	var table = $('#usersList').DataTable({
 		select: 'single',
 		processing: true,
@@ -60,21 +69,85 @@ $(document).ready(function () {
 			//	return params;
 			//}
         },
-        columns: [
-			{ title: "Id", data: "Id", visible: false },
-			{ title: "Name", data: "Name", autoWidth: true, searchable: true },
-			{ title: "Login", data: "Login", autoWidth: true, searchable: true },
-			{ title: "Email", data: "Email", autoWidth: true, searchable: true },
-			{ title: "Role", data: "Role", autoWidth: true, searchable: true },
-			{ title: "Telephone", data: "Telephone", autoWidth: true, searchable: true }
-        ]
+		columns: columns
+			,
+		//order: [[GetIndexOfDataTableColumn(columns, 'name'), 'asc']],
 	});
+
+
 
 	//$('#usersList_filter input').on('keyup', function () {
 	//	table.search(this.value).draw();
 	//});
 	console.log('table.data():', table.data());
 });
+
+
+	//function initializeIncidentDataTable() {
+	//	$('#usersList').hide();
+	//	var table = $('#IncidentDatatable').DataTable({
+	//		"processing": true,
+	//		"serverSide": true,
+	//		"ajax": {
+	//			"url": "/Incident/LoadDatatable",
+	//			"type": "POST",
+	//			"dataType": "json",
+	//			"beforeSend": function () {
+	//				$('#actions').hide(); // Скрывать actions перед AJAX запросом
+	//			}
+	//		},
+	//		"columns": [
+	//			{ "data": "id", "title": "id", "name": "id", "visible": false },
+	//			{ "data": "requestNr", "title": localizations.requestNr, "name": "requestNr" },
+	//			{ "data": "subsystem", "title": localizations.subsystem, "name": "subsystem" },
+	//			{
+	//				"data": "openDate",
+	//				"title": localizations.openDate,
+	//				"name": "openDate",
+	//				"render": function (data, type, row) {
+	//					return data ? new Date(data).toLocaleDateString() : '';
+	//				}
+	//			},
+	//			{
+	//				"data": "closeDate",
+	//				"title": localizations.closeDate,
+	//				"name": "closeDate",
+	//				"render": function (data, type, row) {
+	//					return data ? new Date(data).toLocaleDateString() : '';
+	//				}
+	//			},
+	//			{ "data": "type", "title": localizations.type, "name": "type" },
+	//			{ "data": "urgency", "title": localizations.urgency, "name": "urgency" }
+	//		],
+	//		"columnDefs": [
+	//			{ "width": "10%", "targets": [0, 1, 2, 5, 6] },
+	//			{ "width": "15%", "targets": [3, 4] }
+	//		],
+	//		"scrollX": true
+	//	});
+
+	//	return table;
+	//}
+
+	//GetIndexOfDataTableColumn: function (columnsCollection, searchingColumnName) {
+	//	for (var i = 0; i < columnsCollection.length; i++) {
+	//		if (columnsCollection[i].data === searchingColumnName) {
+	//			return i;
+	//		}
+	//	}
+
+	//	return -1;
+	//}
+	function GetIndexOfDataTableColumn(columnsCollection, searchingColumnName) {
+		debugger;
+		for (var i = 0; i < columnsCollection.length; i++) {
+			if (columnsCollection[i].data === searchingColumnName) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
 
 		$('#usersList tbody').on('click', 'tr', function () {
 			if ($(this).hasClass('selected')) {

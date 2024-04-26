@@ -60,7 +60,9 @@ namespace LibraWebApp.Controllers
         public async Task<JsonResult> GetAllUsersJson(DataTablesParameters parameters = null)
         {
 
-            parameters = parameters ?? new UserDataTableParameters();
+            parameters = parameters ?? new DataTablesParameters();
+
+           // parameters.Order.Add(new DataTablesOrder { Column = 0, Dir = "asc", Name = "Name" });
 
             //parameters.TotalCount = await _userRepository.GetUsersCountAsync();
             //parameters.Length = parameters.Length == 0 ? 7 : parameters.Length;

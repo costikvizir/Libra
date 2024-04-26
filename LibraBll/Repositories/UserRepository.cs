@@ -56,7 +56,7 @@ namespace LibraBll.Repositories
                 return user;
             }
 
-            return null;
+            return null; 
         }
 
         public List<GetUserDTO> GetAllUsers(DataTablesParameters parameters, CancellationToken cancellationToken)
