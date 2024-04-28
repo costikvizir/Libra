@@ -35,19 +35,18 @@
     </div>
 </div>
 <table id="usersList" class="display mt-3">
-
 </table>
 
 <script>
 $(document).ready(function () {
 	debugger;
 	var columns = [
-		{ title: "Id", data: "Id", visible: false },
+        { title: "Id", data: "id", name: "id", visible: false },
 		{ title: "Name", data: "name", name: "name", autoWidth: true, searchable: true },
-		{ title: "Login", data: "login", autoWidth: true, searchable: true },
-		{ title: "Email", data: "email", autoWidth: true, searchable: true },
-		{ title: "Role", data: "role", autoWidth: true, searchable: true },
-		{ title: "Telephone", data: "telephone", autoWidth: true, searchable: true }
+        { title: "Login", data: "login", name: "login", autoWidth: true, searchable: true },
+        { title: "Email", data: "email", name: "email", autoWidth: true, searchable: true },
+        { title: "Role", data: "role", name: "role", autoWidth: true, searchable: true },
+        { title: "Telephone", data: "telephone", name: "telephone", autoWidth: true, searchable: true }
 	];
 
 	var table = $('#usersList').DataTable({
@@ -60,28 +59,28 @@ $(document).ready(function () {
             url: "/User/GetAllUsersJson",
             type: "GET",
             dataType: "json",
-			dataSrc: 'data'
+			dataSrc: "data",
+			beforeSend: function () {
+                $('#actions').hide(); 
+            }
+			//dataSrc: ""
 			//,
 			//data: function (params) {
 			//	params.draw = params.draw || 1;
-			//	params.start = params.start || 0; 
-			//	params.length = params.length || 10; 
+			//	params.start = params.start || 0;
+			//	params.length = params.length || 10;
 			//	return params;
 			//}
         },
-		columns: columns
-			,
-		//order: [[GetIndexOfDataTableColumn(columns, 'name'), 'asc']],
+        columns: columns,
+		order: [[GetIndexOfDataTableColumn(columns, "name"), "asc"]],
 	});
-
-
 
 	//$('#usersList_filter input').on('keyup', function () {
 	//	table.search(this.value).draw();
 	//});
 	console.log('table.data():', table.data());
-});
-
+	});
 
 	//function initializeIncidentDataTable() {
 	//	$('#usersList').hide();
@@ -140,12 +139,11 @@ $(document).ready(function () {
 	//}
 	function GetIndexOfDataTableColumn(columnsCollection, searchingColumnName) {
 		debugger;
-		for (var i = 0; i < columnsCollection.length; i++) {
+		for (var i = 1; i < columnsCollection.length; i++) {
 			if (columnsCollection[i].data === searchingColumnName) {
 				return i;
 			}
 		}
-
 		return -1;
 	}
 

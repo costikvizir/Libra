@@ -2,10 +2,6 @@
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
-using LibraWebApp.ServerSidePagination;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -47,30 +43,24 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
-            //List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
-
-            //if (!allUsers.Any())
-            //    return null;
-
-           // return PartialView(allUsers);
-           return View();
+            return View();
         }
-       // [Authorize]
+
+        // [Authorize]
         [HttpGet]
         public async Task<JsonResult> GetAllUsersJson(DataTablesParameters parameters = null)
         {
-
             parameters = parameters ?? new DataTablesParameters();
 
-           // parameters.Order.Add(new DataTablesOrder { Column = 0, Dir = "asc", Name = "Name" });
+            parameters.Order[0].Name = "Id";
+            parameters.Order[0].Dir = "asc";
+            parameters.Columns[0].Data = "Id";
 
-            //parameters.TotalCount = await _userRepository.GetUsersCountAsync();
-            //parameters.Length = parameters.Length == 0 ? 7 : parameters.Length;
-            //parameters.Start = parameters.Start == 0 ? 0 : parameters.Start;
-            //parameters.Draw = 0;
-            
+            parameters.Order[1].Name = "Name";
+            parameters.Order[1].Dir = "asc";
+            parameters.Columns[1].Data = "Name";
 
-            var users = _userRepository.GetAllUsers(parameters, CancellationToken.None);
+            var users = await _userRepository.GetAllUsers(parameters, CancellationToken.None);
             return Json(new
             {
                 draw = parameters.Draw,

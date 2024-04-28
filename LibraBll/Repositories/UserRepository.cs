@@ -56,10 +56,10 @@ namespace LibraBll.Repositories
                 return user;
             }
 
-            return null; 
+            return null;
         }
 
-        public List<GetUserDTO> GetAllUsers(DataTablesParameters parameters, CancellationToken cancellationToken)
+        public async Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
             //parameters = parameters ?? new UserDataTableParameters();
             //parameters.TotalCount = await Context.Users.CountAsync(x => x.IsDeleted == false);
@@ -119,14 +119,14 @@ namespace LibraBll.Repositories
             //        Orderable = true,
             //        Searchable = true
             //    }
-            //};  
-            // parameters.Order = 
+            //};
+            // parameters.Order =
             // parameters.Start
 
             List<GetUserDTO> userList = null;
             try
             {
-                userList = Context.Users
+                userList = await Context.Users
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.UserType)
                 .Select(x => new GetUserDTO
@@ -143,7 +143,7 @@ namespace LibraBll.Repositories
                 .Search(parameters)
                 .OrderBy(parameters)
                 .Page(parameters)
-                .ToList();
+                .ToListAsync();
             }
             catch (Exception e)
             {
