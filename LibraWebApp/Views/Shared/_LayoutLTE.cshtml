@@ -28,6 +28,9 @@
 	<link rel="stylesheet" href="~/Content/dataTables.dataTables.min.css">
 	@*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">*@
 
+
+	@*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
+
 	<!-- summernote -->
 	<link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 	@Styles.Render("~/Content/css")
@@ -263,8 +266,7 @@
 			@Scripts.Render("~/bundles/bootstrap")
 		}*@
 
-	<script src="~/Scripts/jquery.dataTables.min.js"></script>
-	<script src="~/Scripts/dataTables.dataTables.min.js"></script>
+
 	@*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
 	<div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
@@ -273,70 +275,15 @@
 			</div>
 		</div>
 	</div>
+	<script src="~/Scripts/jquery.dataTables.min.js"></script>
+	<script src="~/Scripts/dataTables.dataTables.min.js"></script>
 	<script src="~/Scripts/viewScripts/getAllUsers.js"></script>
 	<script src="~/Scripts/viewScripts/addUser.js"></script>
 	<script src="~/Scripts/viewScripts/getAllPos.js"></script>
 	<script src="~/Scripts/viewScripts/addPos.js"></script>
 	<script src="~/Scripts/viewScripts/getAllIssues.js"></script>
-	@*<script type="module">
-	import { initializeDataTables } from '/Scripts/viewScripts/getAllPos.js';
-
-	$(document).ready(function () {
-		debugger;
-		// Attach a click event handler to <a> tags with the class 'ajax-link'
-		$('a.ajax-link').click(function (event) {
-
-			event.preventDefault();
-
-			var url = $(this).attr('href');
-
-			// Send an AJAX request
-			$.ajax({
-				url: url,
-				type: 'GET',
-				success: function (data) {
-					debugger;
-					// Replace the content of the mainContainer div
-					$('#mainContainer').html(data);
-					initializeDataTables();
-					console.log("AdminLTE Layout Success")
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
-					console.log("AdminLTE Layout Error !!!")
-				}
-			});
-		});
-	});
-	</script>*@
 
 
-	@*<script>
-			$(document).ready(function () {
-				$('#addUserLink').click(function () {
-					$('#AddUserForm').load('/User/AddUser');
-				});
-
-				$('#getAllUsersLink').click(function () {
-					$('#allUsersForm').load('/User/GetAllUsers');
-				});
-			});
-		</script>*@
-
-	@*<script>
-			//$(document).ready(function () {
-			//    debugger;
-			//    $('.ajax-link').click(function (event) {
-			//        event.preventDefault(); // Prevent default link behavior
-
-			//        var url = $(this).attr('href'); // Get the URL from the clicked link's href attribute
-			//        var targetContainerId = $(this).data('target-container'); // Get the ID of the target container from data attribute
-
-			//        // Load the content of the URL into the target container
-			//        $('#' + targetContainerId).load(url);
-			//    });
-			//});
-		</script>*@
 
 	@RenderSection("scripts", required: false)
 </body>

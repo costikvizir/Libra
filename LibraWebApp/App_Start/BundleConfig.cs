@@ -34,7 +34,8 @@ namespace LibraWebApp
 				"~/Scripts/umd/popper.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
-				//"~/Scripts/dataTables.dataTables.min.js",
+						"~/Scripts/DataTables/jquery.dataTables.js",
+						//"~/Scripts/dataTables.dataTables.min.js",
 						"~/Scripts/DataTables/jquery.dataTables.js",
 						"~/Scripts/DataTables/dataTables.select.js",
 						"~/Scripts/DataTables/dataTables.bootstrap4.js"

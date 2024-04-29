@@ -1,25 +1,7 @@
-﻿//$(document).ready(function () {
-//    var table = $('#posList').DataTable({
-//        select: true,
-//        ajax: {
-//            url: "/Pos/GetAllPosJson",
-//            type: "GET",
-//            dataType: "json",
-//            dataSrc: ''
-//        },
-//        columns: [
-//            { title: "Name", data: "Name" },
-//            { title: "Telephone", data: "Telephone" },
-//            { title: "Cellphone", data: "Cellphone" },
-//            { title: "Brand", data: "Brand" },
-//            { title: "Full Address", data: "FullAddress" }
-//        ]
-//    });
-
-// Filter the table based on the input fields
-
-//function initializeDataTables() {
+﻿
 function initializePosList() {
+    console.log("Initialize Pos List Datatable");
+    debugger;
     var table = $('#posList').DataTable({
         select: true,
         ajax: {
@@ -159,11 +141,12 @@ function initializePosList() {
 }
 
 
-$(document).ready(function () {
-    $('#posList').DataTable()
-   // initializePosList();
-});
+
+//$(document).ready(function () {
+//    $('#posList').DataTable();
+//});
 function goToAllPos() {
+    debugger;
     $.ajax({
         url: "/Pos/GetAllPos",
         data: {

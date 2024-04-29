@@ -1,86 +1,8 @@
-﻿//$(document).ready(function () {
-//	console.log("Get All Users Script");
-//	var table = $('#usersList').DataTable({
-//		select: true,
-//		ajax: {
-//			url: "/User/GetAllUsersJson",
-//			type: "GET",
-//			dataType: "json",
-//			dataSrc: ''
-//		},
-//		columns: [
-//			{ data: "Id", visible: false },
-//			{ data: "Name" },
-//			{ data: "Login" },
-//			{ data: "Email" },
-//			{ data: "Role" },
-//			{ data: "Telephone" }
-//		]
-//	});
+﻿
 
-//	$('#usersList tbody').on('click', 'tr', function () {
-//		if ($(this).hasClass('selected')) {
-//			$(this).removeClass('selected');
-//			$('#editButton, #deleteButton').prop('disabled', true);  // Disable buttons
-//		}
-//		else {
-//			table.$('tr.selected').removeClass('selected');
-//			$(this).addClass('selected');
-//			$('#editButton, #deleteButton').prop('disabled', false);  // Enable buttons
-//		}
-//	});
-
-//	// Initially disable the buttons
-//	$('#editButton, #deleteButton').prop('disabled', true);
-
-//	$('#editButton').click(function () {
-
-//		var data = table.row('.selected').data();  // Get the data of the selected row
-
-//		$.ajax({
-//			url: "/User/UpdateUser",
-//			data: {
-//				Id: data.Id
-//			},
-//			method: "GET",
-//			success: function (response) {
-//				console.log('AJAX request successful, response:', response);
-//				$('#main-modal-container').html(response);
-//				$('#main-modal').modal('show');
-//			}
-//		})
-//	});
-
-//	$('#deleteButton').on('click', function () {
-//		var data = table.row('.selected').data();
-//		if (data) {
-//			$('#deleteItemName').text(data.Name);
-//			$('#deleteButton').data('userid', data.Id);
-//		}
-//	});
-
-//	$('.btn-outline-danger').on('click', function () {
-//		var userId = $('#deleteButton').data('userid');
-//		$.ajax({
-//			url: '/User/DeleteUser/' + userId,
-//			type: 'POST',
-//			data: { id: userId },
-//			success: function (data) {
-//				table.row('.selected').remove().draw(false);
-//				$('#deleteModal').modal('hide');
-//				$('.modal-backdrop').remove();
-//				console.log('User deleted successfully');
-
-//			}
-//			//error: function (jqXHR, textStatus, errorThrown) {
-//			//	alert('Error: ' + errorThrown);
-//			//}
-//		});
-//	});
-
-//});
 function initializeUserList() {
-    console.log("Get All Users Script");
+    console.log("Initialize User List Datatable");
+    debugger;
     var table = $('#usersList').DataTable({
         select: true,
         ajax: {
@@ -115,9 +37,7 @@ function initializeUserList() {
     $('#editButton, #deleteButton').prop('disabled', true);
 
     $('#editButton').click(function () {
-
         var data = table.row('.selected').data();  // Get the data of the selected row
-
         $.ajax({
             url: "/User/UpdateUser",
             data: {
@@ -157,15 +77,7 @@ function initializeUserList() {
 }
 
 //$(document).ready(function () {
-//    initializeUserList();
-//});
-
-$(document).ready(function () {
-    $('#usersList').DataTable()
-});
-
-//$(document).ready(function () {
-//    initializeUserList();
+//    $('#usersList').DataTable();
 //});
 
 
@@ -186,7 +98,7 @@ $(document).ready(function () {
 //	});
 //}* @
  function goToAllUsers() {
-		
+     debugger;
 	$.ajax({
 		url: "/User/GetAllUsers", 
 		data: {
@@ -208,4 +120,5 @@ $(document).ready(function () {
 		if (button.disabled) {
 			alert('Please select a row');
 		}
-	});
+    });
+

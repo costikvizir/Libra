@@ -6,21 +6,3 @@
 <div id="contentDiv">
 </div>
 
-<script>
-    $(document).ready(function () {
-        LoadAddUserForm();
-    });
-
-    function LoadAddUserForm() {
-        $.ajax({
-            url: "@Url.Action("AddUser", "Index")",
-            type: "GET",
-            success: function (response) {
-                console.log("Index/Home Success");
-            },
-            error: function (response) {
-                console.log("Index/Home Error");
-            }
-        });
-    }
-</script>*@
