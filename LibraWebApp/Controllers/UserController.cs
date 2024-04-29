@@ -47,18 +47,18 @@ namespace LibraWebApp.Controllers
         }
 
         // [Authorize]
-        [HttpGet]
+        [HttpPost]
         public async Task<JsonResult> GetAllUsersJson(DataTablesParameters parameters = null)
         {
             parameters = parameters ?? new DataTablesParameters();
 
-            parameters.Order[0].Name = "Id";
-            parameters.Order[0].Dir = "asc";
-            parameters.Columns[0].Data = "Id";
+            //parameters.Order[0].Name = "Id";
+            //parameters.Order[0].Dir = "asc";
+           // parameters.Columns[0].Data = "Id";
 
-            parameters.Order[1].Name = "Name";
-            parameters.Order[1].Dir = "asc";
-            parameters.Columns[1].Data = "Name";
+            //parameters.Order[1].Name = "name";
+            //parameters.Order[1].Dir = "asc";
+            //parameters.Columns[1].Data = "Name";
 
             var users = await _userRepository.GetAllUsers(parameters, CancellationToken.None);
             return Json(new

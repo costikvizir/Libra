@@ -41,14 +41,15 @@
 $(document).ready(function () {
 	debugger;
 	var columns = [
-        { title: "Id", data: "id", name: "id", visible: false },
-		{ title: "Name", data: "name", name: "name", autoWidth: true, searchable: true },
-        { title: "Login", data: "login", name: "login", autoWidth: true, searchable: true },
-        { title: "Email", data: "email", name: "email", autoWidth: true, searchable: true },
-        { title: "Role", data: "role", name: "role", autoWidth: true, searchable: true },
-        { title: "Telephone", data: "telephone", name: "telephone", autoWidth: true, searchable: true }
+        {  data: "Id", name: "id", visible: false },
+		{ title: "Name", data: "Name", name: "name", autoWidth: true, searchable: true },
+        { title: "Login", data: "Login", name: "login", autoWidth: true, searchable: true },
+        { title: "Email", data: "Email", name: "email", autoWidth: true, searchable: true },
+        { title: "Role", data: "Role", name: "role", autoWidth: true, searchable: true },
+        { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true }
 	];
 
+	//$('#usersList').hide();
 	var table = $('#usersList').DataTable({
 		select: 'single',
 		processing: true,
@@ -57,12 +58,12 @@ $(document).ready(function () {
 		//scrollX: true,
         ajax: {
             url: "/User/GetAllUsersJson",
-            type: "GET",
+            type: "POST",
             dataType: "json",
 			dataSrc: "data",
-			beforeSend: function () {
-                $('#actions').hide(); 
-            }
+			//beforeSend: function () {
+   //             $('#actions').hide(); 
+   //         }
 			//dataSrc: ""
 			//,
 			//data: function (params) {
@@ -73,7 +74,7 @@ $(document).ready(function () {
 			//}
         },
         columns: columns,
-		order: [[GetIndexOfDataTableColumn(columns, "name"), "asc"]],
+		//order: [[GetIndexOfDataTableColumn(columns, "name"), "asc"]],
 	});
 
 	//$('#usersList_filter input').on('keyup', function () {
@@ -81,52 +82,52 @@ $(document).ready(function () {
 	//});
 	console.log('table.data():', table.data());
 	});
+	//---------------------------------------------------
+	function initializeIncidentDataTable() {
+		$('#usersList').hide();
+		var table = $('#IncidentDatatable').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "/Incident/LoadDatatable",
+				"type": "POST",
+				"dataType": "json",
+				"beforeSend": function () {
+					$('#actions').hide(); // Скрывать actions перед AJAX запросом
+				}
+			},
+			"columns": [
+				{ "data": "id", "title": "id", "name": "id", "visible": false },
+				{ "data": "requestNr", "title": localizations.requestNr, "name": "requestNr" },
+				{ "data": "subsystem", "title": localizations.subsystem, "name": "subsystem" },
+				{
+					"data": "openDate",
+					"title": localizations.openDate,
+					"name": "openDate",
+					"render": function (data, type, row) {
+						return data ? new Date(data).toLocaleDateString() : '';
+					}
+				},
+				{
+					"data": "closeDate",
+					"title": localizations.closeDate,
+					"name": "closeDate",
+					"render": function (data, type, row) {
+						return data ? new Date(data).toLocaleDateString() : '';
+					}
+				},
+				{ "data": "type", "title": localizations.type, "name": "type" },
+				{ "data": "urgency", "title": localizations.urgency, "name": "urgency" }
+			],
+			"columnDefs": [
+				{ "width": "10%", "targets": [0, 1, 2, 5, 6] },
+				{ "width": "15%", "targets": [3, 4] }
+			],
+			"scrollX": true
+		});
 
-	//function initializeIncidentDataTable() {
-	//	$('#usersList').hide();
-	//	var table = $('#IncidentDatatable').DataTable({
-	//		"processing": true,
-	//		"serverSide": true,
-	//		"ajax": {
-	//			"url": "/Incident/LoadDatatable",
-	//			"type": "POST",
-	//			"dataType": "json",
-	//			"beforeSend": function () {
-	//				$('#actions').hide(); // Скрывать actions перед AJAX запросом
-	//			}
-	//		},
-	//		"columns": [
-	//			{ "data": "id", "title": "id", "name": "id", "visible": false },
-	//			{ "data": "requestNr", "title": localizations.requestNr, "name": "requestNr" },
-	//			{ "data": "subsystem", "title": localizations.subsystem, "name": "subsystem" },
-	//			{
-	//				"data": "openDate",
-	//				"title": localizations.openDate,
-	//				"name": "openDate",
-	//				"render": function (data, type, row) {
-	//					return data ? new Date(data).toLocaleDateString() : '';
-	//				}
-	//			},
-	//			{
-	//				"data": "closeDate",
-	//				"title": localizations.closeDate,
-	//				"name": "closeDate",
-	//				"render": function (data, type, row) {
-	//					return data ? new Date(data).toLocaleDateString() : '';
-	//				}
-	//			},
-	//			{ "data": "type", "title": localizations.type, "name": "type" },
-	//			{ "data": "urgency", "title": localizations.urgency, "name": "urgency" }
-	//		],
-	//		"columnDefs": [
-	//			{ "width": "10%", "targets": [0, 1, 2, 5, 6] },
-	//			{ "width": "15%", "targets": [3, 4] }
-	//		],
-	//		"scrollX": true
-	//	});
-
-	//	return table;
-	//}
+		return table;
+	}
 
 	//GetIndexOfDataTableColumn: function (columnsCollection, searchingColumnName) {
 	//	for (var i = 0; i < columnsCollection.length; i++) {
