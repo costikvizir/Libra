@@ -9,9 +9,10 @@ namespace LibraWebApp
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-					   "~/Scripts/jquery-{version}.js",
-						"~/Scripts/jquery-ui-{version}.js",
-						"~/bundles/jqueryui"));
+					   "~/Scripts/jquery-3.7.1.min.js"
+						//"~/Scripts/jquery-ui.min.js.js"
+						//"~/bundles/jqueryui"
+						));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 						"~/Scripts/jquery.validate.js",
@@ -34,19 +35,21 @@ namespace LibraWebApp
 				"~/Scripts/umd/popper.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
-						"~/Scripts/DataTables/jquery.dataTables.js",
+						"~/Scripts/DataTables/jquery.dataTables.min.js",
 						//"~/Scripts/dataTables.dataTables.min.js",
-						"~/Scripts/DataTables/jquery.dataTables.js",
+						//"~/Scripts/DataTables/jquery.dataTables.js",
 						"~/Scripts/DataTables/dataTables.select.js",
-						"~/Scripts/DataTables/dataTables.bootstrap4.js"
-						));
+						"~/Scripts/DataTables/dataTables.bootstrap4.min.js"
+
+                        //"~/Scripts/dataTables.bootstrap4.min.js"
+                        ));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
+				"~/Content/DataTables/css/jquery.dataTables.min.css",
 				"~/Content/bootstrap.css",
 				"~/Content/DataTables/css/dataTables.bootstrap.min.css",
 				"~/Content/DataTables/css/dataTables.bootstrap4.min.css",
-				"~/Content/DataTables/css/select.dataTables.css",
-				"~/Content/DataTables/css/jquery.dataTables.min.css"
+				"~/Content/DataTables/css/select.dataTables.css"
 				//"~/Content/bootstrap-select.css",
 				//"~/Content/bootstrap-toggle.css",
 				//"~/Content/themes/base/*.css"
