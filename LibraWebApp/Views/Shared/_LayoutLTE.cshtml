@@ -35,11 +35,8 @@
 	<link rel="stylesheet" href="~/AdminLTE/plugins/summernote/summernote-bs4.min.css">
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/modernizr")
-	@Scripts.Render("~/bundles/jquery")
 	@*@Scripts.Render("~/bundles/popper")*@
-	@Scripts.Render("~/bundles/jqueryval")
-	@Scripts.Render("~/bundles/bootstrap")
-	@Scripts.Render("~/bundles/dataTables")
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -186,8 +183,6 @@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Users</p>
 									</a>
-
-
 								</li>
 							</ul>
 						</li>
@@ -229,6 +224,28 @@
 	<!-- jQuery UI 1.11.4 -->
 	@*<script src="~/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>*@
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	@*<!--@Scripts.Render("~/bundles/bootstrap")
+		@Scripts.Render("~/bundles/jquery")-->*@
+	@*@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)
+		{
+			@Scripts.Render("~/bundles/bootstrap")
+		}*@
+
+
+	@*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
+
+	<div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div id="main-modal-container" class="modal-content container">
+			</div>
+		</div>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/dataTables")
+
 	<script>
 		$.widget.bridge('uibutton', $.ui.button)
 	</script>
@@ -258,25 +275,14 @@
 	<script src="~/AdminLTE/dist/js/demo.js"></script>
 	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 	<script src="~/AdminLTE/dist/js/pages/dashboard.js"></script>
-	@*<!--@Scripts.Render("~/bundles/bootstrap")
-		@Scripts.Render("~/bundles/jquery")-->*@
-	@*@if (BundleTable.Bundles.GetBundleFor("~/bundles/bootstrap") != null)
-		{
-			@Scripts.Render("~/bundles/bootstrap")
-		}*@
+	@*<script src="~/Scripts/jquery.dataTables.min.js"></script>*@
+	@*<script src="~/Scripts/dataTables.dataTables.min.js"></script>*@
+	@*<script src="~/Scripts/dataTables.bootstrap4.min.js"></script>*@
 
 
-	@*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
-	<div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
-			<div id="main-modal-container" class="modal-content container">
-			</div>
-		</div>
-	</div>
-	<script src="~/Scripts/jquery.dataTables.min.js"></script>
-	<script src="~/Scripts/dataTables.dataTables.min.js"></script>
-	<script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
+	@*<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js" defer="defer"></script>*@
 
 	<script src="~/Scripts/viewScripts/getAllUsers.js"></script>
 	<script src="~/Scripts/viewScripts/addUser.js"></script>

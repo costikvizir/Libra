@@ -76,27 +76,15 @@ function initializeUserList() {
     });
 }
 
+$(document).ready(function () {
+    $('#usersList').DataTable();
+});
+
+
 //$(document).ready(function () {
-//    $('#usersList').DataTable();
-//});
-
-
-//@* $(document).ready(function () {
 //	LoadAddUserForm();
 //});
 
-//function LoadAddUserForm() {
-//	$.ajax({
-//		url: "@Url.Action("GetAllUsersJson", "User")",
-//		type: "GET",
-//		success: function (response) {
-//			$("#allUsersForm").html(response);
-//		},
-//		error: function (response) {
-//			console.log(response);
-//		}
-//	});
-//}* @
  function goToAllUsers() {
      debugger;
 	$.ajax({

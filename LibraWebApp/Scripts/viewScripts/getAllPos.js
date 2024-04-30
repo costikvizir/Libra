@@ -142,9 +142,9 @@ function initializePosList() {
 
 
 
-//$(document).ready(function () {
-//    $('#posList').DataTable();
-//});
+$(document).ready(function () {
+    $('#posList').DataTable();
+});
 function goToAllPos() {
     debugger;
     $.ajax({
