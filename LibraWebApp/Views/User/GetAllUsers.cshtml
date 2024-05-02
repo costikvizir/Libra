@@ -1,11 +1,11 @@
 ﻿@{
     ViewBag.Title = "All Users";
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
     //Layout = "~/Views/Shared/_Layout.cshtml";
-    //Layout = null;
+    Layout = null;
 }
 
-@model List<LibraBll.DTOs.User.GetUserDTO>
+@*@model List<LibraBll.DTOs.User.GetUserDTO>*@
 
 <h3 class="mt-5">All Users</h3>
 
@@ -37,7 +37,7 @@
 <table id="usersList" class="display mt-3">
 </table>
 
-<script>
+@*<script>
 $(document).ready(function () {
 	debugger;
 	var columns = [
@@ -61,25 +61,13 @@ $(document).ready(function () {
             type: "POST",
             dataType: "json",
 			dataSrc: "data",
-			//beforeSend: function () {
-   //             $('#actions').hide(); 
-   //         }
-			//dataSrc: ""
-			//,
-			//data: function (params) {
-			//	params.draw = params.draw || 1;
-			//	params.start = params.start || 0;
-			//	params.length = params.length || 10;
-			//	return params;
-			//}
+
         },
         columns: columns,
-		//order: [[GetIndexOfDataTableColumn(columns, "name"), "asc"]],
+
 	});
 
-	//$('#usersList_filter input').on('keyup', function () {
-	//	table.search(this.value).draw();
-	//});
+
 	console.log('table.data():', table.data());
 	});
 	//---------------------------------------------------
@@ -229,4 +217,4 @@ $(document).ready(function () {
 			alert('Please select a row');
 		}
 	});
-</script>
+</script>*@

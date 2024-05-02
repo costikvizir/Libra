@@ -1,6 +1,7 @@
 ﻿@{
 	ViewBag.Title = "All Issues";
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	Layout = null;
 }
 
 @model List<LibraBll.DTOs.Issue.IssueDTO>
@@ -39,7 +40,7 @@
 
 </table>
 
-@section Scripts {
+@*@section Scripts {
 	<script>
 		$(document).ready(function () {
 			var table = $('#issueList').DataTable({
@@ -136,5 +137,4 @@
 				alert('Please select a row');
 			}
 		});
-	</script>
-}
+	</script>*@

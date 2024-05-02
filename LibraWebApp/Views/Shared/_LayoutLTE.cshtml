@@ -129,13 +129,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddPos", "Pos")" class="nav-link">
+									@*<a href="@Url.Action("AddPos", "Pos")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAddPos()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add POS</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="@Url.Action("GetAllPos", "Pos")" class="nav-link">
+									@*<a href="@Url.Action("GetAllPos", "Pos")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAllPos()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse POS</p>
 									</a>
@@ -153,13 +155,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">
+									@*<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAddIssue()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add Issue</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">
+									@*<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAllIssues()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Issues</p>
 									</a>
@@ -176,13 +180,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddUser", "User")" class="nav-link">
+									@*<a href="@Url.Action("AddUser", "User")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAddUser()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add User</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">
+									@*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAllUsers()">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Users</p>
 									</a>
@@ -191,14 +197,14 @@
 						</li>
 
 						@*<li class="nav-item">
-							<a href="pages/widgets.html" class="nav-link">
-								<i class="nav-icon fas fa-th"></i>
-								<p>
-									Widgets
-									<span class="right badge badge-danger">New</span>
-								</p>
-							</a>
-						</li>*@
+								<a href="pages/widgets.html" class="nav-link">
+									<i class="nav-icon fas fa-th"></i>
+									<p>
+										Widgets
+										<span class="right badge badge-danger">New</span>
+									</p>
+								</a>
+							</li>*@
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -274,7 +280,7 @@
 		}*@
 
 	<script src="~/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+	@*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
 	<div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg" role="document">
@@ -282,6 +288,14 @@
 			</div>
 		</div>
 	</div>
+
+	<script src="~/Scripts/ViewScripts/addIssue.js"></script>
+	<script src="~/Scripts/ViewScripts/addPos.js"></script>
+	<script src="~/Scripts/ViewScripts/addUser.js"></script>
+	<script src="~/Scripts/ViewScripts/getAllIssues.js"></script>
+	<script src="~/Scripts/ViewScripts/getAllPos.js"></script>
+	<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
+
 
 	@RenderSection("scripts", required: false)
 </body>

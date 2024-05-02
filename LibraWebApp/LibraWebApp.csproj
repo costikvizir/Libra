@@ -2838,6 +2838,13 @@
     <Content Include="Scripts\TimePicker\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\TimePicker\moment.min.js" />
     <Content Include="Scripts\TimePicker\timepicker-validator.js" />
+    <Content Include="Scripts\ViewScripts\addIssue.js" />
+    <Content Include="Scripts\ViewScripts\addPos.js" />
+    <Content Include="Scripts\ViewScripts\addUser.js" />
+    <Content Include="Scripts\ViewScripts\getAllIssues.js" />
+    <Content Include="Scripts\ViewScripts\getAllPos.js" />
+    <Content Include="Scripts\ViewScripts\getAllUsers.js" />
+    <Content Include="Scripts\ViewScripts\posDetails.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />

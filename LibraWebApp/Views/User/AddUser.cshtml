@@ -1,6 +1,7 @@
 ﻿@model LibraBll.DTOs.User.AddUserDTO
 @{
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = null;
 }
 
 <head>
@@ -72,16 +73,4 @@
         <button type="submit" class="btn btn-primary mr-2 id=" submitButton"">Add User</button>
         <button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
     </div>
-
 }
-
-<script>
-    window.onload = function () {
-        var inputs = document.querySelectorAll('input,select');
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].addEventListener('invalid', function () {
-                this.form.classList.add('was-validated');
-            });
-        }
-    }
-</script>
