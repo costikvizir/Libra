@@ -181,10 +181,10 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpPost]
-        public Task<ActionResult> DeletePos(int id)
+        public async Task<ActionResult> DeletePos(int id)
         {
             _posRepository.DeletePos(id);
-            return null;
+            return RedirectToAction("GetAllPos");
         }
 
         public ActionResult GetPosByLocation()

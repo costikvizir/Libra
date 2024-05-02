@@ -33,23 +33,27 @@ function initializePosList() {
     $('#posList tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
-            $('#editButton, #deleteButton').prop('disabled', true);  // Disable buttons
+            $('#editButton, #deleteButton, #detailsButton').prop('disabled', true);  // Disable buttons
         }
         else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            $('#editButton, #deleteButton').prop('disabled', false);  // Enable buttons
+            $('#editButton, #deleteButton, #detailsButton').prop('disabled', false);  // Enable buttons
         }
+
+        var posId = table.row(this).data().PosId;
+        $('#detailsButton').data('posid', posId);
     });
 
     // Initially disable the buttons
-    $('#editButton, #deleteButton').prop('disabled', true);
+    $('#editButton, #deleteButton, #detailsButton').prop('disabled', true);
 
     $('#deleteButton').on('click', function () {
         var data = table.row('.selected').data();
         if (data) {
             $('#deleteItemName').text(data.Name);
             $('#deleteButton').data('posid', data.PosId);
+            $('#detailsButton').data('posid', data.PosId);
         }
     });
 
@@ -72,8 +76,15 @@ function initializePosList() {
     });
 
     // Add button click event redirect to AddPos page
-    $('#addButton').click(function () {
-        window.location.href = '/Pos/AddPos';
+    //$('#addButton').click(function () {
+    //    goToAllPos();
+    //});
+
+    // Details button click event redirect to DetailsPos page
+
+    $('#detailsButton').click(function () {
+        var posId = $('#detailsButton').data('posid');
+        goToPosDetails(posId);
     });
 
     // Edit button click event redirect to UpdatePos page
@@ -87,48 +98,6 @@ function initializePosList() {
         }
     });
 
-    //$('#editButton').click(function () {
-    //	var data = table.row('.selected').data();
-    //	if (data) {
-    //		$.ajax({
-    //			url: '/Pos/UpdatePos',
-    //			type: 'GET',
-    //			data: { id: data.id },
-    //			success: function (response) {
-    //				// Handle success
-    //				// If you want to replace the current page content with the response
-    //				$('body').html(response);
-    //			},
-    //			error: function (jqXHR, textStatus, errorThrown) {
-    //				// Handle error
-    //				alert('Error: ' + textStatus);
-    //			}
-    //		});
-    //	} else {
-    //		alert('Please select a row');
-    //	}
-    //});
-
-    // Edit button click event redirect to UpdatePos page
-    //$('#editButton').click(function () {
-    //	var data = table.row('.selected').data();
-    //	$.ajax({
-    //		url = '/Pos/UpdatePos?' + $.param({ id: data.id }),
-    //		type: 'GET',
-    //		contentType: 'application/json',
-    //		data: { id: data.PosId },
-    //		success: function (data) {
-    //			 Handle success
-    //		},
-    //		error: function (jqXHR, textStatus, errorThrown) {
-    //			 Handle error
-    //		}
-    //	});
-    //});
-
-    //});
-
-
 
     // Warning message if no row is selected
     document.getElementById('buttonWrapper').addEventListener('click', function () {
@@ -137,10 +106,7 @@ function initializePosList() {
             alert('Please select a row');
         }
     });
-
 }
-
-
 
 $(document).ready(function () {
     $('#posList').DataTable();
@@ -159,6 +125,23 @@ function goToAllPos() {
             $("#mainContainer").html(null);
             $("#mainContainer").html(response);
             initializePosList();
+        },
+    });
+}
+
+function goToPosDetails(posId) {
+    debugger;
+    $.ajax({
+        url: "/Pos/GetPosById?id=" + posId,
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        method: "GET",
+        success: function (response) {
+            $("#mainContainer").html(null);
+            $("#mainContainer").html(response);
         },
     });
 }
