@@ -63,39 +63,35 @@ function initializeIssuesList() {
 		});
 	});
 
-	$('#detailsButton').click(function () {
-		debugger;
-		console.log('detailsButton clicked');  // This will print a message when the button is clicked
+	//$('#detailsButton').click(function () {
+	//	debugger;
+	//	console.log('detailsButton clicked');  // This will print a message when the button is clicked
 
-		var data = table.row('.selected').data();  // Get the data of the selected row
-		console.log('Selected row data:', data);
+	//	var data = table.row('.selected').data();  // Get the data of the selected row
+	//	console.log('Selected row data:', data);
 
-		$.ajax({
-			url: "@Url.Action("GetIssueById", "Issue")",
-			data: {
-				Id: data.Id
-			},
-			method: "GET",
-			success: function (response) {
-				console.log('AJAX request successful, response:', response);
-				$('#main-modal-container').html(response);
-				$('#main-modal').modal('show');
-			}
-		})
-	});
+	//	$.ajax({
+	//		url: "@Url.Action("GetIssueById", "Issue")",
+	//		data: {
+	//			Id: data.Id
+	//		},
+	//		method: "GET",
+	//		success: function (response) {
+	//			console.log('AJAX request successful, response:', response);
+	//			$('#main-modal-container').html(response);
+	//			$('#main-modal').modal('show');
+	//		}
+	//	})
+	//});
 }
 
-document.getElementById('buttonWrapper').addEventListener('click', function () {
-	var button = document.getElementById('deleteButton');
-	if (button.disabled) {
-		alert('Please select a row');
-	}
-});
 
-$(document).ready(function () {
-	initializeIssuesList();
-});
+
+//$(document).ready(function () {
+//	initializeIssuesList();
+//});
 function goToAllIssues() {
+	debugger;
 	$.ajax({
 		url: "/Issue/GetAllIssues",
 		data: {
@@ -111,3 +107,10 @@ function goToAllIssues() {
 		},
 	});
 }
+
+document.getElementById('buttonWrapper').addEventListener('click', function () {
+	var button = document.getElementById('deleteButton');
+	if (button.disabled) {
+		alert('Please select a row');
+	}
+});

@@ -76,9 +76,9 @@ function initializeUserList() {
     });
 }
 
-$(document).ready(function () {
-    $('#usersList').DataTable();
-});
+//$(document).ready(function () {
+//    $('#usersList').DataTable();
+//});
 
 
 //$(document).ready(function () {
