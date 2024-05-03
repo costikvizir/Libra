@@ -15,6 +15,7 @@ function initializePosList() {
             { title: "Telephone", data: "Telephone" },
             { title: "Cellphone", data: "Cellphone" },
             { title: "Brand", data: "Brand" },
+            { title: "Status", data: "Status" },
             { title: "Full Address", data: "FullAddress" }
         ]
     });
@@ -41,8 +42,6 @@ function initializePosList() {
             $('#editButton, #deleteButton, #detailsButton').prop('disabled', false);  // Enable buttons
         }
 
-        var posId = table.row(this).data().PosId;
-        $('#detailsButton').data('posid', posId);
     });
 
     // Initially disable the buttons
@@ -53,7 +52,14 @@ function initializePosList() {
         if (data) {
             $('#deleteItemName').text(data.Name);
             $('#deleteButton').data('posid', data.PosId);
-            $('#detailsButton').data('posid', data.PosId);
+        }
+    });
+
+    $('#detailsButton').on('click', function () {
+        var data = table.row('.selected').data();
+        if (data) {
+            $('#detailsItemName').text(data.Name);
+            $('#deleteButton').data('posid', data.PosId);
         }
     });
 
@@ -70,6 +76,7 @@ function initializePosList() {
                 $('#deleteModal').modal('hide');
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                //$('#deleteModal').modal('hide');
                 alert('Error: ' + errorThrown);
             }
         });
@@ -82,9 +89,14 @@ function initializePosList() {
 
     // Details button click event redirect to DetailsPos page
 
-    $('#detailsButton').click(function () {
-        var posId = $('#detailsButton').data('posid');
-        goToPosDetails(posId);
+    $('#detailsButton').on('click', function () {
+        var data = table.row('.selected').data();
+        if (data) {
+            var posId = data.PosId; 
+            goToPosDetails(posId);
+        } else {
+            alert('Please select a row');
+        }
     });
 
     // Edit button click event redirect to UpdatePos page
@@ -108,9 +120,34 @@ function initializePosList() {
     });
 }
 
-$(document).ready(function () {
-    $('#posList').DataTable();
-});
+//$(document).ready(function () {
+//    $('#posList').DataTable();
+//});
+
+function initializePosIssuesList(posId) {
+    var table = $('#issueList').DataTable({
+        select: false,
+        searching: false,
+        paging: false,
+        ajax: {
+            url: "/Issue/GetIssuesJsonByPosId?id=" + posId,
+            type: "GET",
+            dataType: "json",
+            dataSrc: ''
+        },
+        columns: [
+            { title: "Id", data: "Id", visible: false },
+            { title: "PosId", data: "PosId", visible: false },
+            { title: "PosName", data: "PosName" },
+            { title: "CreatedBy", data: "UserCreated" },
+            { title: "Date", data: "CreationDate" },
+            { title: "IssueType", data: "Type" },
+            { title: "Status", data: "Status" },
+            { title: "AssignedTo", data: "AssignedTo" },
+            { title: "Memo", data: "Memo" }
+        ]
+    });
+}
 function goToAllPos() {
     debugger;
     $.ajax({
@@ -142,6 +179,7 @@ function goToPosDetails(posId) {
         success: function (response) {
             $("#mainContainer").html(null);
             $("#mainContainer").html(response);
+            initializePosIssuesList(posId);
         },
     });
 }
