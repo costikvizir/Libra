@@ -88,7 +88,7 @@ namespace LibraWebApp.Controllers
             var roles = _userRepository.GetRoles();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
-            return View("AddUser");
+            return View();
         }
 
         [HttpPost]
