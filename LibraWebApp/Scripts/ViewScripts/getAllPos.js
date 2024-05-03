@@ -19,15 +19,15 @@ function initializePosList() {
             { title: "Full Address", data: "FullAddress" }
         ]
     });
-    $('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
-        // Apply the filter and redraw the table
-        table
-            .column(0).search($('#inputPosId').val())
-            .column(1).search($('#inputPosName').val())
-            .column(4).search($('#inputPosBrand').val())
-            .column(5).search($('#inputFullAddress').val())
-            .draw();
-    });
+    //$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
+    //    // Apply the filter and redraw the table
+    //    table
+    //        .column(0).search($('#inputPosId').val())
+    //        .column(1).search($('#inputPosName').val())
+    //        .column(4).search($('#inputPosBrand').val())
+    //        .column(5).search($('#inputFullAddress').val())
+    //        .draw();
+    //});
 
 
     // Disable and enable buttons based on row selection

@@ -144,20 +144,13 @@
 	</div>
 
     <div class="d-flex justify-content-start">
-        <button type="submit" class="btn btn-primary mr-2">Open Issue</button>
+        <button type="submit" class="btn btn-primary mr-2" onclick="goToOpenIssue()">Open Issue</button>
         <button type="reset" class="btn btn-dark" onclick="resetForm()">Cancel</button>
     </div>
-
-    <!--<div class="d-flex justify-content-start">-->
-    @*<button type="button" class="btn btn-primary mr-2" onclick="openIssue()">Add Issue</button>*@
-    <!--<button id="openIssue" class="btn btn-primary mr-2">Add Issue</button>-->
-    @*<input type="button" id="openIssue" value="Open Issue" onclick="window.location.href='<%= Url.Action(" OpenIssue", "Issue" ) %>';" />*@
-    <!--</div>-->
-    //onclick="window.location.href='@Url.Action("OpenIssue", "Issue")';"
 }
 
 
-<script>
+@*<script>
     var urlParams = new URLSearchParams(window.location.search);
 
     // Get the values of the parameters
@@ -186,7 +179,7 @@
 
     // Assign the posId value to the hidden field
     document.getElementById('PosId').value = posId;
-</script>
+</script>*@
 
 @*<script>
         function resetForm() {

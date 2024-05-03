@@ -63,26 +63,24 @@ function initializeIssuesList() {
 		});
 	});
 
-	//$('#detailsButton').click(function () {
-	//	debugger;
-	//	console.log('detailsButton clicked');  // This will print a message when the button is clicked
+	$('#detailsButton').click(function () {
+		debugger; 
 
-	//	var data = table.row('.selected').data();  // Get the data of the selected row
-	//	console.log('Selected row data:', data);
-
-	//	$.ajax({
-	//		url: "@Url.Action("GetIssueById", "Issue")",
-	//		data: {
-	//			Id: data.Id
-	//		},
-	//		method: "GET",
-	//		success: function (response) {
-	//			console.log('AJAX request successful, response:', response);
-	//			$('#main-modal-container').html(response);
-	//			$('#main-modal').modal('show');
-	//		}
-	//	})
-	//});
+		var data = table.row('.selected').data();  // Get the data of the selected row
+        var issueId = data.Id;
+		$.ajax({
+			url: "/Issue/GetIssueById?id=" + issueId,
+			data: {
+				Id: data.Id  
+			},
+			method: "GET",
+			success: function (response) {
+				console.log('AJAX request successful, response:', response);
+				$('#main-modal-container').html(response);
+				$('#main-modal').modal('show');
+			}
+		})
+	});
 }
 
 

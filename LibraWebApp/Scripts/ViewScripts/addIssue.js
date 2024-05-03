@@ -1,6 +1,6 @@
-﻿
+﻿var table;
 function initializePosList() {
-    var table = $('#posList').DataTable({
+    table = $('#posList').DataTable({
         select: 'single',
         ajax: {
             url: "/Pos/GetAllPosJson",
@@ -39,26 +39,53 @@ function initializePosList() {
         }
     });
 
-    $('#button').click(function () {
-        table.row('.selected').remove().draw(false);
+    $('#openIssue').on('click', function () {
+        debugger;
+        var data = table.row('.selected').data();
+        if (data) {
+            $('#editItemName').text(data.Name);
+            $('#openIssue').data('posId', data.PosId);
+        }
     });
 
-    $('#openIssue').click(function () {
-        console.log('Button clicked');  // Debugging statement
-        var data = table.row('.selected').data();
-        console.log('Data:', data);  // Debugging statement
-        if (data) {
-            var url = '/Issue/OpenIssue?' + $.param(data);
-            console.log('URL:', url);  // Debugging statement
-            window.location.href = url;
-        } else {
+    document.getElementById('buttonWrapper').addEventListener('click', function () {
+        var button = document.getElementById('deleteButton');
+        if (button.disabled) {
             alert('Please select a row');
         }
     });
+
+    //$('#button').click(function () {
+    //    table.row('.selected').remove().draw(false);
+    //});
 }
 
-function goToAddIssue() {
+//$('#openIssue').click(function () {
+//    debugger;
+//    var data = table.row('.selected').data();
+//    if (data) {
+//        var posId = data.posId;
+//        goToOpenIssue(posId);
+//    } else {
+//        alert('Please select a row');
+//    }
+//});
+$(document).ready(function () {
+    initializePosList();
+    // Other code to bind events or manipulate the DOM
+});
+$(document).on('click', '#openIssue', function () {
     debugger;
+    var data = table.row('.selected').data();
+    if (data) {
+        var posId = data.PosId; // Ensure this matches the property name in your data
+        goToOpenIssue(posId);
+    } else {
+        alert('Please select a row');
+    }
+});
+
+function goToAddIssue() {
     $.ajax({
         url: "/Issue/AddIssue",
         data: {
@@ -71,6 +98,29 @@ function goToAddIssue() {
             $("#mainContainer").html(null);
             $("#mainContainer").html(response);
             initializePosList();
+        },
+    });
+}
+
+$(document).ready(function () {
+    initializePosList();
+    // Other code to bind events or manipulate the DOM
+});
+
+initializePosList();
+function goToOpenIssue(posId) {
+    debugger;
+    $.ajax({
+        url: "/Issue/OpenIssue?id=" + posId,
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        method: "GET",
+        success: function (response) {
+            $("#mainContainer").html(null);
+            $("#mainContainer").html(response);
         },
     });
 }

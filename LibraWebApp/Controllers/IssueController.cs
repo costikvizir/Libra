@@ -12,12 +12,14 @@ namespace LibraWebApp.Controllers
     public class IssueController : Controller
     {
         private readonly IIssueRepository _issueRepository;
+        private readonly IPosRepository _posRepository;
         private readonly IValidator<IssueDTO> _issueValidator;
 
-        public IssueController(IIssueRepository issueRepository, IValidator<IssueDTO> issueValidator)
+        public IssueController(IIssueRepository issueRepository, IValidator<IssueDTO> issueValidator, IPosRepository posRepository)
         {
             _issueRepository = issueRepository;
             _issueValidator = issueValidator;
+            _posRepository = posRepository;
         }
 
         [HttpGet]
@@ -100,9 +102,10 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult OpenIssue()
+        public ActionResult OpenIssue(int posId)
         {
-            return View("OpenIssue");
+            var pos = _posRepository.GetPosByIdAsync(posId);
+            return View("OpenIssue", pos);
         }
 
         [HttpPost]
