@@ -102,10 +102,11 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult OpenIssue(int posId)
+        public async Task<ActionResult> OpenIssue(int id)
         {
-            var pos = _posRepository.GetPosByIdAsync(posId);
-            return View("OpenIssue", pos);
+            var pos = await _posRepository.GetPosByIdAsync(id);
+            //return View("OpenIssue", pos);
+            return View("OpenIssue");
         }
 
         [HttpPost]

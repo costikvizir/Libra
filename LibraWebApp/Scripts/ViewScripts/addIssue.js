@@ -1,5 +1,6 @@
 ﻿var table;
-function initializePosList() {
+function initializePosListForIssue() {
+    debugger;
     table = $('#posList').DataTable({
         select: 'single',
         ajax: {
@@ -43,15 +44,8 @@ function initializePosList() {
         debugger;
         var data = table.row('.selected').data();
         if (data) {
-            $('#editItemName').text(data.Name);
+            // $('#editItemName').text(data.Name);
             $('#openIssue').data('posId', data.PosId);
-        }
-    });
-
-    document.getElementById('buttonWrapper').addEventListener('click', function () {
-        var button = document.getElementById('deleteButton');
-        if (button.disabled) {
-            alert('Please select a row');
         }
     });
 
@@ -60,29 +54,9 @@ function initializePosList() {
     //});
 }
 
-//$('#openIssue').click(function () {
-//    debugger;
-//    var data = table.row('.selected').data();
-//    if (data) {
-//        var posId = data.posId;
-//        goToOpenIssue(posId);
-//    } else {
-//        alert('Please select a row');
-//    }
-//});
 $(document).ready(function () {
-    initializePosList();
+    initializePosListForIssue();
     // Other code to bind events or manipulate the DOM
-});
-$(document).on('click', '#openIssue', function () {
-    debugger;
-    var data = table.row('.selected').data();
-    if (data) {
-        var posId = data.PosId; // Ensure this matches the property name in your data
-        goToOpenIssue(posId);
-    } else {
-        alert('Please select a row');
-    }
 });
 
 function goToAddIssue() {
@@ -97,19 +71,15 @@ function goToAddIssue() {
         success: function (response) {
             $("#mainContainer").html(null);
             $("#mainContainer").html(response);
-            initializePosList();
+            initializePosListForIssue();
         },
     });
 }
 
-$(document).ready(function () {
-    initializePosList();
-    // Other code to bind events or manipulate the DOM
-});
-
-initializePosList();
+//initializePosList();
 function goToOpenIssue(posId) {
     debugger;
+    console.log("Go to open issue, pos id= " + posId);
     $.ajax({
         url: "/Issue/OpenIssue?id=" + posId,
         data: {
@@ -124,3 +94,21 @@ function goToOpenIssue(posId) {
         },
     });
 }
+
+$(document).on('click', '#openIssue', function () {
+    debugger;
+    // initializePosListForIssue();
+    var data = table.row('.selected').data();
+    if (data) {
+        var posId = data.PosId; // Ensure this matches the property name in your data
+        goToOpenIssue(posId);
+    } else {
+        alert('Please select a row');
+    }
+});
+document.getElementById('buttonWrapper').addEventListener('click', function () {
+    var button = document.getElementById('deleteButton');
+    if (button.disabled) {
+        alert('Please select a row');
+    }
+});
