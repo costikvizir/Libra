@@ -105,8 +105,22 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> OpenIssue(int id)
         {
             var pos = await _posRepository.GetPosByIdAsync(id);
+            ViewBag.PosName = pos.Name;
+            ViewBag.Telephone = pos.Telephone;
+            ViewBag.Cellphone = pos.Cellphone;
+            ViewBag.Brand = pos.Brand;
+            ViewBag.Model = pos.Model;
+            ViewBag.Address = pos.Address;
+
             //return View("OpenIssue", pos);
             return View("OpenIssue");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> OpenIssue(IssueDTO issue)
+        {
+            await _issueRepository.AddIssue(issue);
+            return null;
         }
 
         [HttpPost]

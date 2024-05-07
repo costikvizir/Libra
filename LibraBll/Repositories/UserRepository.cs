@@ -61,68 +61,6 @@ namespace LibraBll.Repositories
 
         public async Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
-            //parameters = parameters ?? new UserDataTableParameters();
-            //parameters.TotalCount = await Context.Users.CountAsync(x => x.IsDeleted == false);
-            ////parameters.SetColumnName();
-            //parameters.Draw = 4;
-            ////parameters.Start = parameters.Start < 0 ? 0 : parameters.Start;
-            //// parameters.Length = parameters.Length < 0 ? 0 : parameters.Length;
-            //parameters.Start = 0;
-            //parameters.Length = 7;
-            //parameters.Order = new List<DataTablesOrder>
-            //{
-            //    new DataTablesOrder
-            //    {
-            //        Column = 0,
-            //        Dir = "asc"
-            //    }
-            //};
-            //parameters.Search = new DataTablesSearch
-            //{
-            //    Value = "",
-            //    Regex = ""
-            //};
-            //parameters.Columns = new List<DataTablesColumn>
-            //{
-            //    new DataTablesColumn
-            //    {
-            //        Data = "Name",
-            //        Name = "Name",
-            //        Orderable = true,
-            //        Searchable = true
-            //    },
-            //    new DataTablesColumn
-            //    {
-            //        Data = "Login",
-            //        Name = "Login",
-            //        Orderable = true,
-            //        Searchable = true
-            //    },
-            //    new DataTablesColumn
-            //    {
-            //        Data = "Email",
-            //        Name = "Email",
-            //        Orderable = true,
-            //        Searchable = true
-            //    },
-            //    new DataTablesColumn
-            //    {
-            //        Data = "Telephone",
-            //        Name = "Telephone",
-            //        Orderable = true,
-            //        Searchable = true
-            //    },
-            //    new DataTablesColumn
-            //    {
-            //        Data = "Role",
-            //        Name = "Role",
-            //        Orderable = true,
-            //        Searchable = true
-            //    }
-            //};
-            // parameters.Order =
-            // parameters.Start
-
             List<GetUserDTO> userList = null;
             try
             {
@@ -235,7 +173,7 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        public List<RoleDTO> GetRoles()
+        public IEnumerable<RoleDTO> GetRoles()
         {
             List<RoleDTO> roles = Context.UserTypes
                 .Select(x => new RoleDTO

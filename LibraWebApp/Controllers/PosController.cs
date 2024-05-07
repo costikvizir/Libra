@@ -186,20 +186,5 @@ namespace LibraWebApp.Controllers
             _posRepository.DeletePos(id);
             return RedirectToAction("GetAllPos");
         }
-
-        public ActionResult GetPosByLocation()
-        {
-            return View();
-        }
-
-        public ActionResult GetPosByStatus()
-        {
-            return View();
-        }
-
-        public ActionResult GetPosByType()
-        {
-            return View();
-        }
     }
 }

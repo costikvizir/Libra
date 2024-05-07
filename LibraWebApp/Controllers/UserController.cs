@@ -8,9 +8,12 @@ using System.Web.Mvc;
 
 namespace LibraWebApp.Controllers
 {
+
     [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
+
+
         private readonly IUserRepository _userRepository;
         private readonly IValidator<AddUserDTO> _createUserValidator;
         private readonly IValidator<ModifyUserDTO> _modifyUserValidator;
@@ -52,14 +55,6 @@ namespace LibraWebApp.Controllers
         {
             parameters = parameters ?? new DataTablesParameters();
 
-            //parameters.Order[0].Name = "Id";
-            //parameters.Order[0].Dir = "asc";
-           // parameters.Columns[0].Data = "Id";
-
-            //parameters.Order[1].Name = "name";
-            //parameters.Order[1].Dir = "asc";
-            //parameters.Columns[1].Data = "Name";
-
             var users = await _userRepository.GetAllUsers(parameters, CancellationToken.None);
             return Json(new
             {
@@ -69,18 +64,6 @@ namespace LibraWebApp.Controllers
                 data = users
             }, JsonRequestBehavior.AllowGet);
         }
-
-        //[Authorize]
-        //[HttpGet]
-        //public async Task<JsonResult> GetAllUsersJson(JQueryDataTableParams param)
-        //{
-        //    List<GetUserDTO> allUsers = await _userRepository.GetAllUsersAsync();
-
-        //    if (!allUsers.Any())
-        //        return Json(new { }, JsonRequestBehavior.AllowGet);
-
-        //    return Json(allUsers, JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpGet]
         public ActionResult AddUser()
@@ -92,6 +75,7 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpPost]
+        [ActionFilter(typeof(StopRedirectActionFilter))]
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
             var results = _createUserValidator.Validate(user);
@@ -106,10 +90,12 @@ namespace LibraWebApp.Controllers
             }
             await _userRepository.CreateUser(user);
 
-            var roles = _userRepository.GetRoles();
-            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            //var roles = _userRepository.GetRoles();
+            //ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
-            return PartialView();
+            //return RedirectToAction("GetAllUsers");
+            //return PartialView("GetAllUsers");
+            return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpGet]
@@ -162,6 +148,19 @@ namespace LibraWebApp.Controllers
         public void DeleteUser(int id)
         {
             _userRepository.DeleteUser(id);
+        }
+
+        public class StopRedirectActionFilterAttribute : ActionFilterAttribute
+        {
+            public override void OnActionExecuting(ActionExecutingContext filterContext)
+            {
+                base.OnActionExecuting(filterContext);
+
+                if (filterContext.Result is RedirectResult)
+                {
+                    filterContext.Result = new EmptyResult();
+                }
+            }
         }
     }
 }

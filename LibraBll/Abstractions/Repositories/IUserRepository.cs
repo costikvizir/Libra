@@ -25,6 +25,6 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<int> GetUsersCountAsync();
 
-        List<RoleDTO> GetRoles();
+        IEnumerable<RoleDTO> GetRoles();
     }
 }
