@@ -36,6 +36,10 @@
 	@Scripts.Render("~/bundles/bootstrap")
 	@Scripts.Render("~/bundles/dataTables")
 	@Scripts.Render("~/bundles/jqueryval")
+	
+
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
@@ -239,7 +243,7 @@
 	</div>
 	<!-- ./wrapper -->
 	<!-- jQuery -->
-	<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>
+	@*<script src="~/AdminLTE/plugins/jquery/jquery.min.js"></script>*@
 	<!-- jQuery UI 1.11.4 -->
 	<script src="~/AdminLTE/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -296,6 +300,8 @@
 	<script src="~/Scripts/ViewScripts/getAllPos.js"></script>
 	<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
 
+	<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 	@RenderSection("scripts", required: false)
 </body>

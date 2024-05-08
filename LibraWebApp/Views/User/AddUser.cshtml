@@ -9,7 +9,7 @@
 
 <h3 class="accent-gray-dark mt-5">Add User</h3>
 
-@using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { id = "AddUserForm" }))
+@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer",  OnSuccess = "handleUserAddSuccess"}))
 {
     <div class="card">
         <div class="card-header" style="background-color: lightgray">
@@ -69,7 +69,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-start">
-        <button type="submit" class="btn btn-primary mr-2" id="submitButton" onclick="goToAllUsers();">Add User</button>
+        @*<button type="submit" class="btn btn-primary mr-2" id="submitButton" onclick="goToAllUsers();">Add User</button>*@
+        <button type="submit" class="btn btn-primary mr-2" id="submitButton">Add User</button>
         <button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
     </div>
 }

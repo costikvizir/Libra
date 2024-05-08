@@ -75,7 +75,6 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpPost]
-        [ActionFilter(typeof(StopRedirectActionFilter))]
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
             var results = _createUserValidator.Validate(user);
@@ -90,12 +89,12 @@ namespace LibraWebApp.Controllers
             }
             await _userRepository.CreateUser(user);
 
-            //var roles = _userRepository.GetRoles();
-            //ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            var roles = _userRepository.GetRoles();
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             //return RedirectToAction("GetAllUsers");
-            //return PartialView("GetAllUsers");
-            return Json(new { success = true, message = "Successfully saved" });
+            return PartialView("GetAllUsers");
+            //return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpGet]
@@ -148,19 +147,6 @@ namespace LibraWebApp.Controllers
         public void DeleteUser(int id)
         {
             _userRepository.DeleteUser(id);
-        }
-
-        public class StopRedirectActionFilterAttribute : ActionFilterAttribute
-        {
-            public override void OnActionExecuting(ActionExecutingContext filterContext)
-            {
-                base.OnActionExecuting(filterContext);
-
-                if (filterContext.Result is RedirectResult)
-                {
-                    filterContext.Result = new EmptyResult();
-                }
-            }
         }
     }
 }

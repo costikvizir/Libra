@@ -13,15 +13,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace LibraBll.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
+        
         public UserRepository() : base()
         {
         }
-
+        
         public async Task<GetUserDTO> GetUserByIdAsync(int id)
         {
             User entity = await Context.Users.FindAsync(id);
@@ -110,7 +112,9 @@ namespace LibraBll.Repositories
             };
 
             Context.Users.Add(user);
+            _logger.Information($"{user.Name} added to context");
             await Context.SaveChangesAsync();
+            _logger.Information($"{user.Name} saved in database");
 
             return userPost;
         }
@@ -185,5 +189,6 @@ namespace LibraBll.Repositories
 
             return roles;
         }
+
     }
 }

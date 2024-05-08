@@ -121,7 +121,7 @@ namespace LibraWebApp.Controllers
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
-            return PartialView();
+            return PartialView("GetAllPos");
         }
 
         [HttpGet]
