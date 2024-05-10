@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.Issue;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -40,23 +42,30 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllIssues()
         {
-            List<IssueDTO> allIssues = await _issueRepository.GetAllIssuesAsync();
+            //List<IssueDTO> allIssues = await _issueRepository.GetAllIssuesAsync();
 
-            if (!allIssues.Any())
-                return null;
+            //if (!allIssues.Any())
+            //    return null;
 
-            return PartialView("AllIssues", allIssues);
+            //return PartialView("AllIssues", allIssues);
+            return PartialView("AllIssues");
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetAllIssuesJson()
+        [HttpPost]
+        public async Task<JsonResult> GetAllIssuesJson(DataTablesParameters parameters = null)
         {
-            List<IssueDTO> allIssues = await _issueRepository.GetAllIssuesAsync();
+            List<IssueDTO> allIssues = await _issueRepository.GetAllIssuesAsync(parameters, CancellationToken.None);
 
             if (!allIssues.Any())
                 return Json(new { }, JsonRequestBehavior.AllowGet);
 
-            return Json(allIssues, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                draw = parameters.Draw,
+                recordsFiltered = parameters.Length,
+                recordsTotal = parameters.TotalCount,
+                data = allIssues
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -105,6 +114,7 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> OpenIssue(int id)
         {
             var pos = await _posRepository.GetPosByIdAsync(id);
+            ViewBag.PosId = pos.PosId;
             ViewBag.PosName = pos.Name;
             ViewBag.Telephone = pos.Telephone;
             ViewBag.Cellphone = pos.Cellphone;
@@ -120,7 +130,9 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> OpenIssue(IssueDTO issue)
         {
             await _issueRepository.AddIssue(issue);
-            return null;
+            //return null;
+           // return Json(new { success = true, message = "Successfully saved" });
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

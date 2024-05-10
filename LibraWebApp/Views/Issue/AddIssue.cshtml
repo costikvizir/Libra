@@ -1,19 +1,20 @@
 ﻿@{
-    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-    Layout = null;
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	Layout = null;
 }
 
 <h3 class="accent-gray-dark mt-5">New Issue</h3>
 
 @model LibraBll.DTOs.Pos.PosGetDTO
 
-@using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "AddIssueForm" }))
+@*@using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "AddIssueForm" }))*@
+@using (Ajax.BeginForm("AddIssue", "Issue", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handleIssueAddSuccess" }, new { id = "AddIssueForm" }))
 {
-    <div class="card mb-0">
-        <div class="card-header" style="background-color: lightgray">
-            Search the POS
-        </div>
-        <div class="card-body">
+	<div class="card mb-0">
+		<div class="card-header" style="background-color: lightgray">
+			Search the POS
+		</div>
+		<div class="card-body">
 			<div class="row">
 				<div class="col-md-3">
 					<label for="inputPosName" class="form-label">Name</label>
@@ -41,17 +42,17 @@
 					<button type="button" id="openIssue" class="btn btn-primary mr-2">Add Issue</button>
 				</div>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <div class="card mt-0">
-        <div class="card-header" style="background-color: lightgray">
-            Search Results
-        </div>
-        <div class="card-body">
-            <table id="posList" class="display mt-3 mr-2">
-            </table>
-        </div>
-    </div>
+	<div class="card mt-0">
+		<div class="card-header" style="background-color: lightgray">
+			Search Results
+		</div>
+		<div class="card-body">
+			<table id="posList" class="display mt-3 mr-2">
+			</table>
+		</div>
+	</div>
 }
 

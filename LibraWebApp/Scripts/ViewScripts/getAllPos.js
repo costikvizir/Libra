@@ -3,20 +3,23 @@ function initializePosList() {
     console.log("Initialize Pos List Datatable");
     debugger;
     var table = $('#posList').DataTable({
+        select: 'single',
+        processing: true,
         select: true,
+        serverSide: true,
         ajax: {
             url: "/Pos/GetAllPosJson",
-            type: "GET",
+            type: "POST",
             dataType: "json",
-            dataSrc: ''
+            dataSrc: "data",
         },
         columns: [
-            { title: "Name", data: "Name" },
-            { title: "Telephone", data: "Telephone" },
-            { title: "Cellphone", data: "Cellphone" },
-            { title: "Brand", data: "Brand" },
-            { title: "Status", data: "Status" },
-            { title: "Full Address", data: "FullAddress" }
+            { title: "Name", data: "Name", name: "name", autoWidth: true, searchable: true },
+            { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true },
+            { title: "Cellphone", data: "Cellphone", name: "cellphone", autoWidth: true, searchable: true },
+            { title: "Brand", data: "Brand", name: "brand", autoWidth: true, searchable: true },
+            { title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
+            { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
         ]
     });
     //$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {

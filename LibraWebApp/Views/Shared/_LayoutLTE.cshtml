@@ -24,7 +24,7 @@
 	<!-- Daterange picker -->
 	<link rel="stylesheet" href="~/AdminLTE/plugins/daterangepicker/daterangepicker.css">
 	<!-- DataTables -->
-	<link rel="stylesheet" href="~/AdminLTE/plugins/datatables/jquery.dataTables.min.css">
+	@*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables/jquery.dataTables.min.css">*@
 	@*<link rel="stylesheet" href="~/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">*@
 
 	<!-- summernote -->
@@ -83,14 +83,14 @@
 			<!-- Sidebar -->
 			<div class="sidebar">
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				@*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 					<div class="image">
 						<img src="~/AdminLTE/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
 						<a href="#" class="d-block">Admin User</a>
 					</div>
-				</div>
+				</div>*@
 
 				<!-- SidebarSearch Form -->
 				<div class="form-inline">
@@ -111,7 +111,8 @@
 						with font-awesome or any other icon font library -->
 						<li class="nav-item">
 							@*<a href="#" class="nav-link active">*@
-							<a href="@Url.Action("Index", "Home")" class="nav-link active">
+							@*<a href="@Url.Action("Index", "Home")" class="nav-link active">*@
+							<a class="nav-link ajax-link active" onclick="goToHomePage()" style="cursor: pointer;">
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
 									Dashboard
@@ -134,14 +135,14 @@
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
 									@*<a href="@Url.Action("AddPos", "Pos")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAddPos()">
+									<a class="nav-link ajax-link" onclick="goToAddPos()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add POS</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									@*<a href="@Url.Action("GetAllPos", "Pos")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAllPos()">
+									<a class="nav-link ajax-link" onclick="goToAllPos()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse POS</p>
 									</a>
@@ -160,14 +161,14 @@
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
 									@*<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAddIssue()">
+									<a class="nav-link ajax-link" onclick="goToAddIssue()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add Issue</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									@*<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAllIssues()">
+									<a class="nav-link ajax-link" onclick="goToAllIssues()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Issues</p>
 									</a>
@@ -185,30 +186,20 @@
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
 									@*<a href="@Url.Action("AddUser", "User")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAddUser()">
+									<a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add User</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									@*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAllUsers()">
+									<a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Users</p>
 									</a>
 								</li>
 							</ul>
 						</li>
-
-						@*<li class="nav-item">
-								<a href="pages/widgets.html" class="nav-link">
-									<i class="nav-icon fas fa-th"></i>
-									<p>
-										Widgets
-										<span class="right badge badge-danger">New</span>
-									</p>
-								</a>
-							</li>*@
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -300,8 +291,8 @@
 	<script src="~/Scripts/ViewScripts/getAllPos.js"></script>
 	<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
 
-	<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+	@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
 
 	@RenderSection("scripts", required: false)
 </body>

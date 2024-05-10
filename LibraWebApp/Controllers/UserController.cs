@@ -12,8 +12,6 @@ namespace LibraWebApp.Controllers
     [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
-
-
         private readonly IUserRepository _userRepository;
         private readonly IValidator<AddUserDTO> _createUserValidator;
         private readonly IValidator<ModifyUserDTO> _modifyUserValidator;
@@ -65,6 +63,8 @@ namespace LibraWebApp.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        //TODO: solve for CancellationToken.None
+
         [HttpGet]
         public ActionResult AddUser()
         {
@@ -93,8 +93,8 @@ namespace LibraWebApp.Controllers
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             //return RedirectToAction("GetAllUsers");
-            return PartialView("GetAllUsers");
-            //return Json(new { success = true, message = "Successfully saved" });
+            //return PartialView("GetAllUsers");
+            return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpGet]

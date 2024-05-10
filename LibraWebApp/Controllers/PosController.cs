@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.ComplexObjects;
 using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -52,23 +54,31 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllPos()
         {
-            List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync();
+            //List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync();
 
-            if (!allPos.Any())
-                return null;
+            //if (!allPos.Any())
+            //    return null;
 
-            return PartialView(allPos);
+            return PartialView();
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetAllPosJson()
+        [HttpPost]
+        public async Task<JsonResult> GetAllPosJson(DataTablesParameters parameters = null)
         {
-            List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync();
+            parameters = parameters ?? new DataTablesParameters();
+
+            List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync(parameters, CancellationToken.None);
 
             if (!allPos.Any())
                 return Json(new { }, JsonRequestBehavior.AllowGet);
 
-            return Json(allPos, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                draw = parameters.Draw,
+                recordsFiltered = parameters.Length,
+                recordsTotal = parameters.TotalCount,
+                data = allPos
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -121,7 +131,8 @@ namespace LibraWebApp.Controllers
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
-            return PartialView("GetAllPos");
+            //return PartialView("GetAllPos");
+            return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpGet]
@@ -158,6 +169,7 @@ namespace LibraWebApp.Controllers
                 AfternoonOpening = posGet.AfternoonProgram.Split('-')[0].Trim(),
                 AfternoonClosing = posGet.AfternoonProgram.Split('-')[1].Trim()
             };
+
             return PartialView("EditPos", pos);
         }
 
@@ -177,7 +189,8 @@ namespace LibraWebApp.Controllers
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
             //return PartialView("EditPos");
-            return RedirectToAction("GetAllPos");
+            //return RedirectToAction("GetAllPos");
+            return Json(new { success = true, message = "Successfully edited" });
         }
 
         [HttpPost]

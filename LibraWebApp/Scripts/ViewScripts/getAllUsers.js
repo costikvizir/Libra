@@ -1,5 +1,4 @@
 ﻿
-
 function initializeUserList() {
     console.log("Initialize User List Datatable");
     var columns = [

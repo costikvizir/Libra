@@ -1,23 +1,26 @@
 ﻿
 function initializeIssuesList() {
 	var table = $('#issueList').DataTable({
+		select: 'single',
+		processing: true,
 		select: true,
+		serverSide: true, 
 		ajax: {
 			url: "/Issue/GetAllIssuesJson",
-			type: "GET",
+			type: "POST",
 			dataType: "json",
-			dataSrc: ''
+			ataSrc: "data",
 		},
 		columns: [
-			{ title: "Id", data: "Id", visible: false },
-			{ title: "PosId", data: "PosId" },
-			{ title: "PosName", data: "PosName" },
-			{ title: "CreatedBy", data: "UserCreated" },
-			{ title: "Date", data: "CreationDate" },
-			{ title: "IssueType", data: "Type" },
-			{ title: "Status", data: "Status" },
-			{ title: "AssignedTo", data: "AssignedTo" },
-			{ title: "Memo", data: "Memo" }
+			{ title: "Id", data: "Id", name: "id", visible: false },
+			{ title: "PosId", data: "PosId", name: "posid", autoWidth: true, searchable: true },
+			{ title: "PosName", data: "PosName", name: "posname", autoWidth: true, searchable: true },
+			{ title: "CreatedBy", data: "UserCreated", name: "usercreated", autoWidth: true, searchable: true },
+			{ title: "Date", data: "CreationDate", name: "creationdate", autoWidth: true, searchable: true },
+			{ title: "IssueType", data: "Type", name: "type", autoWidth: true, searchable: true },
+			{ title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
+			{ title: "AssignedTo", data: "AssignedTo", name: "assignedto", autoWidth: true, searchable: true },
+			{ title: "Memo", data: "Memo", name: "memo", autoWidth: true, searchable: true }
 		]
 	});
 

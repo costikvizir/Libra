@@ -1,11 +1,14 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.Common.DataTableModels;
+using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Issue;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
@@ -76,7 +79,7 @@ namespace LibraBll.Repositories
 		{
 			return Context.Issues.Count();
 		}
-		public async Task<List<IssueDTO>> GetAllIssuesAsync()
+		public async Task<List<IssueDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
 		{
 			List<IssueDTO> issueList = null;
 			try
@@ -109,7 +112,10 @@ namespace LibraBll.Repositories
 						PosName = i.Pos.Name,
 						UserRole = i.UserType.Role
 					})
-					.ToListAsync();
+                    .Search(parameters)
+					.OrderBy(parameters)
+					.Page(parameters)
+                    .ToListAsync();
 			}
 			catch (Exception ex)
 			{

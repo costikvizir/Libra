@@ -7,7 +7,7 @@
 
 @model LibraBll.DTOs.Pos.PosEditDTO
 
-@using (Html.BeginForm("UpdatePos", "Pos", FormMethod.Post, new { id = "EditPosForm" }))
+@using (Ajax.BeginForm("UpdatePos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handlePosEditSuccess" }))
 {
     @Html.HiddenFor(model => model.Id)
     <div class="card mb-0">
@@ -162,5 +162,11 @@
     <script src="~/Scripts/TimePicker/moment.min.js"></script>
     <script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
     <script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
+
+    <script>
+        function handlePosEditSuccess() {
+            alert('Pos Edited Successfully!');
+        }
+    </script>
 }
 

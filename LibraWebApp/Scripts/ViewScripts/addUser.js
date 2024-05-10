@@ -63,8 +63,8 @@ function goToAddUser() {
 //	});
 //});
 
-function handleUserAddSuccess() {
-    alert('User added successfully');
+function handleUserAddSuccess() {;
+	alert('User added successfully');
 }
 window.onload = function () {
 	var inputs = document.querySelectorAll('input,select');

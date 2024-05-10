@@ -1,6 +1,8 @@
-﻿using LibraBll.DTOs.Dropdown;
+﻿using LibraBll.Common.DataTableModels;
+using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Pos;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraBll.Abstractions.Repositories
@@ -9,7 +11,7 @@ namespace LibraBll.Abstractions.Repositories
     {
         Task<PosGetDTO> GetPosByIdAsync(int id);
 
-        Task<List<PosGetDTO>> GetAllPosAsync();
+        Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken);
 
         Task<PosPostDTO> AddPosAsync(PosPostDTO pos);
 

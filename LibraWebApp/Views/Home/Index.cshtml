@@ -33,3 +33,24 @@
 
 <div id="mainContainer">
 </div>
+
+@section scripts{
+	<script>
+		function goToHomePage() {
+			debugger;
+			$.ajax({
+				url: "/Home/Index",
+				data: {
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				method: "GET",
+				success: function (response) {
+					$("#mainContainer").html(null);
+					$("#mainContainer").html(response);
+				},
+			});
+		}
+	</script>
+}

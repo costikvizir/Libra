@@ -1,19 +1,22 @@
 ﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
+using LibraBll.Common.DataTableModels;
+using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Pos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
 {
     public class PosRepository : BaseRepository, IPosRepository
     {
-        public async Task<List<PosGetDTO>> GetAllPosAsync()
+        public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
             List<PosGetDTO> posList = null;
             try
@@ -40,7 +43,12 @@ namespace LibraBll.Repositories
                         MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
                         AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
                         InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
-                    }).ToListAsync();
+                    })
+                    .Search(parameters)
+                    .OrderBy(parameters)
+                    .Page(parameters)
+                    .ToListAsync();
+                //.ToListAsync();
             }
             catch (Exception ex)
             {

@@ -7,7 +7,7 @@
 @model LibraBll.DTOs.Pos.PosPostDTO
 
 @*@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))*@
-@using (Ajax.BeginForm("AddPos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer" }))
+@using (Ajax.BeginForm("AddPos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handlePosAddSuccess" }, new { id = "AddPosForm" }))
 {
 	<div class="card mb-0">
 		<div class="card-header" style="background-color: lightgray">

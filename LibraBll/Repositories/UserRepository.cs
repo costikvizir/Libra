@@ -79,7 +79,7 @@ namespace LibraBll.Repositories
                     UserTypeId = x.UserTypeId,
                     Role = x.UserType.Role,
                 })
-                .AsQueryable()
+                //.AsQueryable()
                 .Search(parameters)
                 .OrderBy(parameters)
                 .Page(parameters)

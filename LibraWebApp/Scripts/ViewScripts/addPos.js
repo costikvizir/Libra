@@ -18,6 +18,9 @@ $('#content').on('click', '#clearFormBtn', function () {
 	$('#AddPosForm')[0].reset(); // Reset form fields
 });
 
+function handlePosAddSuccess() {
+	alert('Pos added successfully');
+}
 
 function resetForm() {
 	var form = document.getElementById("AddPosForm");
