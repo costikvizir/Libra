@@ -57,7 +57,7 @@ namespace LibraWebApp.Controllers
             return Json(new
             {
                 draw = parameters.Draw,
-                recordsFiltered = parameters.Length,
+                recordsFiltered = parameters.TotalCount,
                 recordsTotal = parameters.TotalCount,
                 data = users
             }, JsonRequestBehavior.AllowGet);
@@ -140,6 +140,7 @@ namespace LibraWebApp.Controllers
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return PartialView("GetAllUsers");
+            //return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpPost]

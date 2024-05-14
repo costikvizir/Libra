@@ -15,12 +15,16 @@ function initializeUserList() {
         processing: true,
         select: true,
         serverSide: true,
+        pageLength: 10,
         //scrollX: true,
         ajax: {
             url: "/User/GetAllUsersJson",
             type: "POST",
             dataType: "json",
             dataSrc: "data",
+            //pageLength: 10,
+            //processing: true,
+            //serverSide: true,
 
         },
         columns: columns,

@@ -75,7 +75,7 @@ namespace LibraWebApp.Controllers
             return Json(new
             {
                 draw = parameters.Draw,
-                recordsFiltered = parameters.Length,
+                recordsFiltered = parameters.TotalCount,
                 recordsTotal = parameters.TotalCount,
                 data = allPos
             }, JsonRequestBehavior.AllowGet);

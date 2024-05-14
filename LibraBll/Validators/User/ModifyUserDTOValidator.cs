@@ -18,7 +18,7 @@ namespace LibraBll.Validators.User
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name cannot be empty")
                 .MinimumLength(5).WithMessage("Name should contain at least 5 characters")
-                .Matches("^[a-zA-Z]*$").WithMessage("Username shoul contain only letters");
+                .Matches("^[a-zA-Z ]*$").WithMessage("Username shoul contain only letters");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Please provide a valid email")
