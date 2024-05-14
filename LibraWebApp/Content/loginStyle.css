@@ -1,10 +1,14 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+﻿/*@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');*/
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+}
+
+.center {
+    background-color: rgba(255, 255, 255, 0.5); /* 0.5 represents 50% opacity */
 }
 
 body {
@@ -102,13 +106,13 @@ input[type="submit"] {
     height: 50px;
     border: 1px solid;
     background: #2691d9;
-    border-radius: 25px;
-    font-size: 18px;
+    border-radius: 5px;
+    font-size: 20px;
     color: #e9f4fb;
     font-weight: 700;
     cursor: pointer;
     outline: none;
-    margin-bottom: 30px;
+    /*margin-bottom: 20px;*/
 }
 
     input[type="submit"]:hover {
@@ -138,4 +142,8 @@ input[type="submit"] {
     margin-top: 5px;
     margin-bottom: 25px;
     text-align: center;
+}
+
+.gradient-custom {
+    background: rgba(0, 0, 0, 0.5); /* 0.5 represents 50% opacity */
 }

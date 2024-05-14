@@ -2865,11 +2865,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Welcome\Index.cshtml" />
     <Content Include="Views\User\GetAllUsers.cshtml" />
-    <Content Include="Views\User\GetUserByName.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
     <Content Include="Views\User\AddUser.cshtml" />
-    <Content Include="Views\User\ModifyUser.cshtml" />
     <Content Include="Views\Shared\_LayoutLTE.cshtml" />
     <Content Include="Views\Pos\AddPos.cshtml" />
     <Content Include="Views\Pos\GetAllPos.cshtml" />
