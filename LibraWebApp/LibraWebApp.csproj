@@ -2287,6 +2287,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\border.css" />
+    <Content Include="Content\card-style.css" />
     <Content Include="Content\dataTables.dataTables.css" />
     <Content Include="Content\dataTables.dataTables.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -2863,7 +2864,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Welcome\Index.cshtml" />
     <Content Include="Views\User\GetAllUsers.cshtml" />
     <Content Include="Views\Shared\_Dashboard.cshtml" />
     <Content Include="Views\User\AddUser.cshtml" />

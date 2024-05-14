@@ -7,52 +7,58 @@
 
 @model LibraBll.DTOs.Pos.PosGetDTO
 
+<link href="~/Content/card-style.css" rel="stylesheet" />
+
 @*@using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "AddIssueForm" }))*@
 @using (Ajax.BeginForm("AddIssue", "Issue", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handleIssueAddSuccess" }, new { id = "AddIssueForm" }))
 {
-	<div class="card mb-0">
-		<div class="card-header" style="background-color: lightgray">
-			Search the POS
-		</div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-3">
-					<label for="inputPosName" class="form-label">Name</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
-						@Html.TextBox("inputPosName", null, new { @class = "form-control", placeholder = "Pos Name" })
-					</div>
-				</div>
-				<div class="col-md-3">
-					<label for="inputPosBrand" class="form-label">Brand</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-trademark"></i></div>
-						@Html.TextBox("inputPosBrand", null, new { @class = "form-control", placeholder = "Pos Brand" })
-					</div>
-				</div>
-				<div class="col-md-4">
-					<label for="inputFullAddress" class="form-label">Full Address</label>
-					<div class="input-group">
-						<div class="input-group-text"><i class="fas fa-map"></i></div>
-						@Html.TextBox("inputFullAddress", null, new { @class = "form-control", placeholder = "POS address" })
-					</div>
-				</div>
-				<div class="col-md-2">
-					<label class="form-label" style="visibility: hidden;">Add Issue</label>
-					<button type="button" id="openIssue" class="btn btn-primary mr-2">Add Issue</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="top-card">
+        <div class="card mb-0">
+            <div class="card-header" style="background-color: lightskyblue">
+                Search the POS
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="inputPosName" class="form-label">Name</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fas fa-trademark"></i></div>
+                            @Html.TextBox("inputPosName", null, new { @class = "form-control", placeholder = "Pos Name" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="inputPosBrand" class="form-label">Brand</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fas fa-trademark"></i></div>
+                            @Html.TextBox("inputPosBrand", null, new { @class = "form-control", placeholder = "Pos Brand" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputFullAddress" class="form-label">Full Address</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fas fa-map"></i></div>
+                            @Html.TextBox("inputFullAddress", null, new { @class = "form-control", placeholder = "POS address" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" style="visibility: hidden;">Add Issue</label>
+                        <button type="button" id="openIssue" class="btn btn-primary mr-2">Add Issue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="card mt-0">
-		<div class="card-header" style="background-color: lightgray">
-			Search Results
-		</div>
-		<div class="card-body">
-			<table id="posList" class="display mt-3 mr-2">
-			</table>
-		</div>
-	</div>
+    <div class="bottom-card">
+        <div class="card mt-0">
+            <div class="card-header" style="background-color: lightskyblue">
+                Search Results
+            </div>
+            <div class="card-body">
+                <table id="posList" class="display mt-3 mr-2">
+                </table>
+            </div>
+        </div>
+    </div>
 }
 
