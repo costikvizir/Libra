@@ -1,76 +1,78 @@
 ﻿@model LibraBll.DTOs.User.AddUserDTO
 @{
-    Layout = null;
+	//Layout = null;
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
 <head>
-    <link rel="stylesheet" type="text/css" href="~/Content/border.css">
+	<link rel="stylesheet" type="text/css" href="~/Content/border.css">
 </head>
 
 <h3 class="accent-gray-dark mt-5">Add User</h3>
 
-@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer",  OnSuccess = "handleUserAddSuccess"}, new { id = "AddUserForm" }))
+@*@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer",  OnSuccess = "handleUserAddSuccess"}, new { id = "AddUserForm" }))*@
+@using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { id = "AddUserForm" }))
 {
-    <div class="card">
-        <div class="card-header" style="background-color: lightskyblue">
-            User Information
-        </div>
-        <div class="card-body">
+	<div class="card">
+		<div class="card-header" style="background-color: lightskyblue">
+			User Information
+		</div>
+		<div class="card-body">
 
-            <div class="row">
-                <div class="col-md-5">
-                    <label for="inputUserName" class="form-label">User Name</label>
-                    <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-user"></i></div>
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    <label for="inputPassword" class="form-label">Password</label>
-                    <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-key"></i></div>
-                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <label for="inputEmail" class="form-label">Email</label>
-                    <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", placeholder = "email@example.com" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    <label for="inputLogin" class="form-label">Login</label>
-                    <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-sign-in-alt"></i></div>
-                        @Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputLogin" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <label for="inputTelephone" class="form-label">Telephone</label>
-                    <div class="input-group">
-                        <div class="input-group-text"><i class="fas fa-phone"></i></div>
-                        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-4">
-                    <label for="inputState" class="form-label">Role</label>
-                    @Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select", id = "inputState" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-start">
-        @*<button type="submit" class="btn btn-primary mr-2" id="submitButton" onclick="goToAllUsers();">Add User</button>*@
-        <button type="submit" class="btn btn-primary mr-2" id="submitButton">Add User</button>
-        <button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
-    </div>
+			<div class="row">
+				<div class="col-md-5">
+					<label for="inputUserName" class="form-label">User Name</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-user"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputUserName" })
+					</div>
+					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-md-4">
+					<label for="inputPassword" class="form-label">Password</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-key"></i></div>
+						@Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "inputPassword", type = "password" })
+					</div>
+					@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5">
+					<label for="inputEmail" class="form-label">Email</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-envelope"></i></div>
+						@Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "inputEmail", placeholder = "email@example.com" })
+					</div>
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-md-4">
+					<label for="inputLogin" class="form-label">Login</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-sign-in-alt"></i></div>
+						@Html.TextBoxFor(model => model.Login, new { @class = "form-control", id = "inputLogin" })
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5">
+					<label for="inputTelephone" class="form-label">Telephone</label>
+					<div class="input-group">
+						<div class="input-group-text"><i class="fas fa-phone"></i></div>
+						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone" })
+					</div>
+					@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+				</div>
+				<div class="col-md-4">
+					<label for="inputState" class="form-label">Role</label>
+					@Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select", id = "inputState" })
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex justify-content-start">
+		@*<button type="submit" class="btn btn-primary mr-2" id="submitButton" onclick="goToAllUsers();">Add User</button>*@
+		<button type="submit" class="btn btn-primary mr-2" id="submitButton">Add User</button>
+		<button type="reset" class="btn btn-dark" onclick="resetForm()">Clear Form</button>
+	</div>
 }

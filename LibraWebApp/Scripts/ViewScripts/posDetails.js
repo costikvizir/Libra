@@ -1,6 +1,6 @@
-﻿function initializeIssuesList() () {
+﻿function initializeIssuesList() {
 
-    var data = @Html.Raw(Json.Encode(Model.PosGet));
+    //var data = @Html.Raw(Json.Encode(Model.PosGet));
 
 
     var table = $('#issueList').DataTable({

@@ -1,7 +1,7 @@
 ﻿@{
-    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
     var posId = Model.PosGet.PosId;
-    Layout = null;
+    //Layout = null;
 }
 
 
@@ -117,35 +117,10 @@
     </div>
 }
 
-@*<script>
-
-
-    $(document).ready(function () {
-        debugger;
-        var data = @Html.Raw(Json.Encode(Model.PosGet));
-
-        console.log(data);
-
-        var table = $('#issueList').DataTable({
-           // select: true,
-           // scrollX: true,
-            ajax: {
-                url: "/Issue/GetIssuesJsonByPosId?" + $.param({ id: data.PosId }),
-                type: "GET",
-                dataType: "json",
-                dataSrc: ''               
-            },
-            columns: [
-                { title: "Id", data: "Id", visible: false },
-                { title: "PosId", data: "PosId", visible: false },
-                { title: "PosName", data: "PosName" },
-                { title: "CreatedBy", data: "UserCreated" },
-                { title: "Date", data: "CreationDate" },
-                { title: "IssueType", data: "Type" },
-                { title: "Status", data: "Status" },
-                { title: "AssignedTo", data: "AssignedTo" },
-                { title: "Memo", data: "Memo" }
-            ]
-        });
-    });
-</script>*@
+@section scripts{
+	<script>
+        //goToPosDetails()
+        initializeIssuesList();
+    </script>
+	<script src="~/Scripts/ViewScripts/posDetails.js"></script>
+}

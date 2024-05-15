@@ -103,8 +103,8 @@
 						with font-awesome or any other icon font library -->
 						<li class="nav-item">
 							@*<a href="#" class="nav-link active">*@
-							@*<a href="@Url.Action("Index", "Home")" class="nav-link active">*@
-							<a class="nav-link ajax-link active" onclick="goToHomePage()" style="cursor: pointer;">
+							<a href="@Url.Action("Index", "Home")" class="nav-link active">
+							@*<a class="nav-link ajax-link active" onclick="goToHomePage()" style="cursor: pointer;">*@
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
 									Dashboard
@@ -126,15 +126,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									@*<a href="@Url.Action("AddPos", "Pos")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAddPos()" style="cursor: pointer;">
+									<a href="@Url.Action("AddPos", "Pos")" class="nav-link">
+									@*<a class="nav-link ajax-link" onclick="goToAddPos()" style="cursor: pointer;">*@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add POS</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									@*<a href="@Url.Action("GetAllPos", "Pos")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAllPos()" style="cursor: pointer;">
+									<a href="@Url.Action("GetAllpos", "Pos")" class="nav-link">
+									@*<a class="nav-link ajax-link" onclick="goToAllPos()" style="cursor: pointer;">*@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse POS</p>
 									</a>
@@ -152,15 +152,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									@*<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAddIssue()" style="cursor: pointer;">
+									<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">
+									@*<a class="nav-link ajax-link" onclick="goToAddIssue()" style="cursor: pointer;">*@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add Issue</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									@*<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAllIssues()" style="cursor: pointer;">
+									<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">
+									@*<a class="nav-link ajax-link" onclick="goToAllIssues()" style="cursor: pointer;">*@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Issues</p>
 									</a>
@@ -177,15 +177,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									@*<a href="@Url.Action("AddUser", "User")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">
+									<a href="@Url.Action("AddUser", "User")" class="nav-link">
+									@*<a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">*@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Add User</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									@*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
-									<a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">
+									<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">
+									@*<a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">*@
 										<i class="far fa-circle nav-icon"></i>
 										<p>Browse Users</p>
 									</a>

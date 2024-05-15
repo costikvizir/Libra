@@ -1,8 +1,8 @@
 ﻿@{
-    ViewBag.Title = "All Users";
-    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    Layout = null;
+	ViewBag.Title = "All Users";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_Layout.cshtml";
+	//Layout = null;
 }
 
 @*@model List<LibraBll.DTOs.User.GetUserDTO>*@
@@ -10,211 +10,36 @@
 <h3 class="mt-5">All Users</h3>
 
 <div class="mb-2">
-    <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
-        <button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-        <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-    </div>
+	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
+		<button type="button" id="editButton" class="mr-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+	</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Delete <span id="deleteItemName"></span> ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-danger">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Delete <span id="deleteItemName"></span> ?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-outline-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <table id="usersList" class="display mt-3">
 </table>
 
-@*<script>
-$(document).ready(function () {
-	debugger;
-	var columns = [
-        {  data: "Id", name: "id", visible: false },
-		{ title: "Name", data: "Name", name: "name", autoWidth: true, searchable: true },
-        { title: "Login", data: "Login", name: "login", autoWidth: true, searchable: true },
-        { title: "Email", data: "Email", name: "email", autoWidth: true, searchable: true },
-        { title: "Role", data: "Role", name: "role", autoWidth: true, searchable: true },
-        { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true }
-	];
-
-	//$('#usersList').hide();
-	var table = $('#usersList').DataTable({
-		select: 'single',
-		processing: true,
-        select: true,
-		serverSide: true,
-		//scrollX: true,
-        ajax: {
-            url: "/User/GetAllUsersJson",
-            type: "POST",
-            dataType: "json",
-			dataSrc: "data",
-
-        },
-        columns: columns,
-
-	});
-
-
-	console.log('table.data():', table.data());
-	});
-	//---------------------------------------------------
-	function initializeIncidentDataTable() {
-		$('#usersList').hide();
-		var table = $('#IncidentDatatable').DataTable({
-			"processing": true,
-			"serverSide": true,
-			"ajax": {
-				"url": "/Incident/LoadDatatable",
-				"type": "POST",
-				"dataType": "json",
-				"beforeSend": function () {
-					$('#actions').hide(); // Скрывать actions перед AJAX запросом
-				}
-			},
-			"columns": [
-				{ "data": "id", "title": "id", "name": "id", "visible": false },
-				{ "data": "requestNr", "title": localizations.requestNr, "name": "requestNr" },
-				{ "data": "subsystem", "title": localizations.subsystem, "name": "subsystem" },
-				{
-					"data": "openDate",
-					"title": localizations.openDate,
-					"name": "openDate",
-					"render": function (data, type, row) {
-						return data ? new Date(data).toLocaleDateString() : '';
-					}
-				},
-				{
-					"data": "closeDate",
-					"title": localizations.closeDate,
-					"name": "closeDate",
-					"render": function (data, type, row) {
-						return data ? new Date(data).toLocaleDateString() : '';
-					}
-				},
-				{ "data": "type", "title": localizations.type, "name": "type" },
-				{ "data": "urgency", "title": localizations.urgency, "name": "urgency" }
-			],
-			"columnDefs": [
-				{ "width": "10%", "targets": [0, 1, 2, 5, 6] },
-				{ "width": "15%", "targets": [3, 4] }
-			],
-			"scrollX": true
-		});
-
-		return table;
-	}
-
-	//GetIndexOfDataTableColumn: function (columnsCollection, searchingColumnName) {
-	//	for (var i = 0; i < columnsCollection.length; i++) {
-	//		if (columnsCollection[i].data === searchingColumnName) {
-	//			return i;
-	//		}
-	//	}
-
-	//	return -1;
-	//}
-	function GetIndexOfDataTableColumn(columnsCollection, searchingColumnName) {
-		debugger;
-		for (var i = 1; i < columnsCollection.length; i++) {
-			if (columnsCollection[i].data === searchingColumnName) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-		$('#usersList tbody').on('click', 'tr', function () {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass('selected');
-				$('#editButton, #deleteButton').prop('disabled', true);  // Disable buttons
-			}
-			else {
-				table.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-				$('#editButton, #deleteButton').prop('disabled', false);  // Enable buttons
-			}
-		});
-
-		// Initially disable the buttons
-		$('#editButton, #deleteButton').prop('disabled', true);
-
-		// Passs user data to the modal
-		//$('#editButton').on('click', function () {
-		//	var data = table.row('.selected').data();
-		//	if (data) {
-		//		$('#inputUserName').val(data.Name);
-		//		$('#inputLogin').val(data.Login);
-		//		$('#inputEmail').val(data.Email);
-		//		$('#inputTelephone').val(data.Telephone);
-		//		$('#drpdownRole').val(data.Role);
-		//	}
-		//});
-
-		$('#editButton').click(function () {
-			debugger;
-            console.log('editButton clicked');  // This will print a message when the button is clicked
-
-            var data = table.row('.selected').data();  // Get the data of the selected row
-            console.log('Selected row data:', data);
-
-			$.ajax({
-				url: "@Url.Action("UpdateUser","User")",
-				data: {
-					Id: data.Id
-				},
-				method: "GET",
-				success: function (response) {
-                    console.log('AJAX request successful, response:', response);
-					$('#main-modal-container').html(response);
-					$('#main-modal').modal('show');
-				}
-			})
-		});
-
-		$('#deleteButton').on('click', function () {
-			var data = table.row('.selected').data();
-			if (data) {
-				$('#deleteItemName').text(data.Name);
-				$('#deleteButton').data('userid', data.Id);
-			}
-		});
-
-		$('.btn-outline-danger').on('click', function () {
-			var userId = $('#deleteButton').data('userid');
-			$.ajax({
-				url: '/User/DeleteUser/' + userId,
-				type: 'POST',
-				data: { id: userId },
-				success: function (data) {
-					table.row('.selected').remove().draw(false);
-					$('#deleteModal').modal('hide');
-					$('.modal-backdrop').remove();
-					console.log('User deleted successfully');
-
-				}
-				//error: function (jqXHR, textStatus, errorThrown) {
-				//	alert('Error: ' + errorThrown);
-				//}
-			});
-		});
-
-	document.getElementById('buttonWrapper').addEventListener('click', function () {
-		var button = document.getElementById('deleteButton');
-		if (button.disabled) {
-			alert('Please select a row');
-		}
-	});
-</script>*@
+@section scripts{
+	<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
+	<script>
+		goToAllUsers();
+	</script>
+}
