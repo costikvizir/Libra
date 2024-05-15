@@ -8,7 +8,7 @@
 
 @model LibraBll.DTOs.Pos.PosPostDTO
 
-<link href="~/Content/card-style.css" rel="stylesheet"/>
+<link href="~/Content/card-style.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
 
 @*@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))*@
@@ -24,7 +24,7 @@
                     <div class="col-md-5">
                         <label for="inputPosName" class="form-label">Name</label>
                         <div class="input-group">
-                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-credit-card" ></i></div>
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-credit-card"></i></div>
                             @Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputPosName", placeholder = "POS Name" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -165,11 +165,13 @@
         </div>
     </div>
     <div class="d-flex justify-content-start">
-        <button type="submit" class="btn dark-blue-backgroung mr-2">Save POS</button>
+        <button type="submit" class="btn dark-blue-backgroung mr-2" id="savePosButton">Save POS</button>
     </div>
 }
 
-<script src="~/Scripts/TimePicker/moment.min.js"></script>
-<script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
-<script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
+@section scripts{
+    <script src="~/Scripts/TimePicker/moment.min.js"></script>
+    <script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
+}
 

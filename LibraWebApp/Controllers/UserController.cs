@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace LibraWebApp.Controllers
 {
-
     [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
@@ -66,6 +65,7 @@ namespace LibraWebApp.Controllers
         }
 
         //TODO: solve for CancellationToken.None
+        //TODO: button hover color: #90CAF9, rgb(144, 202, 249)
 
         [HttpGet]
         public ActionResult AddUser()
