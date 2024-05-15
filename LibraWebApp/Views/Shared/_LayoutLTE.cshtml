@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>AdminLTE 3 | Dashboard</title>
-
+	<link href="~/Content/Site.css" rel="stylesheet" />
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<!-- Font Awesome -->
@@ -37,8 +37,6 @@
 	@Scripts.Render("~/bundles/bootstrap")
 	@Scripts.Render("~/bundles/dataTables")
 	@Scripts.Render("~/bundles/jqueryval")
-	
-
 
 
 </head>
@@ -63,6 +61,7 @@
 			<ul class="navbar-nav ml-auto">
 
 				<li class="align-content-lg-center">
+					<i class="fas fa-user"></i>
 					@User.Identity.Name
 				</li>
 				<li>
@@ -83,11 +82,10 @@
 			</a>
 			<!-- Sidebar -->
 			<div class="sidebar">
-
 				<!-- SidebarSearch Form -->
 				<div class="form-inline mt-2">
 					<div class="input-group" data-widget="sidebar-search">
-						<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+						<input class="form-control form-control-sidebar dark-blue-border-color" type="search" placeholder="Search" aria-label="Search">
 						<div class="input-group-append">
 							<button class="btn btn-sidebar">
 								<i class="fas fa-search fa-fw"></i>
@@ -103,7 +101,7 @@
 						with font-awesome or any other icon font library -->
 						<li class="nav-item">
 							@*<a href="#" class="nav-link active">*@
-							<a href="@Url.Action("Index", "Home")" class="nav-link active">
+							<a href="@Url.Action("Index", "Home")" class="nav-link dark-blue-backgroung">
 							@*<a class="nav-link ajax-link active" onclick="goToHomePage()" style="cursor: pointer;">*@
 								<i class="nav-icon fas fa-tachometer-alt"></i>
 								<p>
@@ -117,25 +115,24 @@
 							<a href="#" class="nav-link">
 								@*<i class="nav-icon fas fa-copy"></i>*@
 								@*<i class="fa-sharp fa-solid fa-screwdriver-wrench"></i>*@
-								<i class="fas fa-credit-card"></i>
-								<p>
+								<i class="fas fa-credit-card dark-blue-font"></i>
+								<p class="dark-blue-font">
 									Pos
 									<i class="fas fa-angle-left right"></i>
-
 								</p>
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
 									<a href="@Url.Action("AddPos", "Pos")" class="nav-link">
 									@*<a class="nav-link ajax-link" onclick="goToAddPos()" style="cursor: pointer;">*@
-										<i class="far fa-circle nav-icon"></i>
+										<i class="far fa-circle nav-icon dark-blue-font"></i>
 										<p>Add POS</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="@Url.Action("GetAllpos", "Pos")" class="nav-link">
 									@*<a class="nav-link ajax-link" onclick="goToAllPos()" style="cursor: pointer;">*@
-										<i class="far fa-circle nav-icon"></i>
+										<i class="far fa-circle nav-icon dark-blue-font"></i>
 										<p>Browse POS</p>
 									</a>
 								</li>
@@ -143,10 +140,10 @@
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
-								<i class="fas fa-wrench"></i>
+								<i class="fas fa-wrench dark-blue-font"></i>
 								<p>
 									Issues
-									<i class="right fas fa-angle-left"></i>
+									<i class="right fas fa-angle-left dark-blue-font"></i>
 									<span class="badge badge-danger right">@ViewBag.IssueCount</span>
 								</p>
 							</a>
@@ -154,14 +151,14 @@
 								<li class="nav-item">
 									<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">
 									@*<a class="nav-link ajax-link" onclick="goToAddIssue()" style="cursor: pointer;">*@
-										<i class="far fa-circle nav-icon"></i>
+										<i class="far fa-circle nav-icon dark-blue-font"></i>
 										<p>Add Issue</p>
 									</a>
 								</li>
 								<li class="nav-item">
 									<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">
 									@*<a class="nav-link ajax-link" onclick="goToAllIssues()" style="cursor: pointer;">*@
-										<i class="far fa-circle nav-icon"></i>
+										<i class="far fa-circle nav-icon dark-blue-font"></i>
 										<p>Browse Issues</p>
 									</a>
 								</li>
@@ -169,10 +166,10 @@
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link">
-								<i class="fas fa-user"></i>
+								<i class="fas fa-user dark-blue-font"></i>
 								<p>
 									Users
-									<i class="fas fa-angle-left right"></i>
+									<i class="fas fa-angle-left right dark-blue-font"></i>
 								</p>
 							</a>
 							<ul class="nav nav-treeview">

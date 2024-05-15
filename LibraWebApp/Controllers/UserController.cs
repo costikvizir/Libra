@@ -25,6 +25,8 @@ namespace LibraWebApp.Controllers
         }
 
         //TODO: Put all modal windows in separate files
+        //TODO: slight blue color: #D9EDF7, rgb(217, 237, 247)
+        //TODO: dark blue color: #3276B1, rgb(50, 118, 177)
 
         [HttpGet]
         public ActionResult Index()

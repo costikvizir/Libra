@@ -3,18 +3,20 @@
     Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 }
 
-<h3 class="accent-gray-dark mt-5">New POS</h3>
+<h3 class="accent-gray-dark mt-2">New POS</h3>
+<hr class="my-4">
 
 @model LibraBll.DTOs.Pos.PosPostDTO
 
 <link href="~/Content/card-style.css" rel="stylesheet"/>
+<link href="~/Content/Site.css" rel="stylesheet" />
 
 @*@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))*@
 @using (Ajax.BeginForm("AddPos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handlePosAddSuccess" }, new { id = "AddPosForm" }))
 {
     <div class="top-card">
-        <div class="card mb-0">
-            <div class="card-header" style="background-color: lightskyblue">
+        <div class="card mb-0 ">
+            <div class="card-header slight-blue-header">
                 POS basic data
             </div>
             <div class="card-body">
@@ -22,24 +24,24 @@
                     <div class="col-md-5">
                         <label for="inputPosName" class="form-label">Name</label>
                         <div class="input-group">
-                            <div class="input-group-text" style="background-color: lightskyblue"><i class="fas fa-credit-card" ></i></div>
-                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", id = "inputPosName", placeholder = "POS Name" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-credit-card" ></i></div>
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputPosName", placeholder = "POS Name" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-3">
                         <label for="inputTelephone" class="form-label">Telephone</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-phone"></i></div>
-                            @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", id = "inputTelephone", placeholder = "Telephone" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>
+                            @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", placeholder = "Telephone" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-3">
                         <label for="inputCellphone" class="form-label">Cellphone</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-mobile"></i></div>
-                            @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control", id = "inputCellphone", placeholder = "Cellphone" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-mobile"></i></div>
+                            @Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control dark-blue-border-color", id = "inputCellphone", placeholder = "Cellphone" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
                     </div>
@@ -48,40 +50,40 @@
                     <div class="col-md-8">
                         <label for="inputAddress" class="form-label">Full Address</label>
                         <div class="input-group">
-                            <div class="input-group-text">
+                            <div class="input-group-text dark-blue-backgroung">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                     <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                                 </svg>
                             </div>
-                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", id = "inputAddress", placeholder = "POS address" })
+                            @Html.TextBoxFor(model => model.Address, new { @class = "form-control dark-blue-border-color", id = "inputAddress", placeholder = "POS address" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-3">
                         <label for="inputState" class="form-label">City</label>
-                        @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "Select City", new { @class = "form-select", id = "inputState" })
+                        @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "Select City", new { @class = "form-select dark-blue-border-color", id = "inputState" })
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <label for="inputBrand" class="form-label">Brand</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-copyright"></i></div>
-                            @Html.TextBoxFor(model => model.Brand, new { @class = "form-control", id = "inputBrand", placeholder = "Brand Name" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-copyright"></i></div>
+                            @Html.TextBoxFor(model => model.Brand, new { @class = "form-control dark-blue-border-color", id = "inputBrand", placeholder = "Brand Name" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-4">
                         <label for="inputModel" class="form-label">Model</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-copyright"></i></div>
-                            @Html.TextBoxFor(model => model.Model, new { @class = "form-control", id = "inputModel", placeholder = "Model Name" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-copyright"></i></div>
+                            @Html.TextBoxFor(model => model.Model, new { @class = "form-control dark-blue-border-color", id = "inputModel", placeholder = "Model Name" })
                         </div>
                         @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-md-3">
                         <label for="inputState" class="form-label">Connection Type</label>
-                        @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, new { @class = "form-select", id = "inputState" })
+                        @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, new { @class = "form-select dark-blue-border-color", id = "inputState" })
                     </div>
                 </div>
             </div>
@@ -90,7 +92,7 @@
 
     <div class="bottom-card">
         <div class="card mt-0">
-            <div class="card-header" style="background-color: lightskyblue">
+            <div class="card-header slight-blue-header">
                 Oppening hours and holidays
             </div>
             <div class="card-body">
@@ -98,29 +100,29 @@
                     <div class="col-md-2">
                         <label for="inputOpenMorning" class="form-label">Open Morning</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                            @Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control timepicker", id = "inputMorningOpening", placeholder = "Opening Time", type = "text" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+                            @Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control timepicker dark-blue-border-color", id = "inputMorningOpening", placeholder = "Opening Time", type = "text" })
                         </div>
                     </div>
                     <div class="col-md-2">
                         <label for="inputClosedMorning" class="form-label">Closed Morning</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                            @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control timepicker", id = "inputMorningClosing", placeholder = "Closing Time", type = "text" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+                            @Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control timepicker dark-blue-border-color", id = "inputMorningClosing", placeholder = "Closing Time", type = "text" })
                         </div>
                     </div>
                     <div class="col-md-2">
                         <label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                            @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control timepicker", id = "inputAfternoonOpening", placeholder = "Opening Time", type = "text" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+                            @Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control timepicker dark-blue-border-color", id = "inputAfternoonOpening", placeholder = "Opening Time", type = "text" })
                         </div>
                     </div>
                     <div class="col-md-2">
                         <label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                            @Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control timepicker", id = "inputAfternoonClosing", placeholder = "Closing Time", type = "text" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+                            @Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control timepicker dark-blue-border-color", id = "inputAfternoonClosing", placeholder = "Closing Time", type = "text" })
                         </div>
                     </div>
                 </div>
@@ -163,7 +165,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-start">
-        <button type="submit" class="btn btn-primary mr-2">Save POS</button>
+        <button type="submit" class="btn dark-blue-backgroung mr-2">Save POS</button>
     </div>
 }
 

@@ -2,8 +2,9 @@
 	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 	//Layout = null;
 }
-
-<h3 class="accent-gray-dark mt-5">New Issue</h3>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h3 class="accent-gray-dark mt-3">New Issue</h3>
+<hr class="my-4">
 
 @model LibraBll.DTOs.Pos.PosGetDTO
 
@@ -13,7 +14,7 @@
 {
     <div class="top-card">
         <div class="card mb-0">
-            <div class="card-header" style="background-color: lightskyblue">
+            <div class="card-header slight-blue-header">
                 Search the POS
             </div>
             <div class="card-body">
@@ -21,27 +22,27 @@
                     <div class="col-md-3">
                         <label for="inputPosName" class="form-label">Name</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-trademark"></i></div>
-                            @Html.TextBox("inputPosName", null, new { @class = "form-control", placeholder = "Pos Name" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-trademark"></i></div>
+                            @Html.TextBox("inputPosName", null, new { @class = "form-control dark-blue-border-color", placeholder = "Pos Name" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <label for="inputPosBrand" class="form-label">Brand</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-trademark"></i></div>
-                            @Html.TextBox("inputPosBrand", null, new { @class = "form-control", placeholder = "Pos Brand" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-trademark"></i></div>
+                            @Html.TextBox("inputPosBrand", null, new { @class = "form-control dark-blue-border-color", placeholder = "Pos Brand" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label for="inputFullAddress" class="form-label">Full Address</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="fas fa-map"></i></div>
-                            @Html.TextBox("inputFullAddress", null, new { @class = "form-control", placeholder = "POS address" })
+                            <div class="input-group-text dark-blue-backgroung"><i class="fas fa-map"></i></div>
+                            @Html.TextBox("inputFullAddress", null, new { @class = "form-control dark-blue-border-color", placeholder = "POS address" })
                         </div>
                     </div>
                     <div class="col-md-2">
                         <label class="form-label" style="visibility: hidden;">Add Issue</label>
-                        <button type="button" id="openIssue" class="btn btn-primary mr-2">Add Issue</button>
+                        <button type="button" id="openIssue" class="btn dark-blue-backgroung mr-2">Add Issue</button>
                     </div>
                 </div>
             </div>
@@ -49,8 +50,8 @@
     </div>
 
     <div class="bottom-card">
-        <div class="card mt-0">
-            <div class="card-header" style="background-color: lightskyblue">
+        <div class="card bottom-card mt-0">
+            <div class="card-header slight-blue-header">
                 Search Results
             </div>
             <div class="card-body">

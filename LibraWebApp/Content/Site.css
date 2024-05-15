@@ -23,4 +23,23 @@ textarea {
     max-width: 280px;
 }
 
+.slight-blue-header {
+    background-color: #D9EDF7;
+}
+
+.dark-blue-backgroung {
+    background-color: #3276B1;
+    color: white;
+}
+
+.dark-blue-border-color {
+    /*border: 1px solid transparent;*/ /* Set the border color to transparent */
+    background-color: white; /* Set the background color */
+    box-shadow: 0 0 1px 1px #3276B1;
+}
+
+.dark-blue-font {
+    color: #4985BA;
+}
+
 
