@@ -1,19 +1,19 @@
 ﻿using Libra.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Libra.Dal.Configurations
 {
-	public sealed class LogConfiguration : IEntityTypeConfiguration<Log>
+	public sealed class LogConfiguration : EntityTypeConfiguration<Log>
 	{
-		public void Configure(EntityTypeBuilder<Log> builder)
+		public LogConfiguration() 
 		{
-			builder.HasKey(e => e.Id);
-		}
+            HasKey(e => e.Id);
+        }
+
 	}
 }

@@ -1,33 +1,37 @@
 ﻿using Libra.Dal.Context;
 using Libra.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Data.Entity.ModelConfiguration;
+
 
 namespace Libra.Dal.Configurations
 {
-	public sealed class UserConfiguration : IEntityTypeConfiguration<User>
+	public class UserConfiguration : EntityTypeConfiguration<User>
 	{
-		public void Configure(EntityTypeBuilder<User> builder)
-		{
-			builder.HasKey(x => x.Id);
+        public UserConfiguration()
+        {
+            // Define primary key
+            this.HasKey(x => x.Id);
 
-			builder.Property(x => x.Name)
-				.IsRequired()
-				.HasMaxLength(50);
+            // Configure property Name
+            this.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(50);
 
-			builder.HasMany(e => e.Issues)
-				.WithOne(e => e.User)
-				.HasForeignKey(e => e.UserCreatedId)
-				.OnDelete(DeleteBehavior.Restrict)
-				.IsRequired();
+            // Define relationship with Issues
+            this.HasMany(e => e.Issues)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.UserCreatedId)
+                .WillCascadeOnDelete(false); // Specify whether cascading delete is enabled
 
-			builder.HasMany(e => e.Logs)
-				.WithOne(e => e.User)
-				.HasForeignKey(e => e.UserId)
-				.OnDelete(DeleteBehavior.Restrict)
-				.IsRequired();
+            // Define relationship with Logs
+            this.HasMany(e => e.Logs)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .WillCascadeOnDelete(false); // Specify whether cascading delete is enabled
 
-			builder.HasData(SeedData.UsersSeed);
-		}
-	}
+            // Seed data (if needed)
+            // Note: EF6 does not have a built-in seeding mechanism like EF Core, you may need to handle seeding separately
+        }
+        //TODO: Seed data User
+    }
 }

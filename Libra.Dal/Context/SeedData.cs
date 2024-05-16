@@ -51,30 +51,6 @@ namespace Libra.Dal.Context
 			return dayList;
 		}
 
-
-		//public static List<UserType> GetRoles()
-		//{
-		//	var id = 1;
-		//	var roles = new List<string> { "Administrator", "Technical Group", "User" };
-
-		//	var rolesList = new List<UserType>();
-
-		//	if (!Debugger.IsAttached)
-		//	{
-		//		Debugger.Launch();
-		//	}
-
-		//	foreach (var role in roles)
-		//	{
-		//		rolesList.Add(new UserType
-		//		{
-		//			Id = id++,
-		//			Role = role
-		//		});
-		//	}
-
-		//	return rolesList;
-		//}
 		public static List<UserType> UserTypesSeed = new List<UserType>
 		{
 			new UserType
@@ -94,7 +70,7 @@ namespace Libra.Dal.Context
 			}
 		};
 
-		public static List<ConnectionType> ConnectionTypesSeed = new List<ConnectionType>
+		public static List<ConnectionType> ConnectionTypeSeed = new List<ConnectionType>
 		{
 			new ConnectionType
 			{

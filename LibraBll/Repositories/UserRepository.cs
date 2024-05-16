@@ -133,7 +133,7 @@ namespace LibraBll.Repositories
             // user.Password = userPost.Password;
 
             //Context.Users.Update(user);
-            Context.Entry(user).State = EntityState.Modified;
+            //Context.Entry(user).State = EntityState.Modified;
             Context.SaveChanges();
         }
 
@@ -144,7 +144,7 @@ namespace LibraBll.Repositories
             if (user != null)
                 user.IsDeleted = true;
 
-            Context.Entry(user).State = EntityState.Modified;
+            //Context.Entry(user).State = EntityState.Modified;
             Context.SaveChanges();
         }
 

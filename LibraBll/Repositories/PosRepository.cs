@@ -132,7 +132,7 @@ namespace LibraBll.Repositories
                 InsertDate = DateTime.Now
             };
 
-            await Context.Pos.AddAsync(entity);
+            Context.Pos.Add(entity);
             await Context.SaveChangesAsync();
 
             List<PosWeekDay> posWeekDays = pos.DaysClosed
@@ -145,7 +145,7 @@ namespace LibraBll.Repositories
                         .FirstOrDefault()
                 }).ToList();
 
-            await Context.PosWeekDay.AddRangeAsync(posWeekDays);
+            Context.PosWeekDay.AddRange(posWeekDays);
             await Context.SaveChangesAsync();
 
             return pos;
@@ -189,7 +189,7 @@ namespace LibraBll.Repositories
             //entity.InsertDate = DateTime.Now;
 
             Context.PosWeekDay.AddRange(posWeekDays);
-            Context.Entry(entity).State = EntityState.Modified;
+            //Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 
@@ -200,7 +200,7 @@ namespace LibraBll.Repositories
             if (entity != null)
                 entity.IsDeleted = true;
 
-            Context.Entry(entity).State = EntityState.Modified;
+            //Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
 

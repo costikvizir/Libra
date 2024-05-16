@@ -1,34 +1,34 @@
 ﻿using Libra.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Libra.Dal.Configurations
 {
-	public sealed class PosWeekDayConfiguration : IEntityTypeConfiguration<PosWeekDay>
+	public class PosWeekDayConfiguration : EntityTypeConfiguration<PosWeekDay>
 	{
-		public void Configure(EntityTypeBuilder<PosWeekDay> builder)
-		{
-			//builder.HasKey(e => e.Id);
+        public PosWeekDayConfiguration()
+        {
+            // Define composite primary key
+            this.HasKey(e => new { e.PosId, e.WeekDayId });
 
-			builder.HasOne(e => e.Pos)
-				.WithMany(e => e.PosWeekDays)
-				.HasForeignKey(e => e.PosId)
-				.IsRequired();
+            // Define relationship with Pos
+            this.HasRequired(e => e.Pos)
+                .WithMany(e => e.PosWeekDays)
+                .HasForeignKey(e => e.PosId);
 
-			builder.HasOne(e => e.DayOfWeek)
-				.WithMany(e => e.PosWeekDays)
-				.HasForeignKey(e => e.WeekDayId)
-				.IsRequired();
+            // Define relationship with DayOfWeek
+            this.HasRequired(e => e.DayOfWeek)
+                .WithMany(e => e.PosWeekDays)
+                .HasForeignKey(e => e.WeekDayId);
 
-			builder.Property(p => p.PosId).ValueGeneratedNever();
-			builder.Property(p => p.WeekDayId).ValueGeneratedNever();
-
-			builder.HasKey(e => new { e.PosId, e.WeekDayId });
-		}
-	}
+            // Configure properties PosId and WeekDayId
+            this.Property(p => p.PosId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            this.Property(p => p.WeekDayId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+        }
+    }
 }

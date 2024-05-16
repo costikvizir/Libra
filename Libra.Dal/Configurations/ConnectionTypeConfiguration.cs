@@ -1,7 +1,7 @@
 ﻿using Libra.Dal.Context;
 using Libra.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +11,22 @@ using System.Threading.Tasks;
 
 namespace Libra.Dal.Configurations
 {
-	public sealed class ConnectionTypeConfiguration : IEntityTypeConfiguration<ConnectionType>
+	public sealed class ConnectionTypeConfiguration : EntityTypeConfiguration<ConnectionType>
 	{
-		public void Configure(EntityTypeBuilder<ConnectionType> builder)
-		{
-			builder.HasKey(e => e.Id);
+        public ConnectionTypeConfiguration()
+        {
+            // Define primary key
+            this.HasKey(e => e.Id);
 
-			builder.HasMany(e => e.PosList)
-			   .WithOne(e => e.ConnectionType)
-			   .HasForeignKey(e => e.ConnectionTypeId)
-			   .IsRequired();
+            // Define relationship with PosList
+            this.HasMany(e => e.PosList)
+                .WithRequired(e => e.ConnectionType)
+                .HasForeignKey(e => e.ConnectionTypeId)
+                .WillCascadeOnDelete(false); // Specify whether cascading delete is enabled
 
-			builder.HasData(SeedData.ConnectionTypesSeed);
-		}
-	}
+            // Seed data (if needed)
+            // Note: EF6 does not have a built-in seeding mechanism like EF Core, you may need to handle seeding separately
+        }
+        //TODO: data seed connection types
+    }
 }

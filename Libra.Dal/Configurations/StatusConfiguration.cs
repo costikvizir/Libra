@@ -1,27 +1,26 @@
 ﻿using Libra.Dal.Context;
 using Libra.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Libra.Dal.Configurations
 {
-	public sealed class StatusConfiguration : IEntityTypeConfiguration<Status>
+	public class StatusConfiguration : EntityTypeConfiguration<Status>
 	{
-		public void Configure(EntityTypeBuilder<Status> builder)
+		public StatusConfiguration() 
 		{
-			builder.HasKey(e => e.Id);
+            this.HasKey(e => e.Id);
 
-			   builder.HasMany(e => e.Issues)
-			   .WithOne(e => e.Status)
-			   .HasForeignKey(e => e.StatusId)
-			   .IsRequired();
-
-			builder.HasData(SeedData.statusesSeed);
-		}
-	}
+            // Define relationship with Issues
+            this.HasMany(e => e.Issues)
+                .WithRequired(e => e.Status)
+                .HasForeignKey(e => e.StatusId)
+                .WillCascadeOnDelete(false);
+        }
+        //TODO: data seed statuses
+    }
 }

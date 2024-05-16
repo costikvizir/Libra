@@ -17,7 +17,7 @@ namespace LibraBll.Common
         {
 			//_context = context ?? throw new ArgumentNullException(nameof(context));
 			_context = new LibraContext();
-		    _logger = Log.ForContext<BaseRepository>();
+		   // _logger = Log.ForContext<BaseRepository>();
 			//_logger = new LoggerConfiguration().WriteTo.Console();
 
         }

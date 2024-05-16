@@ -1,6 +1,6 @@
 ﻿@{
 	ViewBag.Title = "All Pos";
-	 Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 	//Layout = null;
 }
 <link href="~/Content/Site.css" rel="stylesheet" />
@@ -38,125 +38,127 @@
 
 
 
-
-    <script>
-			$(document).ready(function () {
-		debugger;
-        var table = $('#posList').DataTable({
-            select: 'single',
-            processing: true,
-            select: true,
-            serverSide: true,
-            ajax: {
-                url: "/Pos/GetAllPosJson",
-                type: "POST",
-                dataType: "json",
-                dataSrc: "data",
-            },
-            columns: [
-                { title: "Name", data: "Name", name: "name", autoWidth: true, searchable: true },
-                { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true },
-                { title: "Cellphone", data: "Cellphone", name: "cellphone", autoWidth: true, searchable: true },
-                { title: "Brand", data: "Brand", name: "brand", autoWidth: true, searchable: true },
-                { title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
-                { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
-            ]
-        });
-
-		// Disable and enable buttons based on row selection
-		$('#posList tbody').on('click', 'tr', function () {
-			if ($(this).hasClass('selected')) {
-				$(this).removeClass('selected');
-				$('#detailsButton, #editButton, #deleteButton').prop('disabled', true);  // Disable buttons
-			}
-			else {
-				table.$('tr.selected').removeClass('selected');
-				$(this).addClass('selected');
-				$('#detailsButton, #editButton, #deleteButton').prop('disabled', false);  // Enable buttons
-			}
-		});
-
-		// Initially disable the buttons
-		$('#detailsButton, #editButton, #deleteButton').prop('disabled', true);
-
-		$('#deleteButton').on('click', function () {
-			var data = table.row('.selected').data();
-			if (data) {
-				$('#deleteItemName').text(data.Name);
-				$('#deleteButton').data('posid', data.PosId);
-			}
-		});
-
-		// retrieve the PosId from the button data attribute and send it to the server
-		// sets the id in the url and sends it to the server
-		$('.btn-outline-danger').on('click', function () {
+@section scripts{
+	<script>
+		$(document).ready(function () {
 			debugger;
-			var posId = $('#deleteButton').data('posid');
-			console.log('Selected row data:', data);
-			$.ajax({
-				url: '/Pos/DeletePos/' + posId,
-				type: 'POST',
-				data: { id: posId },
-				success: function (data) {
-					table.row('.selected').remove().draw(false);
-					$('#deleteModal').modal('hide');
+			var table = $('#posList').DataTable({
+				select: 'single',
+				processing: true,
+				select: true,
+				serverSide: true,
+				ajax: {
+					url: "/Pos/GetAllPosJson",
+					type: "POST",
+					dataType: "json",
+					dataSrc: "data",
 				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					alert('Error: ' + errorThrown);
+				columns: [
+					{ title: "Name", data: "Name", name: "name", autoWidth: true, searchable: true },
+					{ title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true },
+					{ title: "Cellphone", data: "Cellphone", name: "cellphone", autoWidth: true, searchable: true },
+					{ title: "Brand", data: "Brand", name: "brand", autoWidth: true, searchable: true },
+					{ title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
+					{ title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
+				]
+			});
+
+			// Disable and enable buttons based on row selection
+			$('#posList tbody').on('click', 'tr', function () {
+				if ($(this).hasClass('selected')) {
+					$(this).removeClass('selected');
+					$('#detailsButton, #editButton, #deleteButton').prop('disabled', true);  // Disable buttons
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+					$('#detailsButton, #editButton, #deleteButton').prop('disabled', false);  // Enable buttons
 				}
 			});
+
+			// Initially disable the buttons
+			$('#detailsButton, #editButton, #deleteButton').prop('disabled', true);
+
+			$('#deleteButton').on('click', function () {
+				var data = table.row('.selected').data();
+				if (data) {
+					$('#deleteItemName').text(data.Name);
+					$('#deleteButton').data('posid', data.PosId);
+				}
+			});
+
+			// retrieve the PosId from the button data attribute and send it to the server
+			// sets the id in the url and sends it to the server
+			$('.btn-outline-danger').on('click', function () {
+				debugger;
+				var posId = $('#deleteButton').data('posid');
+				console.log('Selected row data:', data);
+				$.ajax({
+					url: '/Pos/DeletePos/' + posId,
+					type: 'POST',
+					data: { id: posId },
+					success: function (data) {
+						table.row('.selected').remove().draw(false);
+						$('#deleteModal').modal('hide');
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert('Error: ' + errorThrown);
+					}
+				});
+			});
+
+			// Add button click event redirect to AddPos page
+			$('#addButton').click(function () {
+				window.location.href = '/Pos/AddPos';
+			});
+
+			// Edit button click event redirect to UpdatePos page
+			$('#editButton').click(function () {
+				debugger;
+				var data = table.row('.selected').data();
+				if (data) {
+					var url = '/Pos/UpdatePos?' + $.param({ id: data.PosId });
+					window.location.href = url;
+				} else {
+					alert('Please select a row');
+				}
+			});
+
+			$('#detailsButton').click(function () {
+				debugger;
+				var data = table.row('.selected').data();
+				if (data) {
+					var url = '/Pos/GetPosById?' + $.param({ id: data.PosId });
+					window.location.href = url;
+				} else {
+					alert('Please select a row');
+				}
+			});
+
+
+			// Passs user data to the modal
+			$('#detailsButton').click(function () {
+				debugger;
+				console.log('detailsButton clicked');
+
+				var data = table.row('.selected').data();
+				console.log('Selected row data:', data);
+
+				$.ajax({
+					url: "@Url.Action("GetPosById", "Pos")",
+					data: {
+						Id: data.PosId
+					},
+					method: "GET",
+					success: function (response) {
+						console.log('AJAX request successful, response:', response);
+						window.location.href = '/Pos/PosDetails?' + $.param({ id: data.PosId });
+					}
+				});
+			})
 		});
-
-		// Add button click event redirect to AddPos page
-		$('#addButton').click(function () {
-			window.location.href = '/Pos/AddPos';
-		});
-
-		// Edit button click event redirect to UpdatePos page
-		$('#editButton').click(function () {
-			debugger;
-			var data = table.row('.selected').data();
-			if (data) {
-				var url = '/Pos/UpdatePos?' + $.param({ id: data.PosId });
-				window.location.href = url;
-			} else {
-				alert('Please select a row');
-			}
-		});
-
-		$('#detailsButton').click(function () {
-			debugger;
-			var data = table.row('.selected').data();
-			if (data) {
-				var url = '/Pos/GetPosById?' + $.param({ id: data.PosId });
-				window.location.href = url;
-			} else {
-				alert('Please select a row');
-			}
-		});
-
-
-		// Passs user data to the modal
-		$('#detailsButton').click(function () {
-		debugger;
-		console.log('detailsButton clicked');
-
-		var data = table.row('.selected').data();
-		console.log('Selected row data:', data);
-
-		$.ajax({
-			url: "@Url.Action("GetPosById", "Pos")",
-			data: {
-				Id: data.PosId
-			},
-			method: "GET",
-			success: function (response) {
-				console.log('AJAX request successful, response:', response);
-                window.location.href = '/Pos/PosDetails?' + $.param({ id: data.PosId });
-			}
-		})
-		});
-    </script>
+	</script>
+}
 
 
 

@@ -59,7 +59,7 @@ namespace LibraWebApp.Controllers
             //if (!allPos.Any())
             //    return null;
 
-            return PartialView();
+            return View();
         }
 
         [HttpPost]
@@ -170,7 +170,7 @@ namespace LibraWebApp.Controllers
                 AfternoonClosing = posGet.AfternoonProgram.Split('-')[1].Trim()
             };
 
-            return PartialView("EditPos", pos);
+            return View("EditPos", pos);
         }
 
         [HttpPost]

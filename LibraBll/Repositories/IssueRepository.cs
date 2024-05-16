@@ -4,9 +4,9 @@ using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
 using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Issue;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +30,7 @@ namespace LibraBll.Repositories
 				InsertDate = DateTime.Now
 			};
 
-			await Context.IssueTypes.AddAsync(issueType);
+			Context.IssueTypes.Add(issueType);
 			await Context.SaveChangesAsync();
 
 			int typeId = Context.IssueTypes.Where(t => t.Name == issuePost.Type).Select(t => t.Id).FirstOrDefault();

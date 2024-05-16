@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,6 +41,12 @@
     <Reference Include="Azure.Identity, Version=1.10.4.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.10.4\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -49,21 +55,6 @@
     </Reference>
     <Reference Include="Microsoft.Data.SqlClient, Version=5.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.SqlClient.5.1.3\lib\net462\Microsoft.Data.SqlClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Design, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.SqlServer, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.SqlServer.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
@@ -227,6 +218,7 @@
     <Compile Include="Configurations\PosWeekDayConfiguration.cs" />
     <Compile Include="Configurations\WeekDayConfiguration.cs" />
     <Compile Include="Context\LibraContext.cs" />
+    <Compile Include="Context\LibraDbInitializer.cs" />
     <Compile Include="Context\SeedData.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\ConnectionType.cs" />
@@ -239,46 +231,18 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
     <Compile Include="Entities\WeekDay.cs" />
-    <Compile Include="Migrations\20231212083434_First_Migration.cs" />
-    <Compile Include="Migrations\20231212083434_First_Migration.designer.cs">
-      <DependentUpon>20231212083434_First_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\202405161215373_First_Migration.cs" />
+    <Compile Include="Migrations\202405161215373_First_Migration.Designer.cs">
+      <DependentUpon>202405161215373_First_Migration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20231212104501_issue_UserType_Foreign_Key_Set.cs" />
-    <Compile Include="Migrations\20231212104501_issue_UserType_Foreign_Key_Set.designer.cs">
-      <DependentUpon>20231212104501_issue_UserType_Foreign_Key_Set.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240305111152_AddedSeedAndChangedUserTableFields.cs" />
-    <Compile Include="Migrations\20240305111152_AddedSeedAndChangedUserTableFields.designer.cs">
-      <DependentUpon>20240305111152_AddedSeedAndChangedUserTableFields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240326091321_removed_fields.cs" />
-    <Compile Include="Migrations\20240326091321_removed_fields.Designer.cs">
-      <DependentUpon>20240326091321_removed_fields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240326091539_Morning_Afternoon_Hours_Added.cs" />
-    <Compile Include="Migrations\20240326091539_Morning_Afternoon_Hours_Added.Designer.cs">
-      <DependentUpon>20240326091539_Morning_Afternoon_Hours_Added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240327134355_WeekDays_Table_Added_Statuses_DataSeed.cs" />
-    <Compile Include="Migrations\20240327134355_WeekDays_Table_Added_Statuses_DataSeed.Designer.cs">
-      <DependentUpon>20240327134355_WeekDays_Table_Added_Statuses_DataSeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240329072745_WeekDays_data_seed.cs" />
-    <Compile Include="Migrations\20240329072745_WeekDays_data_seed.Designer.cs">
-      <DependentUpon>20240329072745_WeekDays_data_seed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.cs" />
-    <Compile Include="Migrations\20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.Designer.cs">
-      <DependentUpon>20240410080056_ModificationDate-nullable-isDeleted-Pos-Issue.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20240415134726_Pos-program-updated-to-string.cs" />
-    <Compile Include="Migrations\20240415134726_Pos-program-updated-to-string.Designer.cs">
-      <DependentUpon>20240415134726_Pos-program-updated-to-string.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\LibraContextModelSnapshot.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202405161215373_First_Migration.resx">
+      <DependentUpon>202405161215373_First_Migration.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -288,8 +252,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
 </Project>

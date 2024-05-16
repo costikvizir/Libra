@@ -1,6 +1,5 @@
 ﻿using Libra.Dal.Configurations;
 using Libra.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using System;
 using System.Collections.Generic;
@@ -8,25 +7,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Libra.Dal.Context
 {
 	public class LibraContext : DbContext
 	{
-        //string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;TrustServerCertificate=true;";
-		//<add name="DefaultConnection" connectionString="Data Source=CEDINTL925\MSSQLSERVERSC;Initial Catalog=MVC_DB;Integrated Security=True" providerName="System.Data.SqlClient" />
-		string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-		//string connectionString = "Data Source=CEDINTL925\\MSSQLSERVERSC;Initial Catalog=LibraDb;Integrated Security=True;TrustServerCertificate=true;";
-		//string mystring = "123";
-
-		//public LibraContext(DbContextOptions<LibraContext> options) : base(options)
-		//{
-		//}
-
-		//public LibraContext() : base("DefaultConnection")
-		//{
-
-		//}
+		public LibraContext() : base("DefaultConnection")
+		{
+			Database.SetInitializer(new LibraDbInitializer());
+        }
 
 		public DbSet<City> Cities { get; set; }
 		public DbSet<ConnectionType> ConnectionType { get; set; }
@@ -40,34 +30,34 @@ namespace Libra.Dal.Context
 		public DbSet<PosWeekDay> PosWeekDay { get; set; }
 		public DbSet<WeekDay> WeekDays { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			base.OnConfiguring(optionsBuilder);
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		//{
+		//	base.OnConfiguring(optionsBuilder);
 
-			optionsBuilder.UseSqlServer(connectionString);
-			//optionsBuilder.UseSqlServer("DefaultConnection");
-			optionsBuilder.EnableSensitiveDataLogging();
+		//	optionsBuilder.UseSqlServer(connectionString);
+		//	//optionsBuilder.UseSqlServer("DefaultConnection");
+		//	optionsBuilder.EnableSensitiveDataLogging();
 
-		}
+		//}
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.ApplyConfiguration(new CityConfiguration());
-			modelBuilder.ApplyConfiguration(new ConnectionTypeConfiguration());
-			modelBuilder.ApplyConfiguration(new IssueConfiguration());
-			modelBuilder.ApplyConfiguration(new IssueTypeConfiguration());
-			modelBuilder.ApplyConfiguration(new LogConfiguration());
-			modelBuilder.ApplyConfiguration(new PosConfiguration());
-			modelBuilder.ApplyConfiguration(new StatusConfiguration());
-			modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
-			modelBuilder.ApplyConfiguration(new UserConfiguration());
-			modelBuilder.ApplyConfiguration(new PosWeekDayConfiguration());
-			modelBuilder.ApplyConfiguration(new WeekDayConfiguration());
+			modelBuilder.Configurations.Add(new CityConfiguration());
+			modelBuilder.Configurations.Add(new ConnectionTypeConfiguration());
+			modelBuilder.Configurations.Add(new IssueConfiguration());
+			modelBuilder.Configurations.Add(new IssueTypeConfiguration());
+			modelBuilder.Configurations.Add(new LogConfiguration());
+			modelBuilder.Configurations.Add(new PosConfiguration());
+			modelBuilder.Configurations.Add(new StatusConfiguration());
+			modelBuilder.Configurations.Add(new UserTypeConfiguration());
+			modelBuilder.Configurations.Add(new UserConfiguration());
+			modelBuilder.Configurations.Add(new PosWeekDayConfiguration());
+			modelBuilder.Configurations.Add(new WeekDayConfiguration());
 
 
-			//modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+			//modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
 }
