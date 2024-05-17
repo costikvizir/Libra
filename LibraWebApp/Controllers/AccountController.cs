@@ -52,7 +52,7 @@ namespace LibraWebApp.Controllers
 
                 using ((System.IDisposable)_userRepository)
                 {
-                    var user = await _userRepository.GetUserAuth(model.UserName, model.Password);
+                    var user =  _userRepository.GetUserAuth(model.UserName, model.Password);
                     if (user is null)
                     {
                         //ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");

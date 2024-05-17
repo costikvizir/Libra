@@ -24,8 +24,6 @@ namespace LibraWebApp.Controllers
         }
 
         //TODO: Put all modal windows in separate files
-        //TODO: slight blue color: #D9EDF7, rgb(217, 237, 247)
-        //TODO: dark blue color: #3276B1, rgb(50, 118, 177)
 
         [HttpGet]
         public ActionResult Index()
@@ -54,7 +52,8 @@ namespace LibraWebApp.Controllers
         {
             parameters = parameters ?? new DataTablesParameters();
 
-            var users = await _userRepository.GetAllUsers(parameters, CancellationToken.None);
+            var users = await _userRepository.GetAllUsers(parameters);
+
             return Json(new
             {
                 draw = parameters.Draw,
@@ -64,8 +63,6 @@ namespace LibraWebApp.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //TODO: solve for CancellationToken.None
-        //TODO: button hover color: #90CAF9, rgb(144, 202, 249)
 
         [HttpGet]
         public ActionResult AddUser()

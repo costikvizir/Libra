@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
+using System.Data;
 
 namespace LibraBll.Repositories
 {
@@ -61,7 +62,7 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        public async Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters, CancellationToken cancellationToken)
+        public async Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
         {
             List<GetUserDTO> userList = null;
             try
@@ -148,14 +149,47 @@ namespace LibraBll.Repositories
             Context.SaveChanges();
         }
 
-        public async Task<LoginUserDTO> GetUserAuth(string name, string password)
+        //public async Task<LoginUserDTO> GetUserAuth(string name, string password)
+        //{
+        //    User entity = null;
+        //    try
+        //    {
+        //        entity = await Context.Users
+        //                   .Include(x => x.UserType)
+        //                   .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+
+        //    if (entity != null)
+        //    {
+        //        var user = new LoginUserDTO()
+        //        {
+        //            UserName = entity.Name,
+        //            Email = entity.Email,
+        //            Password = entity.Password,
+        //            Login = entity.Login,
+        //            Role = entity.UserType.Role
+        //        };
+        //        return user;
+        //    }
+
+        //    return null;
+        //}
+
+        public  LoginUserDTO GetUserAuth(string name, string password)
         {
             User entity = null;
             try
             {
-                entity = await Context.Users
+                entity =    Context.Users
                            .Include(x => x.UserType)
-                           .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
+                           .FirstOrDefault(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
+
+                //entity.UserType = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role.ToString();
+               // var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
+                //var role = userRole.Role.ToString();
             }
             catch (Exception ex)
             {
@@ -163,13 +197,14 @@ namespace LibraBll.Repositories
 
             if (entity != null)
             {
+                var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
                 var user = new LoginUserDTO()
                 {
                     UserName = entity.Name,
                     Email = entity.Email,
                     Password = entity.Password,
                     Login = entity.Login,
-                    Role = entity.UserType.Role
+                    Role = userRole.Role.ToString()
                 };
                 return user;
             }

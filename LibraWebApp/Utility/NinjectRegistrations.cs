@@ -16,9 +16,9 @@ namespace LibraWebApp.Utility
             Bind<IPosRepository>().To<PosRepository>().InRequestScope();
             Bind<IIssueRepository>().To<IssueRepository>().InRequestScope();
 
-            // bind DbContext
+
             Bind<LibraContext>().ToSelf().InSingletonScope();
-            // make a list of all validators in the assembly
+ 
             //var validatorsList = AssemblyScanner.FindValidatorsInAssemblyContaining<CreateUserModel>();
             var validatorsUserList = AssemblyScanner.FindValidatorsInAssemblyContaining<AddUserDTO>();
             //var validatorsPosList = AssemblyScanner.FindValidatorsInAssemblyContaining<PosDTO>();

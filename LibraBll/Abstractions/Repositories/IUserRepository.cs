@@ -13,11 +13,12 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<GetUserDTO> GetUserByNameAsync(string name);
 
-        Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters, CancellationToken cancellationToken);
+        Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters);
 
         Task<AddUserDTO> CreateUser(AddUserDTO userPost);
 
-        Task<LoginUserDTO> GetUserAuth(string name, string password);
+       // Task<LoginUserDTO> GetUserAuth(string name, string password);
+        LoginUserDTO GetUserAuth(string name, string password);
 
         void UpdateUser(ModifyUserDTO userPost);
 
