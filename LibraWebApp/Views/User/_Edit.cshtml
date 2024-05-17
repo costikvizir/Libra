@@ -11,7 +11,7 @@
 }
 
 @*@using (Html.BeginForm("UpdateUser", "User", FormMethod.Post, new { id = "UpdateUserForm" }))*@
-@using (Ajax.BeginForm("UpdateUser", "User", new AjaxOptions { UpdateTargetId = "Paceholder to message", HttpMethod = "Post", OnSuccess = "CloseWindow()" }, new { id = "editForm", @class = "form-horizontal" }))
+@using (Ajax.BeginForm("UpdateUser", "User", new AjaxOptions { UpdateTargetId = "Paceholder to message", HttpMethod = "Post"}, new { id = "editForm", @class = "form-horizontal" }))
 {
 	<div class="modal-header">
 		<h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
@@ -61,3 +61,29 @@
 		@*<button type="submit" id="saveChanges" class="btn btn-outline-warning" onclick="goToAllUsers()">Modify</button>*@
 	</div>
 }
+
+
+	<script>
+		$(document).ready(function () {
+			$('#editForm').on('submit', function (event) {
+				event.preventDefault(); // Prevent the default form submission
+
+				// Perform your AJAX request here
+				$.ajax({
+					url: '/User/UpdateUser', // Replace with your API endpoint
+					type: 'POST',
+					data: $(this).serialize(), // Serialize the form data
+					success: function (response) {
+						// Handle success response
+						console.log('Form submitted successfully');
+						$('#main-modal').modal('hide'); // Close the modal
+						$('#usersList').DataTable().ajax.reload();
+					},
+					error: function (xhr, status, error) {
+						// Handle error response
+						console.error('Form submission failed:', error);
+					}
+				});
+			});
+		});
+	</script>	
