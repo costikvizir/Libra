@@ -129,10 +129,18 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> OpenIssue(IssueDTO issue)
         {
-            await _issueRepository.AddIssue(issue);
-            //return null;
-           // return Json(new { success = true, message = "Successfully saved" });
-            return RedirectToAction("Index");
+
+
+            if (ModelState.IsValid)
+            {
+                await _issueRepository.AddIssue(issue);
+                //return null;
+                //return Json(new { success = true, message = "Successfully saved" });
+                return RedirectToAction("AllIssues");
+            }
+
+            // If not valid, return the same view to display validation errors
+            return View("OpenIssue", issue);
         }
 
         [HttpPost]

@@ -112,6 +112,8 @@ $(document).on('click', '#openIssue', function () {
 });
 
 function handleIssueAddSuccess() {
+    debugger;
+    initializePosListForIssue();
     alert('Issue added successfully');
 }
 document.getElementById('buttonWrapper').addEventListener('click', function () {

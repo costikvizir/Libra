@@ -85,5 +85,20 @@
 
 		// Handle browser navigation (back/forward)
 		window.addEventListener('popstate', handleRouteChange);
+
+		async function fetchDataAndNavigate() {
+			try {
+				const response = await fetch('/some-api-endpoint');
+				const data = await response.json();
+				if (data.condition) {
+					navigate('/new-route-based-on-condition');
+				}
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		}
+
+		document.querySelector('#fetchDataButton').addEventListener('click', fetchDataAndNavigate);
+
 	</script>
 }
