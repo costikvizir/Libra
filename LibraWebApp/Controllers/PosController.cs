@@ -189,8 +189,8 @@ namespace LibraWebApp.Controllers
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
             //return PartialView("EditPos");
-            //return RedirectToAction("GetAllPos");
-            return Json(new { success = true, message = "Successfully edited" });
+            return RedirectToAction("GetAllPos");
+            //return Json(new { success = true, message = "Successfully edited" });
         }
 
         [HttpPost]

@@ -7,7 +7,7 @@
 
 @model LibraBll.DTOs.Pos.PosEditDTO
 
-@using (Ajax.BeginForm("UpdatePos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handlePosEditSuccess" }))
+@using (Ajax.BeginForm("UpdatePos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer" }, new { id = "updatePosForm" }))
 {
     @Html.HiddenFor(model => model.Id)
     <div class="card mb-0">
@@ -153,6 +153,7 @@
     </div>
 
     <div class="d-flex justify-content-start">
+        @*<button type="submit" class="btn btn-primary mr-2">Update POS</button>*@
         <button type="submit" class="btn btn-primary mr-2">Update POS</button>
         <button type="reset" class="btn btn-dark mr-2">Cancel</button>
     </div>
@@ -164,9 +165,56 @@
     <script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
 
     <script>
-        function handlePosEditSuccess() {
-            alert('Pos Edited Successfully!');
-        }
+        //function handlePosEditSuccess() {
+        //    debugger;
+        //    $('#posList').DataTable().ajax.reload();
+        //    alert('Pos Edited Successfully!');
+        //}
+
+        $(document).ready(function () {
+            debugger;
+            initializePosList();
+
+            $('#updatePosForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                $.ajax({
+                    url: $(this).attr('action'), // Form action URL
+                    type: $(this).attr('method'), // Form method (POST)
+                    data: $(this).serialize(), // Serialize the form data
+                    success: function (response) {
+                        console.log('Form submitted successfully');
+                        alert('Pos Edited Successfully!');
+                        $('#mainContainer').html(response); // Update the target container
+                        initializePosList(); // Re-initialize the DataTable
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Form submission failed:', error); // Log error
+                    }
+                });
+            });
+        });
+
+        function initializePosList() {
+            console.log("Initialize Pos List Datatable");
+            var table = $('#posList').DataTable({
+                select: 'single',
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "/Pos/GetAllPosJson",
+                    type: "POST",
+                    dataType: "json",
+                    dataSrc: "data",
+                },
+                columns: [
+                    { title: "Name", data: "Name", name: "name", autoWidth: true, searchable: true },
+                    { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true },
+                    { title: "Cellphone", data: "Cellphone", name: "cellphone", autoWidth: true, searchable: true },
+                    { title: "Brand", data: "Brand", name: "brand", autoWidth: true, searchable: true },
+                    { title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
+                    { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
+                ]
+            });
     </script>
 }
-

@@ -1,4 +1,27 @@
 ﻿
+$(document).ready(function () {
+    initializePosList();
+
+    $('#updatePosForm').on('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        $.ajax({
+            url: $(this).attr('action'), // Form action URL
+            type: $(this).attr('method'), // Form method (POST)
+            data: $(this).serialize(), // Serialize the form data
+            success: function (response) {
+                console.log('Form submitted successfully');
+                alert('Pos Edited Successfully!');
+                $('#mainContainer').html(response); // Update the target container
+                initializePosList(); // Re-initialize the DataTable
+            },
+            error: function (xhr, status, error) {
+                console.error('Form submission failed:', error); // Log error
+            }
+        });
+    });
+});
+
 function initializePosList() {
     console.log("Initialize Pos List Datatable");
     debugger;
@@ -120,6 +143,11 @@ function initializePosList() {
         }
     });
 
+    function handlePosEditSuccess() {
+        debugger;
+        $('#posList').DataTable().ajax.reload();
+        alert('Pos Edited Successfully!');
+    }
 
     // Warning message if no row is selected
     document.getElementById('buttonWrapper').addEventListener('click', function () {

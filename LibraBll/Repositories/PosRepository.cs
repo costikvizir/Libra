@@ -26,6 +26,7 @@ namespace LibraBll.Repositories
                     .Include(p => p.ConnectionType)
                     .Include(p => p.Issues)
                     .Include(p => p.PosWeekDays)
+                    .Where(p => p.IsDeleted == false)
                     .Select(p => new PosGetDTO
                     {
                         PosId = p.Id,
@@ -200,8 +201,15 @@ namespace LibraBll.Repositories
             if (entity != null)
                 entity.IsDeleted = true;
 
-            Context.Entry(entity).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
+            try
+            {
+                Context.Entry(entity).State = EntityState.Modified;
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public List<CityDTO> GetCityList()
