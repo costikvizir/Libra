@@ -12,8 +12,7 @@ namespace LibraBll.DTOs.Pos
         public string Address { get; set; }
 
         //FullAddress contains City and Pos Address
-        public string FullAddress { get; set; }
-
+        //public string FullAddress { get; set; }
         public string Model { get; set; }
         public string Brand { get; set; }
         public string Status { get; set; }

@@ -9,8 +9,8 @@
 		},
 		method: "GET",
 		success: function (response) {
-			$("#mainContainer").html(null);
-			$("#mainContainer").html(response);
+			$("#mainDiv").html(null);
+			$("#mainDiv").html(response);
 		},
 	});
 }

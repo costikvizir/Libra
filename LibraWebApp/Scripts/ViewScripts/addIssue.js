@@ -73,8 +73,8 @@ function goToAddIssue() {
         },
         method: "GET",
         success: function (response) {
-            $("#mainContainer").html(null);
-            $("#mainContainer").html(response);
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
             initializePosListForIssue();
         },
     });
@@ -93,8 +93,8 @@ function goToOpenIssue(posId) {
         },
         method: "GET",
         success: function (response) {
-            $("#mainContainer").html(null);
-            $("#mainContainer").html(response);
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
         },
     });
 }

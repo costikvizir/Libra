@@ -42,7 +42,7 @@ namespace LibraBll.Repositories
                         Name = p.Name,
                         Telephone = p.Telephone,
                         Cellphone = p.Cellphone,
-                        FullAddress = string.Join(", ", p.City.CityName, p.Address),
+                        //FullAddress = string.Join(", ", p.City.CityName, p.Address),
                         City = p.City.CityName,
                         Address = p.Address,
                         Model = p.Model,

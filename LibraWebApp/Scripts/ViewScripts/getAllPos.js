@@ -169,8 +169,8 @@ function goToAllPos() {
         },
         method: "GET",
         success: function (response) {
-            $("#mainContainer").html(null);
-            $("#mainContainer").html(response);
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
             initializePosList();
         },
     });
@@ -187,8 +187,8 @@ function goToPosDetails(posId) {
         },
         method: "GET",
         success: function (response) {
-            $("#mainContainer").html(null);
-            $("#mainContainer").html(response);
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
             initializePosIssuesList(posId);
         },
     });
@@ -205,8 +205,8 @@ function goToPosEdit(posId) {
         },
         method: "GET",
         success: function (response) {
-            $("#mainContainer").html(null);
-            $("#mainContainer").html(response);
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
         },
     });
 }
