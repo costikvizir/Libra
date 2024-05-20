@@ -1,10 +1,10 @@
 ﻿@model LibraBll.DTOs.Issue.IssueDTO
 @{
-	Layout = null;
-	if (Model != null)
-	{
-		Model.UserCreated = User.Identity.Name;
-	}
+    Layout = null;
+    if (Model != null)
+    {
+        Model.UserCreated = User.Identity.Name;
+    }
 }
 
 <link href="~/Content/card-style.css" rel="stylesheet" />
@@ -14,33 +14,33 @@
 @*@model LibraBll.DTOs.Pos.PosGetDTO*@
 
 <style>
-	.table thead th {
-		background-color: #a6c5e4;
-	}
+    .table thead th {
+        background-color: #a6c5e4;
+    }
 
-	.col1 {
-		width: 10%;
-	}
+    .col1 {
+        width: 10%;
+    }
 
-	.col2 {
-		width: 17%;
-	}
+    .col2 {
+        width: 17%;
+    }
 
-	.col3 {
-		width: 17%;
-	}
+    .col3 {
+        width: 17%;
+    }
 
-	.col4 {
-		width: 17%;
-	}
+    .col4 {
+        width: 17%;
+    }
 
-	.col5 {
-		width: 17%;
-	}
+    .col5 {
+        width: 17%;
+    }
 
-	.col6 {
-		width: 22%;
-	}
+    .col6 {
+        width: 22%;
+    }
 </style>
 
 @*@using (Html.BeginForm("AddIssue", "Issue", FormMethod.Post, new { id = "OpenIssueForm" }))*@
@@ -93,28 +93,23 @@
                     <div class="col-md-2">
                         <label for="inputState" class="form-label">Issue Type</label>
                         @Html.DropDownListFor(model => model.Type, new SelectList(new[] { "Technical Issue", "Software Issue", "Undefined" }), "select", new { @class = "form-select", id = "inputStatus" })
-
                     </div>
                     <div class="col-md-2">
                         <label for="inputState" class="form-label">Subclass</label>
                         @Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "subclass1", "subclass2", "Undefined" }), "select", new { @class = "form-select", id = "inputStatus" })
-
                     </div>
 
                     <div class="col-md-2">
                         <label for="inputState" class="form-label">Problem</label>
                         @Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "problem1", "problem2s", "Undefined" }), "select", new { @class = "form-select", id = "inputStatus" })
-
                     </div>
                     <div class="col-md-2">
                         <label for="inputState" class="form-label">Priority</label>
                         @Html.DropDownListFor(model => model.Priority, new SelectList(new[] { "High", "Medium", "Low" }), "select", new { @class = "form-select", id = "inputStatus" })
-
                     </div>
                     <div class="col-md-3">
                         <label for="inputState" class="form-label">Status</label>
                         @Html.DropDownListFor(model => model.Status, new SelectList(new[] { "Assigned", "In progress", "Pending" }), "New", new { @class = "form-select", id = "inputStatus" })
-
                     </div>
                 </div>
                 <div class="row">
@@ -148,17 +143,16 @@
         </div>
     </div>
 
-	<div class="d-flex justify-content-start">
-		<button type="submit" class="btn btn-primary mr-2">Open Issue</button>
-		<button type="reset" class="btn btn-dark" onclick="resetForm()">Cancel</button>
-	</div>
+    <div class="d-flex justify-content-start">
+        <button type="submit" class="btn btn-primary mr-2">Open Issue</button>
+        <button type="reset" class="btn btn-dark" onclick="resetForm()">Cancel</button>
+    </div>
 }
 
 <script>
-	function handleIssueOpenSuccess() {
-		alert('Issue Added Successfully!');
-	}
+    function handleIssueOpenSuccess() {
+        alert('Issue Added Successfully!');
+    }
 
-	//onclick = "goToOpenIssue()"
+    //onclick = "goToOpenIssue()"
 </script>
-

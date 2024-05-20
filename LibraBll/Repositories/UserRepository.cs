@@ -19,11 +19,10 @@ namespace LibraBll.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        
         public UserRepository(LibraContext context) : base(context)
         {
         }
-        
+
         public async Task<GetUserDTO> GetUserByIdAsync(int id)
         {
             User entity = await Context.Users.FindAsync(id);
@@ -98,7 +97,7 @@ namespace LibraBll.Repositories
             List<GetUserDTO> userList = null;
             try
             {
-                var userList1 =  Context.Users.ToList();
+                var userList1 = Context.Users.ToList();
                 userList = await Context.Users
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.UserType)
@@ -210,17 +209,17 @@ namespace LibraBll.Repositories
         //    return null;
         //}
 
-        public  LoginUserDTO GetUserAuth(string name, string password)
+        public LoginUserDTO GetUserAuth(string name, string password)
         {
             User entity = null;
             try
             {
-                entity =    Context.Users
+                entity = Context.Users
                            .Include(x => x.UserType)
                            .FirstOrDefault(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
 
                 //entity.UserType = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role.ToString();
-               // var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
+                // var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
                 //var role = userRole.Role.ToString();
             }
             catch (Exception ex)
@@ -256,6 +255,5 @@ namespace LibraBll.Repositories
 
             return roles;
         }
-
     }
 }

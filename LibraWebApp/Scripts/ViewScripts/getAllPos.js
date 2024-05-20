@@ -1,5 +1,4 @@
-﻿
-function initializePosList() {
+﻿function initializePosList() {
     console.log("Initialize Pos List Datatable");
     debugger;
     var table = $('#posList').DataTable({
@@ -18,8 +17,10 @@ function initializePosList() {
             { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true },
             { title: "Cellphone", data: "Cellphone", name: "cellphone", autoWidth: true, searchable: true },
             { title: "Brand", data: "Brand", name: "brand", autoWidth: true, searchable: true },
+            { title: "Address", data: "Address", name: "address", autoWidth: true, searchable: true },
+            { title: "City", data: "City", name: "city", autoWidth: true, searchable: true },
             { title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
-            { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
+            //{ title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
         ]
     });
     //$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
@@ -32,7 +33,6 @@ function initializePosList() {
     //        .draw();
     //});
 
-
     // Disable and enable buttons based on row selection
     $('#posList tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
@@ -44,7 +44,6 @@ function initializePosList() {
             $(this).addClass('selected');
             $('#editButton, #deleteButton, #detailsButton').prop('disabled', false);  // Enable buttons
         }
-
     });
 
     // Initially disable the buttons
@@ -93,13 +92,12 @@ function initializePosList() {
         });
     });
 
-
     // Details button click event redirect to DetailsPos page
 
     $('#detailsButton').on('click', function () {
         var data = table.row('.selected').data();
         if (data) {
-            var posId = data.PosId; 
+            var posId = data.PosId;
             goToPosDetails(posId);
         } else {
             alert('Please select a row');
@@ -119,7 +117,6 @@ function initializePosList() {
             alert('Please select a row');
         }
     });
-
 
     // Warning message if no row is selected
     document.getElementById('buttonWrapper').addEventListener('click', function () {

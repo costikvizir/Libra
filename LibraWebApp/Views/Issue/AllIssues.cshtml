@@ -1,7 +1,7 @@
 ﻿@{
-	ViewBag.Title = "All Issues";
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-	//Layout = null;
+    ViewBag.Title = "All Issues";
+    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    //Layout = null;
 }
 
 @model List<LibraBll.DTOs.Issue.IssueDTO>
@@ -9,135 +9,130 @@
 <h3 class="accent-gray-dark mt-5">All Issues</h3>
 
 <div class="mb-2">
-	<div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
-		<button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
-		<button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-	</div>
+    <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
+        <button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+        <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+    </div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Delete <span id="deleteItemName"></span> ?
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-outline-danger">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Delete <span id="deleteItemName"></span> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <table id="issueList" class="display mt-3">
 </table>
 
-@section Scripts {
-	<script>
-		$(document).ready(function () {
-			var table = $('#issueList').DataTable({
-				select: 'single',
-				processing: true,
-				select: true,
-				serverSide: true,
-				ajax: {
-					url: "/Issue/GetAllIssuesJson",
-					type: "POST",
-					dataType: "json",
-					ataSrc: "data",
-				},
-				columns: [
-					{ title: "Id", data: "Id", name: "id", visible: false },
-					{ title: "PosId", data: "PosId", name: "posid", autoWidth: true, searchable: true },
-					{ title: "PosName", data: "PosName", name: "posname", autoWidth: true, searchable: true },
-					{ title: "CreatedBy", data: "UserCreated", name: "usercreated", autoWidth: true, searchable: true },
-					{ title: "Date", data: "CreationDate", name: "creationdate", autoWidth: true, searchable: true },
-					{ title: "IssueType", data: "Type", name: "type", autoWidth: true, searchable: true },
-					{ title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
-					{ title: "AssignedTo", data: "AssignedTo", name: "assignedto", autoWidth: true, searchable: true },
-					{ title: "Memo", data: "Memo", name: "memo", autoWidth: true, searchable: true }
-				]
-			});
+@*@section Scripts {
+        <script>
+            $(document).ready(function () {
+                var table = $('#issueList').DataTable({
+                    select: 'single',
+                    processing: true,
+                    select: true,
+                    serverSide: true,
+                    ajax: {
+                        url: "/Issue/GetAllIssuesJson",
+                        type: "POST",
+                        dataType: "json",
+                        ataSrc: "data",
+                    },
+                    columns: [
+                        { title: "Id", data: "Id", name: "id", visible: false },
+                        { title: "PosId", data: "PosId", name: "posid", autoWidth: true, searchable: true },
+                        { title: "PosName", data: "PosName", name: "posname", autoWidth: true, searchable: true },
+                        { title: "CreatedBy", data: "UserCreated", name: "usercreated", autoWidth: true, searchable: true },
+                        { title: "Date", data: "CreationDate", name: "creationdate", autoWidth: true, searchable: true },
+                        { title: "IssueType", data: "Type", name: "type", autoWidth: true, searchable: true },
+                        { title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
+                        { title: "AssignedTo", data: "AssignedTo", name: "assignedto", autoWidth: true, searchable: true },
+                        { title: "Memo", data: "Memo", name: "memo", autoWidth: true, searchable: true }
+                    ]
+                });
 
-			$('#issueList tbody').on('click', 'tr', function () {
-				if ($(this).hasClass('selected')) {
-					$(this).removeClass('selected');
-					$('#detailsButton, #deleteButton').prop('disabled', true);  // Disable button
-				}
-				else {
-					table.$('tr.selected').removeClass('selected');
-					$(this).addClass('selected');
-					$('#detailsButton, #deleteButton').prop('disabled', false);  // Enable button
-				}
-			});
+                $('#issueList tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                        $('#detailsButton, #deleteButton').prop('disabled', true);  // Disable button
+                    }
+                    else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                        $('#detailsButton, #deleteButton').prop('disabled', false);  // Enable button
+                    }
+                });
 
+                // Initially disable the buttons
+                $('#detailsButton, #deleteButton').prop('disabled', true);
 
-			// Initially disable the buttons
-			$('#detailsButton, #deleteButton').prop('disabled', true);
+                $('#deleteButton').on('click', function () {
+                    var data = table.row('.selected').data();
+                    if (data) {
+                        $('#deleteItemName').text(data.Name);
+                        $('#deleteButton').data('issueId', data.Id);
+                    }
+                });
 
-			$('#deleteButton').on('click', function () {
-				var data = table.row('.selected').data();
-				if (data) {
-					$('#deleteItemName').text(data.Name);
-					$('#deleteButton').data('issueId', data.Id);
-				}
-			});
+                $('.btn-outline-danger').on('click', function () {
+                    var issueId = $('#deleteButton').data('issueId');
+                    $.ajax({
+                        url: '/Issue/DeleteIssue/' + issueId,
+                        type: 'POST',
+                        data: { id: issueId },
+                        success: function (data) {
+                            table.row('.selected').remove().draw(false);
+                            $('#deleteModal').modal('hide');
+                            $('.modal-backdrop').remove();
+                            console.log('Issue deleted successfully');
 
-			$('.btn-outline-danger').on('click', function () {
-				var issueId = $('#deleteButton').data('issueId');
-				$.ajax({
-					url: '/Issue/DeleteIssue/' + issueId,
-					type: 'POST',
-					data: { id: issueId },
-					success: function (data) {
-						table.row('.selected').remove().draw(false);
-						$('#deleteModal').modal('hide');
-						$('.modal-backdrop').remove();
-						console.log('Issue deleted successfully');
+                        }
+                        //error: function (jqXHR, textStatus, errorThrown) {
+                        //	alert('Error: ' + errorThrown);
+                        //}
+                    });
+                });
 
-					}
-					//error: function (jqXHR, textStatus, errorThrown) {
-					//	alert('Error: ' + errorThrown);
-					//}
-				});
-			});
+                $('#detailsButton').click(function () {
+                    debugger;
+                    console.log('detailsButton clicked');  // This will print a message when the button is clicked
 
-			$('#detailsButton').click(function () {
-				debugger;
-				console.log('detailsButton clicked');  // This will print a message when the button is clicked
+                    var data = table.row('.selected').data();  // Get the data of the selected row
+                    console.log('Selected row data:', data);
 
-			    var data = table.row('.selected').data();  // Get the data of the selected row
-			    console.log('Selected row data:', data);
+                    $.ajax({
+                        url: "@Url.Action("GetIssueById", "Issue")",
+                        data: {
+                            Id: data.Id
+                        },
+                        method: "GET",
+                        success: function (response) {
+                            console.log('AJAX request successful, response:', response);
+                            $('#main-modal-container').html(response);
+                            $('#main-modal').modal('show');
+                        }
+                    })
+                });
+            });
 
-				$.ajax({
-					url: "@Url.Action("GetIssueById", "Issue")",
-					data: {
-						Id: data.Id
-					},
-					method: "GET",
-					success: function (response) {
-						console.log('AJAX request successful, response:', response);
-						$('#main-modal-container').html(response);
-						$('#main-modal').modal('show');
-					}
-				})
-			});
-		});
-
-
-
-		document.getElementById('buttonWrapper').addEventListener('click', function () {
-			var button = document.getElementById('deleteButton');
-			if (button.disabled) {
-				alert('Please select a row');
-			}
-		});
-	</script>
-}
+            document.getElementById('buttonWrapper').addEventListener('click', function () {
+                var button = document.getElementById('deleteButton');
+                if (button.disabled) {
+                    alert('Please select a row');
+                }
+            });
+        </script>
+    }*@
