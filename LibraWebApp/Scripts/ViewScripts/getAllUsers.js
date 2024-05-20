@@ -1,5 +1,6 @@
 ﻿
 function initializeUserList() {
+    debugger;
     console.log("Initialize User List Datatable");
     var columns = [
         { data: "Id", name: "id", visible: false },
@@ -98,16 +99,16 @@ function goToAllUsers() {
         },
         method: "GET",
         success: function (response) {
-            $("#mainContainer").html(null);
-            $("#mainContainer").html(response);
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
             initializeUserList();
         },
     });
 }
 
-document.getElementById('buttonWrapper').addEventListener('click', function () {
-    var button = document.getElementById('deleteButton');
-    if (button.disabled) {
-        alert('Please select a row');
-    }
-});
+//document.getElementById('buttonWrapper').addEventListener('click', function () {
+//    var button = document.getElementById('deleteButton');
+//    if (button.disabled) {
+//        alert('Please select a row');
+//    }
+//});

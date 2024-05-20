@@ -174,15 +174,15 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="@Url.Action("AddUser", "User")" class="nav-link">
-									@*<a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">*@
+									@*<a href="@Url.Action("AddUser", "User")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">
 										<i class="far fa-circle dark-blue-font nav-icon"></i>
 										<p class="dark-blue-font">Add User</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">
-									@*<a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">*@
+									@*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
+									<a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">
 										<i class="far fa-circle nav-icon dark-blue-font"></i>
 										<p class="dark-blue-font">Browse Users</p>
 									</a>
@@ -200,7 +200,7 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<div class="content-header">
-				<div class="container-fluid">
+				<div class="container-fluid" id="mainDiv">
 					@RenderBody()
 					<!-- /.row -->
 				</div><!-- /.container-fluid -->
@@ -277,11 +277,11 @@
 	<script src="~/Scripts/ViewScripts/addPos.js"></script>
 	<script src="~/Scripts/ViewScripts/addUser.js"></script>
 	<script src="~/Scripts/ViewScripts/getAllIssues.js"></script>
-	@*<script src="~/Scripts/ViewScripts/getAllPos.js"></script>*@
+	<script src="~/Scripts/ViewScripts/getAllPos.js"></script>
 	<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
 
-	@*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+	<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 	@RenderSection("scripts", required: false)
 </body>

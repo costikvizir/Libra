@@ -1,8 +1,8 @@
 ﻿@{
 	ViewBag.Title = "All Users";
-	Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
 	//Layout = "~/Views/Shared/_Layout.cshtml";
-	//Layout = null;
+	Layout = null;
 }
 
 @*@model List<LibraBll.DTOs.User.GetUserDTO>*@
@@ -37,9 +37,7 @@
 <table id="usersList" class="display mt-3">
 </table>
 
-@section scripts{
+@*@section scripts{
 	<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
-	<script>
-		goToAllUsers();
-	</script>
-}
+
+}*@
