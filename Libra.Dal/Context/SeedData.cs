@@ -15,7 +15,7 @@ namespace Libra.Dal.Context
 		public static List<City> GetCities()
 		{
 			int id = 1;
-			var cities = new List<string> { "Chișinău", "Bălți", "Tiraspol", "Bender", "Cahul", "Comrat", "Orhei", "Ungheni", "Soroca", "Călărași", };
+			var cities = new List<string> { "Chișinău", "Bălți", "Tiraspol", "Bender", "Cahul", "Comrat", "Orhei", "Ungheni", "Soroca", "Călărași", "Ialoveni", "Edineț", "Hîncești", };
 
 			var citiesList = new List<City>();
 
@@ -61,7 +61,7 @@ namespace Libra.Dal.Context
 			new UserType
 			{
 				Id = 2,
-				Role = "Technical Group"
+				Role = "Technical Support"
 			},
 			new UserType
 			{

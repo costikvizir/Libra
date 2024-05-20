@@ -13,11 +13,6 @@ namespace Libra.Dal.Context
 {
 	public class LibraContext : DbContext
 	{
-		public LibraContext() : base("DefaultConnection")
-		{
-			Database.SetInitializer(new LibraDbInitializer());
-        }
-
 		public DbSet<City> Cities { get; set; }
 		public DbSet<ConnectionType> ConnectionType { get; set; }
 		public DbSet<Issue> Issues { get; set; }
@@ -30,17 +25,23 @@ namespace Libra.Dal.Context
 		public DbSet<PosWeekDay> PosWeekDay { get; set; }
 		public DbSet<WeekDay> WeekDays { get; set; }
 
-		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		//{
-		//	base.OnConfiguring(optionsBuilder);
+        public LibraContext() : base("DefaultConnection")
+        {
+            //Database.SetInitializer(new LibraDbInitializer());
+			Database.SetInitializer(new MigrateDatabaseToLatestVersion<LibraContext, LibraDbInitializer>());
+        }
 
-		//	optionsBuilder.UseSqlServer(connectionString);
-		//	//optionsBuilder.UseSqlServer("DefaultConnection");
-		//	optionsBuilder.EnableSensitiveDataLogging();
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //	base.OnConfiguring(optionsBuilder);
 
-		//}
+        //	optionsBuilder.UseSqlServer(connectionString);
+        //	//optionsBuilder.UseSqlServer("DefaultConnection");
+        //	optionsBuilder.EnableSensitiveDataLogging();
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //}
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 

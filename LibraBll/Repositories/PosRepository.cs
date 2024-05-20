@@ -1,21 +1,31 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
 using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Pos;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace LibraBll.Repositories
 {
     public class PosRepository : BaseRepository, IPosRepository
     {
+        public PosRepository(LibraContext context) : base(context)
+        {
+        }
+
+        //private readonly LibraContext _context;
+        //public PosRepository()
+        //{
+        //    //_context = context;   
+        //}
         public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
             List<PosGetDTO> posList = null;
@@ -61,8 +71,7 @@ namespace LibraBll.Repositories
             Pos entity = await Context.Pos
                 .Include(x => x.City)
                 .Include(x => x.ConnectionType)
-                .Include(x => x.PosWeekDays)
-                .ThenInclude(x => x.DayOfWeek)
+                .Include(x => x.PosWeekDays.Select(d => d.DayOfWeek))
                 .Include(x => x.Issues)
                 .FirstOrDefaultAsync(x => x.Id == id);
 

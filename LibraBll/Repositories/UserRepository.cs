@@ -5,23 +5,22 @@ using LibraBll.Common.DataTableModels;
 using LibraBll.Common.Extensions;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
 using System.Data;
+using Libra.Dal.Context;
+using System.Data.Entity;
 
 namespace LibraBll.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
         
-        public UserRepository() : base()
+        public UserRepository(LibraContext context) : base(context)
         {
         }
         
@@ -62,11 +61,44 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        public async Task<List<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
+        //public async Task<IEnumerable<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
+        //{
+        //    List<GetUserDTO> userList = null;
+        //    try
+        //    {
+        //        userList = await Task.Run(() => Context.Users
+        //        .Where(x => x.IsDeleted == false)
+        //        .Include(x => x.UserType)
+        //        .Select(x => new GetUserDTO
+        //        {
+        //            Id = x.Id,
+        //            Name = x.Name,
+        //            Login = x.Login,
+        //            Email = x.Email,
+        //            Telephone = x.Telephone,
+        //            UserTypeId = x.UserTypeId,
+        //            Role = x.UserType.Role,
+        //        })
+        //        //.AsQueryable()
+        //        .Search(parameters)
+        //        .OrderBy(parameters)
+        //        .Page(parameters)
+        //        .ToList());
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+
+        //    return userList;
+        //}
+
+        public async Task<IEnumerable<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
         {
             List<GetUserDTO> userList = null;
             try
             {
+                var userList1 =  Context.Users.ToList();
                 userList = await Context.Users
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.UserType)
@@ -113,9 +145,9 @@ namespace LibraBll.Repositories
             };
 
             Context.Users.Add(user);
-            _logger.Information($"{user.Name} added to context");
+            //_logger.Information($"{user.Name} added to context");
             await Context.SaveChangesAsync();
-            _logger.Information($"{user.Name} saved in database");
+            //_logger.Information($"{user.Name} saved in database");
 
             return userPost;
         }

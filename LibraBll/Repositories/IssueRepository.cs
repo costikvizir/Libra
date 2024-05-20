@@ -1,4 +1,5 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
@@ -15,12 +16,16 @@ namespace LibraBll.Repositories
 {
 	public class IssueRepository : BaseRepository, IIssueRepository
 	{
-		/// <summary>
-		/// TODO: Add Issue issue LEVEL
-		/// </summary>
-		/// <param name="issuePost"></param>
-		/// <returns></returns>
-		public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
+        public IssueRepository(LibraContext context) : base(context)
+        {
+        }
+
+        /// <summary>
+        /// TODO: Add Issue issue LEVEL
+        /// </summary>
+        /// <param name="issuePost"></param>
+        /// <returns></returns>
+        public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
 		{
 			IssueType issueType = new IssueType 
 			{

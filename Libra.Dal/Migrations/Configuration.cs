@@ -10,10 +10,10 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(Libra.Dal.Context.LibraContext context)
+        protected override void Seed(LibraContext context)
         {
             
         }

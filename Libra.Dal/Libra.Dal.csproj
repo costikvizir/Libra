@@ -235,12 +235,19 @@
     <Compile Include="Migrations\202405161215373_First_Migration.Designer.cs">
       <DependentUpon>202405161215373_First_Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405201119563_InitialCreate.cs" />
+    <Compile Include="Migrations\202405201119563_InitialCreate.Designer.cs">
+      <DependentUpon>202405201119563_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202405161215373_First_Migration.resx">
       <DependentUpon>202405161215373_First_Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405201119563_InitialCreate.resx">
+      <DependentUpon>202405201119563_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

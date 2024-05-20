@@ -2,6 +2,7 @@
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -52,7 +53,7 @@ namespace LibraWebApp.Controllers
         {
             parameters = parameters ?? new DataTablesParameters();
 
-            var users = await _userRepository.GetAllUsers(parameters);
+            IEnumerable<GetUserDTO> users = await _userRepository.GetAllUsers(parameters);
 
             return Json(new
             {
