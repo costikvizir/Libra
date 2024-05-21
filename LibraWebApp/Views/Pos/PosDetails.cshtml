@@ -12,7 +12,7 @@
 
 @using (Html.BeginForm("PosDetails", "Pos", FormMethod.Get, new { id = "PosDetailsForm" }))
 {
-   
+
     <div class="card mb-0">
         <div class="card-header slight-blue-header">
             POS basic data
@@ -119,9 +119,10 @@
 }
 
 @section scripts{
-	<script>
+    <script>
         //goToPosDetails()
         initializeIssuesList();
     </script>
-	<script src="~/Scripts/ViewScripts/posDetails.js"></script>
+    <script src="~/Scripts/ViewScripts/posDetails.js"></script>
+
 }

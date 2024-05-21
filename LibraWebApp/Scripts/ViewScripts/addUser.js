@@ -1,28 +1,40 @@
-﻿
-function goToAddUser() {
-	debugger;
-	$.ajax({
-		url: "/User/AddUser",
-		data: {
-		},
-		xhrFields: {
-			withCredentials: true
-		},
-		method: "GET",
-		success: function (response) {
-			$("#mainDiv").html(null);
-			$("#mainDiv").html(response);
-		},
-	});
+﻿function goToAddUser() {
+    debugger;
+    $.ajax({
+        url: "/User/AddUser",
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        method: "GET",
+        success: function (response) {
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
+        },
+    });
 }
 
-$(document).on('submit', '#addUserForm', function (event) {
+//$(document).on('submit', '#addUserForm', function (event) {
+//	event.preventDefault();
+//	debugger;
+//	goToAllUsers();
 
-	event.preventDefault();
-	debugger;
-	goToAllUsers();
-
-	// everything else you want to do on submit
+//	// everything else you want to do on submit
+//});
+$(document).on('submit', '#AddUserForm', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function (response) {
+            $('#mainDiv').html(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
 });
 
 //$(document).ready(function () {
@@ -70,33 +82,33 @@ $(document).on('submit', '#addUserForm', function (event) {
 //});
 
 function handleUserAddSuccess() {
-	debugger;
-	alert('User added successfully');
-	goToAllUsers();
-	//$('#usersList').DataTable().ajax.reload();
+    debugger;
+    alert('User added successfully');
+    goToAllUsers();
+    //$('#usersList').DataTable().ajax.reload();
 }
 window.onload = function () {
-	var inputs = document.querySelectorAll('input,select');
-	for (var i = 0; i < inputs.length; i++) {
-		inputs[i].addEventListener('invalid', function () {
-			this.form.classList.add('was-validated');
-		});
-	}
+    var inputs = document.querySelectorAll('input,select');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('invalid', function () {
+            this.form.classList.add('was-validated');
+        });
+    }
 }
 
 function goToAllUsersAdd() {
-	debugger;
-	$.ajax({
-		url: "/User/GetAllUsers",
-		data: {
-		},
-		xhrFields: {
-			withCredentials: true
-		},
-		method: "GET",
-		success: function (response) {
-			$("#mainDiv").html(null);
-			$("#mainDiv").html(response);
-		},
-	});
+    debugger;
+    $.ajax({
+        url: "/User/GetAllUsers",
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        method: "GET",
+        success: function (response) {
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
+        },
+    });
 }

@@ -1,4 +1,5 @@
-﻿using Libra.Dal.Entities;
+﻿using Libra.Dal.Context;
+using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
@@ -7,13 +8,10 @@ using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Serilog;
 using System.Data;
-using Libra.Dal.Context;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LibraBll.Repositories
 {
@@ -26,7 +24,7 @@ namespace LibraBll.Repositories
         public async Task<GetUserDTO> GetUserByIdAsync(int id)
         {
             User entity = await Context.Users.FindAsync(id);
-
+            //var userRole =
             var user = new GetUserDTO()
             {
                 Id = entity.Id,
@@ -35,7 +33,8 @@ namespace LibraBll.Repositories
                 Password = entity.Password,
                 Email = entity.Email,
                 Telephone = entity.Telephone,
-                UserTypeId = entity.UserTypeId
+                UserTypeId = entity.UserTypeId,
+                Role = entity.UserType.Role
             };
 
             return user;
@@ -52,45 +51,14 @@ namespace LibraBll.Repositories
                     Email = entity.Email,
                     Password = entity.Password,
                     Telephone = entity.Telephone,
-                    UserTypeId = entity.UserTypeId
+                    UserTypeId = entity.UserTypeId,
+                    Role = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role
                 };
                 return user;
             }
 
             return null;
         }
-
-        //public async Task<IEnumerable<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
-        //{
-        //    List<GetUserDTO> userList = null;
-        //    try
-        //    {
-        //        userList = await Task.Run(() => Context.Users
-        //        .Where(x => x.IsDeleted == false)
-        //        .Include(x => x.UserType)
-        //        .Select(x => new GetUserDTO
-        //        {
-        //            Id = x.Id,
-        //            Name = x.Name,
-        //            Login = x.Login,
-        //            Email = x.Email,
-        //            Telephone = x.Telephone,
-        //            UserTypeId = x.UserTypeId,
-        //            Role = x.UserType.Role,
-        //        })
-        //        //.AsQueryable()
-        //        .Search(parameters)
-        //        .OrderBy(parameters)
-        //        .Page(parameters)
-        //        .ToList());
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw;
-        //    }
-
-        //    return userList;
-        //}
 
         public async Task<IEnumerable<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
         {
@@ -179,35 +147,6 @@ namespace LibraBll.Repositories
             Context.SaveChanges();
         }
 
-        //public async Task<LoginUserDTO> GetUserAuth(string name, string password)
-        //{
-        //    User entity = null;
-        //    try
-        //    {
-        //        entity = await Context.Users
-        //                   .Include(x => x.UserType)
-        //                   .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-
-        //    if (entity != null)
-        //    {
-        //        var user = new LoginUserDTO()
-        //        {
-        //            UserName = entity.Name,
-        //            Email = entity.Email,
-        //            Password = entity.Password,
-        //            Login = entity.Login,
-        //            Role = entity.UserType.Role
-        //        };
-        //        return user;
-        //    }
-
-        //    return null;
-        //}
-
         public async Task<LoginUserDTO> GetUserAuth(string name, string password)
         {
             User entity = null;
@@ -243,7 +182,7 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        //TODO async 
+        //TODO async
         public async Task<IEnumerable<RoleDTO>> GetRoles()
         {
             IEnumerable<RoleDTO> roles = await Context.UserTypes

@@ -22,7 +22,18 @@
             { title: "Status", data: "Status" },
             { title: "AssignedTo", data: "AssignedTo" },
             { title: "Memo", data: "Memo" }
-        ]
+        ],
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Details for ' + data.PosName;
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+            }
+        }
     });
 }
 

@@ -2,9 +2,7 @@
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -67,7 +65,6 @@ namespace LibraWebApp.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpGet]
         public async Task<ActionResult> AddUser()
         {
@@ -88,7 +85,7 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
-                return PartialView();
+                return PartialView("AddUser", user);
             }
             await _userRepository.CreateUser(user);
 
