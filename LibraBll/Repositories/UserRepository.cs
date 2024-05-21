@@ -99,12 +99,14 @@ namespace LibraBll.Repositories
 
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
         {
+            var userRole = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role).Id;
+
             User user = new User()
             {
                 Name = userPost.Name,
                 Email = userPost.Email,
                 Telephone = userPost.Telephone,
-                UserTypeId = userPost.Role,
+                UserTypeId = userRole,
                 Login = userPost.Login,
                 Password = userPost.Password,
                 //IsDeleted = userPost.IsActive
@@ -194,6 +196,26 @@ namespace LibraBll.Repositories
                 .ToListAsync();
 
             return roles;
+        }
+
+        public async Task<bool> UserNameExistsAsync(string userName)
+        {
+            return await Context.Users.AnyAsync(u => u.Name == userName);
+        }
+
+        public async Task<bool> EmailExistsAsync(string email)
+        {
+            return await Context.Users.AnyAsync(u => u.Email == email);
+        }
+
+        public async Task<bool> LoginExistsAsync(string login)
+        {
+            return await Context.Users.AnyAsync(u => u.Login == login);
+        }
+
+        public async Task<bool> TelephoneExistsAsync(string telephone)
+        {
+            return await Context.Users.AnyAsync(u => u.Telephone == telephone);
         }
     }
 }

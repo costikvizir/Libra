@@ -93,8 +93,6 @@ namespace LibraWebApp.Controllers
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return RedirectToAction("GetAllUsers");
-            //return PartialView("GetAllUsers");
-            //return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpGet]

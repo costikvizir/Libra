@@ -18,7 +18,7 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<AddUserDTO> CreateUser(AddUserDTO userPost);
 
-       // Task<LoginUserDTO> GetUserAuth(string name, string password);
+        // Task<LoginUserDTO> GetUserAuth(string name, string password);
         Task<LoginUserDTO> GetUserAuth(string name, string password);
 
         void UpdateUser(ModifyUserDTO userPost);
@@ -28,5 +28,13 @@ namespace LibraBll.Abstractions.Repositories
         Task<int> GetUsersCountAsync();
 
         Task<IEnumerable<RoleDTO>> GetRoles();
+
+        Task<bool> UserNameExistsAsync(string name);
+
+        Task<bool> EmailExistsAsync(string email);
+
+        Task<bool> LoginExistsAsync(string login);
+
+        Task<bool> TelephoneExistsAsync(string telephone);
     }
 }
