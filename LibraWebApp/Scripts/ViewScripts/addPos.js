@@ -19,7 +19,9 @@ $('#content').on('click', '#clearFormBtn', function () {
 });
 
 function handlePosAddSuccess() {
+	debugger;
 	alert('Pos added successfully');
+	goToAllPos();
 }
 
 function resetForm() {

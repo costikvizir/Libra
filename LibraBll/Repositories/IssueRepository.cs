@@ -196,18 +196,21 @@ namespace LibraBll.Repositories
 
         public async Task<List<IssueDTO>> GetIssuesByPosIdAsync(int posId)
         {
+            var rawIssueList = await Context.Issues
+                .Include(i => i.Pos)
+                .Include(i => i.Status)
+                .Include(i => i.User)
+                .Include(i => i.UserType)
+                .Include(i => i.IssueType)
+                .Include(i => i.IssueSubType)
+                .Include(i => i.IssueProblem)
+                .Where(i => i.PosId == posId)
+                .ToListAsync();
+
             List<IssueDTO> issueList = null;
             try
             {
-                issueList = await Context.Issues
-                    .Include(i => i.Pos)
-                    .Include(i => i.Status)
-                    .Include(i => i.User)
-                    .Include(i => i.UserType)
-                    .Include(i => i.IssueType)
-                    .Include(i => i.IssueSubType)
-                    .Include(i => i.IssueProblem)
-                    .Where(i => i.PosId == posId)
+                issueList = rawIssueList
                     .Select(i => new IssueDTO
                     {
                         Id = i.Id,
@@ -228,7 +231,7 @@ namespace LibraBll.Repositories
                         PosName = i.Pos.Name,
                         UserRole = i.UserType.Role
                     })
-                    .ToListAsync();
+                    .ToList();
             }
             catch (Exception ex)
             {

@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputState" class="form-label">City</label>
-                    @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, "Select City", new { @class = "form-select", id = "inputState" })
+                    @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities,  new { @class = "form-select", id = "inputState" })
                 </div>
             </div>
             <div class="row">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputState" class="form-label">Connection Type</label>
-                    @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, "Select City", new { @class = "form-select", id = "inputState" })
+                    @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes,  new { @class = "form-select", id = "inputState" })
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 ﻿
 function initializeIssuesList() {
+	debugger;
 	var table = $('#issueList').DataTable({
 		select: 'single',
 		processing: true,

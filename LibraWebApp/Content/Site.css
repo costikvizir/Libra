@@ -46,4 +46,7 @@ textarea {
     color: #4985BA;
 }
 
-
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #ffcc00; /* Change to your desired hover color */
+    color: #90CAF9; /* Optional: change text color on hover */
+}

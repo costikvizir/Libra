@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Collections;
 
 namespace LibraWebApp.Controllers
 {
@@ -37,7 +38,7 @@ namespace LibraWebApp.Controllers
             PosGetDTO pos = await _posRepository.GetPosByIdAsync(id);
 
             List<string> noClosingDays = new List<string> { "No Closing Days" };
-            List<string> posWeekDays = _posRepository.GetPosClosingDays(id).Select(d => d.Day).ToList();
+            List<string> posWeekDays = (await _posRepository.GetPosClosingDays(id)).Select(d => d.Day).ToList();
             pos.DaysClosed = posWeekDays.Count() > 0 ? posWeekDays : noClosingDays;
 
             PosIssues posIssues = new PosIssues()
@@ -82,10 +83,10 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddPos()
+        public async Task<ActionResult> AddPos()
         {
-            var cities = _posRepository.GetCityList();
-            var connectionTypes = _posRepository.GetConnectionTypeList();
+            var cities = await _posRepository.GetCityList();
+            var connectionTypes = await _posRepository.GetConnectionTypeList();
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
             return View();
@@ -126,12 +127,12 @@ namespace LibraWebApp.Controllers
 
             await _posRepository.AddPosAsync(pos);
 
-            var cities = _posRepository.GetCityList();
-            var connectionTypes = _posRepository.GetConnectionTypeList();
+            var cities = await _posRepository.GetCityList();
+            var connectionTypes = await _posRepository.GetConnectionTypeList();
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
-            return PartialView("GetAllPos");
+            return RedirectToAction("GetAllPos");
             //return Json(new { success = true, message = "Successfully saved" });
         }
 
@@ -141,16 +142,20 @@ namespace LibraWebApp.Controllers
             if (id == 0)
                 return null;
 
-            var cities = _posRepository.GetCityList();
-            var connectionTypes = _posRepository.GetConnectionTypeList();
-            var posWeekDays = _posRepository.GetPosClosingDays(id);
+            var cities = await _posRepository.GetCityList();
+            var connectionTypes = await _posRepository.GetConnectionTypeList();
+            var posWeekDays = await _posRepository.GetPosClosingDays(id);
 
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
             PosGetDTO posGet = await _posRepository.GetPosByIdAsync(id);
-            int cityId = _posRepository.GetCityList().FirstOrDefault(c => c.CityName == posGet.City).Id;
-            int connectionTypeId = _posRepository.GetConnectionTypeList().FirstOrDefault(c => c.ConnectionType == posGet.ConnectionType).Id;
+            int cityId = (await _posRepository.GetCityList())
+                            .Where(c => c.CityName == posGet.City)
+                            .Select(c => c.Id)
+                            .FirstOrDefault();
+            int connectionTypeId = (await _posRepository.GetConnectionTypeList())
+                            .FirstOrDefault(c => c.ConnectionType == posGet.ConnectionType).Id;
 
             PosEditDTO pos = new PosEditDTO
             {
@@ -183,8 +188,8 @@ namespace LibraWebApp.Controllers
 
             await _posRepository.UpdatePos(pos);
 
-            var cities = _posRepository.GetCityList();
-            var connectionTypes = _posRepository.GetConnectionTypeList();
+            var cities = await _posRepository.GetCityList();
+            var connectionTypes = await _posRepository.GetConnectionTypeList();
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 

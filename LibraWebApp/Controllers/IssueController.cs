@@ -110,6 +110,9 @@ namespace LibraWebApp.Controllers
             return PartialView("AddIssue");
         }
 
+        //TODO: solve for dropdowns in openissue view
+        //TODO: solve for dropdowns in openissue view
+
         [HttpGet]
         public async Task<ActionResult> OpenIssue(int id)
         {
@@ -132,7 +135,7 @@ namespace LibraWebApp.Controllers
             await _issueRepository.AddIssue(issue);
             //return null;
            // return Json(new { success = true, message = "Successfully saved" });
-            return RedirectToAction("Index");
+            return RedirectToAction("AllIssues");
         }
 
         [HttpPost]

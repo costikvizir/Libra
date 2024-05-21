@@ -17,10 +17,21 @@
             { title: "Telephone", data: "Telephone", name: "telephone", autoWidth: true, searchable: true },
             { title: "Cellphone", data: "Cellphone", name: "cellphone", autoWidth: true, searchable: true },
             { title: "Brand", data: "Brand", name: "brand", autoWidth: true, searchable: true },
-            { title: "Address", data: "Address", name: "address", autoWidth: true, searchable: true },
-            { title: "City", data: "City", name: "city", autoWidth: true, searchable: true },
-            { title: "Status", data: "Status", name: "status", autoWidth: true, searchable: true },
-            //{ title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
+            {
+                title: "Status",
+                data: "Status",
+                name: "status",
+                autoWidth: true,
+                searchable: true,
+                createdCell: function (td, cellData, rowData, row, col) {
+                    if (cellData !== 'No active issues') {
+                        $(td).css('color', 'red');
+                        $(td).prepend('<i class="fas fa-exclamation-triangle"></i> ');
+                        //$(td).css('font-weight', 'bold');
+                    }
+                }
+            },
+            { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
         ]
     });
     //$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {

@@ -52,7 +52,7 @@
 		</div>
 		<div class="col-6">
 			<label for="inputState" class="form-label">Role</label>
-			@Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select", id = "inputState" })
+			@Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.Roles,  new { @class = "form-select", id = "inputState" })
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -61,3 +61,27 @@
 		@*<button type="submit" id="saveChanges" class="btn btn-outline-warning" onclick="goToAllUsers()">Modify</button>*@
 	</div>
 }
+
+<script>
+	$(document).ready(function () {
+		$('#editForm').on('submit', function (event) {
+			event.preventDefault();
+
+			$.ajax({
+				url: '/User/UpdateUser',
+				type: 'POST',
+				data: $(this).serialize(), 
+				success: function (response) {
+
+					console.log('Form submitted successfully');
+					$('#main-modal').modal('hide'); 
+					$('#usersList').DataTable().ajax.reload();
+				},
+				error: function (xhr, status, error) {
+
+					console.error('Form submission failed:', error);
+				}
+			});
+		});
+	});
+</script>

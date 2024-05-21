@@ -1,36 +1,43 @@
 ﻿@{
-    ViewBag.Title = "All Pos";
-    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-    Layout = null;
+	ViewBag.Title = "All Pos";
+	//Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+	Layout = null;
 }
 <link href="~/Content/Site.css" rel="stylesheet" />
-<h3 class="mt-3">All Pos</h3>
-<div class="d-flex justify-content-between mb-2">
-    <button type="button" id="addButton" class="btn dark-blue-backgroung" onclick="goToAddPos()">New POS</button>
-    <div id="buttonWrapper">
-        <button type="button" id="detailsButton" class="btn dark-blue-backgroung">Details</button>
-        <button type="button" id="editButton" class="btn dark-blue-backgroung">Edit</button>
-        <button type="button" id="deleteButton" class="btn dark-blue-backgroung" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete POS</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Delete <span id="deleteItemName"></span> ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-outline-danger">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
+@*<h3 class="accent-gray-dark mt-5">All POS</h3>*@
+<div class="d-flex justify-content-between align-items-center mt-5">
+	<h3 class="accent-gray-dark">All POS</h3>
+	<div>
+		<button type="button" id="addButton" class="btn dark-blue-backgroung" onclick="goToAddPos()">New POS</button>
+		<div id="buttonWrapper" class="d-inline">
+			<button type="button" id="detailsButton" class="btn dark-blue-backgroung">Details</button>
+			<button type="button" id="editButton" class="btn dark-blue-backgroung">Edit</button>
+			<button type="button" id="deleteButton" class="btn dark-blue-backgroung" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+		</div>
+	</div>
+</div>
+<hr class="my-4">
+
+<div class="d-flex justify-content-between mb-2">
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Delete POS</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Delete <span id="deleteItemName"></span> ?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-outline-danger">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <table id="posList" class="display mt-3">

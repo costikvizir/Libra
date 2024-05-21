@@ -19,10 +19,10 @@ namespace LibraBll.Abstractions.Repositories
 
         void DeletePos(int id);
 
-        List<CityDTO> GetCityList();
+        Task<IEnumerable<CityDTO>> GetCityList();
 
-        List<ConnectionTypeDTO> GetConnectionTypeList();
+        Task<List<ConnectionTypeDTO>> GetConnectionTypeList();
 
-        List<PosWeekDayDTO> GetPosClosingDays(int posId);
+        Task<List<PosWeekDayDTO>> GetPosClosingDays(int posId);
     }
 }

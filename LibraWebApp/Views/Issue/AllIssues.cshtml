@@ -1,19 +1,23 @@
 ﻿@{
     ViewBag.Title = "All Issues";
-    Layout = "~/Views/Shared/_LayoutLTE.cshtml";
-    //Layout = null;
+    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    Layout = null;
 }
 
 @model List<LibraBll.DTOs.Issue.IssueDTO>
 
-<h3 class="accent-gray-dark mt-5">All Issues</h3>
+
+<div class="d-flex justify-content-between align-items-center mt-5">
+	<h3 class="accent-gray-dark">All Issues</h3>
+	<div id="buttonWrapper" class="mb-2 mt-1 d-flex justify-content-end">
+		<button type="button" id="detailsButton" class="btn dark-blue-backgroung mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
+		<button type="button" id="deleteButton" class="btn dark-blue-backgroung" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+	</div>
+</div>
+
+<hr class="mt-2 mb-3">
 
 <div class="mb-2">
-    <div id="buttonWrapper" class="mb-2 d-flex justify-content-end">
-        <button type="button" id="detailsButton" class="btn btn-info mr-2" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
-        <button type="button" id="deleteButton" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-    </div>
-
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

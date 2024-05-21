@@ -2,6 +2,7 @@
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,6 +45,8 @@ namespace LibraWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
+            var roles = await _userRepository.GetRoles();
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
             return View();
         }
 
@@ -66,9 +69,9 @@ namespace LibraWebApp.Controllers
 
 
         [HttpGet]
-        public ActionResult AddUser()
+        public async Task<ActionResult> AddUser()
         {
-            var roles = _userRepository.GetRoles();
+            var roles = await _userRepository.GetRoles();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return View();
@@ -89,11 +92,11 @@ namespace LibraWebApp.Controllers
             }
             await _userRepository.CreateUser(user);
 
-            var roles = _userRepository.GetRoles();
+            var roles = await _userRepository.GetRoles();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
-            //return RedirectToAction("GetAllUsers");
-            return PartialView("GetAllUsers");
+            return RedirectToAction("GetAllUsers");
+            //return PartialView("GetAllUsers");
             //return Json(new { success = true, message = "Successfully saved" });
         }
 
@@ -102,7 +105,7 @@ namespace LibraWebApp.Controllers
         {
             var user = await _userRepository.GetUserByIdAsync(id);
 
-            var roles = _userRepository.GetRoles();
+            var roles = await _userRepository.GetRoles();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return PartialView("~/Views/User/_Edit.cshtml", user);
@@ -136,7 +139,7 @@ namespace LibraWebApp.Controllers
 
             _userRepository.UpdateUser(user);
 
-            var roles = _userRepository.GetRoles();
+            var roles = await _userRepository.GetRoles();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return PartialView("GetAllUsers");

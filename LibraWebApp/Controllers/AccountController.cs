@@ -52,7 +52,7 @@ namespace LibraWebApp.Controllers
 
                 using ((System.IDisposable)_userRepository)
                 {
-                    var user =  _userRepository.GetUserAuth(model.UserName, model.Password);
+                    var user = await  _userRepository.GetUserAuth(model.UserName, model.Password);
                     if (user is null)
                     {
                         //ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
@@ -61,6 +61,8 @@ namespace LibraWebApp.Controllers
                     }
                     else
                     {
+                        //var userRole = await _userRepository.GetUserRole(user.Id);
+
                         ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                         claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Role.ToString(), ClaimValueTypes.String));
                         claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName, ClaimValueTypes.String));

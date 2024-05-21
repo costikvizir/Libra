@@ -97,7 +97,6 @@ namespace LibraBll.Repositories
             List<GetUserDTO> userList = null;
             try
             {
-                var userList1 = Context.Users.ToList();
                 userList = await Context.Users
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.UserType)
@@ -209,17 +208,18 @@ namespace LibraBll.Repositories
         //    return null;
         //}
 
-        public LoginUserDTO GetUserAuth(string name, string password)
+        public async Task<LoginUserDTO> GetUserAuth(string name, string password)
         {
             User entity = null;
             try
             {
-                entity = Context.Users
+                entity = await Context.Users
                            .Include(x => x.UserType)
-                           .FirstOrDefault(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
+                           .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
 
                 //entity.UserType = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role.ToString();
-                // var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
+                //TODO
+                //var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
                 //var role = userRole.Role.ToString();
             }
             catch (Exception ex)
@@ -228,7 +228,7 @@ namespace LibraBll.Repositories
 
             if (entity != null)
             {
-                var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
+                var userRole = await Context.UserTypes.FirstOrDefaultAsync(x => x.Id == entity.UserTypeId);
                 var user = new LoginUserDTO()
                 {
                     UserName = entity.Name,
@@ -243,15 +243,16 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        public IEnumerable<RoleDTO> GetRoles()
+        //TODO async 
+        public async Task<IEnumerable<RoleDTO>> GetRoles()
         {
-            List<RoleDTO> roles = Context.UserTypes
+            IEnumerable<RoleDTO> roles = await Context.UserTypes
                 .Select(x => new RoleDTO
                 {
                     Id = x.Id,
                     Role = x.Role
                 })
-                .ToList();
+                .ToListAsync();
 
             return roles;
         }
