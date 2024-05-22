@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace LibraWebApp.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, Technical Support, User")]
     public class IssueController : Controller
     {
         private readonly IIssueRepository _issueRepository;

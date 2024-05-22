@@ -99,14 +99,14 @@ namespace LibraBll.Repositories
 
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
         {
-            var userRole = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role).Id;
+            //var userRole = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role).Id;
 
             User user = new User()
             {
                 Name = userPost.Name,
                 Email = userPost.Email,
                 Telephone = userPost.Telephone,
-                UserTypeId = userRole,
+                //UserTypeId = userRole,
                 Login = userPost.Login,
                 Password = userPost.Password,
                 //IsDeleted = userPost.IsActive

@@ -12,6 +12,7 @@ using System.Collections;
 
 namespace LibraWebApp.Controllers
 {
+    [Authorize(Roles = "Administrator, Technical Support, User")]
     public class PosController : Controller
     {
         private readonly IPosRepository _posRepository;

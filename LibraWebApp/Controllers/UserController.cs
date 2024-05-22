@@ -147,5 +147,12 @@ namespace LibraWebApp.Controllers
         {
             _userRepository.DeleteUser(id);
         }
+
+        [HttpPost]
+        public async Task<JsonResult> IsUserNameAvailable(string userName)
+        {
+            bool isAvailable = await _userRepository.UserNameExistsAsync(userName);
+            return Json(isAvailable);
+        }
     }
 }

@@ -19,14 +19,15 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-5">
-                    <label for="inputUserName" class="form-label">User Name</label>
-                    <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-user"></i></div>
-                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputUserName" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
+				<div class="col-md-5">
+					<label for="inputUserName" class="form-label">User Name</label>
+					<div class="input-group">
+						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-user"></i></div>
+						@Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputUserName" })
+					</div>
+					<span id="userNameError" class="text-danger" style="display:none;"></span>
+					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+				</div>
                 <div class="col-md-4">
                     <label for="inputPassword" class="form-label">Password</label>
                     <div class="input-group">
@@ -64,7 +65,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="inputState" class="form-label">Role</label>
-                    @Html.DropDownListFor(model => model.Roles, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputState" })
+                    @Html.DropDownListFor(model => model.Role, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputState" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
             </div>

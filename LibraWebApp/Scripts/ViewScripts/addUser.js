@@ -37,6 +37,23 @@ $(document).on('submit', '#AddUserForm', function (event) {
     });
 });
 
+$(document).ready(function () {
+    $('#inputUserName').on('blur', function () {
+        var userName = $(this).val();
+        $.ajax({
+            url: '"/User/IsUserNameAvailable",',
+            type: 'POST',
+            data: { userName: userName },
+            success: function (response) {
+                if (!response) {
+                    $('#userNameError').text('Username already exists').show();
+                } else {
+                    $('#userNameError').text('').hide();
+                }
+            }
+        });
+    });
+});
 //$(document).ready(function () {
 //	console.log('call goToAllUsersAdd');
 //	debugger;
