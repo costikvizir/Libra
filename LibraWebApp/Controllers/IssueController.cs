@@ -15,19 +15,21 @@ namespace LibraWebApp.Controllers
     {
         private readonly IIssueRepository _issueRepository;
         private readonly IPosRepository _posRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IValidator<IssueDTO> _issueValidator;
 
-        public IssueController(IIssueRepository issueRepository, IValidator<IssueDTO> issueValidator, IPosRepository posRepository)
+        public IssueController(IIssueRepository issueRepository, IValidator<IssueDTO> issueValidator, IPosRepository posRepository, IUserRepository userRepository)
         {
             _issueRepository = issueRepository;
             _issueValidator = issueValidator;
             _posRepository = posRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            int issueCount = _issueRepository.GetIssueCount();
+            int issueCount = await _issueRepository.GetIssueCount();
             ViewBag.IssueCount = issueCount;
             return View();
         }
@@ -80,8 +82,14 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddIssue()
+        public async Task<ActionResult> AddIssue()
         {
+            var statusList = await _issueRepository.GetStatusList();
+            var roles = await _userRepository.GetRoles();
+
+            ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+
             return View("AddIssue");
         }
 
@@ -99,14 +107,9 @@ namespace LibraWebApp.Controllers
             //    }
             //    return PartialView("AddIssue");
             //}
-            try
-            {
-                await _issueRepository.AddIssue(issue);
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+     
+            await _issueRepository.AddIssue(issue);
+   
             return PartialView("AddIssue");
         }
 
@@ -116,6 +119,9 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> OpenIssue(int id)
         {
             var pos = await _posRepository.GetPosByIdAsync(id);
+            var statusList = await _issueRepository.GetStatusList();
+            var roles = await _userRepository.GetRoles();
+
             ViewBag.PosId = pos.PosId;
             ViewBag.PosName = pos.Name;
             ViewBag.Telephone = pos.Telephone;
@@ -123,6 +129,8 @@ namespace LibraWebApp.Controllers
             ViewBag.Brand = pos.Brand;
             ViewBag.Model = pos.Model;
             ViewBag.Address = pos.Address;
+            ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             //return View("OpenIssue", pos);
             return View("OpenIssue");
@@ -133,7 +141,7 @@ namespace LibraWebApp.Controllers
         {
             await _issueRepository.AddIssue(issue);
             //return null;
-           // return Json(new { success = true, message = "Successfully saved" });
+            // return Json(new { success = true, message = "Successfully saved" });
             return RedirectToAction("AllIssues");
         }
 

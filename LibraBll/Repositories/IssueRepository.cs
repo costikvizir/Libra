@@ -4,6 +4,8 @@ using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
 using LibraBll.Common.Extensions;
+using LibraBll.DTOs.ComplexObjects;
+using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Issue;
 using System;
 using System.Collections.Generic;
@@ -79,9 +81,9 @@ namespace LibraBll.Repositories
             Context.SaveChangesAsync();
         }
 
-        public int GetIssueCount()
+        public async Task<int> GetIssueCount()
         {
-            return Context.Issues.Count();
+            return await Context.Issues.CountAsync();
         }
 
         public async Task<List<IssueDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
@@ -269,6 +271,33 @@ namespace LibraBll.Repositories
 
             Context.Issues.Add(issue);
             await Context.SaveChangesAsync();
+        }
+
+        public async Task<List<StatusDTO>> GetStatusList()
+        {
+            return await Context.Statuses
+                .Select(s => new StatusDTO
+                {
+                    Id = s.Id,
+                    IssueStatus = s.IssueStatus
+                })
+                .ToListAsync();
+        }
+
+        public async Task<StatusGroupCount> GetStatusGroupCount()
+        {
+            int newIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "New").CountAsync();
+            int assignedIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Asigned").CountAsync();
+            int inprogressIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "In progress").CountAsync();
+            int pendingIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Pending").CountAsync();
+
+            return new StatusGroupCount
+            {
+                NewIssues = newIssueCount,
+                AssignedIssues = assignedIssueCount,
+                InProgressIssues = inprogressIssueCount,
+                PendingIssues = pendingIssueCount
+            };
         }
     }
 }
