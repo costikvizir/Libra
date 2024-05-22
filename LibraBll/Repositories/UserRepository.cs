@@ -106,7 +106,7 @@ namespace LibraBll.Repositories
                 Name = userPost.Name,
                 Email = userPost.Email,
                 Telephone = userPost.Telephone,
-                //UserTypeId = userRole,
+                UserTypeId = userPost.Role,
                 Login = userPost.Login,
                 Password = userPost.Password,
                 //IsDeleted = userPost.IsActive
@@ -184,7 +184,6 @@ namespace LibraBll.Repositories
             return null;
         }
 
-        //TODO async
         public async Task<IEnumerable<RoleDTO>> GetRoles()
         {
             IEnumerable<RoleDTO> roles = await Context.UserTypes

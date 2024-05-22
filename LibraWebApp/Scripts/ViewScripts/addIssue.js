@@ -40,8 +40,8 @@ function initializePosListForIssue() {
         console.log("Filtering ... ")
         //Filtering based on second, fifth and sixth columns of the table
         table
-            .column(1).search($('#inputPosName').val())
-            .column(4).search($('#inputPosBrand').val())
+            .column(0).search($('#inputPosName').val())
+            .column(3).search($('#inputPosBrand').val())
             .column(5).search($('#inputFullAddress').val())
             .draw();
     });
@@ -122,6 +122,10 @@ $(document).on('click', '#openIssue', function () {
     } else {
         alert('Please select a row');
     }
+});
+
+$(document).ready(function () {
+    initializePosListForIssue();
 });
 
 function handleIssueAddSuccess() {

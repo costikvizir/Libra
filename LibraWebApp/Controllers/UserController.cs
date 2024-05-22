@@ -3,6 +3,7 @@ using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -69,7 +70,13 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> AddUser()
         {
             var roles = await _userRepository.GetRoles();
-            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            //ViewBag.Roles = new SelectList(roles, "Id", "Role");
+
+            ViewBag.Roles = roles.Select(r => new SelectListItem
+            {
+                Value = r.Id.ToString(),
+                Text = r.Role
+            }).ToList();
 
             return View();
         }
@@ -77,7 +84,7 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
-            var results = _createUserValidator.Validate(user);
+            var results = await _createUserValidator.ValidateAsync(user);
 
             if (!results.IsValid)
             {
@@ -85,12 +92,18 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
+                var roles = await _userRepository.GetRoles();
+                //ViewBag.Roles = new SelectList(roles, "Id", "Role");
+                ViewBag.Roles = roles.Select(r => new SelectListItem
+                {
+                    Value = r.Id.ToString(),
+                    Text = r.Role
+                }).ToList();
                 return PartialView("AddUser", user);
             }
             await _userRepository.CreateUser(user);
 
-            var roles = await _userRepository.GetRoles();
-            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+           
 
             return RedirectToAction("GetAllUsers");
         }

@@ -18,22 +18,26 @@ namespace LibraBll.Validators.User
                 .NotEmpty().WithMessage("Name cannot be empty")
                 .MinimumLength(5).WithMessage("Name should contain at least 5 characters")
                 .Matches("^[a-zA-Z ]*$").WithMessage("Username should contain only letters")
-                .MustAsync((name, cancellation) => IsUniqueUserName(name)).WithMessage("Username already exists");
+                //.MustAsync((name, cancellation) => IsUniqueUserName(name)).WithMessage("Username already exists")
+                ;
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Please provide a valid email")
                 .Matches(@"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$").WithMessage("Not a valid email address")
-                .MustAsync((email, cancellation) => IsUniqueEmail(email)).WithMessage("Email already exists");
+                //.MustAsync((email, cancellation) => IsUniqueEmail(email)).WithMessage("Email already exists")
+                ;
 
             RuleFor(x => x.Login)
                 .NotEmpty().WithMessage("Missing Login")
-                .MustAsync((login, cancellation) => IsUniqueLogin(login)).WithMessage("Login already exists");
+                //.MustAsync((login, cancellation) => IsUniqueLogin(login)).WithMessage("Login already exists")
+                ;
 
             RuleFor(x => x.Telephone)
                .NotEmpty().WithMessage("Missing Telephone")
                .MinimumLength(9).WithMessage("Not a phone number")
                .Matches(@"^\+?[0-9]*$").WithMessage("Phone number should contain only numbers")
-               .MustAsync((telephone, cancellation) => IsUniqueTelephone(telephone)).WithMessage("Telephone already exists");
+               //.MustAsync((telephone, cancellation) => IsUniqueTelephone(telephone)).WithMessage("Telephone already exists")
+               ;
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Missing Password")

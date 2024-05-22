@@ -14,7 +14,7 @@ namespace LibraWebApp
 						"~/bundles/jqueryui"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-						"~/Scripts/jquery.validate.js",
+						//"~/Scripts/jquery.validate.js",
 						"~/Scripts/jquery.validate.unobtrusive.js",
 						"~/Scripts/jquery.unobtrusive-ajax.js"
 						));

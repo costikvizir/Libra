@@ -9,7 +9,8 @@ namespace LibraBll.DTOs.User
         public string Login { get; set; }
         public string Password { get; set; }
         public string Telephone { get; set; }
-        public string Role { get; set; }
-        public List<string> Roles { get; set; }
+        //public string Role { get; set; }
+        public int Role { get; set; }
+        //public List<string> Roles { get; set; }
     }
 }
