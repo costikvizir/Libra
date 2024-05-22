@@ -14,25 +14,17 @@ namespace Libra.Dal.Configurations
 	{
         public UserTypeConfiguration()
         {
-            // Define primary key
             this.HasKey(e => e.Id);
 
-            // Define relationship with Issues
             this.HasMany(e => e.Issues)
                 .WithRequired(e => e.UserType)
                 .HasForeignKey(e => e.AssignedId)
-                .WillCascadeOnDelete(false); // Specify whether cascading delete is enabled
+                .WillCascadeOnDelete(false); 
 
-            // Define relationship with Users
             this.HasMany(e => e.Users)
                 .WithRequired(e => e.UserType)
                 .HasForeignKey(e => e.UserTypeId)
-                .WillCascadeOnDelete(true); // Specify whether cascading delete is enabled
-
-            // Seed data (if needed)
-            // Note: EF6 does not have a built-in seeding mechanism like EF Core, you may need to handle seeding separately
+                .WillCascadeOnDelete(true); 
         }
-
-        //TODO: Seed data usertype
     }
 }

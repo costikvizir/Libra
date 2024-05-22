@@ -29,9 +29,7 @@ namespace Libra.Dal.Configurations
                 .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(false); // Specify whether cascading delete is enabled
 
-            // Seed data (if needed)
-            // Note: EF6 does not have a built-in seeding mechanism like EF Core, you may need to handle seeding separately
         }
-        //TODO: Seed data User
+    
     }
 }

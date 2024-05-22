@@ -111,7 +111,6 @@ namespace LibraWebApp.Controllers
         }
 
         //TODO: solve for dropdowns in openissue view
-        //TODO: solve for dropdowns in openissue view
 
         [HttpGet]
         public async Task<ActionResult> OpenIssue(int id)

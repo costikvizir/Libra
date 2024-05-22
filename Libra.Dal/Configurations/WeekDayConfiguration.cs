@@ -15,10 +15,6 @@ namespace Libra.Dal.Configurations
         {
             // Define primary key
             this.HasKey(e => e.Id);
-
-            // Seed data (if needed)
-            // Note: EF6 does not have a built-in seeding mechanism like EF Core, you may need to handle seeding separately
         }
-        //TODO: Seed data WeekDay
     }
 }

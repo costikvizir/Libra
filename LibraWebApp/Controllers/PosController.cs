@@ -26,8 +26,6 @@ namespace LibraWebApp.Controllers
             _createPosValidator = createPosValidator;
         }
 
-        //TODO addpos visible for admin only, add issue user
-
         public ActionResult Index()
         {
             return View();

@@ -159,7 +159,7 @@ namespace LibraBll.Repositories
                            .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
 
                 //entity.UserType = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role.ToString();
-                //TODO
+            
                 //var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
                 //var role = userRole.Role.ToString();
             }

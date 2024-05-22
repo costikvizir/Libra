@@ -25,17 +25,23 @@
 						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-user"></i></div>
 						@Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputUserName" })
 					</div>
-					<span id="userNameError" class="text-danger" style="display:none;"></span>
-					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+		
+						<i class="fa-solid fas-circle-exclamation"></i>
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+					
 				</div>
-                <div class="col-md-4">
-                    <label for="inputPassword" class="form-label">Password</label>
-                    <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-key"></i></div>
-                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control dark-blue-border-color", id = "inputPassword", type = "password" })
-                    </div>
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
+				<div class="col-md-4">
+					<label for="inputPassword" class="form-label">Password</label>
+					<div class="input-group">
+						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-key"></i></div>
+						@Html.TextBoxFor(model => model.Password, new { @class = "form-control dark-blue-border-color", id = "inputPassword", type = "password" })
+					</div>
+					<span class="validation-message">
+						<i class="fas-solid fas-circle-exclamation"></i>
+						@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+					</span>
+
+				</div>
             </div>
             <div class="row">
                 <div class="col-md-5">

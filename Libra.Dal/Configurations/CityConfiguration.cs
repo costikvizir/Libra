@@ -25,7 +25,5 @@ namespace Libra.Dal.Configurations
                 .HasForeignKey(e => e.CityId)
                 .WillCascadeOnDelete(false);
         }
-
-        //TODO: data seed cities
 	}
 }

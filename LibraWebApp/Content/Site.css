@@ -50,3 +50,11 @@ textarea {
     background-color: #ffcc00; /* Change to your desired hover color */
     color: #90CAF9; /* Optional: change text color on hover */
 }
+/*.validation-message {
+    display: flex;
+    align-items: center;
+}
+
+.validation-message .fa-circle-exclamation {
+    margin-right: 5px;*/ /* Adjust spacing as needed */
+/*}*/

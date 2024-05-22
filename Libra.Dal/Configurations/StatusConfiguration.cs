@@ -21,6 +21,5 @@ namespace Libra.Dal.Configurations
                 .HasForeignKey(e => e.StatusId)
                 .WillCascadeOnDelete(false);
         }
-        //TODO: data seed statuses
     }
 }
