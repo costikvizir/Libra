@@ -96,7 +96,7 @@
 						<div class="row mb-3">
 							<div class="col-md-6 pr-4">
 								<label for="inputState" class="form-label">Issue Type</label>
-								@Html.DropDownListFor(model => model.Type, new SelectList(new[] { "Technical Issue", "Software Issue", "Undefined" }), "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+								@Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
 							</div>
 							<div class="col-md-6 pl-4">
 								<label for="inputState" class="form-label">Subclass</label>
@@ -120,7 +120,7 @@
 							</div>
 							<div class="col-md-6 pl-4">
 								<label for="inputState" class="form-label">Priority</label>
-								@Html.DropDownListFor(model => model.Priority, new SelectList(new[] { "High", "Medium", "Low" }), "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+								@Html.DropDownListFor(model => model.Priority,  (SelectList)ViewBag.PriorityList, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
 							</div>
 						</div>
 						<div class="mb-3">

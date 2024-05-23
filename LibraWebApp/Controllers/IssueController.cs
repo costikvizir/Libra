@@ -86,9 +86,13 @@ namespace LibraWebApp.Controllers
         {
             var statusList = await _issueRepository.GetStatusList();
             var roles = await _userRepository.GetRoles();
+            var issueNames = await _issueRepository.GetIssueNameList();
+            var priorityList = await _issueRepository.GetPriorityList();
 
             ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
+            ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
 
             return View("AddIssue");
         }
@@ -121,6 +125,8 @@ namespace LibraWebApp.Controllers
             var pos = await _posRepository.GetPosByIdAsync(id);
             var statusList = await _issueRepository.GetStatusList();
             var roles = await _userRepository.GetRoles();
+            var issueNames = await _issueRepository.GetIssueNameList();
+            var priorityList = await _issueRepository.GetPriorityList();
 
             ViewBag.PosId = pos.PosId;
             ViewBag.PosName = pos.Name;
@@ -131,6 +137,8 @@ namespace LibraWebApp.Controllers
             ViewBag.Address = pos.Address;
             ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
+            ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
 
             //return View("OpenIssue", pos);
             return View("OpenIssue");
