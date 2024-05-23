@@ -22,13 +22,9 @@ namespace LibraBll.Repositories
         {
         }
 
-        /// <summary>
-        /// TODO: Add Issue issue LEVEL
-        /// </summary>
-        /// <param name="issuePost"></param>
-        /// <returns></returns>
         public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
         {
+            //TODO: Add Issue issue LEVEL
             IssueType issueType = new IssueType
             {
                 IssueNameId = issuePost.Type,
@@ -280,6 +276,27 @@ namespace LibraBll.Repositories
                 {
                     Id = s.Id,
                     IssueStatus = s.IssueStatus
+                })
+                .ToListAsync();
+        }
+
+        public async Task<List<PriorityDTO>> GetPriorityList() 
+        { 
+            return await Context.Priorities
+                .Select(p => new PriorityDTO
+                {
+                    Id = p.Id,
+                    IssuePriority = p.IssuePriority
+                })
+                .ToListAsync();
+        }
+        public async Task<List<IssueNameDTO>> GetIssueNameList() 
+        {
+            return await Context.IssueNames
+                .Select(i => new IssueNameDTO
+                {
+                    Id = i.Id,
+                    IssueName = i.Name
                 })
                 .ToListAsync();
         }
