@@ -29,7 +29,9 @@ namespace LibraBll.Abstractions.Repositories
         Task<int> GetIssueCount();
 
         Task<List<StatusDTO>> GetStatusList();
+
         Task<List<PriorityDTO>> GetPriorityList();
+
         Task<List<IssueNameDTO>> GetIssueNameList();
 
         Task<StatusGroupCount> GetStatusGroupCount();

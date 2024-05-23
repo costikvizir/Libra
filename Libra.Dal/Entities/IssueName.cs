@@ -10,6 +10,7 @@ namespace Libra.Dal.Entities
     public class IssueName : BaseEntity
     {
         public string Name { get; set; }
+        public int IssueRank { get; set; }
         public ICollection<IssueType> IssueTypes { get; set; }
     }
 }
