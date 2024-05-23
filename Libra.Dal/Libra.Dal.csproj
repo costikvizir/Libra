@@ -223,6 +223,7 @@
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\ConnectionType.cs" />
     <Compile Include="Entities\Issue.cs" />
+    <Compile Include="Entities\IssueName.cs" />
     <Compile Include="Entities\IssueType.cs" />
     <Compile Include="Entities\Log.cs" />
     <Compile Include="Entities\Pos.cs" />
