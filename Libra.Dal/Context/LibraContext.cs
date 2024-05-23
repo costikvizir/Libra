@@ -24,6 +24,8 @@ namespace Libra.Dal.Context
 		public DbSet<UserType> UserTypes { get; set; }
 		public DbSet<PosWeekDay> PosWeekDay { get; set; }
 		public DbSet<WeekDay> WeekDays { get; set; }
+        public DbSet<IssueName> IssueNames { get; set; }
+        public DbSet<Priority> Priorities { get; set; }
 
         public LibraContext() : base("DefaultConnection")
         {
@@ -56,9 +58,10 @@ namespace Libra.Dal.Context
 			modelBuilder.Configurations.Add(new UserConfiguration());
 			modelBuilder.Configurations.Add(new PosWeekDayConfiguration());
 			modelBuilder.Configurations.Add(new WeekDayConfiguration());
+			modelBuilder.Configurations.Add(new IssueNameConfiguration());
+			modelBuilder.Configurations.Add(new PriorityConfiguration());
 
-
-			//modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
-		}
+            //modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
+        }
 	}
 }

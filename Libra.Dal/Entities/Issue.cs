@@ -13,9 +13,9 @@ namespace Libra.Dal.Entities
 		public int? TypeId { get; set; }
 		public int? SubTypeId { get; set; }
 		public int? ProblemId { get; set; }
-		public string Priority { get; set; }
 		public int? StatusId { get; set; }
-		public string Memo { get; set; }
+		public int PriorityId { get; set; }
+        public string Memo { get; set; }
 		public int? UserCreatedId { get; set; }
 		public int? AssignedId { get; set; }
 		public string Description { get; set; }
@@ -24,6 +24,7 @@ namespace Libra.Dal.Entities
 		public DateTime? ModificationDate { get; set; }
         public bool IsDeleted { get; set; }
         public string Solution { get; set; }
+		public Priority Priority { get; set; }
         public Pos Pos { get; set; }
         public Status Status { get; set; }
         public User User { get; set; }

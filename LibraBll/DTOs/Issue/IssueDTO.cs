@@ -11,10 +11,10 @@ namespace LibraBll.DTOs.Issue
     {
         public int Id { get; set; }
         public int? PosId { get; set; }
-        public string Type { get; set; } 
-        public string SubType { get; set; }
-        public string Problem { get; set; }
-        public string Priority { get; set; }
+        public int Type { get; set; } 
+        public int SubType { get; set; }
+        public int Problem { get; set; }
+        public int Priority { get; set; }
         public string Status { get; set; }
         public string Memo { get; set; }
         public string UserCreated { get; set; }

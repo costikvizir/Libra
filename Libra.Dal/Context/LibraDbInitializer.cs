@@ -10,6 +10,7 @@ namespace Libra.Dal.Context
 {
     public class LibraDbInitializer : DbMigrationsConfiguration<LibraContext>
     {
+
         public LibraDbInitializer()
         {
             this.AutomaticMigrationDataLossAllowed = true;
@@ -54,9 +55,29 @@ namespace Libra.Dal.Context
             {
                 context.Statuses.AddRange(SeedData.statusesSeed);
             }
+            // Seed priorities
+            if (!context.Priorities.Any())
+            {
+                context.Priorities.AddRange(SeedData.PrioritiesSeed);
+            }
+            // Seed issuenames
+            if (!context.IssueNames.Any())
+            {
+                context.IssueNames.AddRange(SeedData.IssueNamesSeed);
+            }
 
             // Save changes
             context.SaveChanges();
         }
+        //public Configuration()
+        //{
+        //    AutomaticMigrationsEnabled = true;
+        //    //AutomaticMigrationDataLossAllowed = true;
+        //}
+
+        //protected override void Seed(LibraContext context)
+        //{
+        //}
     }
 }
+

@@ -209,9 +209,11 @@
     <Compile Include="Configurations\CityConfiguration.cs" />
     <Compile Include="Configurations\ConnectionTypeConfiguration.cs" />
     <Compile Include="Configurations\IssueConfiguration.cs" />
+    <Compile Include="Configurations\IssueNameConfiguration.cs" />
     <Compile Include="Configurations\IssueTypeConfiguration.cs" />
     <Compile Include="Configurations\LogConfiguration.cs" />
     <Compile Include="Configurations\PosConfiguration.cs" />
+    <Compile Include="Configurations\PriorityConfiguration.cs" />
     <Compile Include="Configurations\StatusConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Configurations\UserTypeConfiguration.cs" />
@@ -228,32 +230,25 @@
     <Compile Include="Entities\Log.cs" />
     <Compile Include="Entities\Pos.cs" />
     <Compile Include="Entities\PosWeekDay.cs" />
+    <Compile Include="Entities\Priority.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
     <Compile Include="Entities\WeekDay.cs" />
-    <Compile Include="Migrations\202405161215373_First_Migration.cs" />
-    <Compile Include="Migrations\202405161215373_First_Migration.Designer.cs">
-      <DependentUpon>202405161215373_First_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\202405231416208_First_Migration.cs" />
+    <Compile Include="Migrations\202405231416208_First_Migration.Designer.cs">
+      <DependentUpon>202405231416208_First_Migration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202405201119563_InitialCreate.cs" />
-    <Compile Include="Migrations\202405201119563_InitialCreate.Designer.cs">
-      <DependentUpon>202405201119563_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202405161215373_First_Migration.resx">
-      <DependentUpon>202405161215373_First_Migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202405201119563_InitialCreate.resx">
-      <DependentUpon>202405201119563_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202405231416208_First_Migration.resx">
+      <DependentUpon>202405231416208_First_Migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

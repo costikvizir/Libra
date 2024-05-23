@@ -31,7 +31,7 @@ namespace LibraBll.Repositories
         {
             IssueType issueType = new IssueType
             {
-                Name = issuePost.Type,
+                IssueNameId = issuePost.Type,
                 IssueLevel = 1,
                 ParrentIssue = 0,
                 InsertDate = DateTime.Now
@@ -40,9 +40,9 @@ namespace LibraBll.Repositories
             Context.IssueTypes.Add(issueType);
             await Context.SaveChangesAsync();
 
-            int typeId = Context.IssueTypes.Where(t => t.Name == issuePost.Type).Select(t => t.Id).FirstOrDefault();
-            int subTypeId = Context.IssueTypes.Where(t => t.Name == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
-            int problemId = Context.IssueTypes.Where(t => t.Name == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
+            int typeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefault();
+            int subTypeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
+            int problemId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
             int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
             int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
             int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
@@ -53,7 +53,7 @@ namespace LibraBll.Repositories
             issue.TypeId = typeId;
             issue.SubTypeId = subTypeId;
             issue.ProblemId = problemId;
-            issue.Priority = issuePost.Priority;
+            issue.PriorityId = issuePost.Priority;
             issue.StatusId = statusId;
             issue.Memo = issuePost.Memo;
             issue.UserCreatedId = userCreatedId;
@@ -106,10 +106,10 @@ namespace LibraBll.Repositories
                     {
                         Id = i.Id,
                         PosId = i.PosId,
-                        Type = i.IssueType.Name,
-                        SubType = i.IssueSubType.Name,
-                        Problem = i.IssueProblem.Name,
-                        Priority = i.Priority,
+                        Type = i.IssueType.IssueNameId,
+                        SubType = i.IssueSubType.IssueNameId,
+                        Problem = i.IssueProblem.IssueNameId,
+                        Priority = i.PriorityId,
                         Status = i.Status.IssueStatus,
                         Memo = i.Memo,
                         UserCreated = i.User.Name,
@@ -140,9 +140,9 @@ namespace LibraBll.Repositories
             var issue = await Context.Issues.FindAsync(id);
             var issueDTO = new IssueDTO();
             //var issueType = await Context.IssueTypes.FirstOrDefaultAsync(x => x.IssueTypes == issue.IssueType);
-            string type = Context.IssueTypes.Where(t => t.Id == issue.TypeId).Select(t => t.Name).FirstOrDefault();
-            string subType = Context.IssueTypes.Where(t => t.Id == issue.SubTypeId).Select(t => t.Name).FirstOrDefault();
-            string problem = Context.IssueTypes.Where(t => t.Id == issue.ProblemId).Select(t => t.Name).FirstOrDefault();
+            int type = Context.IssueTypes.Where(t => t.Id == issue.TypeId).Select(t => t.IssueNameId).FirstOrDefault();
+            int subType = Context.IssueTypes.Where(t => t.Id == issue.SubTypeId).Select(t => t.IssueNameId).FirstOrDefault();
+            int problem = Context.IssueTypes.Where(t => t.Id == issue.ProblemId).Select(t => t.IssueNameId).FirstOrDefault();
             string status = Context.Statuses.Where(s => s.Id == issue.StatusId).Select(s => s.IssueStatus).FirstOrDefault();
             string userCreated = Context.Users.Where(u => u.Id == issue.UserCreatedId).Select(u => u.Name).FirstOrDefault();
             string assignedTo = Context.UserTypes.Where(u => u.Id == issue.AssignedId).Select(u => u.Role).FirstOrDefault();
@@ -158,7 +158,7 @@ namespace LibraBll.Repositories
             //issueDTO.Type = issue.IssueType?.Name;
             //issueDTO.SubType = issue.IssueSubType?.Name;
             //issueDTO.Problem = issue.IssueProblem?.Name;
-            issueDTO.Priority = issue.Priority;
+            issueDTO.Priority = issue.PriorityId;
             //issueDTO.Status = issue.Status.IssueStatus;
             issueDTO.Memo = issue.Memo;
             //issueDTO.UserCreated = issue.User.Name;
@@ -217,10 +217,10 @@ namespace LibraBll.Repositories
                     {
                         Id = i.Id,
                         PosId = i.PosId,
-                        Type = i.IssueType.Name,
-                        SubType = i.IssueSubType.Name,
-                        Problem = i.IssueProblem.Name,
-                        Priority = i.Priority,
+                        Type = i.IssueType.IssueNameId,
+                        SubType = i.IssueSubType.IssueNameId,
+                        Problem = i.IssueProblem.IssueNameId,
+                        Priority = i.PriorityId,
                         Status = i.Status.IssueStatus,
                         Memo = i.Memo,
                         UserCreated = i.User.Name,
@@ -244,9 +244,9 @@ namespace LibraBll.Repositories
 
         public async void UpdateIssue(IssueDTO issuePost)
         {
-            int typeId = Context.IssueTypes.Where(t => t.Name == issuePost.Type).Select(t => t.Id).FirstOrDefault();
-            int subTypeId = Context.IssueTypes.Where(t => t.Name == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
-            int problemId = Context.IssueTypes.Where(t => t.Name == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
+            int typeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefault();
+            int subTypeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
+            int problemId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
             int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
             int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
             int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
@@ -257,7 +257,7 @@ namespace LibraBll.Repositories
                 TypeId = typeId,
                 SubTypeId = subTypeId,
                 ProblemId = problemId,
-                Priority = issuePost.Priority,
+                PriorityId = issuePost.Priority,
                 StatusId = statusId,
                 Memo = issuePost.Memo,
                 UserCreatedId = userCreatedId,

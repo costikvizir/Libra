@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class First_Migration : DbMigration
     {
         public override void Up()
         {
@@ -60,8 +60,8 @@
                         TypeId = c.Int(nullable: false),
                         SubTypeId = c.Int(nullable: false),
                         ProblemId = c.Int(nullable: false),
-                        Priority = c.String(),
                         StatusId = c.Int(nullable: false),
+                        PriorityId = c.Int(nullable: false),
                         Memo = c.String(),
                         UserCreatedId = c.Int(nullable: false),
                         AssignedId = c.Int(nullable: false),
@@ -78,6 +78,7 @@
                 .ForeignKey("dbo.IssueTypes", t => t.TypeId)
                 .ForeignKey("dbo.Users", t => t.UserCreatedId)
                 .ForeignKey("dbo.UserTypes", t => t.AssignedId)
+                .ForeignKey("dbo.Priorities", t => t.PriorityId)
                 .ForeignKey("dbo.Status", t => t.StatusId)
                 .ForeignKey("dbo.Pos", t => t.PosId)
                 .Index(t => t.PosId)
@@ -85,6 +86,7 @@
                 .Index(t => t.SubTypeId)
                 .Index(t => t.ProblemId)
                 .Index(t => t.StatusId)
+                .Index(t => t.PriorityId)
                 .Index(t => t.UserCreatedId)
                 .Index(t => t.AssignedId);
             
@@ -95,8 +97,19 @@
                         Id = c.Int(nullable: false, identity: true),
                         IssueLevel = c.Int(nullable: false),
                         ParrentIssue = c.Int(nullable: false),
-                        Name = c.String(),
+                        IssueNameId = c.Int(nullable: false),
                         InsertDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.IssueNames", t => t.IssueNameId)
+                .Index(t => t.IssueNameId);
+            
+            CreateTable(
+                "dbo.IssueNames",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -144,6 +157,15 @@
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Priorities",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        IssuePriority = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Status",
                 c => new
                     {
@@ -183,6 +205,7 @@
             DropForeignKey("dbo.PosWeekDays", "WeekDayId", "dbo.WeekDays");
             DropForeignKey("dbo.Issues", "PosId", "dbo.Pos");
             DropForeignKey("dbo.Issues", "StatusId", "dbo.Status");
+            DropForeignKey("dbo.Issues", "PriorityId", "dbo.Priorities");
             DropForeignKey("dbo.Logs", "IssueId", "dbo.Issues");
             DropForeignKey("dbo.Users", "UserTypeId", "dbo.UserTypes");
             DropForeignKey("dbo.Issues", "AssignedId", "dbo.UserTypes");
@@ -191,14 +214,17 @@
             DropForeignKey("dbo.Issues", "TypeId", "dbo.IssueTypes");
             DropForeignKey("dbo.Issues", "SubTypeId", "dbo.IssueTypes");
             DropForeignKey("dbo.Issues", "ProblemId", "dbo.IssueTypes");
+            DropForeignKey("dbo.IssueTypes", "IssueNameId", "dbo.IssueNames");
             DropForeignKey("dbo.Pos", "ConnectionTypeId", "dbo.ConnectionTypes");
             DropIndex("dbo.PosWeekDays", new[] { "WeekDayId" });
             DropIndex("dbo.PosWeekDays", new[] { "PosId" });
             DropIndex("dbo.Users", new[] { "UserTypeId" });
             DropIndex("dbo.Logs", new[] { "UserId" });
             DropIndex("dbo.Logs", new[] { "IssueId" });
+            DropIndex("dbo.IssueTypes", new[] { "IssueNameId" });
             DropIndex("dbo.Issues", new[] { "AssignedId" });
             DropIndex("dbo.Issues", new[] { "UserCreatedId" });
+            DropIndex("dbo.Issues", new[] { "PriorityId" });
             DropIndex("dbo.Issues", new[] { "StatusId" });
             DropIndex("dbo.Issues", new[] { "ProblemId" });
             DropIndex("dbo.Issues", new[] { "SubTypeId" });
@@ -209,9 +235,11 @@
             DropTable("dbo.WeekDays");
             DropTable("dbo.PosWeekDays");
             DropTable("dbo.Status");
+            DropTable("dbo.Priorities");
             DropTable("dbo.UserTypes");
             DropTable("dbo.Users");
             DropTable("dbo.Logs");
+            DropTable("dbo.IssueNames");
             DropTable("dbo.IssueTypes");
             DropTable("dbo.Issues");
             DropTable("dbo.ConnectionTypes");

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Libra.Dal.Entities
 {
-    public class IssueName : BaseEntity
+    public class Priority : BaseEntity
     {
-        public string Name { get; set; }
-        public ICollection<IssueType> IssueTypes { get; set; }
+        public string IssuePriority { get; set; }
+        public ICollection<Issue> Issues { get; set; }
     }
 }

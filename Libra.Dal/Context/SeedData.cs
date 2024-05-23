@@ -80,7 +80,7 @@ namespace Libra.Dal.Context
 			new ConnectionType
 			{
 				Id = 2,
-				ConnectType = "Physical"
+				ConnectType = "Wireless"
 			},
 		};
 
@@ -120,5 +120,59 @@ namespace Libra.Dal.Context
 				IssueStatus = "Pending"
 			}
 		};
-	}
+
+		public static List<IssueName> IssueNamesSeed = new List<IssueName>
+		{
+            new IssueName
+			{
+				Id= 1,
+                Name = "Network"
+            },
+			new IssueName
+			{
+                Id = 2,
+                Name = "Software"
+            },
+			new IssueName
+			{
+                Id = 3,
+                Name = "Hardware"
+            },
+            new IssueName
+			{
+                Id = 4,
+                Name = "Connection"
+            },
+			new IssueName
+			{
+                Id = 5,
+                Name = "Other"
+            },
+
+        };
+
+		public static List<Priority> PrioritiesSeed = new List<Priority>
+		{
+			new Priority
+			{
+				Id = 1,
+				IssuePriority = "Low"
+			},
+			new Priority
+			{
+				Id = 2,
+                IssuePriority = "Medium"
+            },
+            new Priority
+            {
+                Id = 3,
+                IssuePriority = "High"
+            },
+            new Priority
+            {
+                Id = 4,
+                IssuePriority = "None"
+            }
+        };
+    }
 }
