@@ -11,6 +11,7 @@ namespace Libra.Dal.Entities
     {
         public string Name { get; set; }
         public int IssueRank { get; set; }
+        public int? ParentId { get; set; }
         public ICollection<IssueType> IssueTypes { get; set; }
     }
 }

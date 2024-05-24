@@ -22,9 +22,13 @@ namespace LibraBll.Repositories
         {
         }
 
+        private List<Issue> _issues;
         public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
         {
             //TODO: Add Issue issue LEVEL
+            // --issuetype -int  id
+            // --issue subtype -- in int id
+            // -- issue problem -- int id
             IssueType issueType = new IssueType
             {
                 IssueNameId = issuePost.Type,
@@ -290,9 +294,11 @@ namespace LibraBll.Repositories
                 })
                 .ToListAsync();
         }
-        public async Task<List<IssueNameDTO>> GetIssueNameList() 
+
+        public async Task<List<IssueNameDTO>> GetIssueNameList(int? id)
         {
             return await Context.IssueNames
+                .Where(i => i.ParentId == id)
                 .Select(i => new IssueNameDTO
                 {
                     Id = i.Id,

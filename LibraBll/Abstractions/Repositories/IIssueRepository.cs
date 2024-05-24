@@ -32,7 +32,7 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<List<PriorityDTO>> GetPriorityList();
 
-        Task<List<IssueNameDTO>> GetIssueNameList();
+        Task<List<IssueNameDTO>> GetIssueNameList(int? id);
 
         Task<StatusGroupCount> GetStatusGroupCount();
     }

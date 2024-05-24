@@ -96,11 +96,11 @@
 						<div class="row mb-3">
 							<div class="col-md-6 pr-4">
 								<label for="inputState" class="form-label">Issue Type</label>
-								@Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+								@Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputType" })
 							</div>
 							<div class="col-md-6 pl-4">
 								<label for="inputState" class="form-label">Subclass</label>
-								@Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "subclass1", "subclass2", "Undefined" }), "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+								@Html.DropDownListFor(model => model.SubType, (SelectList)ViewBag.IssueSubtypes, "select", new { @class = "form-select dark-blue-border-color", id = "inputSubclass" })
 							</div>
 						</div>
 						<div class="mb-3">
@@ -116,7 +116,7 @@
 						<div class="row mb-3">
 							<div class="col-md-6 pr-4">
 								<label for="inputState" class="form-label">Problem</label>
-								@Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "problem1", "problem2", "Undefined" }), "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+								@Html.DropDownListFor(model => model.Problem, (SelectList)ViewBag.IssueProblems, "select", new { @class = "form-select dark-blue-border-color", id = "selectProblem" })
 							</div>
 							<div class="col-md-6 pl-4">
 								<label for="inputState" class="form-label">Priority</label>
@@ -162,10 +162,36 @@
 	</div>
 }
 
-<script>
-	function handleIssueOpenSuccess() {
-		alert('Issue Added Successfully!');
-		goToAllIssues();
-	}
-	//onclick = "goToOpenIssue()"
-</script>
+
+	<script>
+		function handleIssueOpenSuccess() {
+			alert('Issue Added Successfully!');
+			goToAllIssues();
+		}
+		
+		$(document).ready(function () {
+			// Initially disable inputSubclass and selectProblem
+			$('#inputSubclass').prop('disabled', true);
+			$('#selectProblem').prop('disabled', true);
+
+			// Enable/Disable inputSubclass based on inputType selection
+			$('#inputType').change(function () {
+				if ($(this).val() === "select") {
+					$('#inputSubclass').prop('disabled', true);
+					$('#selectProblem').prop('disabled', true);
+				} else {
+					$('#inputSubclass').prop('disabled', false);
+				}
+			});
+
+			// Enable/Disable selectProblem based on inputSubclass selection
+			$('#inputSubclass').change(function () {
+				if ($(this).val() === "select") {
+					$('#selectProblem').prop('disabled', true);
+				} else {
+					$('#selectProblem').prop('disabled', false);
+				}
+			});
+		});
+	</script>
+	

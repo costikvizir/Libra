@@ -239,6 +239,14 @@
     <Compile Include="Migrations\202405231416208_First_Migration.Designer.cs">
       <DependentUpon>202405231416208_First_Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405240608355_Issue_Name_Modifyied.cs" />
+    <Compile Include="Migrations\202405240608355_Issue_Name_Modifyied.Designer.cs">
+      <DependentUpon>202405240608355_Issue_Name_Modifyied.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405240932248_Issue_Name_Parent_Added.cs" />
+    <Compile Include="Migrations\202405240932248_Issue_Name_Parent_Added.Designer.cs">
+      <DependentUpon>202405240932248_Issue_Name_Parent_Added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +256,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202405231416208_First_Migration.resx">
       <DependentUpon>202405231416208_First_Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405240608355_Issue_Name_Modifyied.resx">
+      <DependentUpon>202405240608355_Issue_Name_Modifyied.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405240932248_Issue_Name_Parent_Added.resx">
+      <DependentUpon>202405240932248_Issue_Name_Parent_Added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
