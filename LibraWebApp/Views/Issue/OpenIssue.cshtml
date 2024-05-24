@@ -188,8 +188,10 @@
 			$('#inputSubclass').change(function () {
 				if ($(this).val() === "select") {
 					$('#selectProblem').prop('disabled', true);
+					$('#inputType').prop('disabled', false);
 				} else {
 					$('#selectProblem').prop('disabled', false);
+					$('#inputType').prop('disabled', true);
 				}
 			});
 		});
