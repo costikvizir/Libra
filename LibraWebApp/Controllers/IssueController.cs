@@ -92,7 +92,7 @@ namespace LibraWebApp.Controllers
             ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
             ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
-            ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
+            // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
             ViewBag.Problems = new SelectList(issueNames, "Id", "IssueName");
             ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
 
@@ -113,9 +113,9 @@ namespace LibraWebApp.Controllers
             //    }
             //    return PartialView("AddIssue");
             //}
-     
+
             await _issueRepository.AddIssue(issue);
-   
+
             return PartialView("AddIssue");
         }
 
@@ -140,7 +140,7 @@ namespace LibraWebApp.Controllers
             ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
             ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
-            ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
+            // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
             ViewBag.IssueProblems = new SelectList(issueNames, "Id", "IssueName");
             ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
 
@@ -155,6 +155,20 @@ namespace LibraWebApp.Controllers
             //return null;
             // return Json(new { success = true, message = "Successfully saved" });
             return RedirectToAction("AllIssues");
+        }
+
+        //[HttpGet]
+        //public async Task<JsonResult> GetIssueSubtypes(int issueTypeId)
+        //{
+        //    var subtypes = await _issueRepository.GetIssueNameList(issueTypeId);
+        //    return Json(subtypes, JsonRequestBehavior.AllowGet);
+        //}
+
+        [HttpGet]
+        public async Task<JsonResult> GetIssueSubtypes(int issueTypeId)
+        {
+            var subtypes = await _issueRepository.GetIssueNameList(issueTypeId);
+            return Json(subtypes.Select(s => new { Id = s.Id, SubTypeName = s.IssueName }).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

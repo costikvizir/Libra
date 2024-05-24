@@ -39,17 +39,14 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/dataTables")
     @Scripts.Render("~/bundles/jqueryval")
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     @if (User.Identity.IsAuthenticated)
-    {            
+    {
         <div class="wrapper">
 
             <!-- Preloader -->
             <div class="preloader flex-column justify-content-center align-items-center">
-
             </div>
 
             <!-- Navbar -->
@@ -72,7 +69,6 @@
                         <a href="@Url.Action("Logout", "Account")" class="btn btn-transparent">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
-
                     </li>
                 </ul>
             </nav>
@@ -100,105 +96,104 @@
 
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
-						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-							<!-- Add icons to the links using the .nav-icon class
-	with font-awesome or any other icon font library -->
-							<li class="nav-item">
-								@*<a href="#" class="nav-link active">*@
-								@*<a href="@Url.Action("Index", "Home")" class="nav-link dark-blue-backgroung">*@
-								<a class="nav-link ajax-link active" onclick="goToHomePage()" style="cursor: pointer;">
-									<i class="nav-icon fas fa-tachometer-alt"></i>
-									<p>
-										Dashboard
-										@*<i class="right fas fa-angle-left"></i>*@
-									</p>
-								</a>
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                            with font-awesome or any other icon font library -->
+                            <li class="nav-item">
+                                @*<a href="#" class="nav-link active">*@
+                                @*<a href="@Url.Action("Index", "Home")" class="nav-link dark-blue-backgroung">*@
+                                <a class="nav-link ajax-link active" onclick="goToHomePage()" style="cursor: pointer;">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                        @*<i class="right fas fa-angle-left"></i>*@
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    @*<i class="nav-icon fas fa-copy"></i>*@
+                                    @*<i class="fa-sharp fa-solid fa-screwdriver-wrench"></i>*@
+                                    <i class="fas fa-credit-card dark-blue-font"></i>
+                                    <p class="dark-blue-font">
+                                        Pos
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        @*<a href="@Url.Action("AddPos", "Pos")" class="nav-link">*@
+                                        <a class="nav-link ajax-link" onclick="goToAddPos()" style="cursor: pointer;">
+                                            <i class="far fa-circle nav-icon dark-blue-font"></i>
+                                            <p class="dark-blue-font">Add POS</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        @*<a href="@Url.Action("GetAllpos", "Pos")" class="nav-link">*@
+                                        <a class="nav-link ajax-link" onclick="goToAllPos()" style="cursor: pointer;">
+                                            <i class="far fa-circle nav-icon dark-blue-font"></i>
+                                            <p class="dark-blue-font">Browse POS</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-wrench dark-blue-font"></i>
+                                    <p class="dark-blue-font">
+                                        Issues
+                                        <i class="right fas fa-angle-left dark-blue-font"></i>
+                                        <span class="badge badge-danger right">@ViewBag.IssueCount</span>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        @*<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">*@
+                                        <a class="nav-link ajax-link" onclick="goToAddIssue()" style="cursor: pointer;">
+                                            <i class="far fa-circle nav-icon dark-blue-font"></i>
+                                            <p class="dark-blue-font">Add Issue</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        @*<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">*@
+                                        <a class="nav-link ajax-link" onclick="goToAllIssues()" style="cursor: pointer;">
+                                            <i class="far fa-circle nav-icon dark-blue-font"></i>
+                                            <p class="dark-blue-font">Browse Issues</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-user dark-blue-font"></i>
+                                        <p class="dark-blue-font">
+                                            Users
+                                            <i class="fas fa-angle-left right dark-blue-font"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
 
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									@*<i class="nav-icon fas fa-copy"></i>*@
-									@*<i class="fa-sharp fa-solid fa-screwdriver-wrench"></i>*@
-									<i class="fas fa-credit-card dark-blue-font"></i>
-									<p class="dark-blue-font">
-										Pos
-										<i class="fas fa-angle-left right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										@*<a href="@Url.Action("AddPos", "Pos")" class="nav-link">*@
-										<a class="nav-link ajax-link" onclick="goToAddPos()" style="cursor: pointer;">
-											<i class="far fa-circle nav-icon dark-blue-font"></i>
-											<p class="dark-blue-font">Add POS</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										@*<a href="@Url.Action("GetAllpos", "Pos")" class="nav-link">*@
-										<a class="nav-link ajax-link" onclick="goToAllPos()" style="cursor: pointer;">
-											<i class="far fa-circle nav-icon dark-blue-font"></i>
-											<p class="dark-blue-font">Browse POS</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="fas fa-wrench dark-blue-font"></i>
-									<p class="dark-blue-font">
-										Issues
-										<i class="right fas fa-angle-left dark-blue-font"></i>
-										<span class="badge badge-danger right">@ViewBag.IssueCount</span>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										@*<a href="@Url.Action("AddIssue", "Issue")" class="nav-link">*@
-										<a class="nav-link ajax-link" onclick="goToAddIssue()" style="cursor: pointer;">
-											<i class="far fa-circle nav-icon dark-blue-font"></i>
-											<p class="dark-blue-font">Add Issue</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										@*<a href="@Url.Action("GetAllIssues", "Issue")" class="nav-link">*@
-										<a class="nav-link ajax-link" onclick="goToAllIssues()" style="cursor: pointer;">
-											<i class="far fa-circle nav-icon dark-blue-font"></i>
-											<p class="dark-blue-font">Browse Issues</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-							@if (User.IsInRole("Administrator"))
-							{
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										<i class="fas fa-user dark-blue-font"></i>
-										<p class="dark-blue-font">
-											Users
-											<i class="fas fa-angle-left right dark-blue-font"></i>
-										</p>
-									</a>
-									<ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            @*<a href="@Url.Action("AddUser", "User")" class="nav-link">*@
+                                            <a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">
+                                                <i class="far fa-circle dark-blue-font nav-icon"></i>
+                                                <p class="dark-blue-font">Add User</p>
+                                            </a>
+                                        </li>
 
-										<li class="nav-item">
-											@*<a href="@Url.Action("AddUser", "User")" class="nav-link">*@
-											<a class="nav-link ajax-link" onclick="goToAddUser()" style="cursor: pointer;">
-												<i class="far fa-circle dark-blue-font nav-icon"></i>
-												<p class="dark-blue-font">Add User</p>
-											</a>
-										</li>
-										
-										<li class="nav-item">
-											@*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
-											<a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">
-												<i class="far fa-circle nav-icon dark-blue-font"></i>
-												<p class="dark-blue-font">Browse Users</p>
-											</a>
-										</li>
-									</ul>
-								</li>
+                                        <li class="nav-item">
+                                            @*<a href="@Url.Action("GetAllUsers", "User")" class="nav-link">*@
+                                            <a class="nav-link ajax-link" onclick="goToAllUsers()" style="cursor: pointer;">
+                                                <i class="far fa-circle nav-icon dark-blue-font"></i>
+                                                <p class="dark-blue-font">Browse Users</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             }
-							</ul>
+                        </ul>
                     </nav>
                     <!-- /.sidebar-menu -->
                 </div>
@@ -274,10 +269,8 @@
 
         <script src="~/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
 
-
         <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.min.js"></script>
-
 
         @*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
@@ -295,12 +288,12 @@
         <script src="~/Scripts/ViewScripts/getAllPos.js"></script>
         <script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
         <script src="~/Scripts/ViewScripts/getHomePage.js"></script>
+        //<script src="~/Scripts/ViewScripts/openIssue.js"></script>
 
-        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+        @*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
         @*<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
 
         @RenderSection("scripts", required: false)
     }
 </body>
 </html>
-

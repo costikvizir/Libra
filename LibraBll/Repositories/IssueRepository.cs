@@ -23,6 +23,7 @@ namespace LibraBll.Repositories
         }
 
         private List<Issue> _issues;
+
         public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
         {
             //TODO: Add Issue issue LEVEL
@@ -284,8 +285,8 @@ namespace LibraBll.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<PriorityDTO>> GetPriorityList() 
-        { 
+        public async Task<List<PriorityDTO>> GetPriorityList()
+        {
             return await Context.Priorities
                 .Select(p => new PriorityDTO
                 {
@@ -297,7 +298,7 @@ namespace LibraBll.Repositories
 
         public async Task<List<IssueNameDTO>> GetIssueNameList(int? id)
         {
-            return await Context.IssueNames
+            var ans = await Context.IssueNames
                 .Where(i => i.ParentId == id)
                 .Select(i => new IssueNameDTO
                 {
@@ -305,6 +306,7 @@ namespace LibraBll.Repositories
                     IssueName = i.Name
                 })
                 .ToListAsync();
+            return ans;
         }
 
         public async Task<StatusGroupCount> GetStatusGroupCount()
