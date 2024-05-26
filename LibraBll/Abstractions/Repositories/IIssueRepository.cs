@@ -1,12 +1,8 @@
 ﻿using LibraBll.Common.DataTableModels;
-using LibraBll.DTOs;
 using LibraBll.DTOs.ComplexObjects;
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Issue;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,15 +10,15 @@ namespace LibraBll.Abstractions.Repositories
 {
     public interface IIssueRepository
     {
-        Task<IssueDTO> GetIssueByIdAsync(int id);
+        Task<IssueGetDTO> GetIssueByIdAsync(int id);
 
-        Task<List<IssueDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken);
+        Task<List<IssueGetDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken);
 
-        Task<List<IssueDTO>> GetIssuesByPosIdAsync(int posId);
+        Task<List<IssueGetDTO>> GetIssuesByPosIdAsync(int posId);
 
-        Task<IssueDTO> AddIssue(IssueDTO issue);
+        Task<IssuePostDTO> AddIssue(IssuePostDTO issue);
 
-        void UpdateIssue(IssueDTO issue);
+        //void UpdateIssue(IssueDTO issue);
 
         void DeleteIssue(int id);
 

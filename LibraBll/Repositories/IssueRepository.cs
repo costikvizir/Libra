@@ -9,6 +9,7 @@ using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.Issue;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading;
@@ -24,50 +25,82 @@ namespace LibraBll.Repositories
 
         private List<Issue> _issues;
 
-        public async Task<IssueDTO> AddIssue(IssueDTO issuePost)
+        public async Task<IssuePostDTO> AddIssue(IssuePostDTO issuePost)
         {
-            //TODO: Add Issue issue LEVEL
-            // --issuetype -int  id
-            // --issue subtype -- in int id
-            // -- issue problem -- int id
-            IssueType issueType = new IssueType
+            try
             {
-                IssueNameId = issuePost.Type,
-                IssueLevel = 1,
-                ParrentIssue = 0,
-                InsertDate = DateTime.Now
+                // Create list of IssueType entities
+                List<IssueType> issueTypes = new List<IssueType>
+            {
+                new IssueType
+                {
+                    IssueNameId = issuePost.Type,
+                    IssueLevel = await Context.IssueNames.Where(i => i.Id == issuePost.Type).Select(x => x.IssueRank).FirstOrDefaultAsync(),
+                    ParrentIssue = 0,
+                    InsertDate = DateTime.Now
+                },
+                new IssueType
+                {
+                    IssueNameId = issuePost.SubType,
+                    IssueLevel = await Context.IssueNames.Where(i => i.Id == issuePost.SubType).Select(x => x.IssueRank).FirstOrDefaultAsync(),
+                    ParrentIssue = issuePost.Type,
+                    InsertDate = DateTime.Now
+                },
+                new IssueType
+                {
+                    IssueNameId = issuePost.Problem,
+                    IssueLevel = await Context.IssueNames.Where(i => i.Id == issuePost.Problem).Select(x => x.IssueRank).FirstOrDefaultAsync(),
+                    ParrentIssue = issuePost.SubType,
+                    InsertDate = DateTime.Now
+                }
             };
 
-            Context.IssueTypes.Add(issueType);
-            await Context.SaveChangesAsync();
+                // Add all IssueType entities to the context
+                Context.IssueTypes.AddRange(issueTypes);
 
-            int typeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefault();
-            int subTypeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
-            int problemId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
-            int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
-            int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
-            int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
+                await Context.SaveChangesAsync();
 
-            Issue issue = new Issue();
+                int issueTypeId = issueTypes[0].Id;
+                int issueSubtypeId = issueTypes[1].Id;
+                int problemId = issueTypes[2].Id;
 
-            issue.PosId = issuePost.PosId;
-            issue.TypeId = typeId;
-            issue.SubTypeId = subTypeId;
-            issue.ProblemId = problemId;
-            issue.PriorityId = issuePost.Priority;
-            issue.StatusId = statusId;
-            issue.Memo = issuePost.Memo;
-            issue.UserCreatedId = userCreatedId;
-            issue.AssignedId = assignedId;
-            issue.Description = issuePost.Description;
-            //issue.AssignedDate = DateTime.Parse(issuePost.AssignedDate);
-            issue.AssignedDate = DateTime.Now;
-            issue.CreationDate = DateTime.Now;
-            //issue.ModificationDate = DateTime.Parse(issuePost.ModificationDate);
-            issue.Solution = issuePost.Solution;
+                // Retrieve the generated IDs
 
-            Context.Issues.Add(issue);
-            await Context.SaveChangesAsync();
+                // issuePost.AssignedTo
+                //int typeId = await Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefaultAsync();
+                //int subTypeId = await Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefaultAsync();
+                //int problemId = await Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefaultAsync();
+                //int statusId = await Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefaultAsync();
+                int userCreatedId = await Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefaultAsync();
+                // int assignedId = await Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefaultAsync();
+
+                // Create the Issue entity
+                Issue issue = new Issue
+                {
+                    PosId = issuePost.PosId,
+                    TypeId = issueTypeId,
+                    SubTypeId = issueSubtypeId,
+                    ProblemId = problemId,
+                    PriorityId = issuePost.Priority,
+                    StatusId = issuePost.StatusId,
+                    Memo = issuePost.Memo,
+                    UserCreatedId = userCreatedId,
+                    AssignedId = issuePost.AssignedTo,
+                    Description = issuePost.Description,
+                    AssignedDate = DateTime.Now,
+                    CreationDate = DateTime.Now,
+                    Solution = issuePost.Solution
+                };
+
+                Context.Issues.Add(issue);
+
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                throw;
+            }
 
             return issuePost;
         }
@@ -87,32 +120,32 @@ namespace LibraBll.Repositories
             return await Context.Issues.CountAsync();
         }
 
-        public async Task<List<IssueDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
+        public async Task<List<IssueGetDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
             var rawIssueList = await Context.Issues
                     .Include(i => i.Pos)
                     .Include(i => i.Status)
                     .Include(i => i.User)
+                    .Include(i => i.Priority)
                     .Include(i => i.UserType)
                     .Include(i => i.IssueType)
                     .Include(i => i.IssueSubType)
                     .Include(i => i.IssueProblem)
                     .ToListAsync();
 
-            List<IssueDTO> issueList = null;
+            List<IssueGetDTO> issueList = null;
             try
             {
                 issueList = rawIssueList
-                    .Select(i => new IssueDTO
+                    .Select(i => new IssueGetDTO
                     {
                         Id = i.Id,
-                        PosId = i.PosId,
-                        Type = i.IssueType.IssueNameId,
-                        SubType = i.IssueSubType.IssueNameId,
-                        Problem = i.IssueProblem.IssueNameId,
-                        Priority = i.PriorityId,
-                        Status = i.Status.IssueStatus,
+                        Priority = i.Priority.IssuePriority,
+                        Type = Context.IssueNames.Where(n => n.Id == i.TypeId).Select(n => n.Name).FirstOrDefault(),
+                        SubType = Context.IssueNames.Where(n => n.Id == i.SubTypeId).Select(n => n.Name).FirstOrDefault(),
+                        Problem = Context.IssueNames.Where(n => n.Id == i.ProblemId).Select(n => n.Name).FirstOrDefault(),
                         Memo = i.Memo,
+                        Status = i.Status.IssueStatus,
                         UserCreated = i.User.Name,
                         AssignedTo = i.UserType.Role,
                         Description = i.Description,
@@ -136,10 +169,10 @@ namespace LibraBll.Repositories
             return issueList;
         }
 
-        public async Task<IssueDTO> GetIssueByIdAsync(int id)
+        public async Task<IssueGetDTO> GetIssueByIdAsync(int id)
         {
             var issue = await Context.Issues.FindAsync(id);
-            var issueDTO = new IssueDTO();
+            var issueDTO = new IssueGetDTO();
             //var issueType = await Context.IssueTypes.FirstOrDefaultAsync(x => x.IssueTypes == issue.IssueType);
             int type = Context.IssueTypes.Where(t => t.Id == issue.TypeId).Select(t => t.IssueNameId).FirstOrDefault();
             int subType = Context.IssueTypes.Where(t => t.Id == issue.SubTypeId).Select(t => t.IssueNameId).FirstOrDefault();
@@ -151,21 +184,20 @@ namespace LibraBll.Repositories
             //string userRole = Context.UserTypes.Where(x => x.Id == issue.UserCreatedId).Select(x => x.Role).FirstOrDefault();
 
             issueDTO.Id = issue.Id;
-            issueDTO.PosId = issue.PosId;
-            issueDTO.Type = type;
-            issueDTO.SubType = subType;
-            issueDTO.Problem = problem;
+            issueDTO.Type = Context.IssueNames.Where(n => n.Id == issue.TypeId).Select(n => n.Name).FirstOrDefault();
+            issueDTO.SubType = Context.IssueNames.Where(n => n.Id == issue.SubTypeId).Select(n => n.Name).FirstOrDefault();
+            issueDTO.Problem = Context.IssueNames.Where(n => n.Id == issue.ProblemId).Select(n => n.Name).FirstOrDefault();
             issueDTO.Status = status;
             //issueDTO.Type = issue.IssueType?.Name;
             //issueDTO.SubType = issue.IssueSubType?.Name;
             //issueDTO.Problem = issue.IssueProblem?.Name;
-            issueDTO.Priority = issue.PriorityId;
+            issueDTO.Priority = issue.Priority.IssuePriority;
             //issueDTO.Status = issue.Status.IssueStatus;
             issueDTO.Memo = issue.Memo;
             //issueDTO.UserCreated = issue.User.Name;
             //issueDTO.AssignedTo = issue.UserType.Role;
             issueDTO.UserCreated = userCreated;
-            issueDTO.AssignedTo = assignedTo;
+            issueDTO.AssignedTo = issue.UserType.Role;
             issueDTO.Description = issue.Description;
             issueDTO.AssignedDate = issue.AssignedDate.ToString();
             issueDTO.CreationDate = issue.CreationDate.ToString();
@@ -197,7 +229,7 @@ namespace LibraBll.Repositories
             //};
         }
 
-        public async Task<List<IssueDTO>> GetIssuesByPosIdAsync(int posId)
+        public async Task<List<IssueGetDTO>> GetIssuesByPosIdAsync(int posId)
         {
             var rawIssueList = await Context.Issues
                 .Include(i => i.Pos)
@@ -210,20 +242,19 @@ namespace LibraBll.Repositories
                 .Where(i => i.PosId == posId)
                 .ToListAsync();
 
-            List<IssueDTO> issueList = null;
+            List<IssueGetDTO> issueList = null;
             try
             {
                 issueList = rawIssueList
-                    .Select(i => new IssueDTO
+                    .Select(i => new IssueGetDTO
                     {
                         Id = i.Id,
-                        PosId = i.PosId,
-                        Type = i.IssueType.IssueNameId,
-                        SubType = i.IssueSubType.IssueNameId,
-                        Problem = i.IssueProblem.IssueNameId,
-                        Priority = i.PriorityId,
-                        Status = i.Status.IssueStatus,
+                        Priority = i.Priority.IssuePriority,
+                        Type = Context.IssueNames.Where(n => n.Id == i.TypeId).Select(n => n.Name).FirstOrDefault(),
+                        SubType = Context.IssueNames.Where(n => n.Id == i.SubTypeId).Select(n => n.Name).FirstOrDefault(),
+                        Problem = Context.IssueNames.Where(n => n.Id == i.ProblemId).Select(n => n.Name).FirstOrDefault(),
                         Memo = i.Memo,
+                        Status = i.Status.IssueStatus,
                         UserCreated = i.User.Name,
                         AssignedTo = i.UserType.Role,
                         Description = i.Description,
@@ -243,36 +274,36 @@ namespace LibraBll.Repositories
             return issueList;
         }
 
-        public async void UpdateIssue(IssueDTO issuePost)
-        {
-            int typeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefault();
-            int subTypeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
-            int problemId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
-            int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
-            int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
-            int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
+        //public async void UpdateIssue(IssueDTO issuePost)
+        //{
+        //    int typeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefault();
+        //    int subTypeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
+        //    int problemId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
+        //    //int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
+        //    int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
+        //   // int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
 
-            Issue issue = new Issue
-            {
-                PosId = issuePost.PosId,
-                TypeId = typeId,
-                SubTypeId = subTypeId,
-                ProblemId = problemId,
-                PriorityId = issuePost.Priority,
-                StatusId = statusId,
-                Memo = issuePost.Memo,
-                UserCreatedId = userCreatedId,
-                AssignedId = assignedId,
-                Description = issuePost.Description,
-                AssignedDate = DateTime.Parse(issuePost.AssignedDate),
-                CreationDate = DateTime.Now,
-                ModificationDate = DateTime.Parse(issuePost.ModificationDate),
-                Solution = issuePost.Solution
-            };
+        //    Issue issue = new Issue
+        //    {
+        //        PosId = issuePost.PosId,
+        //        TypeId = typeId,
+        //        SubTypeId = subTypeId,
+        //        ProblemId = problemId,
+        //        PriorityId = issuePost.Priority,
+        //        StatusId = issuePost.Status,
+        //        Memo = issuePost.Memo,
+        //        UserCreatedId = userCreatedId,
+        //        AssignedId = issuePost.AssignedTo,
+        //        Description = issuePost.Description,
+        //        AssignedDate = DateTime.Parse(issuePost.AssignedDate),
+        //        CreationDate = DateTime.Now,
+        //        ModificationDate = DateTime.Parse(issuePost.ModificationDate),
+        //        Solution = issuePost.Solution
+        //    };
 
-            Context.Issues.Add(issue);
-            await Context.SaveChangesAsync();
-        }
+        //    Context.Issues.Add(issue);
+        //    await Context.SaveChangesAsync();
+        //}
 
         public async Task<List<StatusDTO>> GetStatusList()
         {
@@ -298,7 +329,7 @@ namespace LibraBll.Repositories
 
         public async Task<List<IssueNameDTO>> GetIssueNameList(int? id)
         {
-            var ans = await Context.IssueNames
+            return await Context.IssueNames
                 .Where(i => i.ParentId == id)
                 .Select(i => new IssueNameDTO
                 {
@@ -306,7 +337,6 @@ namespace LibraBll.Repositories
                     IssueName = i.Name
                 })
                 .ToListAsync();
-            return ans;
         }
 
         public async Task<StatusGroupCount> GetStatusGroupCount()

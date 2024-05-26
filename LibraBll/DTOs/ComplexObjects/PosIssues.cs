@@ -11,6 +11,6 @@ namespace LibraBll.DTOs.ComplexObjects
     public class PosIssues
     {
         public PosGetDTO PosGet { get; set; }
-        public List<IssueDTO> Issues { get; set; }
+        public List<IssueGetDTO> Issues { get; set; }
     }
 }

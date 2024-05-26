@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LibraBll.Validators.Issue
 {
-	public class IssueValidator : AbstractValidator<IssueDTO>
+	public class IssueValidator : AbstractValidator<IssuePostDTO>
 	{
         public IssueValidator()
         {

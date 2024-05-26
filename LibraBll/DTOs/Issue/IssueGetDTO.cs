@@ -1,20 +1,12 @@
-﻿using Libra.Dal.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LibraBll.DTOs.Issue
+﻿namespace LibraBll.DTOs.Issue
 {
-    public class IssueDTO
+    public class IssueGetDTO
     {
         public int Id { get; set; }
-        public int? PosId { get; set; }
-        public int Type { get; set; } 
-        public int SubType { get; set; }
-        public int Problem { get; set; }
-        public int Priority { get; set; }
+        public string Type { get; set; }
+        public string SubType { get; set; }
+        public string Problem { get; set; }
+        public string Priority { get; set; }
         public string Status { get; set; }
         public string Memo { get; set; }
         public string UserCreated { get; set; }

@@ -150,7 +150,8 @@
     <Compile Include="DTOs\Dropdown\PriorityDTO.cs" />
     <Compile Include="DTOs\Dropdown\RoleDTO.cs" />
     <Compile Include="DTOs\Dropdown\StatusDTO.cs" />
-    <Compile Include="DTOs\Issue\IssueDTO.cs" />
+    <Compile Include="DTOs\Issue\IssueGetDTO.cs" />
+    <Compile Include="DTOs\Issue\IssuePostDTO.cs" />
     <Compile Include="DTOs\Pos\PosEditDTO.cs" />
     <Compile Include="DTOs\Pos\PosGetDTO.cs" />
     <Compile Include="DTOs\User\AddUserDTO.cs" />
