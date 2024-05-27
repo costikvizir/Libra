@@ -2,6 +2,7 @@
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
+using LibraBll.Validators.User;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> GetAllUsers()
         {
             var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
             return View();
         }
@@ -70,6 +72,7 @@ namespace LibraWebApp.Controllers
         public async Task<ActionResult> AddUser()
         {
             var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
             //ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             ViewBag.Roles = roles.Select(r => new SelectListItem
@@ -84,23 +87,66 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
-            var results = await _createUserValidator.ValidateAsync(user);
-
-            if (!results.IsValid)
+            try
             {
-                foreach (var failure in results.Errors)
+                var results = await _createUserValidator.ValidateAsync(user);
+                if (!results.IsValid)
                 {
-                    ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    foreach (var failure in results.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    }
+                    var roles = await _userRepository.GetRoles();
+                    //ViewBag.Roles = new SelectList(roles, "Id", "Role");
+                    ViewBag.Roles = roles.Select(r => new SelectListItem
+                    {
+                        Value = r.Id.ToString(),
+                        Text = r.Role
+                    }).ToList();
+                    return PartialView("AddUser", user);
                 }
-                var roles = await _userRepository.GetRoles();
-                //ViewBag.Roles = new SelectList(roles, "Id", "Role");
-                ViewBag.Roles = roles.Select(r => new SelectListItem
-                {
-                    Value = r.Id.ToString(),
-                    Text = r.Role
-                }).ToList();
-                return PartialView("AddUser", user);
             }
+            catch (System.Exception ex)
+            {
+
+                throw;
+            }
+
+            //try
+            //{
+            //    var validator = new AddUserDTOValidator(_userRepository);
+            //    await validator.InitializeAsync();
+            //    validator.SetupRules();
+
+            //    var results = await validator.ValidateAsync(user);
+            //    if (!results.IsValid)
+            //    {
+            //        foreach (var failure in results.Errors)
+            //        {
+            //            ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+            //        }
+
+            //        ViewBag.Roles = validator.CachedRoles.Select(r => new SelectListItem
+            //        {
+            //            Value = r.Id.ToString(),
+            //            Text = r.Role
+            //        }).ToList();
+
+            //        return PartialView("AddUser", user);
+            //    }
+
+            //    // Proceed with the rest of your logic if validation passes
+            //    // ...
+
+            //    return View("UserList"); // Example: Redirect to a user list view
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    // Log the exception
+            //    // Logger.LogError(ex, "An error occurred while creating a user.");
+            //    throw;
+            //}
+
             await _userRepository.CreateUser(user);
 
            
@@ -114,6 +160,7 @@ namespace LibraWebApp.Controllers
             var user = await _userRepository.GetUserByIdAsync(id);
 
             var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return PartialView("~/Views/User/_Edit.cshtml", user);
@@ -148,6 +195,7 @@ namespace LibraWebApp.Controllers
             _userRepository.UpdateUser(user);
 
             var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
 
             return PartialView("GetAllUsers");

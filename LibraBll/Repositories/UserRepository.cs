@@ -17,13 +17,14 @@ namespace LibraBll.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository(LibraContext context) : base(context)
-        {
-        }
+        //private IEnumerable<RoleDTO> _cachedRoles;
+        //public UserRepository(LibraContext context) : base(context)
+        //{
+        //}
 
         public async Task<GetUserDTO> GetUserByIdAsync(int id)
         {
-            User entity = await Context.Users.FindAsync(id);
+            User entity = await Context.Users.Include(u => u.UserType).Where(u => u.Id == id).FirstOrDefaultAsync();
             //var userRole =
             var user = new GetUserDTO()
             {
@@ -145,7 +146,6 @@ namespace LibraBll.Repositories
             if (user != null)
                 user.IsDeleted = true;
 
-            //Context.Entry(user).State = EntityState.Modified;
             Context.SaveChanges();
         }
 
@@ -196,6 +196,22 @@ namespace LibraBll.Repositories
 
             return roles;
         }
+
+        //public async Task<IEnumerable<RoleDTO>> GetRolesCachedAsync()
+        //{
+        //    if (_cachedRoles == null)
+        //    {
+        //        _cachedRoles = await Context.UserTypes
+        //            .Select(x => new RoleDTO
+        //            {
+        //                Id = x.Id,
+        //                Role = x.Role
+        //            })
+        //            .ToListAsync();
+        //    }
+
+        //    return _cachedRoles;
+        //}
 
         public async Task<bool> UserNameExistsAsync(string userName)
         {

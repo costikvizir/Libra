@@ -28,6 +28,7 @@ namespace LibraBll.Abstractions.Repositories
         Task<int> GetUsersCountAsync();
 
         Task<IEnumerable<RoleDTO>> GetRoles();
+        //Task<IEnumerable<RoleDTO>> GetRolesCachedAsync();
 
         Task<bool> UserNameExistsAsync(string name);
 

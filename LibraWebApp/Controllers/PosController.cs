@@ -197,8 +197,15 @@ namespace LibraWebApp.Controllers
             return Json(new { success = true, message = "Successfully edited" });
         }
 
+        //[HttpPost]
+        //public async Task<ActionResult> DeletePos(int id)
+        //{
+        //    _posRepository.DeletePos(id);
+        //    return RedirectToAction("GetAllPos");
+        //}
+
         [HttpPost]
-        public async Task<ActionResult> DeletePos(int id)
+        public ActionResult DeletePos(int id)
         {
             _posRepository.DeletePos(id);
             return RedirectToAction("GetAllPos");

@@ -110,9 +110,9 @@ function goToAllIssues() {
 	});
 }
 
-//document.getElementById('buttonWrapper').addEventListener('click', function () {
-//	var button = document.getElementById('deleteButton');
-//	if (button.disabled) {
-//		alert('Please select a row');
-//	}
-//});
+document.getElementById('buttonWrapper').addEventListener('click', function () {
+	var button = document.getElementById('deleteButton');
+	if (button.disabled) {
+		alert('Please select a row');
+	}
+});

@@ -11,7 +11,7 @@
 <h3 class="accent-gray-dark mt-5">Add User</h3>
 <hr class="my-4">
 
-@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainDiv", OnSuccess = "handleUserAddSuccess" }, new { id = "AddUserForm" }))
+@using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainDiv" }, new { id = "AddUserForm" }))
 {
     <div class="card">
         <div class="card-header slight-blue-header">
@@ -63,10 +63,12 @@
             <div class="row">
                 <div class="col-md-5">
                     <label for="inputTelephone" class="form-label">Telephone</label>
-                    <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>
-                        @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone" })
-                    </div>
+					<div class="input-group">
+						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>
+						@*@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", pattern = @"\+?[0-9]*" })*@
+						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", oninput = "validateTelephoneInput(this)", onkeydown = "return isNumberKey(event)", onpaste = "handlePaste(event)" })
+
+					</div>
                     @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-4">

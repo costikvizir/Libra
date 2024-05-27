@@ -9,18 +9,19 @@ namespace LibraBll.Common
         private readonly LibraContext _context;
         protected readonly ILogger _logger;
 
-        public BaseRepository(LibraContext context)
+        //public BaseRepository(LibraContext context)
+        public BaseRepository()
         {
             //_context = context ?? throw new ArgumentNullException(nameof(context));
             _context = new LibraContext();
             // _logger = Log.ForContext<BaseRepository>();
             //_logger = new LoggerConfiguration().WriteTo.Console();
-            _context = context;
+            //_context = context;
         }
 
         public void Dispose()
         {
-            //_context?.Dispose();
+            _context?.Dispose();
         }
 
         protected LibraContext Context => this._context;

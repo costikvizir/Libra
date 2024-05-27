@@ -13,10 +13,10 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>@ViewBag.StatusGroupCount.NewIssues</h3>
-                            <p>New Orders</p>
+                            <p>New Issues</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+							<i class="fa-solid fa-chart-bar"></i></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -26,11 +26,11 @@
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>@ViewBag.StatusGroupCount.NewIssues</h3>
-                            <p>Bounce Rate</p>
+                            <h3>@ViewBag.StatusGroupCount.AssignedIssues</h3>
+                            <p>Pending Issues</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+							<i class="fa-solid fa-spinner"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -40,11 +40,11 @@
 
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>@ViewBag.StatusGroupCount.NewIssues</h3>
-                            <p>User Registrations</p>
+                            <h3>@ViewBag.StatusGroupCount.PendingIssues</h3>
+                            <p>Assigned Issues</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+							<i class="fa-solid fa-arrows-turn-right"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -54,12 +54,13 @@
 
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>@ViewBag.StatusGroupCount.NewIssues</h3>
-                            <p>Unique Visitors</p>
+                            <h3>@ViewBag.StatusGroupCount.InProgressIssues</h3>
+                            <p>In Progress Issues</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
+						<div class="icon">
+							<i class="fa-solid fa-arrows-rotate"></i>
+							@*<i class="ion ion-pie-graph"></i>*@
+						</div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>

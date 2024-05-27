@@ -17,9 +17,9 @@ namespace LibraBll.Repositories
 {
     public class PosRepository : BaseRepository, IPosRepository
     {
-        public PosRepository(LibraContext context) : base(context)
-        {
-        }
+        //public PosRepository(LibraContext context) : base(context)
+        //{
+        //}
 
         public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
@@ -203,15 +203,26 @@ namespace LibraBll.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async void DeletePos(int id)
+        //public async void DeletePos(int id)
+        //{
+        //    Pos entity = await Context.Pos.Where(p => p.Id == id).FirstOrDefaultAsync();
+
+        //    if (entity != null)
+        //        entity.IsDeleted = true;
+
+        //    //Context.Entry(entity).State = EntityState.Modified;
+        //    await Context.SaveChangesAsync();
+        //}
+
+        public void DeletePos(int id)
         {
-            Pos entity = await Context.Pos.Where(p => p.Id == id).FirstOrDefaultAsync();
+            Pos entity =  Context.Pos.Where(p => p.Id == id).FirstOrDefault();
 
             if (entity != null)
                 entity.IsDeleted = true;
 
             //Context.Entry(entity).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
+             Context.SaveChanges();
         }
 
         public async Task<IEnumerable<CityDTO>> GetCityList()

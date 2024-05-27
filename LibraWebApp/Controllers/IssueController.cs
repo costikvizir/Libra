@@ -87,6 +87,7 @@ namespace LibraWebApp.Controllers
         {
             var statusList = await _issueRepository.GetStatusList();
             var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
             var issueNames = await _issueRepository.GetIssueNameList(null);
             var priorityList = await _issueRepository.GetPriorityList();
 
@@ -129,6 +130,7 @@ namespace LibraWebApp.Controllers
             var pos = await _posRepository.GetPosByIdAsync(id);
             var statusList = await _issueRepository.GetStatusList();
             var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
             var issueNames = await _issueRepository.GetIssueNameList(null);
             var priorityList = await _issueRepository.GetPriorityList();
 

@@ -19,9 +19,9 @@ namespace LibraBll.Repositories
 {
     public class IssueRepository : BaseRepository, IIssueRepository
     {
-        public IssueRepository(LibraContext context) : base(context)
-        {
-        }
+        //public IssueRepository(LibraContext context) : base(context)
+        //{
+        //}
 
         private List<Issue> _issues;
 
@@ -341,10 +341,19 @@ namespace LibraBll.Repositories
 
         public async Task<StatusGroupCount> GetStatusGroupCount()
         {
-            int newIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "New").CountAsync();
-            int assignedIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Asigned").CountAsync();
-            int inprogressIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "In progress").CountAsync();
-            int pendingIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Pending").CountAsync();
+            //int newIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "New").CountAsync();
+            //int assignedIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Asigned").CountAsync();
+            //int inprogressIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "In progress").CountAsync();
+            //int pendingIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Pending").CountAsync();
+
+            var allissues = await Context.Issues
+                .Include(i => i.Status).ToListAsync();
+
+            int newIssueCount = allissues.Where(i => i.Status.IssueStatus == "New").Count();
+            int assignedIssueCount = allissues.Where(i => i.Status.IssueStatus == "Assigned").Count();
+            int inprogressIssueCount = allissues.Where(i => i.Status.IssueStatus == "In progress").Count();
+            int pendingIssueCount = allissues.Where(i => i.Status.IssueStatus == "Pending").Count();
+
 
             return new StatusGroupCount
             {

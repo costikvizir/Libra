@@ -36,7 +36,6 @@ function initializePosListForIssue() {
     });
 
     $('#inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
-        // Apply the filter and redraw the table
         console.log("Filtering ... ")
         //Filtering based on second, fifth and sixth columns of the table
         table
