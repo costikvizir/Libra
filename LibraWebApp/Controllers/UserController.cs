@@ -3,6 +3,7 @@ using LibraBll.Abstractions.Repositories;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.User;
 using LibraBll.Validators.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -87,71 +88,58 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
-            try
-            {
-                var results = await _createUserValidator.ValidateAsync(user);
-                if (!results.IsValid)
-                {
-                    foreach (var failure in results.Errors)
-                    {
-                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
-                    }
-                    var roles = await _userRepository.GetRoles();
-                    //ViewBag.Roles = new SelectList(roles, "Id", "Role");
-                    ViewBag.Roles = roles.Select(r => new SelectListItem
-                    {
-                        Value = r.Id.ToString(),
-                        Text = r.Role
-                    }).ToList();
-                    return PartialView("AddUser", user);
-                }
-            }
-            catch (System.Exception ex)
-            {
-
-                throw;
-            }
-
             //try
             //{
-            //    var validator = new AddUserDTOValidator(_userRepository);
-            //    await validator.InitializeAsync();
-            //    validator.SetupRules();
-
-            //    var results = await validator.ValidateAsync(user);
+            //    var results = await _createUserValidator.ValidateAsync(user);
             //    if (!results.IsValid)
             //    {
             //        foreach (var failure in results.Errors)
             //        {
             //            ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
             //        }
-
-            //        ViewBag.Roles = validator.CachedRoles.Select(r => new SelectListItem
+            //        var roles = await _userRepository.GetRoles();
+            //        //ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            //        ViewBag.Roles = roles.Select(r => new SelectListItem
             //        {
             //            Value = r.Id.ToString(),
             //            Text = r.Role
             //        }).ToList();
-
             //        return PartialView("AddUser", user);
             //    }
-
-            //    // Proceed with the rest of your logic if validation passes
-            //    // ...
-
-            //    return View("UserList"); // Example: Redirect to a user list view
             //}
             //catch (System.Exception ex)
             //{
-            //    // Log the exception
-            //    // Logger.LogError(ex, "An error occurred while creating a user.");
+
             //    throw;
             //}
 
-            await _userRepository.CreateUser(user);
+            //await _userRepository.CreateUser(user);
 
-           
+            ////return RedirectToAction("GetAllUsers");
+            //return View("GetAllUsers");
 
-            return RedirectToAction("GetAllUsers");
+            try
+            {
+                var results = await _createUserValidator.ValidateAsync(user);
+                if (!results.IsValid)
+                {
+                    var errors = results.Errors.ToDictionary(
+                        failure => failure.PropertyName,
+                        failure => failure.ErrorMessage
+                    );
+
+                    return Json(new { success = false, errors });
+                }
+
+                await _userRepository.CreateUser(user);
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions as necessary
+                return Json(new { success = false, message = "An error occurred while adding the user." });
+            }
         }
 
         [HttpGet]

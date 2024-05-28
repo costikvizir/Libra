@@ -177,6 +177,7 @@ namespace LibraBll.Repositories
             int type = Context.IssueTypes.Where(t => t.Id == issue.TypeId).Select(t => t.IssueNameId).FirstOrDefault();
             int subType = Context.IssueTypes.Where(t => t.Id == issue.SubTypeId).Select(t => t.IssueNameId).FirstOrDefault();
             int problem = Context.IssueTypes.Where(t => t.Id == issue.ProblemId).Select(t => t.IssueNameId).FirstOrDefault();
+            string priority = Context.Priorities.Where(p => p.Id == issue.PriorityId).Select(p => p.IssuePriority).FirstOrDefault();
             string status = Context.Statuses.Where(s => s.Id == issue.StatusId).Select(s => s.IssueStatus).FirstOrDefault();
             string userCreated = Context.Users.Where(u => u.Id == issue.UserCreatedId).Select(u => u.Name).FirstOrDefault();
             string assignedTo = Context.UserTypes.Where(u => u.Id == issue.AssignedId).Select(u => u.Role).FirstOrDefault();
@@ -191,7 +192,7 @@ namespace LibraBll.Repositories
             //issueDTO.Type = issue.IssueType?.Name;
             //issueDTO.SubType = issue.IssueSubType?.Name;
             //issueDTO.Problem = issue.IssueProblem?.Name;
-            issueDTO.Priority = issue.Priority.IssuePriority;
+            issueDTO.Priority = priority;
             //issueDTO.Status = issue.Status.IssueStatus;
             issueDTO.Memo = issue.Memo;
             //issueDTO.UserCreated = issue.User.Name;

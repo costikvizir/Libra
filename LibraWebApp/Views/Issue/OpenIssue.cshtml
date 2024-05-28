@@ -94,34 +94,39 @@
                     <!-- First Column -->
                     <div class="col-md-4 mx-3">
                         <div class="row mb-3">
-                            <div class="col-md-5 pr-4">
-                                <label for="inputState" class="form-label">Issue Type</label>
-                                @Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputType" })
-                            </div>
-                            <div class="col-md-7 pl-4">
-                                <label for="inputState" class="form-label">Subclass</label>
-                                @Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "None" }), "Select Subtype", new { @class = "form-select dark-blue-border-color", id = "inputSubclass" })
-                            </div>
+							<div class="col-md-5 pr-4">
+								<label for="inputState" class="form-label">Issue Type</label>
+								@Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputType" })
+								@Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+							</div>
+							<div class="col-md-7 pl-4">
+								<label for="inputState" class="form-label">Subclass</label>
+								@Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "None" }), "Select Subtype", new { @class = "form-select dark-blue-border-color", id = "inputSubclass" })
+								@Html.ValidationMessageFor(model => model.SubType, "", new { @class = "text-danger" })
+							</div>
                         </div>
                         <div class="mb-3">
                             <label for="inputAddress" class="form-label">Problem Description</label>
-                            <div class="input-group">
-                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control dark-blue-border-color", style = "height: 110px; resize: none;" })
-                            </div>
+							<div class="input-group">
+								@Html.TextAreaFor(model => model.Description, new { @class = "form-control dark-blue-border-color", style = "height: 110px; resize: none;" })
+								@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+							</div>
                         </div>
                     </div>
 
                     <!-- Second Column -->
                     <div class="col-md-4 mx-3">
                         <div class="row mb-3">
-                            <div class="col-md-7 pr-4">
-                                <label for="inputState" class="form-label">Problem</label>
-                                @Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "None" }), "Select Problem", new { @class = "form-select dark-blue-border-color", id = "selectProblem" })
-                            </div>
-                            <div class="col-md-5 pl-4">
-                                <label for="inputState" class="form-label">Priority</label>
-                                @Html.DropDownListFor(model => model.Priority, (SelectList)ViewBag.PriorityList, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
-                            </div>
+							<div class="col-md-7 pr-4">
+								<label for="inputState" class="form-label">Problem</label>
+								@Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "None" }), "Select Problem", new { @class = "form-select dark-blue-border-color", id = "selectProblem" })
+								@Html.ValidationMessageFor(model => model.Problem, "", new { @class = "text-danger" })
+							</div>
+							<div class="col-md-5 pl-4">
+								<label for="inputState" class="form-label">Priority</label>
+								@Html.DropDownListFor(model => model.Priority, (SelectList)ViewBag.PriorityList, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+								@Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+							</div>
                         </div>
                         <div class="mb-3">
                             <label for="inputAddress" class="form-label">Solution</label>
@@ -133,14 +138,16 @@
 
                     <!-- Third Column -->
                     <div class="col-md-3">
-                        <div class="mb-3">
-                            <label for="inputState" class="form-label">Status</label>
-                            @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.Statuses, "Select Status", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputState" class="form-label">Assigned To</label>
-                            @Html.DropDownListFor(model => model.AssignedTo, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputassignedTo" })
-                        </div>
+						<div class="mb-3">
+							<label for="inputState" class="form-label">Status</label>
+							@Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.Statuses, "Select Status", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+							@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+						</div>
+						<div class="mb-3">
+							<label for="inputState" class="form-label">Assigned To</label>
+							@Html.DropDownListFor(model => model.AssignedTo, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputassignedTo" })
+							@Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
+						</div>
                         <div class="mb-3">
                             <label for="inputmemo" class="form-label">Memo</label>
                             <div class="input-group">

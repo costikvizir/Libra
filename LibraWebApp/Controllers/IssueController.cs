@@ -106,20 +106,21 @@ namespace LibraWebApp.Controllers
         {
             issue.UserCreated = User.Identity.Name;
             issue.StatusId = Convert.ToInt32(issue.Status);
-            //var validationResult = _issueValidator.Validate(issue);
 
-            //if (!validationResult.IsValid)
-            //{
-            //    foreach (var error in validationResult.Errors)
-            //    {
-            //        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            //    }
-            //    return PartialView("AddIssue");
-            //}
+            var validationResult = _issueValidator.Validate(issue);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return PartialView("AddIssue");
+            }
 
             await _issueRepository.AddIssue(issue);
 
-            return PartialView("AddIssue");
+            return PartialView("AllIssues");
         }
 
         //TODO: solve for dropdowns in openissue view
@@ -152,14 +153,14 @@ namespace LibraWebApp.Controllers
             return View("OpenIssue");
         }
 
-        [HttpPost]
-        public async Task<ActionResult> OpenIssue(IssuePostDTO issue)
-        {
-            await _issueRepository.AddIssue(issue);
-            //return null;
-            // return Json(new { success = true, message = "Successfully saved" });
-            return RedirectToAction("AllIssues");
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> OpenIssue(IssuePostDTO issue)
+        //{
+        //    await _issueRepository.AddIssue(issue);
+        //    //return null;
+        //    // return Json(new { success = true, message = "Successfully saved" });
+        //    return RedirectToAction("AllIssues");
+        //}
 
         [HttpGet]
         public async Task<JsonResult> GetIssueSubtypes(int issueTypeId)

@@ -1,13 +1,4 @@
-﻿//function validateTelephoneInput(input) {
-//    let value = input.value;
-//    // Allow only digits and optionally a '+' at the beginning
-//    input.value = value.replace(/(?!^)\D/g, '');
-//    // Ensure the first character is either a digit or '+'
-//    if (input.value.charAt(0) !== '+' && isNaN(parseInt(input.value.charAt(0)))) {
-//        input.value = '';
-//    }
-//}
-
+﻿
 function validateTelephoneInput(input) {
     let value = input.value;
     // Allow only digits and optionally a '+' at the beginning
@@ -53,13 +44,6 @@ function goToAddUser() {
     });
 }
 
-//$(document).on('submit', '#addUserForm', function (event) {
-//	event.preventDefault();
-//	debugger;
-//	goToAllUsers();
-
-//	// everything else you want to do on submit
-//});
 //$(document).on('submit', '#AddUserForm', function (event) {
 //    event.preventDefault();
 //    $.ajax({
@@ -68,83 +52,117 @@ function goToAddUser() {
 //        data: $(this).serialize(),
 //        success: function (response) {
 //            $('#mainDiv').html(response);
+
+//            // Call handleUserAddSuccess only if the response indicates success
+//            if (response.success) {
+//                handleUserAddSuccess();
+//            } else {
+//               // console.error('Error in response: ', response);
+//                console.log("error add user");
+//            }
 //        },
 //        error: function (xhr, status, error) {
-//            console.error(error);
+//            //console.error(error);
 //            console.log("error add user");
 //        }
 //    });
 //});
 
-$(document).on('submit', '#AddUserForm', function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: $(this).attr('action'),
-        type: $(this).attr('method'),
-        data: $(this).serialize(),
-        success: function (response) {
-            $('#mainDiv').html(response);
+///, OnSuccess = "handleUserAddSuccess"
 
-            // Call handleUserAddSuccess only if the response indicates success
-            if (response.success) {
-                handleUserAddSuccess();
-            } else {
-                console.error('Error in response: ', response);
-                console.log("error add user");
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-            console.log("error add user");
-        }
-    });
-});
+//$('#AddUserForm').on('submit', function (event) {
+//    debugger;
+//    console.log('Init form submission!');
+//    event.preventDefault();
+//    $.ajax({
+//        url: $(this).attr('action'),
+//        type: $(this).attr('method'),
+//        data: $(this).serialize(),
+//        success: function (response) {
+//            $('#mainDiv').html(response);
 
-//$(document).ready(function () {
-//    $('#inputUserName').on('blur', function () {
-//        var userName = $(this).val();
-//        $.ajax({
-//            url: '"/User/IsUserNameAvailable",',
-//            type: 'POST',
-//            data: { userName: userName },
-//            success: function (response) {
-//                if (!response) {
-//                    $('#userNameError').text('Username already exists').show();
-//                } else {
-//                    $('#userNameError').text('').hide();
-//                }
+//            // Call handleUserAddSuccess only if the response indicates success
+//            if (response.success) {
+//                handleUserAddSuccess();
+//            } else {
+//                // console.error('Error in response: ', response);
+//                console.log("error add user");
 //            }
-//        });
+//        },
+//        error: function (xhr, status, error) {
+//            //console.error(error);
+//            console.log("error add user");
+//        }
 //    });
 //});
-//$(document).ready(function () {
-//	console.log('call goToAllUsersAdd');
-//	debugger;
 
-//	$('#submitButton').click(function (event) {
-//		event.preventDefault(); // Prevent the default form submission
-//		goToAllUsersAdd();
-//	});
+
+
+//("form").on("submit", function (e) {
+//    var dataString = $(this).serialize();
+
+//    // alert(dataString); return false;
+//    $.ajax({
+//        type: "POST",
+//        url: "/User/GetAllUsers",
+//        data: dataString,
+//        success: function () {
+//            $("#mainDiv").html(null);
+//            $("#mainDiv").html(response);
+//            initializeUserList();
+//        }
+//    });
+//    e.preventDefault();
 //});
 
 
+//function handleUserAddSuccess() {
+//    debugger;
 
-//$(function () {
-//	console.log('call goToAllUsers');
-//	debugger;
-//	$('#AddUserForm').submit(function (e) {
-//		e.preventDefault(); // Prevent the default form submission
-//		$.post("/User/AddUser",
-//			$(this).serialize()); // AJAX POST request
-//		goToAllUsers();
-//	});
-//});
 
-function handleUserAddSuccess() {
+//    //$('#usersList').DataTable().ajax.reload();
+//    //alert('User added successfully');
+//    //goToAllUsers();
+//    var form = document.getElementById('AddUserForm');
+//    if (form.checkValidity()) {
+//        alert('User added successfully');
+//        goToAllUsers();
+//    } else {
+//        // If the form is not valid, show the validation messages
+//        form.classList.add('was-validated');
+//    }
+//}
+
+
+function handleUserAddSuccess(response) {
     debugger;
-    alert('User added successfully');
-    goToAllUsers();
-    //$('#usersList').DataTable().ajax.reload();
+
+    if (response.success) {
+        alert('User added successfully');
+        goToAllUsers();
+    } else {
+        // If there are validation errors, display them
+        var form = document.getElementById('AddUserForm');
+
+        // Remove existing validation messages
+        var validationMessages = form.querySelectorAll('.text-danger');
+        validationMessages.forEach(function (message) {
+            message.innerHTML = '';
+        });
+
+        // Display new validation messages from the server response
+        for (var key in response.errors) {
+            if (response.errors.hasOwnProperty(key)) {
+                var errorMessageElement = document.querySelector(`[data-valmsg-for='${key}']`);
+                if (errorMessageElement) {
+                    errorMessageElement.innerHTML = response.errors[key];
+                }
+            }
+        }
+
+        // Add was-validated class to the form
+        form.classList.add('was-validated');
+    }
 }
 window.onload = function () {
     var inputs = document.querySelectorAll('input,select');
@@ -155,26 +173,18 @@ window.onload = function () {
     }
 }
 
-function goToAllUsersAdd() {
-    debugger;
-    $.ajax({
-        url: "/User/GetAllUsers",
-        data: {
-        },
-        xhrFields: {
-            withCredentials: true
-        },
-        method: "GET",
-        success: function (response) {
-            $("#mainDiv").html(null);
-            $("#mainDiv").html(response);
-        },
-    });
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.getElementById('AddUserForm');
     const telephoneInput = document.getElementById('inputTelephone');
     telephoneInput.addEventListener('input', () => validateTelephoneInput(telephoneInput));
     telephoneInput.addEventListener('keypress', isNumberKey);
     telephoneInput.addEventListener('paste', handlePaste);
+
+    form.addEventListener('submit', (event) => {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+        }
+    });
 });
