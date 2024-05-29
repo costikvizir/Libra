@@ -82,7 +82,6 @@ namespace LibraWebApp.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
         public async Task<JsonResult> GetAllPosCustomSearchJson(DataTablesParameters parameters, string Name = "", string Brand = "", string FullAddress = "")
         {

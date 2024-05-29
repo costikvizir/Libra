@@ -85,6 +85,12 @@ textarea {
     width: 22%;
 }
 
+.form-check {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px; /* Adjust as necessary for spacing */
+}
+
 /*.validation-message {
     display: flex;
     align-items: center;

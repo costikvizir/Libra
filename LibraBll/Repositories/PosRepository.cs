@@ -1,5 +1,4 @@
-﻿using Libra.Dal.Context;
-using Libra.Dal.Entities;
+﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
@@ -75,6 +74,22 @@ namespace LibraBll.Repositories
                 .Include(p => p.Issues)
                 .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
                 .ToListAsync();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                rawPosList = rawPosList.Where(p => p.Name.Contains(name)).ToList();
+            }
+            if (!string.IsNullOrEmpty(brand))
+            {
+                rawPosList = rawPosList.Where(p => p.Brand.Contains(brand)).ToList();
+            }
+            if (!string.IsNullOrEmpty(fullAddress))
+            {
+                string lowerFullAddress = fullAddress.ToLower();
+                rawPosList = rawPosList.Where(p => (p.City.CityName + ", " + p.Address).ToLower().Contains(lowerFullAddress)).ToList();
+            }
+
+
             //.Select(p => new PosGetDTOtry
             List<PosGetDTO> mappedPosList = null;
             try
@@ -262,13 +277,13 @@ namespace LibraBll.Repositories
 
         public void DeletePos(int id)
         {
-            Pos entity =  Context.Pos.Where(p => p.Id == id).FirstOrDefault();
+            Pos entity = Context.Pos.Where(p => p.Id == id).FirstOrDefault();
 
             if (entity != null)
                 entity.IsDeleted = true;
 
             //Context.Entry(entity).State = EntityState.Modified;
-             Context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public async Task<IEnumerable<CityDTO>> GetCityList()
@@ -282,6 +297,7 @@ namespace LibraBll.Repositories
 
             return cityList;
         }
+
         public async Task<List<ConnectionTypeDTO>> GetConnectionTypeList()
         {
             List<ConnectionTypeDTO> connectionTypeList = await Context.ConnectionType

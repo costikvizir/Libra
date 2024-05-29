@@ -8,6 +8,7 @@ function initializePosListForIssue() {
         serverSide: true,
         ajax: {
             url: "/Pos/GetAllPosCustomSearchJson",
+            //url: "/Pos/GetAllPosJson",
             type: "POST",
             dataType: "json",
             data: function (d) {
@@ -20,7 +21,12 @@ function initializePosListForIssue() {
                 d.fullAddress = $('#inputFullAddress').val();
                 console.log("Data sent to server:", d); // Debug lo
 
-                return d; 
+                //d.search = {
+                //    value: `${d.name} ${d.brand} ${d.fullAddress}`.trim(),
+                //    regex: false
+                //};
+
+                return d;
             },
             dataSrc: "data",
         },
@@ -44,7 +50,8 @@ function initializePosListForIssue() {
                 }
             },
             { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
-        ]
+        ],
+        dom: '<"top"i>rt<"bottom"lp><"clear">'
     });
 
     //$('#inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
@@ -54,7 +61,6 @@ function initializePosListForIssue() {
     //    var fullAddress = $('#inputFullAddress').val();
 
     //    console.log("Name:", name, "Brand:", brand, "Full Address:", fullAddress);
-
 
     //    table.column(0).search(name)
     //    table.column(3).search(brand)
@@ -138,7 +144,7 @@ $(document).on('click', '#openIssue', function () {
     // initializePosListForIssue();
     var data = table.row('.selected').data();
     if (data) {
-        var posId = data.PosId; 
+        var posId = data.PosId;
         goToOpenIssue(posId);
     } else {
         alert('Please select a row');
