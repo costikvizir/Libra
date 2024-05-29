@@ -27,12 +27,17 @@ textarea {
     background-color: #D9EDF7;
 }
 
-.dark-blue-backgroung {
+.dark-blue-background {
     background-color: #3276B1;
     color: white;
 }
 
-.dark-blue-backgroung:hover {
+.dark-blue-background-btn {
+    background-color: #3276B1;
+    color: white;
+}
+
+.dark-blue-background-btn:hover {
     background-color: #90CAF9; 
 }
 

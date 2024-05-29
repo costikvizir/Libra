@@ -22,21 +22,21 @@
                 <div class="col-md-5">
                     <label for="inputPosName" class="form-label">Name</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-credit-card"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-credit-card"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.Name, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label for="inputTelephone" class="form-label">Telephone</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-phone"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.Telephone, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label for="inputCellphone" class="form-label">Cellphone</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-mobile"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-mobile"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.Cellphone, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="col-md-8">
                     <label for="inputAddress" class="form-label">Full Address</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung">
+                        <div class="input-group-text dark-blue-background">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                             </svg>
@@ -62,14 +62,14 @@
                 <div class="col-md-4">
                     <label for="inputBrand" class="form-label">Brand</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-copyright"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-copyright"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.Brand, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="col-md-4">
                     <label for="inputModel" class="form-label">Model</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-copyright"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-copyright"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.Model, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
@@ -89,20 +89,23 @@
                 <div class="col-md-3">
                     <label for="inputOpenMorning" class="form-label">Morning Program</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.MorningProgram, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="col-md-3">
                     <label for="inputClosedMorning" class="form-label">Afternoon Program</label>
                     <div class="input-group">
-                        <div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+                        <div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
                         @Html.TextBoxFor(model => model.PosGet.AfternoonProgram, new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
                 <div class="col-md-5">
                     <label for="inputDaysClosed" class="form-label">Days Closed</label>
-                    @Html.TextBox("DaysClosed", string.Join(", ", Model.PosGet.DaysClosed), new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
+					<div class="input-group">
+						<div class="input-group-text dark-blue-background"><i class="fa fa-calendar-days"></i></div>
+						@Html.TextBox("DaysClosed", string.Join(", ", Model.PosGet.DaysClosed), new { @class = "form-control dark-blue-border-color", @readonly = "readonly", @disabled = "disabled" })
+					</div>
                 </div>
             </div>
         </div>

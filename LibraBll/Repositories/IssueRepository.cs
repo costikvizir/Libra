@@ -198,7 +198,7 @@ namespace LibraBll.Repositories
             //issueDTO.UserCreated = issue.User.Name;
             //issueDTO.AssignedTo = issue.UserType.Role;
             issueDTO.UserCreated = userCreated;
-            issueDTO.AssignedTo = issue.UserType.Role;
+            issueDTO.AssignedTo = assignedTo;
             issueDTO.Description = issue.Description;
             issueDTO.AssignedDate = issue.AssignedDate.ToString();
             issueDTO.CreationDate = issue.CreationDate.ToString();
@@ -238,6 +238,7 @@ namespace LibraBll.Repositories
                 .Include(i => i.User)
                 .Include(i => i.UserType)
                 .Include(i => i.IssueType)
+                .Include(i => i.Priority)
                 .Include(i => i.IssueSubType)
                 .Include(i => i.IssueProblem)
                 .Where(i => i.PosId == posId)

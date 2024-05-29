@@ -13,7 +13,7 @@
 
 @using (Ajax.BeginForm("AddUser", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainDiv", OnSuccess = "handleUserAddSuccess" }, new { id = "AddUserForm" }))
 {
-	<!--<div class="card">
+	<div class="card">
 		<div class="card-header slight-blue-header">
 			User Information
 		</div>
@@ -22,40 +22,37 @@
 				<div class="col-md-5">
 					<label for="inputUserName" class="form-label">User Name</label>
 					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-user"></i></div>
+						<div class="input-group-text dark-blue-background"><i class="fas fa-user"></i></div>
 						@Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputUserName" })
 					</div>
-
-						<i class="fa-solid fas-circle-exclamation"></i>
-						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-
+					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-4">
 					<label for="inputPassword" class="form-label">Password</label>
 					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-key"></i></div>
+						<div class="input-group-text dark-blue-background"><i class="fas fa-key"></i></div>
 						@Html.TextBoxFor(model => model.Password, new { @class = "form-control dark-blue-border-color", id = "inputPassword", type = "password" })
 					</div>
 					<span class="validation-message">
 						<i class="fas-solid fas-circle-exclamation"></i>
 						@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 					</span>
-
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-5">
 					<label for="inputEmail" class="form-label">Email</label>
 					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-envelope"></i></div>
+						<div class="input-group-text dark-blue-background"><i class="fas fa-envelope"></i></div>
 						@Html.TextBoxFor(model => model.Email, new { @class = "form-control dark-blue-border-color", id = "inputEmail", placeholder = "email@example.com" })
 					</div>
+		
 					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 				</div>
 				<div class="col-md-4">
 					<label for="inputLogin" class="form-label">Login</label>
 					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-sign-in-alt"></i></div>
+						<div class="input-group-text dark-blue-background"><i class="fas fa-sign-in-alt"></i></div>
 						@Html.TextBoxFor(model => model.Login, new { @class = "form-control dark-blue-border-color", id = "inputLogin" })
 					</div>
 				</div>
@@ -64,10 +61,8 @@
 				<div class="col-md-5">
 					<label for="inputTelephone" class="form-label">Telephone</label>
 					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>-->
-	@*@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", pattern = @"\+?[0-9]*" })*@
-	<!--@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", oninput = "validateTelephoneInput(this)", onkeydown = "return isNumberKey(event)", onpaste = "handlePaste(event)" })
-
+						<div class="input-group-text dark-blue-background"><i class="fas fa-phone"></i></div>
+						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", oninput = "validateTelephoneInput(this)", onkeydown = "return isNumberKey(event)", onpaste = "handlePaste(event)" })
 					</div>
 					@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
 				</div>
@@ -78,71 +73,12 @@
 				</div>
 			</div>
 		</div>
-	</div>-->
-	<div class="card">
-		<div class="card-header slight-blue-header">
-			User Information
-		</div>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-5">
-					<label for="inputUserName" class="form-label">User Name</label>
-					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-user"></i></div>
-						@Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputUserName" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", data_valmsg_for = "Name" })
-				</div>
-				<div class="col-md-4">
-					<label for="inputPassword" class="form-label">Password</label>
-					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-key"></i></div>
-						@Html.TextBoxFor(model => model.Password, new { @class = "form-control dark-blue-border-color", id = "inputPassword", type = "password" })
-					</div>
-					<span class="validation-message">
-						<i class="fas-solid fas-circle-exclamation"></i>
-						@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", data_valmsg_for = "Password" })
-					</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-5">
-					<label for="inputEmail" class="form-label">Email</label>
-					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-envelope"></i></div>
-						@Html.TextBoxFor(model => model.Email, new { @class = "form-control dark-blue-border-color", id = "inputEmail", placeholder = "email@example.com" })
-					</div>
-		
-					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", data_valmsg_for = "Email" })
-				</div>
-				<div class="col-md-4">
-					<label for="inputLogin" class="form-label">Login</label>
-					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-sign-in-alt"></i></div>
-						@Html.TextBoxFor(model => model.Login, new { @class = "form-control dark-blue-border-color", id = "inputLogin" })
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-5">
-					<label for="inputTelephone" class="form-label">Telephone</label>
-					<div class="input-group">
-						<div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>
-						@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", oninput = "validateTelephoneInput(this)", onkeydown = "return isNumberKey(event)", onpaste = "handlePaste(event)" })
-					</div>
-					@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger", data_valmsg_for = "Telephone" })
-				</div>
-				<div class="col-md-4">
-					<label for="inputState" class="form-label">Role</label>
-					@Html.DropDownListFor(model => model.Role, (IEnumerable<SelectListItem>)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputState" })
-					@Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger", data_valmsg_for = "Role" })
-				</div>
-			</div>
-		</div>
 	</div>
 	<div class="d-flex justify-content-start">
 		@*<button type="submit" class="btn btn-primary mr-2" id="submitButton" onclick="goToAllUsers();">Add User</button>*@
-		<button type="submit" class="btn mr-2 dark-blue-backgroung" id="submitButton">Add User</button>
+		<button type="submit" class="btn mr-2 dark-blue-background-btn" id="submitButton">Add User</button>
 		@*<button type="reset" class="btn dark-blue-backgroung" onclick="resetForm()">Clear Form</button>*@
 	</div>
 }
+
+@*<script src="~/Scripts/ViewScripts/getAllUsers.js"></script>*@

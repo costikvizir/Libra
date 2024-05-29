@@ -44,29 +44,29 @@ function goToAddUser() {
     });
 }
 
-//$(document).on('submit', '#AddUserForm', function (event) {
-//    event.preventDefault();
-//    $.ajax({
-//        url: $(this).attr('action'),
-//        type: $(this).attr('method'),
-//        data: $(this).serialize(),
-//        success: function (response) {
-//            $('#mainDiv').html(response);
+$(document).on('submit', '#AddUserForm', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function (response) {
+            $('#mainDiv').html(response);
 
-//            // Call handleUserAddSuccess only if the response indicates success
-//            if (response.success) {
-//                handleUserAddSuccess();
-//            } else {
-//               // console.error('Error in response: ', response);
-//                console.log("error add user");
-//            }
-//        },
-//        error: function (xhr, status, error) {
-//            //console.error(error);
-//            console.log("error add user");
-//        }
-//    });
-//});
+            // Call handleUserAddSuccess only if the response indicates success
+            if (response.success) {
+                handleUserAddSuccess();
+            } else {
+               // console.error('Error in response: ', response);
+                console.log("error add user");
+            }
+        },
+        error: function (xhr, status, error) {
+            //console.error(error);
+            console.log("error add user");
+        }
+    });
+});
 
 ///, OnSuccess = "handleUserAddSuccess"
 
@@ -136,33 +136,35 @@ function goToAddUser() {
 
 function handleUserAddSuccess(response) {
     debugger;
+    alert('User added successfully');
+    goToAllUsers();
 
-    if (response.success) {
-        alert('User added successfully');
-        goToAllUsers();
-    } else {
-        // If there are validation errors, display them
-        var form = document.getElementById('AddUserForm');
+    //if (response.success) {
+    //    alert('User added successfully');
+    //    goToAllUsers();
+    //} else {
+    //    // If there are validation errors, display them
+    //    var form = document.getElementById('AddUserForm');
 
-        // Remove existing validation messages
-        var validationMessages = form.querySelectorAll('.text-danger');
-        validationMessages.forEach(function (message) {
-            message.innerHTML = '';
-        });
+    //    // Remove existing validation messages
+    //    var validationMessages = form.querySelectorAll('.text-danger');
+    //    validationMessages.forEach(function (message) {
+    //        message.innerHTML = '';
+    //    });
 
-        // Display new validation messages from the server response
-        for (var key in response.errors) {
-            if (response.errors.hasOwnProperty(key)) {
-                var errorMessageElement = document.querySelector(`[data-valmsg-for='${key}']`);
-                if (errorMessageElement) {
-                    errorMessageElement.innerHTML = response.errors[key];
-                }
-            }
-        }
+    //    // Display new validation messages from the server response
+    //    for (var key in response.errors) {
+    //        if (response.errors.hasOwnProperty(key)) {
+    //            var errorMessageElement = document.querySelector(`[data-valmsg-for='${key}']`);
+    //            if (errorMessageElement) {
+    //                errorMessageElement.innerHTML = response.errors[key];
+    //            }
+    //        }
+    //    }
 
-        // Add was-validated class to the form
-        form.classList.add('was-validated');
-    }
+    //    // Add was-validated class to the form
+    //    form.classList.add('was-validated');
+    
 }
 window.onload = function () {
     var inputs = document.querySelectorAll('input,select');

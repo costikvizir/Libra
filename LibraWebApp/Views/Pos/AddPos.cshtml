@@ -26,7 +26,7 @@
 					<div class="col-md-5">
 						<label for="inputPosName" class="form-label">Name</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-credit-card"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-credit-card"></i></div>
 							@Html.TextBoxFor(model => model.Name, new { @class = "form-control dark-blue-border-color", id = "inputPosName", placeholder = "POS Name" })
 						</div>
 						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
 					<div class="col-md-3">
 						<label for="inputTelephone" class="form-label">Telephone</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-phone"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-phone"></i></div>
 							@Html.TextBoxFor(model => model.Telephone, new { @class = "form-control dark-blue-border-color", id = "inputTelephone", placeholder = "Telephone" })
 						</div>
 						@Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
 					<div class="col-md-3">
 						<label for="inputCellphone" class="form-label">Cellphone</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-mobile"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-mobile"></i></div>
 							@Html.TextBoxFor(model => model.Cellphone, new { @class = "form-control dark-blue-border-color", id = "inputCellphone", placeholder = "Cellphone" })
 						</div>
 						@Html.ValidationMessageFor(model => model.Cellphone, "", new { @class = "text-danger" })
@@ -52,7 +52,7 @@
 					<div class="col-md-8">
 						<label for="inputAddress" class="form-label">Full Address</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung">
+							<div class="input-group-text dark-blue-background">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
 									<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
 								</svg>
@@ -70,7 +70,7 @@
 					<div class="col-md-4">
 						<label for="inputBrand" class="form-label">Brand</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-copyright"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-copyright"></i></div>
 							@Html.TextBoxFor(model => model.Brand, new { @class = "form-control dark-blue-border-color", id = "inputBrand", placeholder = "Brand Name" })
 						</div>
 						@Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
@@ -78,7 +78,7 @@
 					<div class="col-md-4">
 						<label for="inputModel" class="form-label">Model</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-copyright"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-copyright"></i></div>
 							@Html.TextBoxFor(model => model.Model, new { @class = "form-control dark-blue-border-color", id = "inputModel", placeholder = "Model Name" })
 						</div>
 						@Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
@@ -102,28 +102,28 @@
 					<div class="col-md-2">
 						<label for="inputOpenMorning" class="form-label">Open Morning</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control timepicker dark-blue-border-color", id = "inputMorningOpening", placeholder = "Opening Time", type = "text" })
 						</div>
 					</div>
 					<div class="col-md-2">
 						<label for="inputClosedMorning" class="form-label">Closed Morning</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control timepicker dark-blue-border-color", id = "inputMorningClosing", placeholder = "Closing Time", type = "text" })
 						</div>
 					</div>
 					<div class="col-md-2">
 						<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control timepicker dark-blue-border-color", id = "inputAfternoonOpening", placeholder = "Opening Time", type = "text" })
 						</div>
 					</div>
 					<div class="col-md-2">
 						<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
 						<div class="input-group">
-							<div class="input-group-text dark-blue-backgroung"><i class="fas fa-clock"></i></div>
+							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.AfternoonClosing, new { @class = "form-control timepicker dark-blue-border-color", id = "inputAfternoonClosing", placeholder = "Closing Time", type = "text" })
 						</div>
 					</div>
@@ -133,31 +133,31 @@
 						<label for="dayOfWeekLabel" class="form-label">Closing Days</label>
 						<div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Mon" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Mon" })
 								<label class="form-check-label" for="monday">Mon</label>
 							</div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Tue" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Tue" })
 								<label class="form-check-label" for="tuesday">Tue</label>
 							</div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Wed" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Wed" })
 								<label class="form-check-label" for="wednesday">Wed</label>
 							</div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Thu" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Thu" })
 								<label class="form-check-label" for="thursday">Thu</label>
 							</div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Fri" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Fri" })
 								<label class="form-check-label" for="friday">Fri</label>
 							</div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sat" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Sat" })
 								<label class="form-check-label" for="saturday">Sat</label>
 							</div>
 							<div class="form-check form-check-inline">
-								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input", value = "Sun" })
+								@Html.CheckBox("dayOfWeek", new { @class = "form-check-input dark-blue-border-color", value = "Sun" })
 								<label class="form-check-label" for="sunday">Sun</label>
 							</div>
 						</div>
@@ -167,13 +167,13 @@
 		</div>
 	</div>
 	<div class="d-flex justify-content-start">
-		<button type="submit" class="btn dark-blue-backgroung mr-2" id="savePosButton">Save POS</button>
+		<button type="submit" class="btn dark-blue-background-btn mr-2" id="savePosButton">Save POS</button>
 	</div>
 }
 
-@section scripts{
+
 	<script src="~/Scripts/TimePicker/moment.min.js"></script>
 	<script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
 	<script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
-}
+
 
