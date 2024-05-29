@@ -67,6 +67,52 @@ namespace LibraBll.Repositories
             return mappedPosList;
         }
 
+        public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, string name, string brand, string fullAddress, CancellationToken cancellationToken)
+        {
+            var rawPosList = await Context.Pos
+                .Include(p => p.City)
+                .Include(p => p.ConnectionType)
+                .Include(p => p.Issues)
+                .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
+                .ToListAsync();
+            //.Select(p => new PosGetDTOtry
+            List<PosGetDTO> mappedPosList = null;
+            try
+            {
+                mappedPosList = rawPosList
+                    .Select(p => new PosGetDTO
+                    {
+                        PosId = p.Id,
+                        Name = p.Name,
+                        Telephone = p.Telephone,
+                        Cellphone = p.Cellphone,
+                        FullAddress = string.Join(", ", p.City.CityName, p.Address),
+                        City = p.City.CityName,
+                        Address = p.Address,
+                        Model = p.Model,
+                        Brand = p.Brand,
+                        DaysClosed = p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
+                        Status = p.Issues.Count() > 1 ? p.Issues.Count().ToString() + " Active issues" : p.Issues.Count() == 1 ? p.Issues.Count().ToString() + " Active issue" : "No active issues",
+                        ConnectionType = p.ConnectionType.ConnectType,
+                        MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
+                        AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
+                        InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
+                    })
+                    .AsQueryable()
+                    .Search(parameters)
+                    .OrderBy(parameters)
+                    .Page(parameters)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                throw;
+            }
+
+            return mappedPosList;
+        }
+
         public async Task<PosGetDTO> GetPosByIdAsync(int id)
         {
             Pos entity = await Context.Pos

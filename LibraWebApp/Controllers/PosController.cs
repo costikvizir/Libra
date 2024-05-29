@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections;
+using System;
 
 namespace LibraWebApp.Controllers
 {
@@ -68,6 +69,30 @@ namespace LibraWebApp.Controllers
             parameters = parameters ?? new DataTablesParameters();
 
             List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync(parameters, CancellationToken.None);
+
+            if (!allPos.Any())
+                return Json(new { }, JsonRequestBehavior.AllowGet);
+
+            return Json(new
+            {
+                draw = parameters.Draw,
+                recordsFiltered = parameters.TotalCount,
+                recordsTotal = parameters.TotalCount,
+                data = allPos
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> GetAllPosCustomSearchJson(DataTablesParameters parameters, string Name = "", string Brand = "", string FullAddress = "")
+        {
+            parameters = parameters ?? new DataTablesParameters();
+
+            // Debug log to verify received parameters
+            Console.WriteLine("Received filters - Name: " + Name + ", Brand: " + Brand + ", FullAddress: " + FullAddress);
+
+            // Adjust your repository query to include custom parameters for filtering
+            List<PosGetDTO> allPos = await _posRepository.GetAllPosAsync(parameters, Name, Brand, FullAddress, CancellationToken.None);
 
             if (!allPos.Any())
                 return Json(new { }, JsonRequestBehavior.AllowGet);

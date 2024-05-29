@@ -12,6 +12,7 @@ namespace LibraBll.Abstractions.Repositories
         Task<PosGetDTO> GetPosByIdAsync(int id);
 
         Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken);
+        Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, string name, string brand, string fullAddress, CancellationToken cancellationToken);
 
         Task<PosPostDTO> AddPosAsync(PosPostDTO pos);
 

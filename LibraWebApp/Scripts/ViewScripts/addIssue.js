@@ -7,9 +7,21 @@ function initializePosListForIssue() {
         select: true,
         serverSide: true,
         ajax: {
-            url: "/Pos/GetAllPosJson",
+            url: "/Pos/GetAllPosCustomSearchJson",
             type: "POST",
             dataType: "json",
+            data: function (d) {
+                //d.Name = $('#inputPosName').val();
+                //d.Brand = $('#inputPosBrand').val();
+                //d.FullAddress = $('#inputFullAddress').val();
+
+                d.name = $('#inputPosName').val();
+                d.brand = $('#inputPosBrand').val();
+                d.fullAddress = $('#inputFullAddress').val();
+                console.log("Data sent to server:", d); // Debug lo
+
+                return d; 
+            },
             dataSrc: "data",
         },
         columns: [
@@ -35,14 +47,24 @@ function initializePosListForIssue() {
         ]
     });
 
+    //$('#inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
+    //    console.log("Filtering ... ");
+    //    var name = $('#inputPosName').val();
+    //    var brand = $('#inputPosBrand').val();
+    //    var fullAddress = $('#inputFullAddress').val();
+
+    //    console.log("Name:", name, "Brand:", brand, "Full Address:", fullAddress);
+
+
+    //    table.column(0).search(name)
+    //    table.column(3).search(brand)
+    //    table.column(5).search(fullAddress)
+    //    table.draw();
+    //});
+
     $('#inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
-        console.log("Filtering ... ")
-        //Filtering based on second, fifth and sixth columns of the table
-        table
-            .column(0).search($('#inputPosName').val())
-            .column(3).search($('#inputPosBrand').val())
-            .column(5).search($('#inputFullAddress').val())
-            .draw();
+        console.log("Filtering ... ");
+        table.ajax.reload(); // Trigger a new AJAX request to the server with updated parameters
     });
 
     $('#posList tbody').on('click', 'tr', function () {

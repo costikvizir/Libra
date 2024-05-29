@@ -55,6 +55,36 @@ textarea {
     background-color: #ffcc00; /* Change to your desired hover color */
     color: #90CAF9; /* Optional: change text color on hover */
 }
+
+.table thead th {
+    background-color: #3276B1; 
+    color: white;
+}
+
+.col1 {
+    width: 10%;
+}
+
+.col2 {
+    width: 17%;
+}
+
+.col3 {
+    width: 17%;
+}
+
+.col4 {
+    width: 17%;
+}
+
+.col5 {
+    width: 17%;
+}
+
+.col6 {
+    width: 22%;
+}
+
 /*.validation-message {
     display: flex;
     align-items: center;
