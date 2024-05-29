@@ -23,7 +23,7 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-5 px-4">
 						<label for="inputPosName" class="form-label">Name</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-credit-card"></i></div>
@@ -31,7 +31,7 @@
 						</div>
 						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 pr-4">
 						<label for="inputTelephone" class="form-label">Telephone</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-phone"></i></div>
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md-8 px-4">
 						<label for="inputAddress" class="form-label">Full Address</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background">
@@ -67,7 +67,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4 px-4">
 						<label for="inputBrand" class="form-label">Brand</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-copyright"></i></div>
@@ -75,7 +75,7 @@
 						</div>
 						@Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 pr-4">
 						<label for="inputModel" class="form-label">Model</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-copyright"></i></div>
@@ -99,28 +99,28 @@
 			</div>
 			<div class="card-body">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-2 px-4">
 						<label for="inputOpenMorning" class="form-label">Open Morning</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.MorningOpening, new { @class = "form-control timepicker dark-blue-border-color", id = "inputMorningOpening", placeholder = "Opening Time", type = "text" })
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 pr-4">
 						<label for="inputClosedMorning" class="form-label">Closed Morning</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.MorningClosing, new { @class = "form-control timepicker dark-blue-border-color", id = "inputMorningClosing", placeholder = "Closing Time", type = "text" })
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 pr-4">
 						<label for="inputOpenafternoon" class="form-label">Open Afternoon</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
 							@Html.TextBoxFor(model => model.AfternoonOpening, new { @class = "form-control timepicker dark-blue-border-color", id = "inputAfternoonOpening", placeholder = "Opening Time", type = "text" })
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 pr-4">
 						<label for="inputClosedAfternoon" class="form-label">Closed Afternoon</label>
 						<div class="input-group">
 							<div class="input-group-text dark-blue-background"><i class="fas fa-clock"></i></div>
@@ -129,7 +129,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 mt-2">
+					<div class="col-md-6 mt-2 pl-4">
 						<label for="dayOfWeekLabel" class="form-label">Closing Days</label>
 						<div>
 							<div class="form-check form-check-inline">
