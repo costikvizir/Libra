@@ -71,7 +71,7 @@ function initializeUserList() {
         }
     });
 
-    $('.btn-outline-danger').on('click', function () {
+    $('#confirmDeleteButton').on('click', function () {
         var userId = $('#deleteButton').data('userid');
         $.ajax({
             url: '/User/DeleteUser/' + userId,
@@ -82,6 +82,7 @@ function initializeUserList() {
                 $('#deleteModal').modal('hide');
                 $('.modal-backdrop').remove();
                 console.log('User deleted successfully');
+                //alert('User deleted successfully');
             }
         });
     });

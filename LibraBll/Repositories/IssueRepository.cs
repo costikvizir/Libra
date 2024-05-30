@@ -109,15 +109,16 @@ namespace LibraBll.Repositories
         {
             var issue = Context.Issues.Find(id);
 
-            issue.IsDeleted = true;
+            if(issue != null)
+                issue.IsDeleted = true;
 
-            Context.Entry(issue).State = EntityState.Modified;
-            Context.SaveChangesAsync();
+           // Context.Entry(issue).State = EntityState.Modified;
+            Context.SaveChanges();
         }
 
         public async Task<int> GetIssueCount()
         {
-            return await Context.Issues.CountAsync();
+            return await Context.Issues.Where(i => i.IsDeleted == false).CountAsync();
         }
 
         public async Task<List<IssueGetDTO>> GetAllIssuesAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
@@ -131,6 +132,7 @@ namespace LibraBll.Repositories
                     .Include(i => i.IssueType)
                     .Include(i => i.IssueSubType)
                     .Include(i => i.IssueProblem)
+                    .Where(i => i.IsDeleted == false)
                     .ToListAsync();
 
             List<IssueGetDTO> issueList = null;
@@ -241,7 +243,7 @@ namespace LibraBll.Repositories
                 .Include(i => i.Priority)
                 .Include(i => i.IssueSubType)
                 .Include(i => i.IssueProblem)
-                .Where(i => i.PosId == posId)
+                .Where(i => i.PosId == posId && i.IsDeleted == false)
                 .ToListAsync();
 
             List<IssueGetDTO> issueList = null;
@@ -349,6 +351,7 @@ namespace LibraBll.Repositories
             //int pendingIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Pending").CountAsync();
 
             var allissues = await Context.Issues
+                .Where(i => i.IsDeleted == false)
                 .Include(i => i.Status).ToListAsync();
 
             int newIssueCount = allissues.Where(i => i.Status.IssueStatus == "New").Count();

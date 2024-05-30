@@ -48,7 +48,7 @@ function initializeIssuesList() {
 		}
 	});
 
-	$('.btn-outline-danger').on('click', function () {
+	$('#confirmDeleteButton').on('click', function () {
 		var issueId = $('#deleteButton').data('issueId');
 		$.ajax({
 			url: '/Issue/DeleteIssue/' + issueId,

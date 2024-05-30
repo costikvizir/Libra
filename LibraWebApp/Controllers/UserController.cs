@@ -88,58 +88,62 @@ namespace LibraWebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUser(AddUserDTO user)
         {
-            //try
-            //{
-            //    var results = await _createUserValidator.ValidateAsync(user);
-            //    if (!results.IsValid)
-            //    {
-            //        foreach (var failure in results.Errors)
-            //        {
-            //            ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
-            //        }
-            //        var roles = await _userRepository.GetRoles();
-            //        //ViewBag.Roles = new SelectList(roles, "Id", "Role");
-            //        ViewBag.Roles = roles.Select(r => new SelectListItem
-            //        {
-            //            Value = r.Id.ToString(),
-            //            Text = r.Role
-            //        }).ToList();
-            //        return PartialView("AddUser", user);
-            //    }
-            //}
-            //catch (System.Exception ex)
-            //{
-
-            //    throw;
-            //}
-
-            //await _userRepository.CreateUser(user);
-
-            ////return RedirectToAction("GetAllUsers");
-            //return View("GetAllUsers");
-
             try
             {
                 var results = await _createUserValidator.ValidateAsync(user);
                 if (!results.IsValid)
                 {
-                    var errors = results.Errors.ToDictionary(
-                        failure => failure.PropertyName,
-                        failure => failure.ErrorMessage
-                    );
-
-                    return Json(new { success = false, errors });
+                    foreach (var failure in results.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    }
+                    var roles = await _userRepository.GetRoles();
+                    //ViewBag.Roles = new SelectList(roles, "Id", "Role");
+                    ViewBag.Roles = roles.Select(r => new SelectListItem
+                    {
+                        Value = r.Id.ToString(),
+                        Text = r.Role
+                    }).ToList();
+                    return PartialView("AddUser", user);
+                    //return Json(new { success = false });
                 }
-
-                await _userRepository.CreateUser(user);
-
-                return Json(new { success = true });
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                // Handle exceptions as necessary
-                return Json(new { success = false, message = "An error occurred while adding the user." });
+
+                throw;
             }
+
+            await _userRepository.CreateUser(user);
+
+            return Json(new { success = true });
+            //return RedirectToAction("GetAllUsers");
+           // return View("GetAllUsers");
+
+            //try
+            //{
+            //    var results = await _createUserValidator.ValidateAsync(user);
+            //    if (!results.IsValid)
+            //    {
+            //        var errors = results.Errors.ToDictionary(
+            //            failure => failure.PropertyName,
+            //            failure => failure.ErrorMessage
+            //        );
+
+            //        return Json(new { success = false, errors });
+            //    }
+
+            //    await _userRepository.CreateUser(user);
+
+            //   // return Json(new { success = true });
+            //   return View("GetAllUsers");
+        
+            //catch (Exception ex)
+            //{
+            //    // Handle exceptions as necessary
+            //    //return Json(new { success = false, message = "An error occurred while adding the user." });
+            //    return View("AddUser");
+            //}
         }
 
         [HttpGet]

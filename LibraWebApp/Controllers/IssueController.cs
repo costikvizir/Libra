@@ -177,10 +177,10 @@ namespace LibraWebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteIssue(int id)
+        [Route("Issue/DeleteIssue/{id}")]
+        public void DeleteIssue(int id)
         {
-            _issueRepository.DeleteIssue(id);
-            return RedirectToAction("Index");
+             _issueRepository.DeleteIssue(id);
         }
     }
 }

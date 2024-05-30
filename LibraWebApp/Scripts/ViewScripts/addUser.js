@@ -45,6 +45,7 @@ function goToAddUser() {
 }
 
 $(document).on('submit', '#AddUserForm', function (event) {
+    debugger;
     event.preventDefault();
     $.ajax({
         url: $(this).attr('action'),
@@ -52,8 +53,10 @@ $(document).on('submit', '#AddUserForm', function (event) {
         data: $(this).serialize(),
         success: function (response) {
             $('#mainDiv').html(response);
-
+            console.log("success add user");
+            console.log(response.success);
             // Call handleUserAddSuccess only if the response indicates success
+            
             if (response.success) {
                 handleUserAddSuccess();
             } else {
@@ -62,12 +65,31 @@ $(document).on('submit', '#AddUserForm', function (event) {
             }
         },
         error: function (xhr, status, error) {
-            //console.error(error);
+            console.error(error);
             console.log("error add user");
         }
     });
 });
 
+
+function handleUserAddSuccess() {
+    debugger;
+    alert('User added successfully');
+    goToAllUsers();
+    initializeUserList(); // Initialize DataTables after loading the view
+}
+
+//function goToAllUsers() {
+//    $.ajax({
+//        url: "/User/GetAllUsers",
+//        method: "GET",
+//        success: function (response) {
+//            $("#mainDiv").html(null);
+//            $("#mainDiv").html(response);
+//            initializeUserList(); // Initialize DataTables after loading the view
+//        },
+//    });
+//}
 ///, OnSuccess = "handleUserAddSuccess"
 
 //$('#AddUserForm').on('submit', function (event) {
@@ -134,10 +156,10 @@ $(document).on('submit', '#AddUserForm', function (event) {
 //}
 
 
-function handleUserAddSuccess(response) {
-    debugger;
-    alert('User added successfully');
-    goToAllUsers();
+//function handleUserAddSuccess(response) {
+//    debugger;
+//    alert('User added successfully');
+//    goToAllUsers();
 
     //if (response.success) {
     //    alert('User added successfully');
@@ -165,7 +187,7 @@ function handleUserAddSuccess(response) {
     //    // Add was-validated class to the form
     //    form.classList.add('was-validated');
     
-}
+//}
 window.onload = function () {
     var inputs = document.querySelectorAll('input,select');
     for (var i = 0; i < inputs.length; i++) {
