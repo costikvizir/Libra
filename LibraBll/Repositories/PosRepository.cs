@@ -22,54 +22,7 @@ namespace LibraBll.Repositories
 
         public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
         {
-           // List < Pos > = null;
-            try
-            {
-               var posList = await Context.Pos
-                .Include(p => p.City)
-                .Include(p => p.ConnectionType)
-                .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
-                .Select(p => new
-                {
-                    p, // Include the Pos itself
-                    Issues = p.Issues.Where(i => !i.IsDeleted).ToList() // Filtered Issues
-                })
-                .ToListAsync();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
-            //var filteredPosList = await Context.Pos
-            //     .Include(p => p.City)
-            //    .Include(p => p.ConnectionType)
-            //    .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
-            //    .Include(p => p.Issues)
-            //    .Where(p => !p.Issues.Where(i => i.).Select(x => x).ToListAsync())
-            //    .ToListAsync();
-            //List<Pos> posList = new List<Pos>();
-            //try
-            //{
-            //    //posList = await Context.Pos
-            //    // .Include(p => p.City)
-            //    // .Include(p => p.ConnectionType)
-            //    // .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
-            //    // .Select(p => new
-            //    // {
-            //    //     p, // Include the Pos itself
-            //    //     Issues = p.Issues.Where(i => !i.IsDeleted).ToList() // Filtered Issues
-            //    // })
-            //    // .ToListAsync();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex);
-            //    throw;
-            //}
-            List<PosGetDTO> mappedPosList = null;
+            List<PosGetDTO> mappedPosList = new List<PosGetDTO>();
             try
             {
                 var posList = await Context.Pos
@@ -78,34 +31,50 @@ namespace LibraBll.Repositories
                  .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
                  .Select(p => new
                  {
-                     p, // Include the Pos itself
-                     Issues = p.Issues.Where(i => !i.IsDeleted).ToList() // Filtered Issues
+                     p,
+                     Issues = p.Issues.Where(i => !i.IsDeleted).ToList() 
                  })
+                 .Where(x => !x.p.IsDeleted)
                  .ToListAsync();
 
                 mappedPosList = posList
                     .Select(x => new PosGetDTO
                     {
-                        PosId = x.p.Id,
-                        Name = x.p.Name,
-                        Telephone = x.p.Telephone,
-                        Cellphone = x.p.Cellphone,
-                        FullAddress = string.Join(", ", x.p.City.CityName, x.p.Address),
-                        City = x.p.City.CityName,
-                        Address = x.p.Address,
-                        Model = x.p.Model,
-                        Brand = x.p.Brand,
-                        DaysClosed = x.p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
-                        Status = x.Issues.Count > 1 ? x.Issues.Count + " Active issues" : x.Issues.Count == 1 ? x.Issues.Count + " Active issue" : "No active issues",
-                        ConnectionType = x.p.ConnectionType.ConnectType,
-                        MorningProgram = x.p.MorningOpening.ToString() + " - " + x.p.MorningClosing.ToString(),
-                        AfternoonProgram = x.p.AfternoonOpening.ToString() + " - " + x.p.AfternoonClosing.ToString(),
+                        //PosId = x.p.Id,
+                        //Name = x.p.Name,
+                        //Telephone = x.p.Telephone,
+                        //Cellphone = x.p.Cellphone,
+                        //FullAddress = string.Join(", ", x.p.City.CityName, x.p.Address),
+                        //City = x.p.City.CityName,
+                        //Address = x.p.Address,
+                        //Model = x.p.Model,
+                        //Brand = x.p.Brand,
+                        //DaysClosed = x.p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
+                        //Status = x.Issues.Count > 1 ? x.Issues.Count + " Active issues" : x.Issues.Count == 1 ? x.Issues.Count + " Active issue" : "No active issues",
+                        //ConnectionType = x.p.ConnectionType.ConnectType,
+                        //MorningProgram = x.p.MorningOpening.ToString() + " - " + x.p.MorningClosing.ToString(),
+                        //AfternoonProgram = x.p.AfternoonOpening.ToString() + " - " + x.p.AfternoonClosing.ToString(),
+                        //InsertDate = x.p.InsertDate.ToString("dd/MM/yyyy")
+                        PosId = x.p?.Id ?? 0, // Assuming default value of 0 if x.p is null
+                        Name = x.p?.Name,
+                        Telephone = x.p?.Telephone,
+                        Cellphone = x.p?.Cellphone,
+                        FullAddress = x.p?.City != null ? string.Join(", ", x.p.City.CityName, x.p.Address) : x.p?.Address,
+                        City = x.p?.City?.CityName,
+                        Address = x.p?.Address,
+                        Model = x.p?.Model,
+                        Brand = x.p?.Brand,
+                        DaysClosed = x.p?.PosWeekDays?.Select(d => d.DayOfWeek.Day).ToList() ?? new List<string>(),
+                        Status = x.Issues != null ? (x.Issues.Count > 1 ? x.Issues.Count + " Active issues" : x.Issues.Count == 1 ? x.Issues.Count + " Active issue" : "No active issues") : "No active issues",
+                        ConnectionType = x.p?.ConnectionType?.ConnectType,
+                        MorningProgram = x.p?.MorningOpening != null && x.p?.MorningClosing != null ? x.p.MorningOpening.ToString() + " - " + x.p.MorningClosing.ToString() : null,
+                        AfternoonProgram = x.p?.AfternoonOpening != null && x.p?.AfternoonClosing != null ? x.p.AfternoonOpening.ToString() + " - " + x.p.AfternoonClosing.ToString() : null,
                         InsertDate = x.p.InsertDate.ToString("dd/MM/yyyy")
                     })
                     .AsQueryable()
-                    .Search(parameters) // Assuming Search is an extension method for IQueryable
-                    .OrderBy(parameters) // Assuming OrderBy is an extension method for IQueryable
-                    .Page(parameters) // Assuming Page is an extension method for IQueryable
+                    .Search(parameters) 
+                    .OrderBy(parameters) 
+                    .Page(parameters)
                     .ToList();
             }
             catch (Exception ex)
@@ -117,12 +86,61 @@ namespace LibraBll.Repositories
             return mappedPosList;
         }
 
+        //public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
+        //{
+
+        //    //.Select(p => new PosGetDTOtry
+        //    List<Pos> rawPosList = null;
+        //    List<PosGetDTO> mappedPosList = null;
+        //    try
+        //    {
+        //        rawPosList = await Context.Pos
+        //           .Include(p => p.City)
+        //           .Include(p => p.ConnectionType)
+        //           .Include(p => p.Issues.Select(i => i).ToList())
+        //           .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
+        //           .ToListAsync();
+
+        //        mappedPosList = rawPosList
+        //            .Select(p => new PosGetDTO
+        //            {
+        //                PosId = p.Id,
+        //                Name = p.Name,
+        //                Telephone = p.Telephone,
+        //                Cellphone = p.Cellphone,
+        //                FullAddress = string.Join(", ", p.City.CityName, p.Address),
+        //                City = p.City.CityName,
+        //                Address = p.Address,
+        //                Model = p.Model,
+        //                Brand = p.Brand,
+        //                DaysClosed = p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
+        //                Status = p.Issues.Count() > 1 ? p.Issues.Count().ToString() + " Active issues" : p.Issues.Count() == 1 ? p.Issues.Count().ToString() + " Active issue" : "No active issues",
+        //                ConnectionType = p.ConnectionType.ConnectType,
+        //                MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
+        //                AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
+        //                InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
+        //            })
+        //            .AsQueryable()
+        //            .Search(parameters)
+        //            .OrderBy(parameters)
+        //            .Page(parameters)
+        //            .ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await Console.Out.WriteLineAsync(ex.Message);
+        //        throw;
+        //    }
+
+        //    return mappedPosList;
+        //}
+
         public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, string name, string brand, string fullAddress, CancellationToken cancellationToken)
         {
             var rawPosList = await Context.Pos
                 .Include(p => p.City)
                 .Include(p => p.ConnectionType)
-                .Include(p => p.Issues.Where(i => i.IsDeleted == false))
+                .Include(p => p.Issues.Where(i => !i.IsDeleted))
                 .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
                 .ToListAsync();
 
@@ -324,6 +342,8 @@ namespace LibraBll.Repositories
 
             foreach (Issue issue in issues)
                 issue.IsDeleted = true;
+
+            Context.SaveChanges();
 
             if (entity != null)
                 entity.IsDeleted = true;

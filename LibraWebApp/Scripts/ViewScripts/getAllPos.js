@@ -86,8 +86,9 @@
 
     // retrieve the PosId from the button data attribute and send it to the server
     // sets the id in the url and sends it to the server
-    $('.btn-outline-danger').on('click', function () {
+    $('#confirmDeleteButton').on('click', function () {
         var posId = $('#deleteButton').data('posid');
+        debugger;
         $.ajax({
             url: '/Pos/DeletePos/' + posId,
             type: 'POST',
@@ -95,6 +96,7 @@
             success: function (data) {
                 table.row('.selected').remove().draw(false);
                 $('#deleteModal').modal('hide');
+                $('.modal-backdrop').remove();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 //$('#deleteModal').modal('hide');

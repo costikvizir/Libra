@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections;
 using System;
+using Libra.Dal.Entities;
 
 namespace LibraWebApp.Controllers
 {
@@ -126,7 +127,7 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
-                return PartialView();
+                return PartialView("AddPos", pos);
             }
 
             // var holidayDays = pos.DaysClosed.Split(',').ToList();
@@ -155,8 +156,8 @@ namespace LibraWebApp.Controllers
             ViewBag.Cities = new SelectList(cities, "Id", "CityName");
             ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
 
-            return RedirectToAction("GetAllPos");
-            //return Json(new { success = true, message = "Successfully saved" });
+            //return RedirectToAction("GetAllPos");
+           return Json(new { success = true, message = "Successfully saved" });
         }
 
         [HttpGet]

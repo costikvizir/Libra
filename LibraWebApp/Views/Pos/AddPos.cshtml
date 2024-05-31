@@ -14,7 +14,7 @@
 <hr class="my-4">
 
 @*@using (Html.BeginForm("AddPos", "Pos", FormMethod.Post, new { id = "AddPosForm" }))*@
-@using (Ajax.BeginForm("AddPos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainDiv", OnSuccess = "handlePosAddSuccess" }, new { id = "AddPosForm" }))
+@using (Ajax.BeginForm("AddPos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainDiv" }, new { id = "AddPosForm" }))
 {
 	<div class="top-card">
 		<div class="card mb-0 ">

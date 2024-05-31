@@ -15,8 +15,9 @@ namespace LibraWebApp
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 						"~/Scripts/jquery.validate.js",
-						"~/Scripts/jquery.validate.unobtrusive.js",
-						"~/Scripts/jquery.unobtrusive-ajax.js"
+						"~/Scripts/jquery.validate.unobtrusive.js"
+						//,
+						//"~/Scripts/jquery.unobtrusive-ajax.js"
 						));
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're
