@@ -117,33 +117,7 @@ namespace LibraWebApp.Controllers
             await _userRepository.CreateUser(user);
 
             return Json(new { success = true });
-            //return RedirectToAction("GetAllUsers");
-           // return View("GetAllUsers");
 
-            //try
-            //{
-            //    var results = await _createUserValidator.ValidateAsync(user);
-            //    if (!results.IsValid)
-            //    {
-            //        var errors = results.Errors.ToDictionary(
-            //            failure => failure.PropertyName,
-            //            failure => failure.ErrorMessage
-            //        );
-
-            //        return Json(new { success = false, errors });
-            //    }
-
-            //    await _userRepository.CreateUser(user);
-
-            //   // return Json(new { success = true });
-            //   return View("GetAllUsers");
-        
-            //catch (Exception ex)
-            //{
-            //    // Handle exceptions as necessary
-            //    //return Json(new { success = false, message = "An error occurred while adding the user." });
-            //    return View("AddUser");
-            //}
         }
 
         [HttpGet]

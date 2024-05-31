@@ -47,6 +47,7 @@ function goToAddUser() {
 $(document).on('submit', '#AddUserForm', function (event) {
     debugger;
     event.preventDefault();
+
     $.ajax({
         url: $(this).attr('action'),
         type: $(this).attr('method'),
@@ -61,12 +62,12 @@ $(document).on('submit', '#AddUserForm', function (event) {
                 handleUserAddSuccess();
             } else {
                // console.error('Error in response: ', response);
-                console.log("error add user");
+                console.log("Inside error add user");
             }
         },
         error: function (xhr, status, error) {
             console.error(error);
-            console.log("error add user");
+            console.log("Outside error add user");
         }
     });
 });
@@ -79,115 +80,6 @@ function handleUserAddSuccess() {
     initializeUserList(); // Initialize DataTables after loading the view
 }
 
-//function goToAllUsers() {
-//    $.ajax({
-//        url: "/User/GetAllUsers",
-//        method: "GET",
-//        success: function (response) {
-//            $("#mainDiv").html(null);
-//            $("#mainDiv").html(response);
-//            initializeUserList(); // Initialize DataTables after loading the view
-//        },
-//    });
-//}
-///, OnSuccess = "handleUserAddSuccess"
-
-//$('#AddUserForm').on('submit', function (event) {
-//    debugger;
-//    console.log('Init form submission!');
-//    event.preventDefault();
-//    $.ajax({
-//        url: $(this).attr('action'),
-//        type: $(this).attr('method'),
-//        data: $(this).serialize(),
-//        success: function (response) {
-//            $('#mainDiv').html(response);
-
-//            // Call handleUserAddSuccess only if the response indicates success
-//            if (response.success) {
-//                handleUserAddSuccess();
-//            } else {
-//                // console.error('Error in response: ', response);
-//                console.log("error add user");
-//            }
-//        },
-//        error: function (xhr, status, error) {
-//            //console.error(error);
-//            console.log("error add user");
-//        }
-//    });
-//});
-
-
-
-//("form").on("submit", function (e) {
-//    var dataString = $(this).serialize();
-
-//    // alert(dataString); return false;
-//    $.ajax({
-//        type: "POST",
-//        url: "/User/GetAllUsers",
-//        data: dataString,
-//        success: function () {
-//            $("#mainDiv").html(null);
-//            $("#mainDiv").html(response);
-//            initializeUserList();
-//        }
-//    });
-//    e.preventDefault();
-//});
-
-
-//function handleUserAddSuccess() {
-//    debugger;
-
-
-//    //$('#usersList').DataTable().ajax.reload();
-//    //alert('User added successfully');
-//    //goToAllUsers();
-//    var form = document.getElementById('AddUserForm');
-//    if (form.checkValidity()) {
-//        alert('User added successfully');
-//        goToAllUsers();
-//    } else {
-//        // If the form is not valid, show the validation messages
-//        form.classList.add('was-validated');
-//    }
-//}
-
-
-//function handleUserAddSuccess(response) {
-//    debugger;
-//    alert('User added successfully');
-//    goToAllUsers();
-
-    //if (response.success) {
-    //    alert('User added successfully');
-    //    goToAllUsers();
-    //} else {
-    //    // If there are validation errors, display them
-    //    var form = document.getElementById('AddUserForm');
-
-    //    // Remove existing validation messages
-    //    var validationMessages = form.querySelectorAll('.text-danger');
-    //    validationMessages.forEach(function (message) {
-    //        message.innerHTML = '';
-    //    });
-
-    //    // Display new validation messages from the server response
-    //    for (var key in response.errors) {
-    //        if (response.errors.hasOwnProperty(key)) {
-    //            var errorMessageElement = document.querySelector(`[data-valmsg-for='${key}']`);
-    //            if (errorMessageElement) {
-    //                errorMessageElement.innerHTML = response.errors[key];
-    //            }
-    //        }
-    //    }
-
-    //    // Add was-validated class to the form
-    //    form.classList.add('was-validated');
-    
-//}
 window.onload = function () {
     var inputs = document.querySelectorAll('input,select');
     for (var i = 0; i < inputs.length; i++) {

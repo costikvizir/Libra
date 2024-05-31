@@ -73,15 +73,15 @@ namespace LibraBll.Repositories
             try
             {
                 var posList = await Context.Pos
- .Include(p => p.City)
- .Include(p => p.ConnectionType)
- .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
- .Select(p => new
- {
-     p, // Include the Pos itself
-     Issues = p.Issues.Where(i => !i.IsDeleted).ToList() // Filtered Issues
- })
- .ToListAsync();
+                 .Include(p => p.City)
+                 .Include(p => p.ConnectionType)
+                 .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
+                 .Select(p => new
+                 {
+                     p, // Include the Pos itself
+                     Issues = p.Issues.Where(i => !i.IsDeleted).ToList() // Filtered Issues
+                 })
+                 .ToListAsync();
 
                 mappedPosList = posList
                     .Select(x => new PosGetDTO
