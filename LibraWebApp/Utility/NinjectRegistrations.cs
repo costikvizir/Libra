@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 using Libra.Dal.Context;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.Abstractions.ValidatorFactory;
 using LibraBll.DTOs.User;
 using LibraBll.Repositories;
+using LibraBll.Validators.ValidatorFactory;
 using Ninject.Modules;
 using Ninject.Web.Common;
 
@@ -17,7 +19,9 @@ namespace LibraWebApp.Utility
             Bind<IIssueRepository>().To<IssueRepository>().InRequestScope();
 
             Bind<LibraContext>().ToSelf().InSingletonScope();
- 
+
+            Bind<IIssueValidatorFactory>().To<IssueValidatorFactory>().InRequestScope();
+
             //var validatorsList = AssemblyScanner.FindValidatorsInAssemblyContaining<CreateUserModel>();
             var validatorsUserList = AssemblyScanner.FindValidatorsInAssemblyContaining<AddUserDTO>();
             //var validatorsPosList = AssemblyScanner.FindValidatorsInAssemblyContaining<PosDTO>();

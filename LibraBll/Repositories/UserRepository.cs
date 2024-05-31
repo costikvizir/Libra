@@ -1,5 +1,4 @@
-﻿using Libra.Dal.Context;
-using Libra.Dal.Entities;
+﻿using Libra.Dal.Entities;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.Common;
 using LibraBll.Common.DataTableModels;
@@ -67,7 +66,7 @@ namespace LibraBll.Repositories
             try
             {
                 userList = await Context.Users
-                .Where(x => x.IsDeleted == false)
+                .Where(x => !x.IsDeleted)
                 .Include(x => x.UserType)
                 .Select(x => new GetUserDTO
                 {
@@ -95,7 +94,7 @@ namespace LibraBll.Repositories
 
         public async Task<int> GetUsersCountAsync()
         {
-            return await Context.Users.CountAsync(x => x.IsDeleted == false);
+            return await Context.Users.CountAsync(x => !x.IsDeleted);
         }
 
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
@@ -159,7 +158,7 @@ namespace LibraBll.Repositories
                            .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
 
                 //entity.UserType = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role.ToString();
-            
+
                 //var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
                 //var role = userRole.Role.ToString();
             }

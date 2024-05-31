@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
+using LibraBll.Abstractions.ValidatorFactory;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.Issue;
 using System;
@@ -17,14 +18,16 @@ namespace LibraWebApp.Controllers
         private readonly IIssueRepository _issueRepository;
         private readonly IPosRepository _posRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IValidator<IssuePostDTO> _issueValidator;
+      //  private readonly IValidator<IssuePostDTO> _issueValidator;
+        private readonly IIssueValidatorFactory _issueValidatorFactory;
 
-        public IssueController(IIssueRepository issueRepository, IValidator<IssuePostDTO> issueValidator, IPosRepository posRepository, IUserRepository userRepository)
+        public IssueController(IIssueValidatorFactory issueValidatorFactory, IIssueRepository issueRepository, IPosRepository posRepository, IUserRepository userRepository)
         {
             _issueRepository = issueRepository;
-            _issueValidator = issueValidator;
+           // _issueValidator = issueValidator;
             _posRepository = posRepository;
             _userRepository = userRepository;
+            _issueValidatorFactory = issueValidatorFactory;
         }
 
         [HttpGet]
@@ -82,46 +85,24 @@ namespace LibraWebApp.Controllers
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> AddIssue()
-        {
-            var statusList = await _issueRepository.GetStatusList();
-            var roles = await _userRepository.GetRoles();
-            //var roles = await _userRepository.GetRolesCachedAsync();
-            var issueNames = await _issueRepository.GetIssueNameList(null);
-            var priorityList = await _issueRepository.GetPriorityList();
+        //[HttpGet]
+        //public async Task<ActionResult> AddIssue()
+        //{
+        //    var statusList = await _issueRepository.GetStatusList();
+        //    var roles = await _userRepository.GetRoles();
+        //    //var roles = await _userRepository.GetRolesCachedAsync();
+        //    var issueNames = await _issueRepository.GetIssueNameList(null);
+        //    var priorityList = await _issueRepository.GetPriorityList();
 
-            ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
-            ViewBag.Roles = new SelectList(roles, "Id", "Role");
-            ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
-            // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
-            // ViewBag.Problems = new SelectList(issueNames, "Id", "IssueName");
-            ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
+        //    ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
+        //    ViewBag.Roles = new SelectList(roles, "Id", "Role");
+        //    ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
+        //    // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
+        //    // ViewBag.Problems = new SelectList(issueNames, "Id", "IssueName");
+        //    ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
 
-            return View("AddIssue");
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AddIssue(IssuePostDTO issue)
-        {
-            issue.UserCreated = User.Identity.Name;
-            issue.StatusId = Convert.ToInt32(issue.Status);
-
-            var validationResult = _issueValidator.Validate(issue);
-
-            if (!validationResult.IsValid)
-            {
-                foreach (var error in validationResult.Errors)
-                {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
-                return PartialView("AddIssue", issue);
-            }
-
-            await _issueRepository.AddIssue(issue);
-
-            return PartialView("AllIssues");
-        }
+        //    return View("AddIssue");
+        //}
 
         //TODO: solve for dropdowns in openissue view
 
@@ -131,7 +112,6 @@ namespace LibraWebApp.Controllers
             var pos = await _posRepository.GetPosByIdAsync(id);
             var statusList = await _issueRepository.GetStatusList();
             var roles = await _userRepository.GetRoles();
-            //var roles = await _userRepository.GetRolesCachedAsync();
             var issueNames = await _issueRepository.GetIssueNameList(null);
             var priorityList = await _issueRepository.GetPriorityList();
 
@@ -151,6 +131,31 @@ namespace LibraWebApp.Controllers
 
             //return View("OpenIssue", pos);
             return View("OpenIssue");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddIssue(IssuePostDTO issue)
+        {
+            issue.UserCreated = User.Identity.Name;
+            issue.StatusId = Convert.ToInt32(issue.Status);
+
+            // var validationResult = _issueValidator.Validate(issue);
+
+            var issuevalidator = _issueValidatorFactory.Create(issue.SubType, issue.Problem);
+            var validationResult = await issuevalidator.ValidateAsync(issue);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return PartialView("AddIssue", issue);
+            }
+
+            await _issueRepository.AddIssue(issue);
+
+            return PartialView("AllIssues");
         }
 
         //[HttpPost]
@@ -180,7 +185,7 @@ namespace LibraWebApp.Controllers
         [Route("Issue/DeleteIssue/{id}")]
         public void DeleteIssue(int id)
         {
-             _issueRepository.DeleteIssue(id);
+            _issueRepository.DeleteIssue(id);
         }
     }
 }

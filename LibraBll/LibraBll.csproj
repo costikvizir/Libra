@@ -135,6 +135,7 @@
     <Compile Include="Abstractions\Repositories\IIssueRepository.cs" />
     <Compile Include="Abstractions\Repositories\IPosRepository.cs" />
     <Compile Include="Abstractions\Repositories\IUserRepository.cs" />
+    <Compile Include="Abstractions\ValidatorFactory\IIssueValidatorFactory.cs" />
     <Compile Include="Common\Repositories\BaseRepository.cs" />
     <Compile Include="Common\DataTableModels\DataTableColumn.cs" />
     <Compile Include="Common\DataTableModels\DataTablesParameters.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Validators\User\AddUserDTOValidator.cs" />
     <Compile Include="Validators\User\LoginUserDTOValidator.cs" />
     <Compile Include="Validators\User\ModifyUserDTOValidator.cs" />
+    <Compile Include="Validators\ValidatorFactory\IssueValidatorFactory.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
