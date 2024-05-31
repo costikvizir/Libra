@@ -127,6 +127,12 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                 }
+
+                var cities = await _posRepository.GetCityList();
+                var connectionTypes = await _posRepository.GetConnectionTypeList();
+                ViewBag.Cities = new SelectList(cities, "Id", "CityName");
+                ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
+
                 return PartialView("AddPos", pos);
             }
 
@@ -151,13 +157,10 @@ namespace LibraWebApp.Controllers
 
             await _posRepository.AddPosAsync(pos);
 
-            var cities = await _posRepository.GetCityList();
-            var connectionTypes = await _posRepository.GetConnectionTypeList();
-            ViewBag.Cities = new SelectList(cities, "Id", "CityName");
-            ViewBag.ConnectionTypes = new SelectList(connectionTypes, "Id", "ConnectionType");
+
 
             //return RedirectToAction("GetAllPos");
-           return Json(new { success = true, message = "Successfully saved" });
+           return Json(new { success = true });
         }
 
         [HttpGet]

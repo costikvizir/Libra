@@ -115,7 +115,7 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-                return PartialView("AddIssue");
+                return PartialView("AddIssue", issue);
             }
 
             await _issueRepository.AddIssue(issue);

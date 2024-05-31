@@ -22,6 +22,7 @@ namespace LibraBll.Validators.Pos
             RuleFor(x => x.Address).NotEmpty().WithMessage("Address is required");
 
             RuleFor(x => x.CityId).NotEmpty().WithMessage("City is required");
+            //RuleFor(x => x.CityId)
 
             RuleFor(x => x.Model).NotEmpty().WithMessage("Model is required");
 

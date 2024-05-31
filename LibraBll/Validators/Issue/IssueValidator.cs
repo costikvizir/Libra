@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using LibraBll.Abstractions.Repositories;
 using LibraBll.DTOs.Issue;
+using LibraBll.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,21 @@ namespace LibraBll.Validators.Issue
 {
 	public class IssueValidator : AbstractValidator<IssuePostDTO>
 	{
-        public IssueValidator()
+		private readonly IIssueRepository _issueRepository;
+        public IssueValidator(IIssueRepository issueRepository)
         {
-           /// RuleFor(i => i.PosId).NotEmpty().WithMessage("PosId is required");
-			RuleFor(i => i.Type).NotEmpty().WithMessage("Type is required");
-			RuleFor(i => i.Priority).NotEmpty().WithMessage("Priority is required");
+			_issueRepository = issueRepository;
+
+			//RuleFor(i => i.Type)
+			//	.NotEmpty().WithMessage("Type is required")
+   //              .MustAsync(async (type, cancellation) =>
+   //              {
+   //                  var roles = await _issueRepository.GetType();
+   //                  return roles.Any(r => r.Id == role);
+   //              }).WithMessage("Please select a valid role!");
+
+            //RuleFor(i => i.Type).NotEmpty().WithMessage("Type is required");
+            RuleFor(i => i.Priority).NotEmpty().WithMessage("Priority is required");
 			RuleFor(i => i.Status).NotEmpty().WithMessage("Status is required");
 			//RuleFor(i => i.Memo).NotEmpty().WithMessage("Memo is required");
 			RuleFor(i => i.UserCreated).NotEmpty().WithMessage("User is required");
