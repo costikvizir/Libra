@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using LibraBll.Abstractions.Repositories;
+﻿using LibraBll.Abstractions.Repositories;
 using LibraBll.Abstractions.ValidatorFactory;
 using LibraBll.Common.DataTableModels;
 using LibraBll.DTOs.Issue;
@@ -18,13 +17,14 @@ namespace LibraWebApp.Controllers
         private readonly IIssueRepository _issueRepository;
         private readonly IPosRepository _posRepository;
         private readonly IUserRepository _userRepository;
-      //  private readonly IValidator<IssuePostDTO> _issueValidator;
+
+        //  private readonly IValidator<IssuePostDTO> _issueValidator;
         private readonly IIssueValidatorFactory _issueValidatorFactory;
 
         public IssueController(IIssueValidatorFactory issueValidatorFactory, IIssueRepository issueRepository, IPosRepository posRepository, IUserRepository userRepository)
         {
             _issueRepository = issueRepository;
-           // _issueValidator = issueValidator;
+            // _issueValidator = issueValidator;
             _posRepository = posRepository;
             _userRepository = userRepository;
             _issueValidatorFactory = issueValidatorFactory;
@@ -85,24 +85,24 @@ namespace LibraWebApp.Controllers
             return Json(issues, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult> AddIssue()
-        //{
-        //    var statusList = await _issueRepository.GetStatusList();
-        //    var roles = await _userRepository.GetRoles();
-        //    //var roles = await _userRepository.GetRolesCachedAsync();
-        //    var issueNames = await _issueRepository.GetIssueNameList(null);
-        //    var priorityList = await _issueRepository.GetPriorityList();
+        [HttpGet]
+        public async Task<ActionResult> AddIssue()
+        {
+            var statusList = await _issueRepository.GetStatusList();
+            var roles = await _userRepository.GetRoles();
+            //var roles = await _userRepository.GetRolesCachedAsync();
+            var issueNames = await _issueRepository.GetIssueNameList(null);
+            var priorityList = await _issueRepository.GetPriorityList();
 
-        //    ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
-        //    ViewBag.Roles = new SelectList(roles, "Id", "Role");
-        //    ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
-        //    // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
-        //    // ViewBag.Problems = new SelectList(issueNames, "Id", "IssueName");
-        //    ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
+            ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
+            ViewBag.Roles = new SelectList(roles, "Id", "Role");
+            ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
+            // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
+            // ViewBag.Problems = new SelectList(issueNames, "Id", "IssueName");
+            ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
 
-        //    return View("AddIssue");
-        //}
+            return View("AddIssue");
+        }
 
         //TODO: solve for dropdowns in openissue view
 
@@ -150,7 +150,7 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-                return PartialView("AddIssue", issue);
+                return PartialView("AddIssue");
             }
 
             await _issueRepository.AddIssue(issue);

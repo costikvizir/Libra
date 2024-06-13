@@ -64,39 +64,39 @@
                     <!-- First Column -->
                     <div class="col-md-4 mx-3 pl-4">
                         <div class="row mb-3">
-							<div class="col-md-5 pr-4">
-								<label for="inputState" class="form-label">Issue Type</label>
-								@Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputType" })
-								@Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-							</div>
-							<div class="col-md-7 pl-4">
-								<label for="inputState" class="form-label">Subclass</label>
-								@Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "None" }), "Select Subtype", new { @class = "form-select dark-blue-border-color", id = "inputSubclass" })
-								@Html.ValidationMessageFor(model => model.SubType, "", new { @class = "text-danger" })
-							</div>
+                            <div class="col-md-5 pr-4">
+                                <label for="inputState" class="form-label">Issue Type</label>
+                                @Html.DropDownListFor(model => model.Type, (SelectList)ViewBag.IssueNames, "select", new { @class = "form-select dark-blue-border-color", id = "inputType" })
+                                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-7 pl-4">
+                                <label for="inputState" class="form-label">Subclass</label>
+                                @Html.DropDownListFor(model => model.SubType, new SelectList(new[] { "None" }), "Select Subtype", new { @class = "form-select dark-blue-border-color", id = "inputSubclass" })
+                                @Html.ValidationMessageFor(model => model.SubType, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="inputAddress" class="form-label">Problem Description</label>
-							<div class="input-group">
-								@Html.TextAreaFor(model => model.Description, new { @class = "form-control dark-blue-border-color", style = "height: 110px; resize: none;" })
-								@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-							</div>
+                            <div class="input-group">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control dark-blue-border-color", style = "height: 110px; resize: none;" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
 
                     <!-- Second Column -->
                     <div class="col-md-4 mx-3">
                         <div class="row mb-3">
-							<div class="col-md-7 pr-4">
-								<label for="inputState" class="form-label">Problem</label>
-								@Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "None" }), "Select Problem", new { @class = "form-select dark-blue-border-color", id = "selectProblem" })
-								@Html.ValidationMessageFor(model => model.Problem, "", new { @class = "text-danger" })
-							</div>
-							<div class="col-md-5 pl-4">
-								<label for="inputState" class="form-label">Priority</label>
-								@Html.DropDownListFor(model => model.Priority, (SelectList)ViewBag.PriorityList, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
-								@Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
-							</div>
+                            <div class="col-md-7 pr-4">
+                                <label for="inputState" class="form-label">Problem</label>
+                                @Html.DropDownListFor(model => model.Problem, new SelectList(new[] { "None" }), "Select Problem", new { @class = "form-select dark-blue-border-color", id = "selectProblem" })
+                                @Html.ValidationMessageFor(model => model.Problem, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-5 pl-4">
+                                <label for="inputState" class="form-label">Priority</label>
+                                @Html.DropDownListFor(model => model.Priority, (SelectList)ViewBag.PriorityList, "select", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+                                @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="inputAddress" class="form-label">Solution</label>
@@ -108,16 +108,16 @@
 
                     <!-- Third Column -->
                     <div class="col-md-3">
-						<div class="mb-3">
-							<label for="inputState" class="form-label">Status</label>
-							@Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.Statuses, "Select Status", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
-							@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-						</div>
-						<div class="mb-3">
-							<label for="inputState" class="form-label">Assigned To</label>
-							@Html.DropDownListFor(model => model.AssignedTo, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputassignedTo" })
-							@Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
-						</div>
+                        <div class="mb-3">
+                            <label for="inputState" class="form-label">Status</label>
+                            @Html.DropDownListFor(model => model.Status, (SelectList)ViewBag.Statuses, "Select Status", new { @class = "form-select dark-blue-border-color", id = "inputStatus" })
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputState" class="form-label">Assigned To</label>
+                            @Html.DropDownListFor(model => model.AssignedTo, (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-select dark-blue-border-color", id = "inputassignedTo" })
+                            @Html.ValidationMessageFor(model => model.AssignedTo, "", new { @class = "text-danger" })
+                        </div>
                         <div class="mb-3">
                             <label for="inputmemo" class="form-label">Memo</label>
                             <div class="input-group">
@@ -137,13 +137,11 @@
     </div>
 }
 
-@*@section scripts{
+@section scripts{
 
-    <script src="~/Scripts/ViewScripts/openIssue.js"></script>
-        }*@
-
-<script>
-    function handleIssueOpenSuccess() {
+    <script>
+        function handleIssueOpenSuccess() {
+            debugger;
         alert('Issue Added Successfully!');
         goToAllIssues();
     }
@@ -257,72 +255,6 @@
             }
         });
     });
+    </script>
 
-  @*$(document).ready(function () {
-    // Initially disable inputSubclass and selectProblem
-    $('#inputSubclass').prop('disabled', true);
-    $('#selectProblem').prop('disabled', true);
-
-    // Enable/Disable inputSubclass based on inputType selection and fetch subtypes
-    $('#inputType').change(function () {
-        var selectedTypeId = $(this).val();
-
-        if (selectedTypeId === "select") {
-            $('#inputSubclass').prop('disabled', true);
-            $('#selectProblem').prop('disabled', true);
-            $('#inputSubclass').empty(); // Clear existing options
-            $('#inputSubclass').append($('<option>', {
-                value: 'select',
-                text: 'Select Subtype'
-            }));
-            $('#selectProblem').empty(); // Clear existing options
-            $('#selectProblem').append($('<option>', {
-                value: 'select',
-                text: 'Select Problem'
-            }));
-        } else {
-            $('#inputSubclass').prop('disabled', false);
-
-            // AJAX call to fetch subtypes
-            $.ajax({
-                url: '@Url.Action("GetIssueSubtypes", "Issue")', // Replace 'YourControllerName' with the actual name
-                type: 'GET',
-                data: { issueTypeId: selectedTypeId },
-                success: function (data) {
-                    var subTypeSelect = $('#inputSubclass');
-                    subTypeSelect.empty(); // Clear existing options
-
-                    subTypeSelect.append($('<option>', {
-                        value: 'select',
-                        text: 'Select Subtype'
-                    }));
-
-                    $.each(data, function (index, subtype) {
-                        subTypeSelect.append($('<option>', {
-                            value: subtype.Id,
-                            text: subtype.SubTypeName
-                        }));
-                    });
-
-                    // Optionally, you can disable selectProblem here until inputSubclass changes
-                    $('#selectProblem').prop('disabled', true);
-                },
-                error: function (xhr, status, error) {
-                    console.error("An error occurred while fetching subtypes: " + error);
-                }
-            });
-        }
-    });
-
-    // Enable/Disable selectProblem based on inputSubclass selection
-    $('#inputSubclass').change(function () {
-        if ($(this).val() === "select") {
-            $('#selectProblem').prop('disabled', true);
-            $('#inputType').prop('disabled', false);
-        } else {
-            $('#selectProblem').prop('disabled', false);
-            $('#inputType').prop('disabled', true);
-        }
-    });
-});*@
-</script>
+}
