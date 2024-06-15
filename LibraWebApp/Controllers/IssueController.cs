@@ -133,6 +133,9 @@ namespace LibraWebApp.Controllers
             return View("OpenIssue");
         }
 
+        //TODO: move ninject utility in bll and remova dependancy of web app to dal
+        //TODO: review behaviour of buttons in issue view
+
         [HttpPost]
         public async Task<ActionResult> AddIssue(IssuePostDTO issue)
         {

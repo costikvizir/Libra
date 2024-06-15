@@ -133,7 +133,7 @@
 
     <div class="d-flex justify-content-start">
         <button type="submit" class="btn dark-blue-background-btn mr-2">Open Issue</button>
-        <button type="reset" class="btn dark-blue-background-btn" onclick="resetForm()">Cancel</button>
+        <button type="reset" class="btn dark-blue-background-btn" onclick="goToHomePage()">Cancel</button>
     </div>
 }
 
@@ -285,6 +285,23 @@
             alert('Issue Added Successfully!');
             goToAllIssues();
             initializeIssuesList();
+        }
+
+        function goToHomePage() {
+            debugger;
+            $.ajax({
+                url: "/Home/Index",
+                data: {
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                method: "GET",
+                success: function (response) {
+                    $("#mainDiv").html(null);
+                    $("#mainDiv").html(response);
+                },
+            });
         }
     </script>
 

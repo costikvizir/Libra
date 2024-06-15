@@ -1,5 +1,5 @@
 ﻿@{
-   //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
+    //Layout = "~/Views/Shared/_LayoutLTE.cshtml";
     Layout = null;
 }
 
@@ -7,10 +7,9 @@
 
 <link href="~/Content/Site.css" rel="stylesheet" />
 
-
 @model LibraBll.DTOs.Pos.PosEditDTO
 
-@using (Ajax.BeginForm("UpdatePos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer", OnSuccess = "handlePosEditSuccess" }))
+@using (Ajax.BeginForm("UpdatePos", "Pos", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "mainContainer" }, new { id = "EditPosForm" }))
 {
     @Html.HiddenFor(model => model.Id)
     <div class="card mb-0">
@@ -55,7 +54,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputState" class="form-label">City</label>
-                    @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities,  new { @class = "form-select dark-blue-border-color", id = "inputState" })
+                    @Html.DropDownListFor(model => model.CityId, (SelectList)ViewBag.Cities, new { @class = "form-select dark-blue-border-color", id = "inputState" })
                 </div>
             </div>
             <div class="row">
@@ -77,7 +76,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="inputState" class="form-label">Connection Type</label>
-                    @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes,  new { @class = "form-select dark-blue-border-color", id = "inputState" })
+                    @Html.DropDownListFor(model => model.ConnectionType, (SelectList)ViewBag.ConnectionTypes, new { @class = "form-select dark-blue-border-color", id = "inputState" })
                 </div>
             </div>
         </div>
@@ -157,19 +156,82 @@
 
     <div class="d-flex justify-content-start">
         <button type="submit" class="btn dark-blue-background-btn mr-2">Update POS</button>
-        <button type="reset" class="btn dark-blue-background-btn mr-2">Cancel</button>
+        <button type="reset" class="btn dark-blue-background-btn mr-2" onclick="goToAllPos()">Cancel</button>
     </div>
 }
 
+<script src="~/Scripts/TimePicker/moment.min.js"></script>
+<script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
 
-    <script src="~/Scripts/TimePicker/moment.min.js"></script>
-    <script src="~/Scripts/TimePicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/Scripts/TimePicker/timepicker-validator.js"></script>
+<script>
+    //function goToAddUser() {
+    //    debugger;
+    //    $.ajax({
+    //        url: "/User/AddUser",
+    //        data: {
+    //        },
+    //        xhrFields: {
+    //            withCredentials: true
+    //        },
+    //        method: "GET",
+    //        success: function (response) {
+    //            $("#mainDiv").html(null);
+    //            $("#mainDiv").html(response);
+    //        },
+    //    });
+    //}
 
-    @*<script>
-        function handlePosEditSuccess() {
-            alert('Pos Edited Successfully!');
-        }
-    </script>*@
+    $(document).on('submit', '#EditPosForm', function (event) {
+        debugger;
+        event.preventDefault();
 
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function (response) {
+                $('#mainDiv').html(response);
+                console.log("success edit pos");
+                console.log(response.success);
+                // Call handleUserAddSuccess only if the response indicates success
 
+                if (response.success) {
+                    handleUserAddSuccess();
+                } else {
+                    // console.error('Error in response: ', response);
+                    console.log("Inside error edit pos");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                console.log("Outside error edit pos");
+            }
+        });
+    });
+
+    function goToAllPos() {
+        debugger;
+        $.ajax({
+            url: "/Pos/GetAllPos",
+            data: {
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            method: "GET",
+            success: function (response) {
+                $("#mainDiv").html(null);
+                $("#mainDiv").html(response);
+                initializePosList();
+            },
+        });
+    }
+
+    function handleUserAddSuccess() {
+        debugger;
+        alert('Pos edited successfully');
+        goToAllPos();
+        initializePosList(); // Initialize DataTables after loading the view
+    }
+</script>
