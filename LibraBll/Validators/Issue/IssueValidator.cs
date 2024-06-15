@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using LibraBll.Abstractions.Repositories;
 using LibraBll.DTOs.Issue;
-using System.Linq;
 
 namespace LibraBll.Validators.Issue
 {
@@ -17,51 +16,57 @@ namespace LibraBll.Validators.Issue
 
             RuleFor(i => i.Type)
                 .NotEmpty().WithMessage("Type is required")
-                 .MustAsync(async (type, cancellation) =>
-                 {
-                     var types = await _issueRepository.GetIssueNameList(issueType);
-                     return types.Any(t => t.Id == type);
-                 }).WithMessage("Please select a valid type!");
+                 //.MustAsync(async (type, cancellation) =>
+                 //{
+                 //    var types = await _issueRepository.GetIssueNameList(issueType);
+                 //    return types.Any(t => t.Id == type);
+                 //}).WithMessage("Please select a valid type!")
+                 ;
 
             RuleFor(i => i.SubType)
                 .NotEmpty().WithMessage("Type is required")
-                 .MustAsync(async (subType, cancellation) =>
-                 {
-                     var subTypes = await _issueRepository.GetIssueNameList(issueSubType);
-                     return subTypes.Any(t => t.Id == subType);
-                 }).WithMessage("Please select a valid Subtype!");
+                 //.MustAsync(async (subType, cancellation) =>
+                 //{
+                 //    var subTypes = await _issueRepository.GetIssueNameList(issueSubType);
+                 //    return subTypes.Any(t => t.Id == subType);
+                 //}).WithMessage("Please select a valid Subtype!")
+                 ;
 
             RuleFor(i => i.Problem)
                 .NotEmpty().WithMessage("Type is required")
-                 .MustAsync(async (problem, cancellation) =>
-                 {
-                     var problems = await _issueRepository.GetIssueNameList(issueProblem);
-                     return problems.Any(t => t.Id == problem);
-                 }).WithMessage("Please select a valid problem!");
+                 //.MustAsync(async (problem, cancellation) =>
+                 //{
+                 //    var problems = await _issueRepository.GetIssueNameList(issueProblem);
+                 //    return problems.Any(t => t.Id == problem);
+                 //}).WithMessage("Please select a valid problem!")
+                 ;
 
             RuleFor(i => i.Priority)
                 .NotEmpty().WithMessage("Type is required")
-                 .MustAsync(async (priority, cancellation) =>
-                 {
-                     var priorities = await _issueRepository.GetPriorityList();
-                     return priorities.Any(t => t.Id == priority);
-                 }).WithMessage("Please select a priority!");
+                 //.MustAsync(async (priority, cancellation) =>
+                 //{
+                 //    var priorities = await _issueRepository.GetPriorityList();
+                 //    return priorities.Any(t => t.Id == priority);
+                 //}).WithMessage("Please select a priority!")
+                 ;
 
             RuleFor(i => i.Status)
                 .NotEmpty().WithMessage("Type is required")
-                 .MustAsync(async (status, cancellation) =>
-                 {
-                     var statuses = await _issueRepository.GetStatusList();
-                     return statuses.Any(t => t.IssueStatus == status);
-                 }).WithMessage("Please select a status!");
+                 //.MustAsync(async (status, cancellation) =>
+                 //{
+                 //    var statuses = await _issueRepository.GetStatusList();
+                 //    return statuses.Any(t => t.IssueStatus == status);
+                 //}).WithMessage("Please select a status!")
+                 ;
 
             RuleFor(i => i.AssignedTo)
                 .NotEmpty().WithMessage("Type is required")
-                 .MustAsync(async (user, cancellation) =>
-                 {
-                     var users = await _userRepository.GetRoles();
-                     return users.Any(t => t.Id == user);
-                 }).WithMessage("Please select a valid role!");
+                 //.MustAsync(async (user, cancellation) =>
+                 //{
+                 //    var users = await _userRepository.GetRoles();
+                 //    return users.Any(t => t.Id == user);
+                 //}).WithMessage("Please select a valid role!")
+                 ;
 
             RuleFor(i => i.Description).NotEmpty().WithMessage("Description is required");
         }

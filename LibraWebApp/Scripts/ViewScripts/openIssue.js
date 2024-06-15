@@ -1,16 +1,20 @@
-﻿function handleIssueOpenSuccess() {
-    alert('Issue Added Successfully!');
-    goToAllIssues();
-}
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     // Initially disable inputSubclass and selectProblem
     $('#inputSubclass').prop('disabled', true);
     $('#selectProblem').prop('disabled', true);
 
     // Enable/Disable inputSubclass based on inputType selection and fetch subtypes
     $('#inputType').change(function () {
+        debugger;
         var selectedTypeId = $(this).val();
+
+        //Reset and disable selectProblem every time inputType changes
+        $('#selectProblem').prop('disabled', true);
+        $('#selectProblem').empty(); // Clear existing options
+        $('#selectProblem').append($('<option>', {
+            value: 'select',
+            text: 'Select Problem'
+        }));
 
         if (selectedTypeId === "select") {
             $('#inputSubclass').prop('disabled', true);
@@ -65,7 +69,7 @@ $(document).ready(function () {
 
         if (selectedSubtypeId === "select") {
             $('#selectProblem').prop('disabled', true);
-            $('#inputType').prop('disabled', false);
+            //$('#inputType').prop('disabled', false);
             $('#selectProblem').empty(); // Clear existing options
             $('#selectProblem').append($('<option>', {
                 value: 'select',
@@ -76,9 +80,9 @@ $(document).ready(function () {
 
             // AJAX call to fetch problems
             $.ajax({
-                url: '@Url.Action("GetIssueSubtypes", "Issue")', // Replace 'Issue' with the actual controller name if different
+                url: '@Url.Action("GetProblemNames", "Issue")', // Endpoint for fetching problems
                 type: 'GET',
-                data: { subtypeId: selectedSubtypeId },
+                data: { issueTypeId: selectedSubtypeId },
                 success: function (data) {
                     var problemSelect = $('#selectProblem');
                     problemSelect.empty(); // Clear existing options
@@ -95,7 +99,7 @@ $(document).ready(function () {
                         }));
                     });
 
-                    $('#inputType').prop('disabled', true);
+                    // $('#inputType').prop('disabled', true);
                 },
                 error: function (xhr, status, error) {
                     console.error("An error occurred while fetching problems: " + error);
@@ -104,3 +108,38 @@ $(document).ready(function () {
         }
     });
 });
+
+$(document).on('submit', '#OpenIssueForm', function (event) {
+    debugger;
+    event.preventDefault();
+
+    $.ajax({
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: $(this).serialize(),
+        success: function (response) {
+            $('#mainDiv').html(response);
+            console.log("success add issue");
+            console.log(response.success);
+            // Call handleUserAddSuccess only if the response indicates success
+
+            if (response.success) {
+                handleIssueOpenSuccess();
+            } else {
+                // console.error('Error in response: ', response);
+                console.log("Inside error add issue");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+            console.log("Outside error add issue");
+        }
+    });
+});
+
+function handleIssueOpenSuccess() {
+    debugger;
+    alert('Issue Added Successfully!');
+    goToAllIssues();
+    initializeIssuesList();
+}

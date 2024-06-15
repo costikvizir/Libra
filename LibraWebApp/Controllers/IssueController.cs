@@ -139,6 +139,11 @@ namespace LibraWebApp.Controllers
             issue.UserCreated = User.Identity.Name;
             issue.StatusId = Convert.ToInt32(issue.Status);
 
+            var statusList = await _issueRepository.GetStatusList();
+            var roles = await _userRepository.GetRoles();
+            var issueNames = await _issueRepository.GetIssueNameList(null);
+            var priorityList = await _issueRepository.GetPriorityList();
+
             // var validationResult = _issueValidator.Validate(issue);
 
             var issuevalidator = _issueValidatorFactory.Create(issue.SubType, issue.Problem);
@@ -150,12 +155,18 @@ namespace LibraWebApp.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
-                return PartialView("AddIssue");
+                ViewBag.Statuses = new SelectList(statusList, "Id", "IssueStatus");
+                ViewBag.Roles = new SelectList(roles, "Id", "Role");
+                ViewBag.IssueNames = new SelectList(issueNames, "Id", "IssueName");
+                // ViewBag.IssueSubtypes = new SelectList(issueNames, "Id", "IssueName");
+                ViewBag.PriorityList = new SelectList(priorityList, "Id", "IssuePriority");
+                return PartialView("OpenIssue", issue);
             }
 
             await _issueRepository.AddIssue(issue);
 
-            return PartialView("AllIssues");
+            //return PartialView("AllIssues");
+            return Json(new { success = true });
         }
 
         //[HttpPost]
