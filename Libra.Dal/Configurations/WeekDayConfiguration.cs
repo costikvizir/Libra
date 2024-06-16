@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace Libra.Dal.Configurations
 {
-	public class WeekDayConfiguration : EntityTypeConfiguration<WeekDay>
-	{
+    public class WeekDayConfiguration : EntityTypeConfiguration<WeekDay>
+    {
         public WeekDayConfiguration()
         {
-            // Define primary key
             this.HasKey(e => e.Id);
         }
     }

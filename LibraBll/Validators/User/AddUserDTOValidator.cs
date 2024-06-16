@@ -10,16 +10,12 @@ namespace LibraBll.Validators.User
 {
     public class AddUserDTOValidator : AbstractValidator<AddUserDTO>
     {
-        //private static string[] roles = { "Administrator", "User", "Technical Support" };
         private readonly IUserRepository _userRepository;
-       // private IEnumerable<RoleDTO> _cachedRoles;
-       // public IEnumerable<RoleDTO> CachedRoles => _cachedRoles;
-        //List<int> idRoles = ;
+
         public AddUserDTOValidator(IUserRepository userRepository)
         {
             _userRepository = userRepository;
             // var idRoles =  _userRepository.GetRoles().Select(x => x.Id).To;
-
 
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name cannot be empty!")
@@ -55,8 +51,6 @@ namespace LibraBll.Validators.User
                 .Matches("[0-9]").WithMessage("Password must contain at least one number!")
                 .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character!");
 
-            //RuleFor(x => x.Role).NotEmpty().WithMessage("Missing Role")
-            //   .MustAsync(async role => await roles.Contains(role.Trim().ToLower())).WithMessage("Please select a role!");
             RuleFor(x => x.Role)
                 .NotEmpty().WithMessage("Missing Role")
                 .MustAsync(async (role, cancellation) =>

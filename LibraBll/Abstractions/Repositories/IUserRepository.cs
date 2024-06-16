@@ -2,7 +2,6 @@
 using LibraBll.DTOs.Dropdown;
 using LibraBll.DTOs.User;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibraBll.Abstractions.Repositories
@@ -18,7 +17,6 @@ namespace LibraBll.Abstractions.Repositories
 
         Task<AddUserDTO> CreateUser(AddUserDTO userPost);
 
-        // Task<LoginUserDTO> GetUserAuth(string name, string password);
         Task<LoginUserDTO> GetUserAuth(string name, string password);
 
         void UpdateUser(ModifyUserDTO userPost);
@@ -28,7 +26,6 @@ namespace LibraBll.Abstractions.Repositories
         Task<int> GetUsersCountAsync();
 
         Task<IEnumerable<RoleDTO>> GetRoles();
-        //Task<IEnumerable<RoleDTO>> GetRolesCachedAsync();
 
         Task<bool> UserNameExistsAsync(string name);
 

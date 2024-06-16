@@ -32,7 +32,7 @@ namespace LibraBll.Repositories
                  .Select(p => new
                  {
                      p,
-                     Issues = p.Issues.Where(i => !i.IsDeleted).ToList() 
+                     Issues = p.Issues.Where(i => !i.IsDeleted).ToList()
                  })
                  .Where(x => !x.p.IsDeleted)
                  .ToListAsync();
@@ -57,8 +57,8 @@ namespace LibraBll.Repositories
                         InsertDate = x.p.InsertDate.ToString("dd/MM/yyyy")
                     })
                     .AsQueryable()
-                    .Search(parameters) 
-                    .OrderBy(parameters) 
+                    .Search(parameters)
+                    .OrderBy(parameters)
                     .Page(parameters)
                     .ToList();
             }
@@ -71,65 +71,8 @@ namespace LibraBll.Repositories
             return mappedPosList;
         }
 
-        //public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, CancellationToken cancellationToken)
-        //{
-
-        //    //.Select(p => new PosGetDTOtry
-        //    List<Pos> rawPosList = null;
-        //    List<PosGetDTO> mappedPosList = null;
-        //    try
-        //    {
-        //        rawPosList = await Context.Pos
-        //           .Include(p => p.City)
-        //           .Include(p => p.ConnectionType)
-        //           .Include(p => p.Issues.Select(i => i).ToList())
-        //           .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
-        //           .ToListAsync();
-
-        //        mappedPosList = rawPosList
-        //            .Select(p => new PosGetDTO
-        //            {
-        //                PosId = p.Id,
-        //                Name = p.Name,
-        //                Telephone = p.Telephone,
-        //                Cellphone = p.Cellphone,
-        //                FullAddress = string.Join(", ", p.City.CityName, p.Address),
-        //                City = p.City.CityName,
-        //                Address = p.Address,
-        //                Model = p.Model,
-        //                Brand = p.Brand,
-        //                DaysClosed = p.PosWeekDays.Select(d => d.DayOfWeek.Day).ToList(),
-        //                Status = p.Issues.Count() > 1 ? p.Issues.Count().ToString() + " Active issues" : p.Issues.Count() == 1 ? p.Issues.Count().ToString() + " Active issue" : "No active issues",
-        //                ConnectionType = p.ConnectionType.ConnectType,
-        //                MorningProgram = p.MorningOpening.ToString() + " - " + p.MorningClosing.ToString(),
-        //                AfternoonProgram = p.AfternoonOpening.ToString() + " - " + p.AfternoonClosing.ToString(),
-        //                InsertDate = p.InsertDate.ToString("dd/MM/yyyy")
-        //            })
-        //            .AsQueryable()
-        //            .Search(parameters)
-        //            .OrderBy(parameters)
-        //            .Page(parameters)
-        //            .ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        await Console.Out.WriteLineAsync(ex.Message);
-        //        throw;
-        //    }
-
-        //    return mappedPosList;
-        //}
-
         public async Task<List<PosGetDTO>> GetAllPosAsync(DataTablesParameters parameters, string name, string brand, string fullAddress, CancellationToken cancellationToken)
         {
-            //var rawPosList = await Context.Pos
-            //    .Include(p => p.City)
-            //    .Include(p => p.ConnectionType)
-            //    .Include(p => p.Issues.Where(i => !i.IsDeleted))
-            //    .Include(p => p.PosWeekDays.Select(d => d.DayOfWeek))
-            //    .ToListAsync();
-
-
             List<PosGetDTO> mappedPosList = new List<PosGetDTO>();
             try
             {
@@ -242,8 +185,6 @@ namespace LibraBll.Repositories
         public async Task<PosPostDTO> AddPosAsync(PosPostDTO pos)
         {
             string daysClosed = string.Join(",", pos.DaysClosed);
-            // int cityId = Context.Cities.Where(c => c.CityName == pos.City).Select(c => c.Id).FirstOrDefault();
-            //int connectionTypeId = Context.ConnectionType.Where(c => c.ConnectType == pos.ConnectionType).Select(c => c.Id).FirstOrDefault();
             Pos entity = new Pos
             {
                 Name = pos.Name,
@@ -319,17 +260,6 @@ namespace LibraBll.Repositories
             //Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
         }
-
-        //public async void DeletePos(int id)
-        //{
-        //    Pos entity = await Context.Pos.Where(p => p.Id == id).FirstOrDefaultAsync();
-
-        //    if (entity != null)
-        //        entity.IsDeleted = true;
-
-        //    //Context.Entry(entity).State = EntityState.Modified;
-        //    await Context.SaveChangesAsync();
-        //}
 
         public void DeletePos(int id)
         {

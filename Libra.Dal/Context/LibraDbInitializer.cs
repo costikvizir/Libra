@@ -10,25 +10,25 @@ namespace Libra.Dal.Context
 {
     public class LibraDbInitializer : DbMigrationsConfiguration<LibraContext>
     {
-
         public LibraDbInitializer()
         {
             this.AutomaticMigrationDataLossAllowed = true;
             this.AutomaticMigrationsEnabled = true;
         }
+
         protected override void Seed(LibraContext context)
         {
             // Seed cities
             var cities = SeedData.GetCities();
             var weekDays = SeedData.GetWeekDays();
 
-            if(!context.Cities.Any())
+            if (!context.Cities.Any())
             {
                 context.Cities.AddRange(cities);
             }
 
             // Seed weekdays
-            if(!context.WeekDays.Any())
+            if (!context.WeekDays.Any())
             {
                 context.WeekDays.AddRange(weekDays);
             }
@@ -40,7 +40,7 @@ namespace Libra.Dal.Context
             }
             // Seed connection types
 
-            if(!context.ConnectionType.Any())
+            if (!context.ConnectionType.Any())
             {
                 context.ConnectionType.AddRange(SeedData.ConnectionTypeSeed);
             }
@@ -69,15 +69,5 @@ namespace Libra.Dal.Context
             // Save changes
             context.SaveChanges();
         }
-        //public Configuration()
-        //{
-        //    AutomaticMigrationsEnabled = true;
-        //    //AutomaticMigrationDataLossAllowed = true;
-        //}
-
-        //protected override void Seed(LibraContext context)
-        //{
-        //}
     }
 }
-

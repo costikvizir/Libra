@@ -29,7 +29,6 @@ namespace LibraBll.Repositories
         {
             try
             {
-                // Create list of IssueType entities
                 List<IssueType> issueTypes = new List<IssueType>
             {
                 new IssueType
@@ -64,15 +63,7 @@ namespace LibraBll.Repositories
                 int issueSubtypeId = issueTypes[1].Id;
                 int problemId = issueTypes[2].Id;
 
-                // Retrieve the generated IDs
-
-                // issuePost.AssignedTo
-                //int typeId = await Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefaultAsync();
-                //int subTypeId = await Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefaultAsync();
-                //int problemId = await Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefaultAsync();
-                //int statusId = await Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefaultAsync();
                 int userCreatedId = await Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefaultAsync();
-                // int assignedId = await Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefaultAsync();
 
                 // Create the Issue entity
                 Issue issue = new Issue
@@ -109,10 +100,9 @@ namespace LibraBll.Repositories
         {
             var issue = Context.Issues.Find(id);
 
-            if(issue != null)
+            if (issue != null)
                 issue.IsDeleted = true;
 
-           // Context.Entry(issue).State = EntityState.Modified;
             Context.SaveChanges();
         }
 
@@ -184,21 +174,14 @@ namespace LibraBll.Repositories
             string userCreated = Context.Users.Where(u => u.Id == issue.UserCreatedId).Select(u => u.Name).FirstOrDefault();
             string assignedTo = Context.UserTypes.Where(u => u.Id == issue.AssignedId).Select(u => u.Role).FirstOrDefault();
             string posName = Context.Pos.Where(p => p.Id == issue.PosId).Select(p => p.Name).FirstOrDefault();
-            //string userRole = Context.UserTypes.Where(x => x.Id == issue.UserCreatedId).Select(x => x.Role).FirstOrDefault();
 
             issueDTO.Id = issue.Id;
             issueDTO.Type = Context.IssueNames.Where(n => n.Id == issue.TypeId).Select(n => n.Name).FirstOrDefault();
             issueDTO.SubType = Context.IssueNames.Where(n => n.Id == issue.SubTypeId).Select(n => n.Name).FirstOrDefault();
             issueDTO.Problem = Context.IssueNames.Where(n => n.Id == issue.ProblemId).Select(n => n.Name).FirstOrDefault();
             issueDTO.Status = status;
-            //issueDTO.Type = issue.IssueType?.Name;
-            //issueDTO.SubType = issue.IssueSubType?.Name;
-            //issueDTO.Problem = issue.IssueProblem?.Name;
             issueDTO.Priority = priority;
-            //issueDTO.Status = issue.Status.IssueStatus;
             issueDTO.Memo = issue.Memo;
-            //issueDTO.UserCreated = issue.User.Name;
-            //issueDTO.AssignedTo = issue.UserType.Role;
             issueDTO.UserCreated = userCreated;
             issueDTO.AssignedTo = assignedTo;
             issueDTO.Description = issue.Description;
@@ -206,30 +189,8 @@ namespace LibraBll.Repositories
             issueDTO.CreationDate = issue.CreationDate.ToString();
             issueDTO.ModificationDate = issue.ModificationDate.ToString();
             issueDTO.Solution = issue.Solution;
-            //issueDTO.PosName = issue.Pos.Name;
-            //issueDTO.UserRole = issue.UserType.Role;
 
             return issueDTO;
-            //return new IssueDTO
-            //{
-            //	Id = issue.Id,
-            //	PosId = issue.PosId,
-            //	Type = issue.IssueType.Name,
-            //	SubType = issue.IssueSubType.Name,
-            //	Problem = issue.IssueProblem.Name,
-            //	Priority = issue.Priority,
-            //	Status = issue.Status.IssueStatus,
-            //	Memo = issue.Memo,
-            //	UserCreated = issue.User.Name,
-            //	AssignedTo = issue.UserType.Role,
-            //	Description = issue.Description,
-            //	AssignedDate = issue.AssignedDate.ToString(),
-            //	CreationDate = issue.CreationDate.ToString(),
-            //	ModificationDate = issue.ModificationDate.ToString(),
-            //	Solution = issue.Solution,
-            //	PosName = issue.Pos.Name,
-            //	UserRole = issue.UserType.Role
-            //};
         }
 
         public async Task<List<IssueGetDTO>> GetIssuesByPosIdAsync(int posId)
@@ -278,37 +239,6 @@ namespace LibraBll.Repositories
             return issueList;
         }
 
-        //public async void UpdateIssue(IssueDTO issuePost)
-        //{
-        //    int typeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Type).Select(t => t.Id).FirstOrDefault();
-        //    int subTypeId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.SubType).Select(t => t.Id).FirstOrDefault();
-        //    int problemId = Context.IssueTypes.Where(t => t.IssueNameId == issuePost.Problem).Select(t => t.Id).FirstOrDefault();
-        //    //int statusId = Context.Statuses.Where(s => s.IssueStatus == issuePost.Status).Select(s => s.Id).FirstOrDefault();
-        //    int userCreatedId = Context.Users.Where(u => u.Name == issuePost.UserCreated).Select(u => u.Id).FirstOrDefault();
-        //   // int assignedId = Context.UserTypes.Where(u => u.Role == issuePost.AssignedTo).Select(u => u.Id).FirstOrDefault();
-
-        //    Issue issue = new Issue
-        //    {
-        //        PosId = issuePost.PosId,
-        //        TypeId = typeId,
-        //        SubTypeId = subTypeId,
-        //        ProblemId = problemId,
-        //        PriorityId = issuePost.Priority,
-        //        StatusId = issuePost.Status,
-        //        Memo = issuePost.Memo,
-        //        UserCreatedId = userCreatedId,
-        //        AssignedId = issuePost.AssignedTo,
-        //        Description = issuePost.Description,
-        //        AssignedDate = DateTime.Parse(issuePost.AssignedDate),
-        //        CreationDate = DateTime.Now,
-        //        ModificationDate = DateTime.Parse(issuePost.ModificationDate),
-        //        Solution = issuePost.Solution
-        //    };
-
-        //    Context.Issues.Add(issue);
-        //    await Context.SaveChangesAsync();
-        //}
-
         public async Task<List<StatusDTO>> GetStatusList()
         {
             return await Context.Statuses
@@ -345,11 +275,6 @@ namespace LibraBll.Repositories
 
         public async Task<StatusGroupCount> GetStatusGroupCount()
         {
-            //int newIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "New").CountAsync();
-            //int assignedIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Asigned").CountAsync();
-            //int inprogressIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "In progress").CountAsync();
-            //int pendingIssueCount = await Context.Statuses.Where(s => s.IssueStatus == "Pending").CountAsync();
-
             var allissues = await Context.Issues
                 .Where(i => i.IsDeleted == false)
                 .Include(i => i.Status).ToListAsync();
@@ -358,7 +283,6 @@ namespace LibraBll.Repositories
             int assignedIssueCount = allissues.Where(i => i.Status.IssueStatus == "Assigned").Count();
             int inprogressIssueCount = allissues.Where(i => i.Status.IssueStatus == "In progress").Count();
             int pendingIssueCount = allissues.Where(i => i.Status.IssueStatus == "Pending").Count();
-
 
             return new StatusGroupCount
             {

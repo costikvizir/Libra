@@ -16,11 +16,6 @@ namespace LibraBll.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        //private IEnumerable<RoleDTO> _cachedRoles;
-        //public UserRepository(LibraContext context) : base(context)
-        //{
-        //}
-
         public async Task<GetUserDTO> GetUserByIdAsync(int id)
         {
             User entity = await Context.Users.Include(u => u.UserType).Where(u => u.Id == id).FirstOrDefaultAsync();
@@ -99,8 +94,6 @@ namespace LibraBll.Repositories
 
         public async Task<AddUserDTO> CreateUser(AddUserDTO userPost)
         {
-            //var userRole = Context.UserTypes.FirstOrDefault(x => x.Role == userPost.Role).Id;
-
             User user = new User()
             {
                 Name = userPost.Name,
@@ -131,10 +124,7 @@ namespace LibraBll.Repositories
             user.Telephone = userPost.Telephone;
             user.UserTypeId = userPost.Role;
             user.Login = userPost.Login;
-            // user.Password = userPost.Password;
 
-            //Context.Users.Update(user);
-            //Context.Entry(user).State = EntityState.Modified;
             Context.SaveChanges();
         }
 
@@ -156,11 +146,6 @@ namespace LibraBll.Repositories
                 entity = await Context.Users
                            .Include(x => x.UserType)
                            .FirstOrDefaultAsync(x => x.IsDeleted == false && x.Name.ToUpper() == name.ToUpper() && x.Password == password);
-
-                //entity.UserType = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role.ToString();
-
-                //var userRole = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId);
-                //var role = userRole.Role.ToString();
             }
             catch (Exception ex)
             {
@@ -195,22 +180,6 @@ namespace LibraBll.Repositories
 
             return roles;
         }
-
-        //public async Task<IEnumerable<RoleDTO>> GetRolesCachedAsync()
-        //{
-        //    if (_cachedRoles == null)
-        //    {
-        //        _cachedRoles = await Context.UserTypes
-        //            .Select(x => new RoleDTO
-        //            {
-        //                Id = x.Id,
-        //                Role = x.Role
-        //            })
-        //            .ToListAsync();
-        //    }
-
-        //    return _cachedRoles;
-        //}
 
         public async Task<bool> UserNameExistsAsync(string userName)
         {

@@ -47,35 +47,15 @@ namespace Libra.Dal.Context
 
         public static List<UserType> UserTypesSeed = new List<UserType>
         {
-            new UserType
-            {
-                Id = 1,
-                Role = "Administrator"
-            },
-            new UserType
-            {
-                Id = 2,
-                Role = "Technical Support"
-            },
-            new UserType
-            {
-                Id = 3,
-                Role = "User"
-            }
+            new UserType { Id = 1, Role = "Administrator" },
+            new UserType { Id = 2, Role = "Technical Support" },
+            new UserType { Id = 3, Role = "User" }
         };
 
         public static List<ConnectionType> ConnectionTypeSeed = new List<ConnectionType>
         {
-            new ConnectionType
-            {
-                Id = 1,
-                ConnectType = "Remote"
-            },
-            new ConnectionType
-            {
-                Id = 2,
-                ConnectType = "Wireless"
-            },
+            new ConnectionType { Id = 1, ConnectType = "Remote" },
+            new ConnectionType { Id = 2, ConnectType = "Wireless" }
         };
 
         public static List<User> UsersSeed = new List<User>
@@ -94,26 +74,10 @@ namespace Libra.Dal.Context
 
         public static List<Status> statusesSeed = new List<Status>
         {
-            new Status
-            {
-                Id = 1,
-                IssueStatus = "New"
-            },
-            new Status
-            {
-                Id = 2,
-                IssueStatus = "Assigned"
-            },
-            new Status
-            {
-                Id = 3,
-                IssueStatus = "In progress"
-            },
-            new Status
-            {
-                Id = 4,
-                IssueStatus = "Pending"
-            }
+            new Status { Id = 1, IssueStatus = "New" },
+            new Status { Id = 2, IssueStatus = "Assigned" },
+            new Status { Id = 3, IssueStatus = "In progress" },
+            new Status { Id = 4, IssueStatus = "Pending" }
         };
 
         public static List<IssueName> IssueNamesSeed = new List<IssueName>
@@ -183,26 +147,10 @@ namespace Libra.Dal.Context
 
         public static List<Priority> PrioritiesSeed = new List<Priority>
         {
-            new Priority
-            {
-                Id = 1,
-                IssuePriority = "Low"
-            },
-            new Priority
-            {
-                Id = 2,
-                IssuePriority = "Medium"
-            },
-            new Priority
-            {
-                Id = 3,
-                IssuePriority = "High"
-            },
-            new Priority
-            {
-                Id = 4,
-                IssuePriority = "None"
-            }
+            new Priority { Id = 1, IssuePriority = "Low" },
+            new Priority { Id = 2, IssuePriority = "Medium" },
+            new Priority { Id = 3, IssuePriority = "High" },
+            new Priority { Id = 4, IssuePriority = "None" }
         };
     }
 }
