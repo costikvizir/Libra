@@ -34,15 +34,6 @@
             { title: "Full Address", data: "FullAddress", name: "fulladdress", autoWidth: true, searchable: true }
         ]
     });
-    //$('#inputPosId, #inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
-    //    // Apply the filter and redraw the table
-    //    table
-    //        .column(0).search($('#inputPosId').val())
-    //        .column(1).search($('#inputPosName').val())
-    //        .column(4).search($('#inputPosBrand').val())
-    //        .column(5).search($('#inputFullAddress').val())
-    //        .draw();
-    //});
 
     // Disable and enable buttons based on row selection
     $('#posList tbody').on('click', 'tr', function () {
@@ -179,9 +170,10 @@ function goToAllPos() {
         },
         method: "GET",
         success: function (response) {
-            $("#mainDiv").html(null);
+            //$("#mainDiv").html(null);
             $("#mainDiv").html(response);
             initializePosList();
+            history.pushState({ page: "GetAllPos" }, "All Pos", "/Pos/GetAllPos");
         },
     });
 }
@@ -200,6 +192,7 @@ function goToPosDetails(posId) {
             $("#mainDiv").html(null);
             $("#mainDiv").html(response);
             initializePosIssuesList(posId);
+            history.pushState({ page: "PosDetails", posId: posId }, "Pos Details", "/Pos/GetPosById?id=" + posId);
         },
     });
 }
@@ -217,6 +210,7 @@ function goToPosEdit(posId) {
         success: function (response) {
             $("#mainDiv").html(null);
             $("#mainDiv").html(response);
+            history.pushState({ page: "UpdatePos", posId: posId }, "Pos Details", "/Pos/UpdatePos?id=" + posId);
         },
     });
 }

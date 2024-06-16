@@ -3031,6 +3031,7 @@
     <Content Include="Scripts\ViewScripts\addIssue.js" />
     <Content Include="Scripts\ViewScripts\addPos.js" />
     <Content Include="Scripts\ViewScripts\addUser.js" />
+    <Content Include="Scripts\ViewScripts\dynamicRouteChange.js" />
     <Content Include="Scripts\ViewScripts\getAllIssues.js" />
     <Content Include="Scripts\ViewScripts\getAllPos.js" />
     <Content Include="Scripts\ViewScripts\getAllUsers.js" />

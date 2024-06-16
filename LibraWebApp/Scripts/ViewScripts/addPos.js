@@ -1,23 +1,22 @@
 ﻿function goToAddPos() {
-
-	$.ajax({
-		url: "/Pos/AddPos",
-		data: {
-		},
-		xhrFields: {
-			withCredentials: true
-		},
-		method: "GET",
-		success: function (response) {
-			$("#mainDiv").html(null);
-			$("#mainDiv").html(response);
-		},
-	});
+    $.ajax({
+        url: "/Pos/AddPos",
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        method: "GET",
+        success: function (response) {
+            $("#mainDiv").html(null);
+            $("#mainDiv").html(response);
+            history.pushState({ page: "AddPos" }, "Add Pos", "/Pos/AddPos");
+        },
+    });
 }
 $('#content').on('click', '#clearFormBtn', function () {
-	$('#AddPosForm')[0].reset(); // Reset form fields
+    $('#AddPosForm')[0].reset(); // Reset form fields
 });
-
 
 $(document).on('submit', '#AddPosForm', function (event) {
     debugger;
@@ -48,13 +47,13 @@ $(document).on('submit', '#AddPosForm', function (event) {
 });
 
 function handlePosAddSuccess() {
-	debugger;
-	alert('Pos added successfully');
+    debugger;
+    alert('Pos added successfully');
     goToAllPos();
     initializePosList();
 }
 
 function resetForm() {
-	var form = document.getElementById("AddPosForm");
-	form.reset();
+    var form = document.getElementById("AddPosForm");
+    form.reset();
 }

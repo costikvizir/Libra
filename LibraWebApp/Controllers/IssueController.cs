@@ -135,6 +135,7 @@ namespace LibraWebApp.Controllers
 
         //TODO: move ninject utility in bll and remova dependancy of web app to dal
         //TODO: review behaviour of buttons in issue view
+        //TODO: check modal windows buttons working
 
         [HttpPost]
         public async Task<ActionResult> AddIssue(IssuePostDTO issue)

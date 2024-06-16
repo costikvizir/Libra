@@ -113,9 +113,10 @@ function goToAddIssue() {
         },
         method: "GET",
         success: function (response) {
-            $("#mainDiv").html(null);
+            //$("#mainDiv").html(null);
             $("#mainDiv").html(response);
             initializePosListForIssue();
+            history.pushState({ page: "AddIssue" }, "Add Issue", "/Issue/AddIssue");
         },
     });
 }
@@ -133,8 +134,9 @@ function goToOpenIssue(posId) {
         },
         method: "GET",
         success: function (response) {
-            $("#mainDiv").html(null);
+            // $("#mainDiv").html(null);
             $("#mainDiv").html(response);
+            history.pushState({ page: "OpenIssue", posId: posId }, "Pos Details", "/Issue/OpenIssue?id=" + posId);
         },
     });
 }
