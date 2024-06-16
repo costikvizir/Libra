@@ -1,5 +1,4 @@
-﻿
-function validateTelephoneInput(input) {
+﻿function validateTelephoneInput(input) {
     let value = input.value;
     // Allow only digits and optionally a '+' at the beginning
     if (value.charAt(0) === '+') {
@@ -40,6 +39,7 @@ function goToAddUser() {
         success: function (response) {
             $("#mainDiv").html(null);
             $("#mainDiv").html(response);
+            history.pushState({ page: "AddUser" }, "Add User", "/User/AddUser");
         },
     });
 }
@@ -57,11 +57,11 @@ $(document).on('submit', '#AddUserForm', function (event) {
             console.log("success add user");
             console.log(response.success);
             // Call handleUserAddSuccess only if the response indicates success
-            
+
             if (response.success) {
                 handleUserAddSuccess();
             } else {
-               // console.error('Error in response: ', response);
+                // console.error('Error in response: ', response);
                 console.log("Inside error add user");
             }
         },
@@ -71,7 +71,6 @@ $(document).on('submit', '#AddUserForm', function (event) {
         }
     });
 });
-
 
 function handleUserAddSuccess() {
     debugger;

@@ -276,9 +276,53 @@
         @*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
         <script>
-            function goToHomePage(event) {
-                event.preventDefault();
-                goToHomePage();
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const path = window.location.pathname;
+                switch (path) {
+                    case "/User/AddUser":
+                        goToAddUser();
+                        break;
+                    case "/User/GetAllUsers":
+                        goToAllUsers();
+                        break;
+                    // Add cases for other URLs as needed
+                    default:
+                        // Default action (e.g., load home page)
+                        goToHomePage();
+                }
+            });
+
+            window.addEventListener('popstate', function (event) {
+                if (event.state) {
+                    switch (event.state.page) {
+                        case "AddUser":
+                            goToAddUser();
+                            break;
+                        case "AllUsers":
+                            goToAllUsers();
+                            break;
+                        // Add cases for other partial views as needed
+                        default:
+                            // Default action (e.g., load home page)
+                            goToHomePage();
+                    }
+                } else {
+                    // Handle the case where there is no state (e.g., initial load)
+                    goToHomePage();
+                }
+            });
+
+            function goToHomePage() {
+                $.ajax({
+                    url: "/Home/Index",
+                    method: "GET",
+                    success: function (response) {
+                        $("#mainDiv").html(response);
+                        // Push state to the history
+                        history.pushState({ page: "HomePage" }, "", "/");
+                    },
+                });
             }
         </script>
 

@@ -1,5 +1,4 @@
-﻿
-function initializeUserList() {
+﻿function initializeUserList() {
     debugger;
     console.log("Initialize User List Datatable");
     var columns = [
@@ -26,11 +25,9 @@ function initializeUserList() {
             //pageLength: 10,
             //processing: true,
             //serverSide: true,
-
         },
         columns: columns,
     });
-
 
     $('#usersList tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
@@ -88,7 +85,6 @@ function initializeUserList() {
     });
 }
 
-
 function goToAllUsers() {
     debugger;
     $.ajax({
@@ -103,6 +99,7 @@ function goToAllUsers() {
             $("#mainDiv").html(null);
             $("#mainDiv").html(response);
             initializeUserList();
+            history.pushState({ page: "AllUsers" }, "All Users", "/User/GetAllUsers");
         },
     });
 }
