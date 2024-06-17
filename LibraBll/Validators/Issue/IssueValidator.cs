@@ -15,7 +15,7 @@ namespace LibraBll.Validators.Issue
             _userRepository = userRepository;
 
             RuleFor(i => i.Type)
-                .NotEmpty().WithMessage("TPlease select issue type !")
+                .NotEmpty().WithMessage("Type is required!")
                  //.MustAsync(async (type, cancellation) =>
                  //{
                  //    var types = await _issueRepository.GetIssueNameList(issueType);
@@ -24,7 +24,7 @@ namespace LibraBll.Validators.Issue
                  ;
 
             RuleFor(i => i.SubType)
-                .NotEmpty().WithMessage("Subype is required !")
+                .NotEmpty().WithMessage("Subype is required!")
                  //.MustAsync(async (subType, cancellation) =>
                  //{
                  //    var subTypes = await _issueRepository.GetIssueNameList(issueSubType);
@@ -33,7 +33,7 @@ namespace LibraBll.Validators.Issue
                  ;
 
             RuleFor(i => i.Problem)
-                .NotEmpty().WithMessage("Problem is required !")
+                .NotEmpty().WithMessage("Problem is required!")
                  //.MustAsync(async (problem, cancellation) =>
                  //{
                  //    var problems = await _issueRepository.GetIssueNameList(issueProblem);
@@ -42,7 +42,7 @@ namespace LibraBll.Validators.Issue
                  ;
 
             RuleFor(i => i.Priority)
-                .NotEmpty().WithMessage("Select issue priority !")
+                .NotEmpty().WithMessage("Select issue priority!")
                  //.MustAsync(async (priority, cancellation) =>
                  //{
                  //    var priorities = await _issueRepository.GetPriorityList();
@@ -51,7 +51,7 @@ namespace LibraBll.Validators.Issue
                  ;
 
             RuleFor(i => i.Status)
-                .NotEmpty().WithMessage("status is required")
+                .NotEmpty().WithMessage("Status is required!")
                  //.MustAsync(async (status, cancellation) =>
                  //{
                  //    var statuses = await _issueRepository.GetStatusList();
@@ -60,7 +60,7 @@ namespace LibraBll.Validators.Issue
                  ;
 
             RuleFor(i => i.AssignedTo)
-                .NotEmpty().WithMessage("Department is required")
+                .NotEmpty().WithMessage("Department is required!")
                  //.MustAsync(async (user, cancellation) =>
                  //{
                  //    var users = await _userRepository.GetRoles();
@@ -68,7 +68,7 @@ namespace LibraBll.Validators.Issue
                  //}).WithMessage("Please select a valid role!")
                  ;
 
-            RuleFor(i => i.Description).NotEmpty().WithMessage("Description is required");
+            RuleFor(i => i.Description).NotEmpty().WithMessage("Description is required!");
         }
     }
 }

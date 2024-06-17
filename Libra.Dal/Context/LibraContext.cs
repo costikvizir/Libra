@@ -1,12 +1,5 @@
 ﻿using Libra.Dal.Configurations;
 using Libra.Dal.Entities;
-using System.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
 
 namespace Libra.Dal.Context

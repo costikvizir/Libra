@@ -101,8 +101,8 @@ function goToHomePage() {
         success: function (response) {
             $("#mainDiv").html(response);
             // Push state to the history
-            //history.pushState({ page: "HomePage" }, "", "/");
-            history.pushState({ page: "Home" }, "Home Page", "/Home/Index");
+            history.pushState({ page: "HomePage" }, "", "/");
+            //history.pushState({ page: "Home" }, "Home Page", "/Home/Index");
         },
     });
 }
