@@ -8,7 +8,7 @@
         },
         method: "GET",
         success: function (response) {
-            $("#mainDiv").html(null);
+            // $("#mainDiv").html(null);
             $("#mainDiv").html(response);
             history.pushState({ page: "AddPos" }, "Add Pos", "/Pos/AddPos");
         },

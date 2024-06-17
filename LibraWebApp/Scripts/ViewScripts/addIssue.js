@@ -54,20 +54,6 @@ function initializePosListForIssue() {
         dom: '<"top"i>rt<"bottom"lp><"clear">'
     });
 
-    //$('#inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
-    //    console.log("Filtering ... ");
-    //    var name = $('#inputPosName').val();
-    //    var brand = $('#inputPosBrand').val();
-    //    var fullAddress = $('#inputFullAddress').val();
-
-    //    console.log("Name:", name, "Brand:", brand, "Full Address:", fullAddress);
-
-    //    table.column(0).search(name)
-    //    table.column(3).search(brand)
-    //    table.column(5).search(fullAddress)
-    //    table.draw();
-    //});
-
     $('#inputPosName, #inputPosBrand, #inputFullAddress').on('input', function () {
         console.log("Filtering ... ");
         table.ajax.reload(); // Trigger a new AJAX request to the server with updated parameters

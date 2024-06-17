@@ -275,103 +275,6 @@
 
         @*<script src="~/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>*@
 
-        @*<script>
-
-                document.addEventListener('DOMContentLoaded', function () {
-                    const path = window.location.pathname;
-                    switch (path) {
-                        case "/User/AddUser":
-                            goToAddUser();
-                            break;
-                        case "/User/GetAllUsers":
-                            goToAllUsers();
-                            break;
-                        case "/Pos/AddPos":
-                            goToAddPos();
-                            break;
-                        case "/Pos/GetAllPos":
-                            goToAllPos();
-                            break;
-                        case "/Pos/GetPosById":
-                            if (posId) {
-                                goToPosDetails(posId);
-                            } else {
-                                goToHomePage();
-                            }
-                        case "/Pos/UpdatePos":
-                            if (posId) {
-                                goToPosEdit(posId);
-                            } else {
-                                goToHomePage();
-                            }
-                            break;
-                        case "/Issue/GetAllIssues":
-                            goToAllIssues();
-                            break;
-                        // Add cases for other URLs as needed
-                        default:
-                            // Default action (e.g., load home page)
-                            goToHomePage();
-                    }
-                });
-
-                window.addEventListener('popstate', function (event) {
-                    if (event.state) {
-                        switch (event.state.page) {
-                            case "AddUser":
-                                goToAddUser();
-                                break;
-                            case "AllUsers":
-                                goToAllUsers();
-                                break;
-                            case "AddPos":
-                                goToAddPos();
-                                break;
-                            case "GetAllPos":
-                                goToAllPos();
-                                break;
-                            case "PosDetails":
-                                if (event.state.posId) {
-                                    goToPosDetails(event.state.posId);
-                                } else {
-                                    goToHomePage();
-                                }
-                                break;
-                            case "UpdatePos":
-                                if (event.state.posId) {
-                                    goToPosEdit(event.state.posId);
-                                } else {
-                                    goToHomePage();
-                                }
-                                break;
-                            case "GetAllIssues":
-                                goToAllIssues();
-                                break;
-
-                            default:
-                                // Default action (e.g., load home page)
-                                goToHomePage();
-                        }
-                    } else {
-                        // Handle the case where there is no state (e.g., initial load)
-                        goToHomePage();
-                    }
-                });
-
-                function goToHomePage() {
-                    $.ajax({
-                        url: "/Home/Index",
-                        method: "GET",
-                        success: function (response) {
-                            $("#mainDiv").html(response);
-                            // Push state to the history
-                            //history.pushState({ page: "HomePage" }, "", "/");
-                            history.pushState({ page: "Home" }, "Home Page", "/Home/Index");
-                        },
-                    });
-                }
-            </script>*@
-
         <div id="main-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
                 <div id="main-modal-container" class="modal-content container">
@@ -385,9 +288,9 @@
         <script src="~/Scripts/ViewScripts/getAllIssues.js"></script>
         <script src="~/Scripts/ViewScripts/getAllPos.js"></script>
         <script src="~/Scripts/ViewScripts/getAllUsers.js"></script>
-        <script src="~/Scripts/ViewScripts/dynamicRouteChange.js"></script>
+        @*<script src="~/Scripts/ViewScripts/dynamicRouteChange.js"></script>*@
 
-        @*<script src="~/Scripts/ViewScripts/getHomePage.js"></script>*@
+        <script src="~/Scripts/ViewScripts/getHomePage.js"></script>
         @*<script src="~/Scripts/ViewScripts/openIssue.js"></script>*@
 
         @*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@

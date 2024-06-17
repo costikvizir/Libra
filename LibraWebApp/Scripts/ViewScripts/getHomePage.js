@@ -26,3 +26,16 @@
 //        },
 //    });
 //}
+
+function goToHomePage() {
+    $.ajax({
+        url: "/Home/Index",
+        method: "GET",
+        success: function (response) {
+            $("#mainDiv").html(response);
+            // Push state to the history
+            // history.pushState({ page: "HomePage" }, "", "/");
+            history.pushState({ page: "Home" }, "Home Page", "/Home/Index");
+        },
+    });
+}

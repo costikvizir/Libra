@@ -79,8 +79,8 @@
                             <label for="inputAddress" class="form-label">Problem Description</label>
                             <div class="input-group">
                                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control dark-blue-border-color", style = "height: 110px; resize: none;" })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -137,9 +137,7 @@
     </div>
 }
 
-
-
-    <script>
+<script>
 
         $(document).ready(function () {
             // Initially disable inputSubclass and selectProblem
@@ -303,5 +301,4 @@
                 },
             });
         }
-    </script>
-
+</script>
