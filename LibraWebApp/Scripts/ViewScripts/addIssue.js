@@ -139,9 +139,9 @@ $(document).on('click', '#openIssue', function () {
     }
 });
 
-$(document).ready(function () {
-    initializePosListForIssue();
-});
+//$(document).ready(function () {
+//    initializePosListForIssue();
+//});
 
 function handleIssueAddSuccess() {
     alert('Issue added successfully');

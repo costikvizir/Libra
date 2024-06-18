@@ -37,7 +37,7 @@ function goToAddUser() {
         },
         method: "GET",
         success: function (response) {
-            $("#mainDiv").html(null);
+           // $("#mainDiv").html(null);
             $("#mainDiv").html(response);
             history.pushState({ page: "AddUser" }, "Add User", "/User/AddUser");
         },
