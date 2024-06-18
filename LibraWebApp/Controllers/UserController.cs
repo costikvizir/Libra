@@ -35,19 +35,18 @@ namespace LibraWebApp.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetUserByName(string name)
-        {
-            var userFromDb = await _userRepository.GetUserByNameAsync(name);
-            return View(userFromDb);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult> GetUserByName(string name)
+        //{
+        //    var userFromDb = await _userRepository.GetUserByNameAsync(name);
+        //    return View(userFromDb);
+        //}
 
         [Authorize]
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
             var roles = await _userRepository.GetRoles();
-            //var roles = await _userRepository.GetRolesCachedAsync();
             ViewBag.Roles = new SelectList(roles, "Id", "Role");
             return View();
         }
@@ -110,14 +109,12 @@ namespace LibraWebApp.Controllers
             }
             catch (System.Exception ex)
             {
-
                 throw;
             }
 
             await _userRepository.CreateUser(user);
 
             return Json(new { success = true });
-
         }
 
         [HttpGet]

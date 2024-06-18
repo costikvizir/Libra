@@ -10,7 +10,7 @@ namespace LibraBll.Abstractions.Repositories
     {
         Task<GetUserDTO> GetUserByIdAsync(int id);
 
-        Task<GetUserDTO> GetUserByNameAsync(string name);
+        //Task<GetUserDTO> GetUserByNameAsync(string name);
 
         //List<GetUserDTO> GetAllUsers(DataTablesParameters parameters);
         Task<IEnumerable<GetUserDTO>> GetAllUsers(DataTablesParameters parameters);

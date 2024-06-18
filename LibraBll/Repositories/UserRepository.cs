@@ -35,25 +35,25 @@ namespace LibraBll.Repositories
             return user;
         }
 
-        public async Task<GetUserDTO> GetUserByNameAsync(string name)
-        {
-            User entity = await Context.Users.FindAsync(name);
-            if (entity != null)
-            {
-                var user = new GetUserDTO()
-                {
-                    Name = entity.Name,
-                    Email = entity.Email,
-                    Password = entity.Password,
-                    Telephone = entity.Telephone,
-                    UserTypeId = entity.UserTypeId,
-                    Role = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role
-                };
-                return user;
-            }
+        //public async Task<GetUserDTO> GetUserByNameAsync(string name)
+        //{
+        //    User entity = await Context.Users.FindAsync(name);
+        //    if (entity != null)
+        //    {
+        //        var user = new GetUserDTO()
+        //        {
+        //            Name = entity.Name,
+        //            Email = entity.Email,
+        //            Password = entity.Password,
+        //            Telephone = entity.Telephone,
+        //            UserTypeId = entity.UserTypeId,
+        //            Role = Context.UserTypes.FirstOrDefault(x => x.Id == entity.UserTypeId).Role
+        //        };
+        //        return user;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public async Task<IEnumerable<GetUserDTO>> GetAllUsers(DataTablesParameters parameters)
         {

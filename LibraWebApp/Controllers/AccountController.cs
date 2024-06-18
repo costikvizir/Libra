@@ -52,7 +52,7 @@ namespace LibraWebApp.Controllers
 
                 using ((System.IDisposable)_userRepository)
                 {
-                    var user = await  _userRepository.GetUserAuth(model.UserName, model.Password);
+                    var user = await _userRepository.GetUserAuth(model.UserName, model.Password);
                     if (user is null)
                     {
                         //ModelState.AddModelError("IncorrectLogin", "Credenziali dell'account errate");
@@ -79,6 +79,7 @@ namespace LibraWebApp.Controllers
                             IsPersistent = true
                         }, claim);
 
+                        ViewBag.UseNullLayout = true;
                         return RedirectToAction("Index", "Home");
                     }
                 }
