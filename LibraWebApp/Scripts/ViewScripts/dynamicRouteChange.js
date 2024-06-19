@@ -39,6 +39,12 @@
                 goToHomePage();
             }
             break;
+        case "/Home/Dashboard":
+            goToHomePage();
+            break;
+        //case "/Home/Index":
+        //    goToHomePage();
+        //    break;
         default:
             goToHomePage();
     }
@@ -86,6 +92,12 @@ window.addEventListener('popstate', function (event) {
                     goToHomePage();
                 }
                 break;
+            case "Dashboard":
+                goToHomePage();
+                break;
+            //case "GetAllPos":
+            //    goToAllPos();
+            //    break;
             default:
                 goToHomePage();
         }

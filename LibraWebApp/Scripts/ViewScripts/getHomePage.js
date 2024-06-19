@@ -1,41 +1,17 @@
-﻿//function goToHomePage() {
-//    debugger;
-//    $.ajax({
-//        url: "/Home/Index",
-//        data: {
-//        },
-//        xhrFields: {
-//            withCredentials: true
-//        },
-//        method: "GET",
-//        success: function (response) {
-//            $("#mainDiv").html(null);
-//            $("#mainDiv").html(response);
-//        },
-//    });
-//}
-
-//function goToHomePage() {
-//    $.ajax({
-//        url: "/Home/Index",
-//        method: "GET",
-//        success: function (response) {
-//            $("#mainDiv").html(response);
-//            // Push state to the history
-//            history.pushState({ page: "HomePage" }, "Home", "Index");
-//        },
-//    });
-//}
-
-function goToHomePage() {
+﻿function goToHomePage() {
+    debugger;
     $.ajax({
-        url: "/Home/Index",
+        url: "/Home/Dashboard",
+        data: {
+        },
+        xhrFields: {
+            withCredentials: true
+        },
         method: "GET",
         success: function (response) {
+            // $("#mainDiv").html(null);
             $("#mainDiv").html(response);
-            // Push state to the history
-            // history.pushState({ page: "HomePage" }, "", "/");
-            history.pushState({ page: "Home" }, "Home Page", "/Home/Index");
+            history.pushState({ page: "Dashboard" }, "Home Page", "/Home/Dashboard");
         },
     });
 }

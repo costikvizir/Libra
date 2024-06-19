@@ -22,20 +22,18 @@ namespace LibraWebApp.Controllers
             ViewBag.StatusGroupCount = statusGroupCount;
 
             return View("Index");
+            //return RedirectToAction("Dashboard");
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> Dashboard()
         {
-            ViewBag.Message = "Your application description page.";
+            int issueCount = await _issueRepository.GetIssueCount();
+            var statusGroupCount = await _issueRepository.GetStatusGroupCount();
 
-            return PartialView("About");
-        }
+            ViewBag.IssueCount = issueCount;
+            ViewBag.StatusGroupCount = statusGroupCount;
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return PartialView("Contact");
+            return PartialView();
         }
     }
 }
